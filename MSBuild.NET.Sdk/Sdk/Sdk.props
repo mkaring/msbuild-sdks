@@ -1,0 +1,18 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props" />
+
+	<PropertyGroup>
+		<ImportNuGetPackagingSdk Condition="'$(ImportNuGetPackagingSdk)' == ''">true</ImportNuGetPackagingSdk>
+		<ImportNuGetPackagingSdkProps Condition="'$(ImportNuGetPackagingSdkProps)' == ''">$(ImportNuGetPackagingSdk)</ImportNuGetPackagingSdkProps>
+	</PropertyGroup>
+
+	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk"
+			Condition="'$(ImportNuGetPackagingSdkProps)' == 'true' and '$(ImportNuGetPackagingSdk)' == 'true'" />
+
+</Project>

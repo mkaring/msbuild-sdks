@@ -1,0 +1,28 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_ImportBeforeMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportBefore</_ImportBeforeMicrosoftCommonPropsPath>
+		<_ImportAfterMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportAfter</_ImportAfterMicrosoftCommonPropsPath>
+		<_ImportUserLocationsBeforeMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportBefore</_ImportUserLocationsBeforeMicrosoftCommonPropsPath>
+		<_ImportUserLocationsAfterMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportAfter</_ImportUserLocationsAfterMicrosoftCommonPropsPath>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(CustomBeforeMicrosoftCommonProps)" Condition="Exists('$(CustomBeforeMicrosoftCommonProps)')" />
+	</ImportGroup>
+
+	<Import Project="$(_ProjectDefaultsProps)" />
+
+	<ImportGroup>
+		<Import Project="$(CustomAfterMicrosoftCommonProps)" Condition="Exists('$(CustomAfterMicrosoftCommonProps)')" />
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonPropsPath)')"/>
+	</ImportGroup>
+
+</Project>

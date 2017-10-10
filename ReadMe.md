@@ -32,7 +32,7 @@ MyGet: [![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MS
 
 To use this package, Install it from NuGet or manually add a `PackageReference` to your project file like this (latest version recommended):
 
-``` xml
+```xml
 <PackageReference Include="MSBuild.NET.Extras.Sdk" Version="1.0.0" PrivateAssets="All" />
 ```
 
@@ -40,7 +40,7 @@ Setting `PrivateAssets="All"` means that this build-time package won't be added 
 
 Then, at the end of your project file, either `.csproj`, `.vbproj` or `.fsproj`, add the following `Import` just before the closing tag
 
-``` xml
+```xml
 <Import Project="$(MSBuildSdkExtrasDotNet)" Condition="Exists('$(MSBuildSdkExtrasDotNet)')" />
 ```
 
@@ -50,7 +50,7 @@ This last step is required until [Microsoft/msbuild#1045](/Microsoft/msbuild/iss
 
 If you plan to target UWP, then you must include the UWP meta-package in your project as well, something like this:
 
-``` xml
+```xml
 <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
   <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="5.4.0" />
 </ItemGroup>

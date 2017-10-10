@@ -1,0 +1,37 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftCommonTargets Condition="'$(ImportByWildcardBeforeMicrosoftCommonTargets)' == ''">true</ImportByWildcardBeforeMicrosoftCommonTargets>
+		<ImportByWildcardAfterMicrosoftCommonTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftCommonTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftCommonTargets>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_MSBuildToolsVersion>$(MSBuildToolsVersion)</_MSBuildToolsVersion>
+		<_MSBuildToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</_MSBuildToolsVersion>
+
+		<_ProjectDefaultsTargets>$(MSBuildThisFileDirectory)..\Build\MSBuild.ProjectDefaults.targets</_ProjectDefaultsTargets>
+		<_MicrosoftCommonTargets>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.targets</_MicrosoftCommonTargets>
+
+		<_ImportBeforeMicrosoftCommonTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.targets\ImportBefore</_ImportBeforeMicrosoftCommonTargetsPath>
+		<_ImportAfterMicrosoftCommonTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.targets\ImportAfter</_ImportAfterMicrosoftCommonTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftCommonTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftCommonTargetsPath>
+		<_ImportUserLocationsAfterMicrosoftCommonTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftCommonTargetsPath>
+
+		<CustomBeforeMicrosoftCommonTargets Condition="'$(CustomBeforeMicrosoftCommonTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.Common.targets</CustomBeforeMicrosoftCommonTargets>
+		<CustomAfterMicrosoftCommonTargets Condition="'$(CustomAfterMicrosoftCommonTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.Common.targets</CustomAfterMicrosoftCommonTargets>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.vX.targets" Condition="'$(MSBuildAssemblyVersion)' != ''" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.v4.targets" Condition="'$(MSBuildAssemblyVersion)' == ''" />
+
+	<PropertyGroup>
+		<MicrosoftCommonTargetsHasBeenImported>true</MicrosoftCommonTargetsHasBeenImported>
+	</PropertyGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+<Project Sdk="NuGet.Packaging.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>198d644c-bbd3-4ebe-a092-b20ae9083aba</ProjectGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<PackageId>NuGet.Package.Test</PackageId>
+		<PackageVersion Condition="'$(PackageVersion)' == ''">1.0.0</PackageVersion>
+		<Title>NuGet-Package-Test</Title>
+		<Authors>NIRIN;Nirmal Guru</Authors>
+		<Owners>NIRIN</Owners>
+		<Summary>NuGet.Package.Test</Summary>
+		<Description>NuGet Package Test</Description>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageProjectUrl></PackageProjectUrl>
+		<PackageLicenseUrl></PackageLicenseUrl>
+		<Copyright>Copyright © NIRIN Foundation.</Copyright>
+		<PackageTags>NuGet;Package;Test</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageFile Include="Readme.txt" />
+	</ItemGroup>
+
+</Project>

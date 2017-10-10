@@ -1,0 +1,21 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />
+
+	<PropertyGroup>
+		<ImportNuGetPackagingSdk Condition="'$(ImportNuGetPackagingSdk)' == ''">true</ImportNuGetPackagingSdk>
+		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">$(ImportNuGetPackagingSdk)</ImportNuGetPackagingSdkTargets>
+	</PropertyGroup>
+
+	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk"
+			Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true' AND '$(ImportNuGetPackagingSdk)' == 'true' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' != 'false'" />
+
+	<!-- These are old NuGet Properties specific to 'NuGet.Build.Tasks.Pack', now superseeded by 'NuGet.Packaging.Sdk' Package -->
+	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'" />
+
+</Project>

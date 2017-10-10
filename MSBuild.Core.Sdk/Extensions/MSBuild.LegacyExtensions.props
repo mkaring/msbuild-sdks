@@ -1,0 +1,32 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportByWildcardBeforeMicrosoftCommonProps>
+		<ImportByWildcardAfterMicrosoftCommonProps Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportByWildcardAfterMicrosoftCommonProps>
+		<ImportUserLocationsByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftCommonProps>
+		<ImportUserLocationsByWildcardAfterMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftCommonProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_MSBuildToolsVersion>$(MSBuildToolsVersion)</_MSBuildToolsVersion>
+		<_MSBuildToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</_MSBuildToolsVersion>
+
+		<_MicrosoftCommonProps>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.props</_MicrosoftCommonProps>
+		<_ProjectDefaultsProps>$(MSBuildThisFileDirectory)..\Build\MSBuild.ProjectDefaults.props</_ProjectDefaultsProps>
+	
+		<CustomBeforeMicrosoftCommonProps Condition="'$(CustomBeforeMicrosoftCommonProps)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.Common.props</CustomBeforeMicrosoftCommonProps>
+		<CustomAfterMicrosoftCommonProps Condition="'$(CustomAfterMicrosoftCommonProps)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.Common.props</CustomAfterMicrosoftCommonProps>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.vX.props" Condition="'$(MSBuildAssemblyVersion)' != ''" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.v4.props" Condition="'$(MSBuildAssemblyVersion)' == ''" />
+
+	<PropertyGroup>
+		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>
+	</PropertyGroup>
+
+</Project>

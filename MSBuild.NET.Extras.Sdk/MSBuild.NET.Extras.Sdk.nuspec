@@ -7,14 +7,12 @@
 		<owners>NIRIN</owners>
 		<copyright>© NIRIN Foundation.</copyright>
 		<serviceable>true</serviceable>
-		<tags>msbuild dotnet sdk xamarin ios android uwp tizen</tags>
+		<tags>msbuild dotnet sdk xamarin ios android tizen windows uwp sl portable</tags>
 		<description>Additional MSBuild targets and properties for SDK-style .NET projects.</description>
-		<licenseUrl>https://github.com/nirin/msbuild-sdks/blob/master/LICENSE.md</licenseUrl>
+		<licenseUrl>https://github.com/nirin/msbuild-sdks/blob/master/License.md</licenseUrl>
 		<projectUrl>https://github.com/nirin/msbuild-sdks</projectUrl>
 		<developmentDependency>true</developmentDependency>
-		<releaseNotes>See the Readme for how to use/configure these targets.
-
-https://github.com/nirin/msbuild-sdks/blob/master/README.md</releaseNotes>
+		<releaseNotes></releaseNotes>
 	</metadata>
 	<files>
 		<file src="build\**\*.*" target="build" />

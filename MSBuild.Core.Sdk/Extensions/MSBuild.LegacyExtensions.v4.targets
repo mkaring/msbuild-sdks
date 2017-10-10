@@ -1,0 +1,33 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftCommonTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftCommonTargetsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftCommonTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonTargetsPath)')"/>
+	</ImportGroup>
+
+	<PropertyGroup Condition="'$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' &gt;= '12.0'">
+		<VisualStudioVersion Condition="!Exists('$(_MicrosoftCommonTargets)')">10.0</VisualStudioVersion>
+		<VisualStudioVersion Condition="Exists('$(_MicrosoftCommonTargets)')">11.0</VisualStudioVersion>
+	</PropertyGroup>
+
+	<ImportGroup Condition="Exists('$(_MicrosoftCommonTargets)')">
+		<Import Project="$(_MicrosoftCommonTargets)" />
+		<Import Project="$(_ProjectDefaultsTargets)" />
+	</ImportGroup>
+
+	<ImportGroup Condition="!Exists('$(_MicrosoftCommonTargets)')">
+		<Import Project="$(CustomBeforeMicrosoftCommonTargets)" Condition="Exists('$(CustomBeforeMicrosoftCommonTargets)')" />
+		<Import Project="$(_ProjectDefaultsTargets)" />
+		<Import Project="$(CustomAfterMicrosoftCommonTargets)" Condition="Exists('$(CustomAfterMicrosoftCommonTargets)')" />
+	</ImportGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftCommonTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCommonTargetsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftCommonTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonTargetsPath)')"/>
+	</ImportGroup>
+
+</Project>
