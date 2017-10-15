@@ -4,6 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Packaging\NuGet.Build.Packaging.targets" />
 
 </Project>

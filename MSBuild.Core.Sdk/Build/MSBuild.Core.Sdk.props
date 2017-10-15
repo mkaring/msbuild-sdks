@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportDirectoryBuildProps Condition="'$(ImportDirectoryBuildProps)' == ''">true</ImportDirectoryBuildProps>
+		<ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
+		<ImportProjectDefaultProps Condition="'$(ImportProjectDefaultProps)' == ''">true</ImportProjectDefaultProps>
+		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(MSBuildThisFileDirectory)Directory.Build.props" Condition="'$(ImportDirectoryBuildProps)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Extensions\MSBuild.ProjectExtensions.props" Condition="'$(ImportProjectExtensionProps)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.props" Condition="'$(ImportProjectDefaultProps)' == 'true' and '$(ImportLegacyExtensionProps)' != 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.props" Condition="'$(ImportLegacyExtensionProps)' == 'true'" />
+	</ImportGroup>
+
+	<PropertyGroup>
+		<ImportedMSBuildCoreSdkProps>true</ImportedMSBuildCoreSdkProps>
+	</PropertyGroup>
+
+</Project>

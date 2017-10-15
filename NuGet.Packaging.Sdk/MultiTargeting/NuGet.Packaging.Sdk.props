@@ -4,7 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.props"
-			Condition="Exists('$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.props')" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.props" />
 
 </Project>

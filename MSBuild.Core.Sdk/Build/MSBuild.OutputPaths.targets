@@ -1,0 +1,65 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<!--
+		These are different than the defaults set by either Microsoft.Common.targets or the Microsoft.NET.Sdk.
+		These follow the following style, one within the Project and one common to all Projects within a Solution.
+
+		:Project
+		├───<Builds>
+		│	├───<Binaries>
+		│	│	├───Release
+		│	│	└───Debug-x64
+		│	└───<Objects>
+		|		|•••
+		└───<Publish>
+			|•••
+
+		:Solution
+		├───<Builds>
+		│	├───Project.1
+		│	│	├───<Binaries>
+		│	│	│	├───Release
+		│	│	│	└───Debug-x64
+		│	│	└───<Objects>
+		|	|		|•••
+		│	├───Project.2
+		│	└───Project.3
+		└───<Publish>
+			├───Project.2.pkg (file)
+			└───Project.3.pub (folder)
+				|•••
+	-->
+	<PropertyGroup Label="Build">
+		<BuildFolder Condition="'$(BuildFolder)' == ''">build</BuildFolder>
+		<BuildPath Condition="'$(BuildPath)' == ''">$(BuildFolder)\</BuildPath>
+		<BuildPath Condition="!HasTrailingSlash('$(BuildPath)')">$(BuildPath)\</BuildPath>
+		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(MSBuildProjectName)\</BuildPath>
+
+		<IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
+		<BaseIntermediateOutputPath>$(BuildPath)$(IntermediateOutputFolder)\</BaseIntermediateOutputPath>
+
+		<IntermediateOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+		<IntermediateOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)-$(Platform)\</IntermediateOutputPath>
+		<IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+
+		<OutputFolder Condition="'$(OutputFolder)' == ''">bin</OutputFolder>
+		<BaseOutputPath>$(BuildPath)$(OutputFolder)\</BaseOutputPath>
+
+		<OutputPath Condition="'$(Platform)' == 'AnyCPU'">$(BaseOutputPath)$(Configuration)\</OutputPath>
+		<OutputPath Condition="'$(Platform)' != 'AnyCPU'">$(BaseOutputPath)$(Configuration)-$(Platform)\</OutputPath>
+		<OutputPath Condition="!HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Publish">
+		<PublishFolder Condition="'$(PublishFolder)' == ''">publish</PublishFolder>
+		<PublishPath Condition="'$(PublishPath)' == ''">$(PublishFolder)\</PublishPath>
+		<PublishPath Condition="!HasTrailingSlash('$(PublishPath)')">$(PublishPath)\</PublishPath>
+		<PackageOutputPath>$(PublishPath)</PackageOutputPath>
+		<PublishDir>$(PublishPath)</PublishDir>
+	</PropertyGroup>
+
+</Project>

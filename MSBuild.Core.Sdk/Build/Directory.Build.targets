@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<!--
+		Determine the path to the directory build targets file if the user did not disable $(ImportDirectoryBuildTargets) and
+		they did not already specify an absolute path to use via $(DirectoryBuildTargetsPath)
+	-->
+	<PropertyGroup Condition="'$(DirectoryBuildTargetsPath)' == ''">
+		<DirectoryBuildTargetsFile Condition="'$(DirectoryBuildTargetsFile)' == ''">Directory.Build.targets</DirectoryBuildTargetsFile>
+		<DirectoryBuildTargetsBasePath Condition="'$(DirectoryBuildTargetsBasePath)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '$(DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsBasePath>
+		<DirectoryBuildTargetsPath Condition="'$(DirectoryBuildTargetsBasePath)' != '' and '$(DirectoryBuildTargetsFile)' != ''">$([System.IO.Path]::Combine('$(DirectoryBuildTargetsBasePath)', '$(DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsPath>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="Exists('$(DirectoryBuildTargetsPath)')">
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(DirectoryBuildTargetsPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Import Project="$(DirectoryBuildTargetsPath)" Condition="Exists('$(DirectoryBuildTargetsPath)')"/>
+
+</Project>

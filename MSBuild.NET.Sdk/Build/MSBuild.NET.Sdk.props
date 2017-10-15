@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Globals">
+		<!--
+			Indicate to other targets that MSBuild.NET.Sdk is being used.
+
+			This must be set here (as early as possible, before Microsoft.Common.props)
+			so that everything that follows can depend on it.
+
+			In particular, Directory.Build.props and nuget package props need to be able
+			to use this flag and they are imported by Microsoft.Common.props.
+		-->
+		<MSBuildSdkVersion>1.0</MSBuildSdkVersion>
+		<MSBuildSdkName>MSBuild.NET.Sdk</MSBuildSdkName>
+		<MSBuildSdk>$(MSBuildSdkName)|$(MSBuildSdkVersion)</MSBuildSdk>
+		<UsingMSBuildSdk>true</UsingMSBuildSdk>
+	</PropertyGroup>
+
+	<!-- TODO: Remove once all the tests passes. -->
+	<PropertyGroup Label="Renames">
+		<!-- These are used by 'Microsoft.NET.Sdk' Package -->
+		<UsingMicrosoftNETSdk>$(UsingMSBuildSdk)</UsingMicrosoftNETSdk>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Core.props" />
+
+	<PropertyGroup>
+		<ImportedMSBuildNETSdkProps>true</ImportedMSBuildNETSdkProps>
+	</PropertyGroup>
+
+</Project>

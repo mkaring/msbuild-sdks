@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Globals">
+		<IsMultiTargetingBuild Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
+	</PropertyGroup>
+
+	<!-- TODO: Remove once all the tests passes. -->
+	<PropertyGroup Label="Renames">
+		<!-- Microsoft.CSharp.targets and Microsoft.VisualBasic.targets use 'IsCrossTargetingBuild'. -->
+		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Core.Before.targets"
+			Condition="'$(IsMultiTargetingBuild)' != 'true'" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\MultiTargeting\MSBuild.NET.MultiTargeting.Before.targets"
+			Condition="'$(IsMultiTargetingBuild)' == 'true'" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Languages.targets" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Microsoft.NET.Core.After.targets"
+			Condition="'$(IsMultiTargetingBuild)' != 'true'"/>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\MultiTargeting\Microsoft.NET.MultiTargeting.After.targets"
+			Condition="'$(IsMultiTargetingBuild)' == 'true'"/>
+
+	<PropertyGroup>
+		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>
+	</PropertyGroup>
+
+</Project>
