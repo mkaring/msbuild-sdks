@@ -6,20 +6,15 @@
 
 	<PropertyGroup Label="Globals">
 		<IsMultiTargetingBuild Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
-
 		<!-- TODO: Remove once the migration is done. Microsoft.CSharp.targets and Microsoft.VisualBasic.targets use 'IsCrossTargetingBuild'. -->
 		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
-
-	<Import Project="$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Languages.targets" />
+	<PropertyGroup>
+		<CoreLanguageTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Language.targets</CoreLanguageTargets>
+	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Core.targets" />
-
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>

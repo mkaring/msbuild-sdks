@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
+		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
+		<!--
+			If LanguageTargets isn't otherwise set, then just import the common targets.
+			This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
+			This means support for different languages could either be supplied via an SDK or a NuGet package.
+		-->
+		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Base.targets</LanguageTargets>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
+	<Import Project="$(LanguageTargets)" Condition="Exisits('$(LanguageTargets)')" />
+	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
+
+</Project>

@@ -4,6 +4,7 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.DefaultAssemblyInfo.targets" />
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.DefaultOutputPaths.targets" />
 
 </Project>

@@ -35,6 +35,7 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Core.props" />
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.props"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkProps>true</ImportedMSBuildNETSdkProps>

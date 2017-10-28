@@ -7,15 +7,15 @@
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.targets" />
 
 	<!--
-		 If LanguageTargets isn't otherwise set, then just import the common targets.
-		 This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
+		 If CoreLanguageTargets isn't otherwise set, then just import the common targets.
+		 This should allow the restore target to run, which could bring in NuGet packages that sets the CoreLanguageTargets.
 		 This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
 	<PropertyGroup>
-		<!-- REMARK: Dont remove/rename, the LanguageTargets property is used by other sdks to hook inside the common Sdk -->
-		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)MSBuild.Legacy.Common.targets</LanguageTargets>
+		<!-- REMARK: Dont remove/rename, the CoreLanguageTargets property is used by other sdks to hook inside the common Sdk -->
+		<CoreLanguageTargets Condition="'$(CoreLanguageTargets)' == ''">$(MSBuildThisFileDirectory)MSBuild.Legacy.Common.targets</CoreLanguageTargets>
 	</PropertyGroup>
 
-	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')"/>
+	<Import Project="$(CoreLanguageTargets)" Condition="Exists('$(CoreLanguageTargets)')"/>
 
 </Project>

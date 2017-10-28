@@ -39,13 +39,13 @@
 
 		<Otherwise>
 			<PropertyGroup>
-				<_SdkLanguageName>Common</_SdkLanguageName>
+				<_SdkLanguageName>Base</_SdkLanguageName>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
 	<PropertyGroup>
-		<LanguageTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Language.$(_SdkLanguageName).targets</LanguageTargets>
+		<LanguageTargets>$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.$(_SdkLanguageName).targets</LanguageTargets>
 	</PropertyGroup>
 
 </Project>
