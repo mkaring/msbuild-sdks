@@ -22,6 +22,7 @@
 			it needs to be made absolute based on the MSBuildProjectDirectory directory.
 		-->
 		<MSBuildProjectExtensionsPath Condition="'$([System.IO.Path]::IsPathRooted($(MSBuildProjectExtensionsPath)))' == 'false'">$([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(MSBuildProjectExtensionsPath)'))</MSBuildProjectExtensionsPath>
+		<RestoreOutputPath>$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
 	</PropertyGroup>
 
 </Project>

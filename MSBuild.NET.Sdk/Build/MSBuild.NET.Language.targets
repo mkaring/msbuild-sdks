@@ -16,7 +16,7 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
-	<Import Project="$(LanguageTargets)" Condition="Exisits('$(LanguageTargets)')" />
+	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
 
 </Project>
