@@ -1,5 +1,7 @@
 ﻿<Project DefaultTargets="Build" TreatAsLocalProperty="OutDir" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')"/>
+
 	<!-- VS10 without SP1 and without VS11 will not have VisualStudioVersion set, so do that here -->
 	<PropertyGroup>
 		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -15,8 +17,8 @@
 	</PropertyGroup>
 
 	<!-- Because .NET 2.0 apps did not set TargetFrameworkIdentifier, we need to set it for them here by default.  If
-			 the runtime is set to Managed, we also need to set these.  Otherwise they should be blank (for instance Javascript or
-			 Native apps) because they do not target a .NET Framework. -->
+		 the runtime is set to Managed, we also need to set these.  Otherwise they should be blank (for instance Javascript or
+		 Native apps) because they do not target a .NET Framework. -->
 	<PropertyGroup Condition="'$(TargetRuntime)' == 'Managed'">
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">.NETFramework</TargetFrameworkIdentifier>
 		<TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' == '' ">v4.0</TargetFrameworkVersion>

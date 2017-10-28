@@ -4,6 +4,8 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+	<!--<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />-->
+	<!--<Import Project="$(MSBuildCoreSdkPath)Sdks\Sdk.props" />-->
+	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.Core.Sdk.props" />
 
 </Project>
