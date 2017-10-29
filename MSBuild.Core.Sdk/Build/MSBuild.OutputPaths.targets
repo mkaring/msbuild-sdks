@@ -37,7 +37,7 @@
 		<BuildFolder Condition="'$(BuildFolder)' == ''">build</BuildFolder>
 		<BuildPath Condition="'$(BuildPath)' == ''">$(BuildFolder)\</BuildPath>
 		<BuildPath Condition="!HasTrailingSlash('$(BuildPath)')">$(BuildPath)\</BuildPath>
-		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(MSBuildProjectName)\</BuildPath>
+		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(BuildFolder)\$(MSBuildProjectName)\</BuildPath>
 
 		<IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
 		<BaseIntermediateOutputPath>$(BuildPath)$(IntermediateOutputFolder)\</BaseIntermediateOutputPath>
@@ -58,7 +58,7 @@
 		<PublishFolder Condition="'$(PublishFolder)' == ''">publish</PublishFolder>
 		<PublishPath Condition="'$(PublishPath)' == ''">$(PublishFolder)\</PublishPath>
 		<PublishPath Condition="!HasTrailingSlash('$(PublishPath)')">$(PublishPath)\</PublishPath>
-		<PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) and !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(MSBuildProjectName)\</PublishPath>
+		<PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) and !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(PublishFolder)\$(MSBuildProjectName)\</PublishPath>
 
 		<PublishDir Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PublishDir>
 		<PublishDir Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PublishDir>

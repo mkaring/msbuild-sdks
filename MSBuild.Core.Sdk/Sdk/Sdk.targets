@@ -4,6 +4,12 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Core.Sdk.targets" />
+	<PropertyGroup>
+		<ImportLegacyCommonTargets Condition="'$(ImportLegacyCommonTargets)' == ''">false</ImportLegacyCommonTargets>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Core.Sdk.targets" Condition="'$(ImportLegacyCommonTargets)' != 'true'" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.targets" Condition="'$(ImportLegacyCommonTargets)' == 'true'" />
 
 </Project>

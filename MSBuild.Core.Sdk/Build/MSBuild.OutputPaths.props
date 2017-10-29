@@ -9,7 +9,7 @@
 		<BuildFolder Condition="'$(BuildFolder)' == ''">build</BuildFolder>
 		<BuildPath Condition="'$(BuildPath)' == ''">$(BuildFolder)\</BuildPath>
 		<BuildPath Condition="!HasTrailingSlash('$(BuildPath)')">$(BuildPath)\</BuildPath>
-		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(MSBuildProjectName)\</BuildPath>
+		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(BuildFolder)\$(MSBuildProjectName)\</BuildPath>
 	</PropertyGroup>
 
 </Project>

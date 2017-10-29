@@ -1,0 +1,14 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildExtensionsPath)\4.0\Microsoft.Common.props" Condition="'$(MSBuildAssemblyVersion)' == ''" />
+	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="'$(MSBuildAssemblyVersion)' != ''" />
+
+	<PropertyGroup>
+		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>
+	</PropertyGroup>
+
+</Project>

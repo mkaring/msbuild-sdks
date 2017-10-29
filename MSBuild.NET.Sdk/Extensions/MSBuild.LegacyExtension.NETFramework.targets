@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftNETFrameworkTargets Condition="'$(ImportByWildcardBeforeMicrosoftNETFrameworkTargets)' == ''">true</ImportByWildcardBeforeMicrosoftNETFrameworkTargets>
+		<ImportByWildcardAfterMicrosoftNETFrameworkTargets Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkTargets)' == ''">true</ImportByWildcardAfterMicrosoftNETFrameworkTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkTargets>
+
+		<_ImportBeforeMicrosoftNETFrameworkTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.NETFramework.targets\ImportBefore</_ImportBeforeMicrosoftNETFrameworkTargetsPath>
+		<_ImportAfterMicrosoftNETFrameworkTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.NETFramework.targets\ImportAfter</_ImportAfterMicrosoftNETFrameworkTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftNETFrameworkTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.NETFramework.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftNETFrameworkTargetsPath>
+		<_ImportUserLocationsAfterMicrosoftNETFrameworkTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.NETFramework.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftNETFrameworkTargetsPath>
+
+		<CustomBeforeMicrosoftNETFrameworkTargets Condition="'$(CustomBeforeMicrosoftNETFrameworkTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.NETFramework.targets</CustomBeforeMicrosoftNETFrameworkTargets>
+		<CustomAfterMicrosoftNETFrameworkTargets Condition="'$(CustomAfterMicrosoftNETFrameworkTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.NETFramework.targets</CustomAfterMicrosoftNETFrameworkTargets>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftNETFrameworkTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftNETFrameworkTargetsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftNETFrameworkTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftNETFrameworkTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftNETFrameworkTargetsPath)')"/>
+		<Import Project="$(CustomBeforeMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkTargets)')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)..\Platforms\MSBuild.NETFramework.targets" />
+
+		<Import Project="$(CustomAfterMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkTargets)')" />
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftNETFrameworkTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftNETFrameworkTargetsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftNETFrameworkTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftNETFrameworkTargetsPath)')"/>
+	</ImportGroup>
+
+</Project>

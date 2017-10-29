@@ -1,7 +1,5 @@
 ﻿<Project DefaultTargets="Build" TreatAsLocalProperty="OutDir" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildProjectFullPath).user" Condition="Exists('$(MSBuildProjectFullPath).user')"/>
-
 	<!-- VS10 without SP1 and without VS11 will not have VisualStudioVersion set, so do that here -->
 	<PropertyGroup>
 		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

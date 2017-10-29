@@ -9,11 +9,6 @@
 		<Platform Condition="'$(Platform)' == '' and '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<WMSJSProject Condition="'$(WMSJSProject)' == ''">WJProject</WMSJSProject>
-		<WMSJSProjectDirectory Condition="'$(WMSJSProjectDirectory)' == ''">JavaScript</WMSJSProjectDirectory>
-	</PropertyGroup>
-
-	<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.v*.props" Condition="'$(VisualStudioVersion)' == ''" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Common.props" />
 
 </Project>

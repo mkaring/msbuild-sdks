@@ -4,8 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<!--<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />-->
-	<!--<Import Project="$(MSBuildCoreSdkPath)Sdks\Sdk.props" />-->
-	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.Core.Sdk.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.NETFramework.targets" />
 
 </Project>

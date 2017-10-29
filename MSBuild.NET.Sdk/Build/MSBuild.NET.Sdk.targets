@@ -10,11 +10,16 @@
 		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<CoreLanguageTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Language.targets</CoreLanguageTargets>
+	<PropertyGroup Label="Configure">
+		<!-- Override CoreExtensions provided within the MSBuild.Core.Sdk -->
+		<MSBuildCoreExtensionTargetsPath>$(MSBuildThisFileDirectory)\MSBuild.NET.CoreExtension.targets</MSBuildCoreExtensionTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Core.targets" />
+	<!--<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />-->
+	<!--<Import Project="$(MSBuildCoreSdkPath)Sdks\Sdk.targets" />-->
+	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.Core.Sdk.targets" />
+
+	<!--<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.targets"/>-->
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>

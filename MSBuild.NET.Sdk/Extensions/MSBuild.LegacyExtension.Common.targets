@@ -4,9 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.Core.props" Condition="'$(ImportedMSBuildLegacyExtensionsCoreProps)' != 'true'" />
-
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftCommonTargets Condition="'$(ImportByWildcardBeforeMicrosoftCommonTargets)' == ''">true</ImportByWildcardBeforeMicrosoftCommonTargets>
 		<ImportByWildcardAfterMicrosoftCommonTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonTargets>
@@ -27,15 +24,11 @@
 		<Import Project="$(_ImportBeforeMicrosoftCommonTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonTargetsPath)')"/>
 		<Import Project="$(CustomBeforeMicrosoftCommonTargets)" Condition="Exists('$(CustomBeforeMicrosoftCommonTargets)')" />
 
-		<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.ProjectDefaults.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Common.targets" />
 
 		<Import Project="$(CustomAfterMicrosoftCommonTargets)" Condition="Exists('$(CustomAfterMicrosoftCommonTargets)')" />
 		<Import Project="$(_ImportUserLocationsAfterMicrosoftCommonTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCommonTargetsPath)')"/>
 		<Import Project="$(_ImportAfterMicrosoftCommonTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonTargetsPath)')"/>
 	</ImportGroup>
-
-	<PropertyGroup>
-		<MicrosoftCommonTargetsHasBeenImported>true</MicrosoftCommonTargetsHasBeenImported>
-	</PropertyGroup>
 
 </Project>

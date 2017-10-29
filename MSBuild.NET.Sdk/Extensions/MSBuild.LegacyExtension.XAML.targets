@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftXAMLTargets Condition="'$(ImportByWildcardBeforeMicrosoftXAMLTargets)' == ''">true</ImportByWildcardBeforeMicrosoftXAMLTargets>
+		<ImportByWildcardAfterMicrosoftXAMLTargets Condition="'$(ImportByWildcardAfterMicrosoftXAMLTargets)' == ''">true</ImportByWildcardAfterMicrosoftXAMLTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftXAMLTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftXAMLTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftXAMLTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftXAMLTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftXAMLTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftXAMLTargets>
+
+		<_ImportBeforeMicrosoftXAMLTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.XAML.targets\ImportBefore</_ImportBeforeMicrosoftXAMLTargetsPath>
+		<_ImportAfterMicrosoftXAMLTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.XAML.targets\ImportAfter</_ImportAfterMicrosoftXAMLTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftXAMLTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.XAML.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftXAMLTargetsPath>
+		<_ImportUserLocationsAfterMicrosoftXAMLTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.XAML.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftXAMLTargetsPath>
+
+		<CustomBeforeMicrosoftXAMLTargets Condition="'$(CustomBeforeMicrosoftXAMLTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.XAML.targets</CustomBeforeMicrosoftXAMLTargets>
+		<CustomAfterMicrosoftXAMLTargets Condition="'$(CustomAfterMicrosoftXAMLTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.XAML.targets</CustomAfterMicrosoftXAMLTargets>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftXAMLTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftXAMLTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftXAMLTargetsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftXAMLTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftXAMLTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftXAMLTargetsPath)')"/>
+		<Import Project="$(CustomBeforeMicrosoftXAMLTargets)" Condition="Exists('$(CustomBeforeMicrosoftXAMLTargets)')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.XAML.props" />
+
+		<Import Project="$(CustomAfterMicrosoftXAMLTargets)" Condition="Exists('$(CustomAfterMicrosoftXAMLTargets)')" />
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftXAMLTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftXAMLTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftXAMLTargetsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftXAMLTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftXAMLTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftXAMLTargetsPath)')"/>
+	</ImportGroup>
+
+</Project>

@@ -12,7 +12,7 @@
 				<_SdkLanguageExtension>.cs</_SdkLanguageExtension>
 			</PropertyGroup>
 		</When>
-	
+
 		<When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
 			<PropertyGroup>
 				<_SdkLanguageName>FSharp</_SdkLanguageName>
@@ -39,13 +39,13 @@
 
 		<Otherwise>
 			<PropertyGroup>
-				<_SdkLanguageName>Base</_SdkLanguageName>
+				<_SdkLanguageName>Common</_SdkLanguageName>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
 	<PropertyGroup>
-		<LanguageTargets>$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.$(_SdkLanguageName).targets</LanguageTargets>
+		<ImportedMSBuildNETInferenceLanguageProps>true</ImportedMSBuildNETInferenceLanguageProps>
 	</PropertyGroup>
 
 </Project>

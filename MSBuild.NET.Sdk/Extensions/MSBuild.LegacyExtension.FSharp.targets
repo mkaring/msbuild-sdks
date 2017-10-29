@@ -1,0 +1,34 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftFSharpTargets Condition="'$(ImportByWildcardBeforeMicrosoftFSharpTargets)' == ''">true</ImportByWildcardBeforeMicrosoftFSharpTargets>
+		<ImportByWildcardAfterMicrosoftFSharpTargets Condition="'$(ImportByWildcardAfterMicrosoftFSharpTargets)' == ''">true</ImportByWildcardAfterMicrosoftFSharpTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftFSharpTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftFSharpTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftFSharpTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftFSharpTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftFSharpTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftFSharpTargets>
+
+		<_ImportBeforeMicrosoftFSharpTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.FSharp.targets\ImportBefore</_ImportBeforeMicrosoftFSharpTargetsPath>
+		<_ImportAfterMicrosoftFSharpTargetsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.FSharp.targets\ImportAfter</_ImportAfterMicrosoftFSharpTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftFSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.FSharp.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftFSharpTargetsPath>
+		<_ImportUserLocationsAfterMicrosoftFSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.FSharp.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftFSharpTargetsPath>
+
+		<CustomBeforeMicrosoftFSharpTargets Condition="'$(CustomBeforeMicrosoftFSharpTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.FSharp.targets</CustomBeforeMicrosoftFSharpTargets>
+		<CustomAfterMicrosoftFSharpTargets Condition="'$(CustomAfterMicrosoftFSharpTargets)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.FSharp.targets</CustomAfterMicrosoftFSharpTargets>
+	</PropertyGroup>
+
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftFSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftFSharpTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftFSharpTargetsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftFSharpTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftFSharpTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftFSharpTargetsPath)')"/>
+		<Import Project="$(CustomBeforeMicrosoftFSharpTargets)" Condition="Exists('$(CustomBeforeMicrosoftFSharpTargets)')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.FSharp.targets" />
+
+		<Import Project="$(CustomAfterMicrosoftFSharpTargets)" Condition="Exists('$(CustomAfterMicrosoftFSharpTargets)')" />
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftFSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftFSharpTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftFSharpTargetsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftFSharpTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftFSharpTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftFSharpTargetsPath)')"/>
+	</ImportGroup>
+
+</Project>

@@ -4,26 +4,35 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<!-- We need to init _MSBuildToolsVersion property. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.Core.props" />
+
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportByWildcardBeforeMicrosoftCommonProps>
 		<ImportByWildcardAfterMicrosoftCommonProps Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportByWildcardAfterMicrosoftCommonProps>
 		<ImportUserLocationsByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftCommonProps>
 		<ImportUserLocationsByWildcardAfterMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftCommonProps>
-	</PropertyGroup>
 
-	<PropertyGroup>
-		<_MSBuildToolsVersion>$(MSBuildToolsVersion)</_MSBuildToolsVersion>
-		<_MSBuildToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</_MSBuildToolsVersion>
+		<_ImportBeforeMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportBefore</_ImportBeforeMicrosoftCommonPropsPath>
+		<_ImportAfterMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportAfter</_ImportAfterMicrosoftCommonPropsPath>
+		<_ImportUserLocationsBeforeMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportBefore</_ImportUserLocationsBeforeMicrosoftCommonPropsPath>
+		<_ImportUserLocationsAfterMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(_MSBuildToolsVersion)\Imports\Microsoft.Common.props\ImportAfter</_ImportUserLocationsAfterMicrosoftCommonPropsPath>
 
-		<_MicrosoftCommonProps>$(MSBuildExtensionsPath)\$(_MSBuildToolsVersion)\Microsoft.Common.props</_MicrosoftCommonProps>
-		<_ProjectDefaultsProps>$(MSBuildThisFileDirectory)..\Build\MSBuild.ProjectDefaults.props</_ProjectDefaultsProps>
-	
 		<CustomBeforeMicrosoftCommonProps Condition="'$(CustomBeforeMicrosoftCommonProps)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.Before.Microsoft.Common.props</CustomBeforeMicrosoftCommonProps>
 		<CustomAfterMicrosoftCommonProps Condition="'$(CustomAfterMicrosoftCommonProps)' == ''">$(MSBuildExtensionsPath)\v$(_MSBuildToolsVersion)\Custom.After.Microsoft.Common.props</CustomAfterMicrosoftCommonProps>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.vX.props" Condition="'$(MSBuildAssemblyVersion)' != ''" />
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.LegacyExtensions.v4.props" Condition="'$(MSBuildAssemblyVersion)' == ''" />
+	<ImportGroup>
+		<Import Project="$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(_ImportBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(CustomBeforeMicrosoftCommonProps)" Condition="Exists('$(CustomBeforeMicrosoftCommonProps)')" />
+
+		<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.ProjectDefaults.props" />
+
+		<Import Project="$(CustomAfterMicrosoftCommonProps)" Condition="Exists('$(CustomAfterMicrosoftCommonProps)')" />
+		<Import Project="$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)')"/>
+		<Import Project="$(_ImportAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonPropsPath)')"/>
+	</ImportGroup>
 
 	<PropertyGroup>
 		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>

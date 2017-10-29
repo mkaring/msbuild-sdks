@@ -4,6 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.VisualBasic.targets" />
 
 </Project>

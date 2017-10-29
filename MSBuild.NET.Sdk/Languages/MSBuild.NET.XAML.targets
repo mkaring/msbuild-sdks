@@ -4,8 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<!--<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />-->
-	<!--<Import Project="$(MSBuildCoreSdkPath)Sdks\Sdk.targets" />-->
-	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.Core.Sdk.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.XAML.targets" />
 
 </Project>

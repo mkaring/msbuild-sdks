@@ -4,6 +4,12 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Core.Sdk.props" />
+	<PropertyGroup>
+		<ImportLegacyCommonProps Condition="'$(ImportLegacyCommonProps)' == ''">false</ImportLegacyCommonProps>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.Core.Sdk.props" Condition="'$(ImportLegacyCommonProps)' != 'true'" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.props" Condition="'$(ImportLegacyCommonProps)' == 'true'" />
 
 </Project>

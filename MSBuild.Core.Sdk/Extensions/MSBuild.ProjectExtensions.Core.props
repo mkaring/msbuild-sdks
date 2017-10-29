@@ -25,4 +25,8 @@
 		<RestoreOutputPath>$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<ImportedMSBuildProjectExtensionsCoreProps>true</ImportedMSBuildProjectExtensionsCoreProps>
+	</PropertyGroup>
+
 </Project>

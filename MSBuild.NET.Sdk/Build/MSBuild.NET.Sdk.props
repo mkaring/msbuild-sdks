@@ -34,9 +34,16 @@
 		<MSBuildCoreSdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\</MSBuildCoreSdkPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Core.props" />
+	<PropertyGroup Label="Configure">
+		<!-- Override CoreExtensions provided within the MSBuild.Core.Sdk -->
+		<MSBuildCoreExtensionPropsPath>$(MSBuildThisFileDirectory)\MSBuild.NET.CoreExtension.props</MSBuildCoreExtensionPropsPath>
+	</PropertyGroup>
+
+	<!--<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />-->
+	<!--<Import Project="$(MSBuildCoreSdkPath)Sdks\Sdk.props" />-->
+	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.Core.Sdk.props" />
+
 	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.props"/>
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Language.props"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkProps>true</ImportedMSBuildNETSdkProps>

@@ -1,0 +1,30 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<!--
+		If LanguageProps isn't otherwise set, then we'll just import the common props.
+		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageProps.
+		This means support for different languages could either be supplied via an SDK or a NuGet package.
+	-->
+	<Choose>
+		<When Condition="'$(ImportLegacyExtensionProps)' == 'true'">
+			<PropertyGroup>
+				<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.props</LanguageProps>
+			</PropertyGroup>
+		</When>
+
+		<Otherwise>
+			<PropertyGroup>
+				<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NETLanguages.props</LanguageProps>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<!-- We need to init _SdkLanguage... properties. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Inference.Language.props" />
+	<Import Project="$(LanguageProps)" Condition="Exists('$(LanguageProps)')" />
+
+</Project>

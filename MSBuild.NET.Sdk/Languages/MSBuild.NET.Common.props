@@ -4,6 +4,10 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.FSharp.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.props" />
+
+	<PropertyGroup>
+		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>
+	</PropertyGroup>
 
 </Project>
