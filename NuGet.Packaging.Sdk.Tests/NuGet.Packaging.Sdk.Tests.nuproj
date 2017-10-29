@@ -10,12 +10,12 @@
 		<Title>NuGet-Package-Test</Title>
 		<Authors>NIRIN;Nirmal Guru</Authors>
 		<Owners>NIRIN</Owners>
-		<Summary>NuGet.Package.Test</Summary>
-		<Description>NuGet Package Test</Description>
-		<PackageReleaseNotes></PackageReleaseNotes>
-		<PackageProjectUrl></PackageProjectUrl>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<Copyright>Copyright © NIRIN Foundation.</Copyright>
+		<Summary>NuGet Package Test Summary</Summary>
+		<Description>NuGet Package Test Description</Description>
+		<PackageReleaseNotes>ReadMe</PackageReleaseNotes>
+		<PackageProjectUrl>https://test.nirin.org</PackageProjectUrl>
+		<PackageLicenseUrl>https://test.nirin.org/license</PackageLicenseUrl>
+		<Copyright>© NIRIN Foundation.</Copyright>
 		<PackageTags>NuGet;Package;Test</PackageTags>
 	</PropertyGroup>
 

@@ -20,7 +20,6 @@
 		<RepositoryUrl>git://github.com/nirin/msbuild-sdks</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<DevelopmentDependency>true</DevelopmentDependency>
-		<IsDevelopmentDependency>true</IsDevelopmentDependency>
 		<NeutralLanguage>en</NeutralLanguage>
 		<PackageReleaseNotes></PackageReleaseNotes>
 	</PropertyGroup>

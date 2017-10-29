@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="MSBuild.NET.Sdk">
 
 	<!--<Import Project="$(MSBuildThisFileDirectory)..\MSBuild.NET.Extras.Sdk\build\MSBuild.NET.Extras.Sdk.props" />-->
 

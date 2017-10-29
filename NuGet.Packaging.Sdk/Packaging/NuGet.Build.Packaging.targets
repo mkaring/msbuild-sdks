@@ -107,7 +107,8 @@
 			<PackageTargetPath Include="$([System.IO.Path]::GetFullPath('$(PackageTargetPath)'))">
 				<Id>$(PackageId)</Id>
 				<Version>$(PackageVersion)</Version>
-				<DevelopmentDependency Condition="'$(IsDevelopmentDependency)' == 'true'">true</DevelopmentDependency>
+				<Serviceable>$(Serviceable)</Serviceable>
+				<DevelopmentDependency>$(DevelopmentDependency)</DevelopmentDependency>
 
 				<Authors>$(Authors)</Authors>
 				<Owners>$(Owners)</Owners>
