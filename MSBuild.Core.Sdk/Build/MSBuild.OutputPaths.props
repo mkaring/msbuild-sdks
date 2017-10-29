@@ -12,4 +12,8 @@
 		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(BuildFolder)\$(MSBuildProjectName)\</BuildPath>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<ImportedMSBuildOutputPathsProps>true</ImportedMSBuildOutputPathsProps>
+	</PropertyGroup>
+
 </Project>

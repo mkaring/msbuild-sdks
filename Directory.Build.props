@@ -1,0 +1,10 @@
+﻿<Project>
+
+	<PropertyGroup>
+		<BuildFolder>builds</BuildFolder>
+		<PublishFolder>packages</PublishFolder>
+		<BuildPath>$(MSBuildThisFileDirectory)</BuildPath>
+		<PublishPath>$(MSBuildThisFileDirectory)</PublishPath>
+	</PropertyGroup>
+
+</Project>

@@ -7,10 +7,10 @@
 	<PropertyGroup>
 		<ImportDirectoryBuildProps Condition="'$(ImportDirectoryBuildProps)' == ''">true</ImportDirectoryBuildProps>
 		<ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
+		<ImportCoreExtensionProps Condition="'$(ImportCoreExtensionProps)' == ''">true</ImportCoreExtensionProps>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(MSBuildCoreExtensionPropsPath)' == ''">
-		<ImportCoreExtensionProps Condition="'$(ImportCoreExtensionProps)' == ''">true</ImportCoreExtensionProps>
 		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
 		<MSBuildCoreExtensionPropsPath Condition="'$(ImportLegacyExtensionProps)' != 'true'">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.props</MSBuildCoreExtensionPropsPath>
 		<MSBuildCoreExtensionPropsPath Condition="'$(ImportLegacyExtensionProps)' == 'true'">$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.props</MSBuildCoreExtensionPropsPath>

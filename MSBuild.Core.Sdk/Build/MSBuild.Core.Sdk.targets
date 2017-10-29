@@ -5,12 +5,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<ImportCoreExtensionTargets Condition="'$(ImportCoreExtensionTargets)' == ''">true</ImportCoreExtensionTargets>
 		<ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">true</ImportProjectExtensionTargets>
 		<ImportDirectoryBuildTargets Condition="'$(ImportDirectoryBuildTargets)' == ''">true</ImportDirectoryBuildTargets>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(MSBuildCoreExtensionTargetsPath)' == ''">
-		<ImportCoreExtensionTargets Condition="'$(ImportCoreExtensionTargets)' == ''">true</ImportCoreExtensionTargets>
 		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
 		<MSBuildCoreExtensionTargetsPath Condition="'$(ImportLegacyExtensionTargets)' != 'true'">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.targets</MSBuildCoreExtensionTargetsPath>
 		<MSBuildCoreExtensionTargetsPath Condition="'$(ImportLegacyExtensionTargets)' == 'true'">$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.targets</MSBuildCoreExtensionTargetsPath>

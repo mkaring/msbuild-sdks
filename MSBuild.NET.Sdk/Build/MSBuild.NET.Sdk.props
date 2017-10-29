@@ -7,10 +7,8 @@
 	<PropertyGroup Label="Globals">
 		<!--
 			Indicate to other targets that MSBuild.NET.Sdk is being used.
-
 			This must be set here (as early as possible, before MSBuild.Core.Sdk)
 			so that everything that follows can depend on it.
-
 			In particular, Directory.Build.props and nuget package props need to be able
 			to use this flag and they are imported by MSBuild.Core.Sdk.
 		-->
@@ -36,7 +34,7 @@
 
 	<PropertyGroup Label="Configure">
 		<!-- Override CoreExtensions provided within the MSBuild.Core.Sdk -->
-		<MSBuildCoreExtensionPropsPath>$(MSBuildThisFileDirectory)\MSBuild.NET.CoreExtension.props</MSBuildCoreExtensionPropsPath>
+		<MSBuildCoreExtensionPropsPath>$(MSBuildThisFileDirectory)MSBuild.NET.CoreExtension.props</MSBuildCoreExtensionPropsPath>
 	</PropertyGroup>
 
 	<!--<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />-->

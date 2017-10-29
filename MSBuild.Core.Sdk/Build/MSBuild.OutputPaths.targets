@@ -33,12 +33,9 @@
 			└───Project.3.pub (folder)
 				|•••
 	-->
-	<PropertyGroup Label="Build">
-		<BuildFolder Condition="'$(BuildFolder)' == ''">build</BuildFolder>
-		<BuildPath Condition="'$(BuildPath)' == ''">$(BuildFolder)\</BuildPath>
-		<BuildPath Condition="!HasTrailingSlash('$(BuildPath)')">$(BuildPath)\</BuildPath>
-		<BuildPath Condition="$([System.IO.Path]::IsPathRooted('$(BuildPath)')) and !$(BuildPath.StartsWith('$(MSBuildProjectDirectory)'))">$(BuildPath)$(BuildFolder)\$(MSBuildProjectName)\</BuildPath>
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'" />
 
+	<PropertyGroup Label="Build">
 		<IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
 		<BaseIntermediateOutputPath>$(BuildPath)$(IntermediateOutputFolder)\</BaseIntermediateOutputPath>
 

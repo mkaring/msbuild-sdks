@@ -31,7 +31,7 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
 
 	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Inference.Language.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
 	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
 
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />

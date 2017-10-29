@@ -24,7 +24,7 @@
 	</Choose>
 
 	<!-- We need to init _SdkLanguage... properties. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Inference.Language.props" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" />
 	<Import Project="$(LanguageProps)" Condition="Exists('$(LanguageProps)')" />
 
 </Project>

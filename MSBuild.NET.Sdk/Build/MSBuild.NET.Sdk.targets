@@ -12,7 +12,7 @@
 
 	<PropertyGroup Label="Configure">
 		<!-- Override CoreExtensions provided within the MSBuild.Core.Sdk -->
-		<MSBuildCoreExtensionTargetsPath>$(MSBuildThisFileDirectory)\MSBuild.NET.CoreExtension.targets</MSBuildCoreExtensionTargetsPath>
+		<MSBuildCoreExtensionTargetsPath>$(MSBuildThisFileDirectory)MSBuild.NET.CoreExtension.targets</MSBuildCoreExtensionTargetsPath>
 	</PropertyGroup>
 
 	<!--<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />-->
