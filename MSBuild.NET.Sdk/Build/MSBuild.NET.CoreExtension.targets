@@ -28,6 +28,9 @@
 		</Otherwise>
 	</Choose>
 
+	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
+	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.OutputPaths.targets" />
+
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
 
 	<!-- Check if we already imported them as props. -->

@@ -1,8 +1,8 @@
 ﻿<Project>
 
 	<PropertyGroup>
-		<BuildFolder>builds</BuildFolder>
-		<PublishFolder>packages</PublishFolder>
+		<BuildFolder>Builds</BuildFolder>
+		<PublishFolder>Packages</PublishFolder>
 		<BuildPath>$(MSBuildThisFileDirectory)</BuildPath>
 		<PublishPath>$(MSBuildThisFileDirectory)</PublishPath>
 	</PropertyGroup>

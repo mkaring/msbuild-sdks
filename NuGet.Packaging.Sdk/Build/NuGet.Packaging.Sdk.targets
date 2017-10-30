@@ -4,6 +4,11 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<PropertyGroup Label="Publish">
+		<PackageOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PackageOutputPath>
+		<PackageOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PackageOutputPath>
+	</PropertyGroup>
+
 	<Import Project="$(MSBuildThisFileDirectory)..\Packaging\NuGet.Build.Packaging.targets" />
 
 </Project>

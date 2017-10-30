@@ -25,13 +25,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Build">
-		<EmitNuSpec>true</EmitNuSpec>
 		<NoPackageAnalysis>true</NoPackageAnalysis>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageFile Include="**\*.props;**\*.targets" Exclude="**\*~\;**\*~\**\*" />
+		<PackageFile Include="**\*.props;**\*.targets" Exclude="**\*~\;**\*~\**\*;**\*~.*" />
+		<None Include="**\*~\;**\*~\**\*;**\*~.*" Exclude="" />
 	</ItemGroup>
 
 </Project>

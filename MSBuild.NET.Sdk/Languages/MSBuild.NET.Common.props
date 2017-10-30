@@ -4,7 +4,9 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.props" />
+	<!-- TODO: The Project Defaults in the Core Sdk. Remove it once the migration is done -->
+	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.ProjectDefaults.targets" />
+	<!--<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.props" />-->
 
 	<PropertyGroup>
 		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>

@@ -4,11 +4,13 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Common.props" />
+
 	<PropertyGroup>
 		<Configuration Condition="'$(Configuration)' == '' and '$(DefaultProjectConfiguration)' != ''">$(DefaultProjectConfiguration)</Configuration>
 		<Platform Condition="'$(Platform)' == '' and '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Common.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.props" />
 
 </Project>
