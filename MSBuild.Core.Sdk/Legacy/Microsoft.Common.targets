@@ -1,0 +1,48 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<Choose>
+		<When Condition="'$(ImportLegacyExtensionTargets)' == 'true'">
+			<PropertyGroup>
+				<MicrosoftCommonTargetsPath>$(MSBuildLegacySdkPath)\Extensions\Microsoft.Common..targets</MicrosoftCommonTargetsPath>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<MicrosoftCommonTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.Common..targets</MicrosoftCommonTargetsPath>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<Import Project="$(MicrosoftCommonTargetsPath)" />
+
+
+
+
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
+		<ImportByWildcardBeforeMicrosoftCommonTargets>false</ImportByWildcardBeforeMicrosoftCommonTargets>
+		<ImportByWildcardAfterMicrosoftCommonTargets>false</ImportByWildcardAfterMicrosoftCommonTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets>false</ImportUserLocationsByWildcardBeforeMicrosoftCommonTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftCommonTargets>false</ImportUserLocationsByWildcardAfterMicrosoftCommonTargets>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == '' and ('$(TargetFrameworkIdentifier)' == '.NETFramework' or '$(TargetFrameworkIdentifier)' == 'Silverlight' or ('$(TargetFrameworkIdentifier)' == '' and ('$(TargetRuntime)' == 'Managed' or '$(TargetRuntime)' == '')))">
+		<ImportByWildcardBeforeMicrosoftNetFrameworkProps>false</ImportByWildcardBeforeMicrosoftNetFrameworkProps>
+		<ImportByWildcardAfterMicrosoftNetFrameworkProps>false</ImportByWildcardAfterMicrosoftNetFrameworkProps>
+		<ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkProps>false</ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkProps>
+		<ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkProps>false</ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkProps>
+	</PropertyGroup>
+
+	<Import Project="$(MicrosoftCommonTargetsPath)" />
+
+	<!-- Fix up FrameworkPathOverride, which is primarily used to determine the location of mscorlib.dll in the (relatively uncommon)
+		 situation where the reference assemblies, in which it's usually found, are not installed.  -->
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
+		<FrameworkPathOverride Condition="!Exists('$(FrameworkPathOverride)\mscorlib.dll')">$(MSBuildFrameworkToolsPath)</FrameworkPathOverride>
+	</PropertyGroup>
+
+</Project>

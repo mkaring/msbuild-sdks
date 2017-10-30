@@ -1,0 +1,41 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets Condition="'$(ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets)' == ''">true</ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets>
+		<_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.CrossTargeting.targets\ImportBefore</_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath>
+	</PropertyGroup>
+	<Import Project="$(_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath)')"/>
+
+	<Import Project="$(CustomBeforeMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomBeforeMicrosoftCommonCrossTargetingTargets)' == '' AND Exists('$(CustomBeforeMicrosoftCommonCrossTargetingTargets)')" />
+
+	<PropertyGroup>
+		<MicrosoftCommonCrossTargetingTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.Common.CrossTargeting.targets</MicrosoftCommonCrossTargetingTargetsPath>
+	</PropertyGroup>
+	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" />
+
+	<Import Project="$(CustomAfterMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomAfterMicrosoftCommonCrossTargetingTargets)' == '' AND Exists('$(CustomAfterMicrosoftCommonCrossTargetingTargets)')" />
+
+	<!--
+		This will import NuGet restore targets, which is a special case separate from the package -> project extension
+		mechanism below. For obvious reasons,  we need restore to work before any package assets are available.
+
+		TODO: https://github.com/Microsoft/msbuild/issues/1061 This is now generalized with less coupling to nuget,
+			  but this codepath should remain as a compat shim until NuGet and the CLI use the CrossTargeting imports.
+	-->
+	<PropertyGroup>
+		<ImportByWildcardAfterMicrosoftCommonTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonTargets>
+		<_ImportAfterMicrosoftCommonTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.targets\ImportAfter</_ImportAfterMicrosoftCommonTargetsPath>
+	</PropertyGroup>
+	<Import Project="$(_ImportAfterMicrosoftCommonTargetsPath)\*.NuGet.*.targets" Condition="'$(ImportByWildcardAfterMicrosoftCommonTargets)' == 'true' AND Exists('$(_ImportAfterMicrosoftCommonTargetsPath)')"/>
+
+	<PropertyGroup>
+		<ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets>
+		<_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.CrossTargeting.targets\ImportAfter</_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>
+	</PropertyGroup>
+	<Import Project="$(_ImportAfterMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonCrossTargetingTargetsPath)')"/>
+
+</Project>

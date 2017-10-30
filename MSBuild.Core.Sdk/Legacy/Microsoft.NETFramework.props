@@ -1,0 +1,25 @@
+﻿<Project DefaultProps="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Choose>
+		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
+			<PropertyGroup>
+				<MicrosoftNetFrameworkPropsPath>$(MSBuildFrameworkToolsPath)\Microsoft.NETFramework.props</MicrosoftNetFrameworkPropsPath>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<MicrosoftNetFrameworkPropsPath>$(MSBuildLegacyToolsPath)\Microsoft.NETFramework.CurrentVersion.props</MicrosoftNetFrameworkPropsPath>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
+		<ImportByWildcardBeforeMicrosoftNetFrameworkProps>false</ImportByWildcardBeforeMicrosoftNetFrameworkProps>
+		<ImportByWildcardAfterMicrosoftNetFrameworkProps>false</ImportByWildcardAfterMicrosoftNetFrameworkProps>
+		<ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkProps>false</ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkProps>
+		<ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkProps>false</ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkProps>
+	</PropertyGroup>
+
+	<Import Project="$(MicrosoftNetFrameworkPropsPath)" />
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Choose>
+		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
+			<PropertyGroup>
+				<MicrosoftNetFrameworkTargetsPath>$(MSBuildFrameworkToolsPath)\Microsoft.NETFramework.targets</MicrosoftNetFrameworkTargetsPath>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<MicrosoftNetFrameworkTargetsPath>$(MSBuildLegacyToolsPath)\Microsoft.NETFramework.CurrentVersion.targets</MicrosoftNetFrameworkTargetsPath>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
+		<ImportByWildcardBeforeMicrosoftNetFrameworkTargets>false</ImportByWildcardBeforeMicrosoftNetFrameworkTargets>
+		<ImportByWildcardAfterMicrosoftNetFrameworkTargets>false</ImportByWildcardAfterMicrosoftNetFrameworkTargets>
+		<ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkTargets>false</ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkTargets>
+		<ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkTargets>false</ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkTargets>
+	</PropertyGroup>
+
+	<Import Project="$(MicrosoftNetFrameworkTargetsPath)" />
+
+</Project>
