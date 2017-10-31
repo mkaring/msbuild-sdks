@@ -7,11 +7,10 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props" />
 
 	<PropertyGroup>
-		<ImportNuGetPackagingSdk Condition="'$(ImportNuGetPackagingSdk)' == ''">true</ImportNuGetPackagingSdk>
-		<ImportNuGetPackagingSdkProps Condition="'$(ImportNuGetPackagingSdkProps)' == ''">$(ImportNuGetPackagingSdk)</ImportNuGetPackagingSdkProps>
+		<!-- TODO: Change once the migration is done. -->
+		<ImportNuGetPackagingSdkProps Condition="'$(ImportNuGetPackagingSdkProps)' == ''">false</ImportNuGetPackagingSdkProps>
 	</PropertyGroup>
 
-	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk"
-			Condition="'$(ImportNuGetPackagingSdkProps)' == 'true' and '$(ImportNuGetPackagingSdk)' == 'true'" />
+	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkProps)' == 'true'" />
 
 </Project>

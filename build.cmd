@@ -9,7 +9,9 @@ if not "%BuildRunner%" == "MyGet" (
 
 	REM Enable VS DevEnv
 	call vsdevcmd -no_logo -arch=amd64 -host_arch=amd64
-	set MSBuildSdksPath=%Projects%\Packages\Sdks
+	set MSBuildSdksPath=%NewMSBuildSdksPath%
+) else (
+	set MSBuildSdksPath=%WD%
 )
 
 REM Set Vars

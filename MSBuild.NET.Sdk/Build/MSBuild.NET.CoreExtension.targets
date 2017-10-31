@@ -1,5 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<!-- Check if we already imported them as props. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
@@ -15,18 +18,14 @@
 		This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
 	<PropertyGroup>
-		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Languages.targets</LanguageTargets>
+		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NETLanguages.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
 	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.OutputPaths.targets" />
 
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
-
-	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
 	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
-
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
 
 </Project>

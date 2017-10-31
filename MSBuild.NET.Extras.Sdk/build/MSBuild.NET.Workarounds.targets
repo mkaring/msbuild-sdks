@@ -10,6 +10,7 @@
 		<_SdkDotNetVersion>$(BundledNETCoreAppTargetFrameworkVersion)</_SdkDotNetVersion>
 		<_SdkDotNetVersion Condition="'$(_SdkDotNetVersion)' == ''">1.0</_SdkDotNetVersion>
 		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' &lt; '2.0'">$(MSBuildThisFileDirectory)NuGet.Workarounds.targets</NuGetBuildTasksPackTargets>
+		<ImportNuGetBuildTasksPackTargetsFromSdk Condition="'$(_SdkDotNetVersion)' &lt; '2.0'">true</ImportNuGetBuildTasksPackTargetsFromSdk>
 	</PropertyGroup>
 
 	<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root.

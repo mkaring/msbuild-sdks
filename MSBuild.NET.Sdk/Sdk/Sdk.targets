@@ -7,14 +7,21 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />
 
 	<PropertyGroup>
-		<ImportNuGetPackagingSdk Condition="'$(ImportNuGetPackagingSdk)' == ''">true</ImportNuGetPackagingSdk>
-		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">$(ImportNuGetPackagingSdk)</ImportNuGetPackagingSdkTargets>
+		<!-- TODO: Change once the migration is done. -->
+		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">false</ImportNuGetPackagingSdkTargets>
+		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' == '1.0'" />
 	</PropertyGroup>
 
-	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk"
-			Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true' AND '$(ImportNuGetPackagingSdk)' == 'true' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' != 'false'" />
+	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'" />
+
+	<!-- TODO: Remove the hook, once the migration is done. Import targets from NuGet.Build.Tasks.Pack package/Sdk -->
+	<PropertyGroup Condition="'$(NuGetBuildTasksPackTargets)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk' != 'false'">
+		<NuGetBuildTasksPackTargets Condition="'$(IsMultiTargetingBuild)' == 'true'">$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
+		<NuGetBuildTasksPackTargets Condition="'$(IsMultiTargetingBuild)' != 'true'">$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
+		<ImportNuGetBuildTasksPackTargetsFromSdk>true</ImportNuGetBuildTasksPackTargetsFromSdk>
+	</PropertyGroup>
 
 	<!-- These are old NuGet Properties specific to 'NuGet.Build.Tasks.Pack', now superseeded by 'NuGet.Packaging.Sdk' Package -->
-	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'" />
+	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'true'" />
 
 </Project>

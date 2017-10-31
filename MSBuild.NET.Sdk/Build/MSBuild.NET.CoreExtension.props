@@ -1,5 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<!-- We need to init _SdkLanguage, ... properties. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" />
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
@@ -13,8 +16,6 @@
 		<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NETLanguages.props</LanguageProps>
 	</PropertyGroup>
 
-	<!-- We need to init _SdkLanguage... properties. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" />
 	<Import Project="$(LanguageProps)" Condition="Exists('$(LanguageProps)')" />
 
 </Project>
