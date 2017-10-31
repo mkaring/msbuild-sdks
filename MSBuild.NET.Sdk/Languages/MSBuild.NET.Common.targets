@@ -4,6 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\MSBuild.Common.targets" />
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.targets" />
 
 </Project>

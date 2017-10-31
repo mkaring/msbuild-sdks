@@ -1,23 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+		<MicrosoftCommonCrossTargetingTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.Common.CrossTargeting.targets</MicrosoftCommonCrossTargetingTargetsPath>
 	</PropertyGroup>
 
-	<Choose>
-		<When Condition="'$(ImportLegacyExtensionTargets)' == 'true'">
-			<PropertyGroup>
-				<MicrosoftCommonCrossTargetingTargetsPath>$(MSBuildLegacySdkPath)\Extensions\Microsoft.Common.CrossTargeting.targets</MicrosoftCommonCrossTargetingTargetsPath>
-			</PropertyGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup>
-				<MicrosoftCommonCrossTargetingTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.Common.CrossTargeting.targets</MicrosoftCommonCrossTargetingTargetsPath>
-			</PropertyGroup>
-		</Otherwise>
-	</Choose>
-
-	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\Microsoft.Common.CrossTargeting.targets" Condition="'$(ImportLegacyExtensionTargets)' == 'true'" />
+	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'" />
 
 	<!-- TODO: https://github.com/Microsoft/msbuild/issues/1062 : Remove this temporary hook when possible. -->
 	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' and Exists('$(CoreCrossTargetingTargetsPath)')" />

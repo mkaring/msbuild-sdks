@@ -14,19 +14,9 @@
 		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
 		This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
-	<Choose>
-		<When Condition="'$(ImportLegacyExtensionTargets)' == 'true'">
-			<PropertyGroup>
-				<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.targets</LanguageTargets>
-			</PropertyGroup>
-		</When>
-
-		<Otherwise>
-			<PropertyGroup>
-				<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Languages.targets</LanguageTargets>
-			</PropertyGroup>
-		</Otherwise>
-	</Choose>
+	<PropertyGroup>
+		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NET.Languages.targets</LanguageTargets>
+	</PropertyGroup>
 
 	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
 	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.OutputPaths.targets" />

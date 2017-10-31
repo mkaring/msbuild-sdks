@@ -1,62 +1,45 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<ImportUserLocationsByWildcardBeforeMicrosoftVisualBasicTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftVisualBasicTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftVisualBasicTargets>
-		<_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualBasic.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>
-		<_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Microsoft.VisualBasic.targets\ImportBefore</_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>
+		<_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftVisualBasicTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftVisualBasicTargetsPath)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftVisualBasicTargets Condition="'$(ImportByWildcardBeforeMicrosoftVisualBasicTargets)' == ''">true</ImportByWildcardBeforeMicrosoftVisualBasicTargets>
-		<_ImportBeforeMicrosoftVisualBasicTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualBasic.targets\ImportBefore</_ImportBeforeMicrosoftVisualBasicTargetsPath>
-		<_ImportBeforeMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Microsoft.VisualBasic.targets\ImportBefore</_ImportBeforeMicrosoftVisualBasicTargetsPath>
+		<_ImportBeforeMicrosoftVisualBasicTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftVisualBasicTargetsPath>
+		<_ImportBeforeMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftVisualBasicTargetsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportBeforeMicrosoftVisualBasicTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftVisualBasicTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftVisualBasicTargetsPath)')"/>
 
 	<PropertyGroup Condition="'$(CustomBeforeMicrosoftVisualBasicTargets)' == ''">
-		<CustomBeforeMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.Microsoft.VisualBasic.targets</CustomBeforeMicrosoftVisualBasicTargets>
-		<CustomBeforeMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.Microsoft.VisualBasic.targets</CustomBeforeMicrosoftVisualBasicTargets>
+		<CustomBeforeMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftVisualBasicTargets>
+		<CustomBeforeMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftVisualBasicTargets>
 	</PropertyGroup>
 	<Import Project="$(CustomBeforeMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomBeforeMicrosoftVisualBasicTargets)')" />
-
-	<Choose>
-		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
-			<PropertyGroup>
-				<MicrosoftVisualBasicTargetsPath>$(MSBuildLegacySdkPath)\System\Microsoft.VisualBasic.targets</MicrosoftVisualBasicTargetsPath>
-			</PropertyGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup>
-				<MicrosoftVisualBasicTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.VisualBasic.targets</MicrosoftVisualBasicTargetsPath>
-			</PropertyGroup>
-		</Otherwise>
-	</Choose>
 
 	<Import Project="$(MicrosoftVisualBasicTargetsPath)" />
 
 	<PropertyGroup Condition="'$(CustomAfterMicrosoftVisualBasicTargets)' == ''">
-		<CustomAfterMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.Microsoft.VisualBasic.targets</CustomAfterMicrosoftVisualBasicTargets>
-		<CustomAfterMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.Microsoft.VisualBasic.targets</CustomAfterMicrosoftVisualBasicTargets>
+		<CustomAfterMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftVisualBasicTargets>
+		<CustomAfterMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftVisualBasicTargets>
 	</PropertyGroup>
 	<Import Project="$(CustomAfterMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomAfterMicrosoftVisualBasicTargets)')" />
 
 	<PropertyGroup>
-		<ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets>
-		<_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualBasic.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>
-		<_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Microsoft.VisualBasic.targets\ImportAfter</_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>
-	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath)')"/>
-
-	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftVisualBasicTargets Condition="'$(ImportByWildcardAfterMicrosoftVisualBasicTargets)' == ''">true</ImportByWildcardAfterMicrosoftVisualBasicTargets>
-		<_ImportAfterMicrosoftVisualBasicTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualBasic.targets\ImportAfter</_ImportAfterMicrosoftVisualBasicTargetsPath>
-		<_ImportAfterMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Microsoft.VisualBasic.targets\ImportAfter</_ImportAfterMicrosoftVisualBasicTargetsPath>
+		<_ImportAfterMicrosoftVisualBasicTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftVisualBasicTargetsPath>
+		<_ImportAfterMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftVisualBasicTargetsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportAfterMicrosoftVisualBasicTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftVisualBasicTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftVisualBasicTargetsPath)')"/>
+
+	<PropertyGroup>
+		<ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets>
+		<_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>
+		<_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath>
+	</PropertyGroup>
+	<Import Project="$(_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftVisualBasicTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftVisualBasicTargetsPath)')"/>
 
 </Project>

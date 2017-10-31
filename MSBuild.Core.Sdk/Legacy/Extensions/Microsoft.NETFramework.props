@@ -1,62 +1,45 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkProps Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkProps)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkProps>
-		<_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.NETFramework.props\ImportBefore</_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>
-		<_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Microsoft.NETFramework.props\ImportBefore</_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>
+		<_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>
+		<_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftNETFrameworkProps)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftNETFrameworkPropsPath)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftNETFrameworkProps Condition="'$(ImportByWildcardBeforeMicrosoftNETFrameworkProps)' == ''">true</ImportByWildcardBeforeMicrosoftNETFrameworkProps>
-		<_ImportBeforeMicrosoftNETFrameworkPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.NETFramework.props\ImportBefore</_ImportBeforeMicrosoftNETFrameworkPropsPath>
-		<_ImportBeforeMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Microsoft.NETFramework.props\ImportBefore</_ImportBeforeMicrosoftNETFrameworkPropsPath>
+		<_ImportBeforeMicrosoftNETFrameworkPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftNETFrameworkPropsPath>
+		<_ImportBeforeMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftNETFrameworkPropsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportBeforeMicrosoftNETFrameworkPropsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftNETFrameworkProps)' == 'true' and Exists('$(_ImportBeforeMicrosoftNETFrameworkPropsPath)')"/>
 
 	<PropertyGroup Condition="'$(CustomBeforeMicrosoftNETFrameworkProps)' == ''">
-		<CustomBeforeMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.Microsoft.NETFramework.props</CustomBeforeMicrosoftNETFrameworkProps>
-		<CustomBeforeMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.Microsoft.NETFramework.props</CustomBeforeMicrosoftNETFrameworkProps>
+		<CustomBeforeMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkProps>
+		<CustomBeforeMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkProps>
 	</PropertyGroup>
 	<Import Project="$(CustomBeforeMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkProps)')" />
-
-	<Choose>
-		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
-			<PropertyGroup>
-				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\System\Microsoft.NETFramework.props</MicrosoftNETFrameworkPropsPath>
-			</PropertyGroup>
-		</When>
-		<Otherwise>
-			<PropertyGroup>
-				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.NETFramework.props</MicrosoftNETFrameworkPropsPath>
-			</PropertyGroup>
-		</Otherwise>
-	</Choose>
 
 	<Import Project="$(MicrosoftNETFrameworkPropsPath)" />
 
 	<PropertyGroup Condition="'$(CustomAfterMicrosoftNETFrameworkProps)' == ''">
-		<CustomAfterMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.Microsoft.NETFramework.props</CustomAfterMicrosoftNETFrameworkProps>
-		<CustomAfterMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.Microsoft.NETFramework.props</CustomAfterMicrosoftNETFrameworkProps>
+		<CustomAfterMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkProps>
+		<CustomAfterMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkProps>
 	</PropertyGroup>
 	<Import Project="$(CustomAfterMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkProps)')" />
 
 	<PropertyGroup>
-		<ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps>
-		<_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.NETFramework.props\ImportAfter</_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>
-		<_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Microsoft.NETFramework.props\ImportAfter</_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>
-	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath)')"/>
-
-	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftNETFrameworkProps Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkProps)' == ''">true</ImportByWildcardAfterMicrosoftNETFrameworkProps>
-		<_ImportAfterMicrosoftNETFrameworkPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.NETFramework.props\ImportAfter</_ImportAfterMicrosoftNETFrameworkPropsPath>
-		<_ImportAfterMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Microsoft.NETFramework.props\ImportAfter</_ImportAfterMicrosoftNETFrameworkPropsPath>
+		<_ImportAfterMicrosoftNETFrameworkPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftNETFrameworkPropsPath>
+		<_ImportAfterMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftNETFrameworkPropsPath>
 	</PropertyGroup>
 	<Import Project="$(_ImportAfterMicrosoftNETFrameworkPropsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkProps)' == 'true' and Exists('$(_ImportAfterMicrosoftNETFrameworkPropsPath)')"/>
+
+	<PropertyGroup>
+		<ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps>
+		<_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>
+		<_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath>
+	</PropertyGroup>
+	<Import Project="$(_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftNETFrameworkProps)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftNETFrameworkPropsPath)')"/>
 
 </Project>

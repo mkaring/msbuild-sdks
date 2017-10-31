@@ -8,7 +8,7 @@ if not "%BuildRunner%" == "MyGet" (
 	set PackageVersion=%1
 
 	REM Enable VS DevEnv
-	call vsdevcmd -no_logo -arch=amd64 -host_arch=amd64 -app_platform=UWP
+	call vsdevcmd -no_logo -arch=amd64 -host_arch=amd64
 	set MSBuildSdksPath=%Projects%\Packages\Sdks
 )
 

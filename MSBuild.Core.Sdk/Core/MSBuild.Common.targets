@@ -4,10 +4,4 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.Common.targets" />
-
-	<PropertyGroup>
-		<MicrosoftCommonTargetsHasBeenImported>true</MicrosoftCommonTargetsHasBeenImported>
-	</PropertyGroup>
-
 </Project>

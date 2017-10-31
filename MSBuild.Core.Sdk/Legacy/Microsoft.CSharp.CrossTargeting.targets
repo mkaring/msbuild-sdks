@@ -8,6 +8,6 @@
 
 	<Import Project="$(CSharpDesignTimeTargetsPath)" Condition="'$(CSharpDesignTimeTargetsPath)' != '' and Exists('$(CSharpDesignTimeTargetsPath)')" />
 
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.Common.CrossTargeting.targets" />
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.CrossTargeting.targets" />
 
 </Project>

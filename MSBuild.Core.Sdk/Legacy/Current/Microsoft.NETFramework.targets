@@ -84,7 +84,7 @@
 
 	</Target>
 
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetCompactFramework)' != 'true' and Exists('$(MSBuildLegacyToolsPath)\Microsoft.WinFX.targets')"/>
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' !=  'v3.0' and Exists('$(MSBuildLegacyToolsPath)\Microsoft.Data.Entity.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetCompactFramework)' != 'true' and Exists('$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' !=  'v3.0' and Exists('$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets')"/>
 
 </Project>

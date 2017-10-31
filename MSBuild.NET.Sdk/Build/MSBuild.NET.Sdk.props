@@ -30,6 +30,7 @@
 
 		<MSBuildCoreSdk>MSBuild.Core.Sdk</MSBuildCoreSdk>
 		<MSBuildCoreSdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\</MSBuildCoreSdkPath>
+		<MSBuildLegacySdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\Legacy</MSBuildLegacySdkPath>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Configure">

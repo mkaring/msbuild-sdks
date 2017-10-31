@@ -6,14 +6,11 @@
 
 	<PropertyGroup>
 		<ImportCoreExtensionTargets Condition="'$(ImportCoreExtensionTargets)' == ''">true</ImportCoreExtensionTargets>
+		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
 		<ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">true</ImportProjectExtensionTargets>
 		<ImportDirectoryBuildTargets Condition="'$(ImportDirectoryBuildTargets)' == ''">true</ImportDirectoryBuildTargets>
-	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(MSBuildCoreExtensionTargetsPath)' == ''">
-		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
-		<MSBuildCoreExtensionTargetsPath Condition="'$(ImportLegacyExtensionTargets)' != 'true'">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.targets</MSBuildCoreExtensionTargetsPath>
-		<MSBuildCoreExtensionTargetsPath Condition="'$(ImportLegacyExtensionTargets)' == 'true'">$(MSBuildThisFileDirectory)..\Extensions\MSBuild.LegacyExtensions.targets</MSBuildCoreExtensionTargetsPath>
+		<MSBuildCoreExtensionTargetsPath Condition="'$(MSBuildCoreExtensionTargetsPath)' == '' OR !Exists('$(MSBuildCoreExtensionTargetsPath)')">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.targets</MSBuildCoreExtensionTargetsPath>
 	</PropertyGroup>
 
 	<ImportGroup>

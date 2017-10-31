@@ -1,25 +1,19 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
 			<PropertyGroup>
-				<MicrosoftNetFrameworkTargetsPath>$(MSBuildFrameworkToolsPath)\Microsoft.NETFramework.targets</MicrosoftNetFrameworkTargetsPath>
+				<MicrosoftNETFrameworkTargetsPath>$(MSBuildLegacySdkPath)\System\$(MSBuildThisFile)</MicrosoftNETFrameworkTargetsPath>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<MicrosoftNetFrameworkTargetsPath>$(MSBuildLegacyToolsPath)\Microsoft.NETFramework.CurrentVersion.targets</MicrosoftNetFrameworkTargetsPath>
+				<MicrosoftNETFrameworkTargetsPath>$(MSBuildLegacySdkPath)\Current\$(MSBuildThisFile)</MicrosoftNETFrameworkTargetsPath>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
-	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
-		<ImportByWildcardBeforeMicrosoftNetFrameworkTargets>false</ImportByWildcardBeforeMicrosoftNetFrameworkTargets>
-		<ImportByWildcardAfterMicrosoftNetFrameworkTargets>false</ImportByWildcardAfterMicrosoftNetFrameworkTargets>
-		<ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkTargets>false</ImportUserLocationsByWildcardBeforeMicrosoftNetFrameworkTargets>
-		<ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkTargets>false</ImportUserLocationsByWildcardAfterMicrosoftNetFrameworkTargets>
-	</PropertyGroup>
-
-	<Import Project="$(MicrosoftNetFrameworkTargetsPath)" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionTargets)' == 'true'" />
+	<Import Project="$(MicrosoftNETFrameworkTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'" />
 
 </Project>

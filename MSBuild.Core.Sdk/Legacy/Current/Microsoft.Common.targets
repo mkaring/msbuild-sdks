@@ -31,7 +31,7 @@
 	</PropertyGroup>
 
 	<!-- Import does NOT apply to .NETCore -->
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.NETFramework.props" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' or '$(TargetFrameworkIdentifier)' == 'Silverlight'"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.NETFramework.props" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' or '$(TargetFrameworkIdentifier)' == 'Silverlight'"/>
 
 	<PropertyGroup>
 		<!-- Yield optimization properties -->
@@ -3159,7 +3159,7 @@
 	<Target Name="GenerateTargetFrameworkMonikerAttribute"
 			BeforeTargets="BeforeCompile"
 			DependsOnTargets="PrepareForBuild;GetReferenceAssemblyPaths"
-			Inputs="$(MSBuildLegacyToolsPath)\Microsoft.Common.targets"
+			Inputs="$(MSBuildLegacySdkPath)\Microsoft.Common.targets"
 			Outputs="$(TargetFrameworkMonikerAssemblyAttributesPath)"
 			Condition="'$(GenerateTargetFrameworkAttribute)' == 'true'">
 
@@ -5741,21 +5741,21 @@
 
 	<Import Project="$(ReportingServicesTargets)" Condition="Exists('$(ReportingServicesTargets)')"/>
 
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.NETFramework.targets" Condition="('$(TargetFrameworkIdentifier)' == ''  or '$(TargetFrameworkIdentifier)' == '.NETFramework') and ('$(TargetRuntime)' == 'Managed')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.NETFramework.targets" Condition="('$(TargetFrameworkIdentifier)' == ''  or '$(TargetFrameworkIdentifier)' == '.NETFramework') and ('$(TargetRuntime)' == 'Managed')"/>
 
 	<PropertyGroup>
-		<ImportXamlTargets Condition="'$(ImportXamlTargets)'=='' and ('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.5') and Exists('$(MSBuildLegacyToolsPath)\Microsoft.Xaml.targets')">true</ImportXamlTargets>
+		<ImportXamlTargets Condition="'$(ImportXamlTargets)'=='' and ('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.5') and Exists('$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets')">true</ImportXamlTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.Xaml.targets" Condition="('$(ImportXamlTargets)' == 'true')" />
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets" Condition="'$(ImportXamlTargets)' == 'true'" />
 
 	<!-- imports Microsoft.WorkflowBuildExtensions.targets only if TargetFrameworkVersion is v4.5 or above or TargetFrameworkfVersion specified does not conform to the format of vX.X[.X.X] -->
 	<!-- Underlying assumption is that there shouldn't be any other versions between v4.0.* and v4.5 -->
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.WorkflowBuildExtensions.targets"
-			Condition="('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.5' and (!$([System.String]::IsNullOrEmpty('$(TargetFrameworkVersion)')) and !$(TargetFrameworkVersion.StartsWith('v4.0')))) and Exists('$(MSBuildLegacyToolsPath)\Microsoft.WorkflowBuildExtensions.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets"
+			Condition="('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.5' and (!$([System.String]::IsNullOrEmpty('$(TargetFrameworkVersion)')) and !$(TargetFrameworkVersion.StartsWith('v4.0')))) and Exists('$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets')"/>
 
 	<!-- This import is temporary and will be removed once it is moved into the silverlight targets -->
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' and Exists('$(MSBuildLegacyToolsPath)\Microsoft.WinFX.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' and Exists('$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets')"/>
 
 	<PropertyGroup>
 		<MSTestToolsTargets Condition="'$(MSTestToolsTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TeamTest\Microsoft.TeamTest.targets</MSTestToolsTargets>
@@ -5774,12 +5774,22 @@
 	<Target Name="GetPackagingOutputs" />
 
 	<PropertyGroup>
-		<MsAppxPackageTargets Condition="'$(MsAppxPackageTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\AppxPackage\Microsoft.AppXPackage.Targets</MsAppxPackageTargets>
+		<MSAppxPackageTargets Condition="'$(MSAppxPackageTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\AppxPackage\Microsoft.AppXPackage.Targets</MSAppxPackageTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MsAppxPackageTargets)" Condition="'$(WindowsAppContainer)' == 'true' and Exists('$(MsAppxPackageTargets)')" />
+	<Import Project="$(MSAppxPackageTargets)" Condition="'$(WindowsAppContainer)' == 'true' and Exists('$(MSAppxPackageTargets)')" />
 
 	<!-- This import is temporary and will be removed once it is moved into the silverlight targets -->
-	<Import Project="$(MSBuildLegacyToolsPath)\Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' and Exists('$(MSBuildLegacyToolsPath)\Microsoft.Data.Entity.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' and Exists('$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets')"/>
+
+	<!-- Fix up FrameworkPathOverride, which is primarily used to determine the location of mscorlib.dll in the (relatively uncommon)
+		 situation where the reference assemblies, in which it's usually found, are not installed.  -->
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' == ''">
+		<FrameworkPathOverride Condition="!Exists('$(FrameworkPathOverride)\mscorlib.dll')">$(MSBuildFrameworkToolsPath)</FrameworkPathOverride>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MicrosoftCommonTargetsHasBeenImported>true</MicrosoftCommonTargetsHasBeenImported>
+	</PropertyGroup>
 
 </Project>

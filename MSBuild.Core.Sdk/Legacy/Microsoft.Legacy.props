@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildMinToolsVersion>$(MSBuildToolsVersion)</MSBuildMinToolsVersion>
+		<MSBuildMinToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</MSBuildMinToolsVersion>
+		<MSBuildLegacySdkPath Condition="'$(MSBuildLegacySdkPath)' == ''">$(MSBuildThisFileDirectory)</MSBuildLegacySdkPath>
+		<MSBuildLegacySdkPath Condition="HasTrailingSlash('$(MSBuildLegacySdkPath)')">$(MSBuildLegacySdkPath.TrimEnd('\'))</MSBuildLegacySdkPath>
+
+		<ImportedMicrosoftLegacyProps Condition="'$(ImportedMicrosoftLegacyProps)' == ''">true</ImportedMicrosoftLegacyProps>
+	</PropertyGroup>
+
+</Project>
