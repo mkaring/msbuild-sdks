@@ -5,18 +5,16 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
 		<ImportDirectoryBuildProps Condition="'$(ImportDirectoryBuildProps)' == ''">true</ImportDirectoryBuildProps>
 		<ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
-		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
-		<ImportCoreExtensionProps Condition="'$(ImportCoreExtensionProps)' == ''">true</ImportCoreExtensionProps>
-
-		<MSBuildCoreExtensionPropsPath Condition="'$(MSBuildCoreExtensionPropsPath)' == '' OR !Exists('$(MSBuildCoreExtensionPropsPath)')">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.props</MSBuildCoreExtensionPropsPath>
+		<ImportProjectCoreProps Condition="'$(ImportProjectCoreProps)' == ''">true</ImportProjectCoreProps>
 	</PropertyGroup>
 
 	<ImportGroup>
 		<Import Project="$(MSBuildThisFileDirectory)Directory.Build.props" Condition="'$(ImportDirectoryBuildProps)' == 'true'" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Extensions\MSBuild.ProjectExtensions.props" Condition="'$(ImportProjectExtensionProps)' == 'true'" />
-		<Import Project="$(MSBuildCoreExtensionPropsPath)" Condition="'$(ImportCoreExtensionProps)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.props" Condition="'$(ImportProjectExtensionProps)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectCore.props" Condition="'$(ImportProjectCoreProps)' == 'true'" />
 	</ImportGroup>
 
 	<PropertyGroup>

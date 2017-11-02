@@ -22,10 +22,31 @@
 	</PropertyGroup>
 
 	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
-	<Import Project="$(MSBuildCoreSdkPath)Build\MSBuild.OutputPaths.targets" />
+	<Import Project="$(MSBuildCoreSdkPath)Core\MSBuild.OutputPaths.targets" />
 
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
+
+	<!--
+		NOTE: Other Legacy `LanguageTargets` still Imports `Microsoft.Common.targets` which inturn imports `ProjectExtension` targets and `DirectoryBuild.targets`
+		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
+		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.
+	-->
+	<PropertyGroup>
+		<_SdkBackupImportProjectExtensionTargets>$(ImportProjectExtensionTargets)</_SdkBackupImportProjectExtensionTargets>
+		<_SdkBackupImportDirectoryBuildTargets>$(ImportDirectoryBuildTargets)</_SdkBackupImportDirectoryBuildTargets>
+		<ImportProjectExtensionTargets>false</ImportProjectExtensionTargets>
+		<ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+	</PropertyGroup>
+
 	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
+
+	<PropertyGroup>
+		<ImportProjectExtensionTargets>$(_SdkBackupImportProjectExtensionTargets)</ImportProjectExtensionTargets>
+		<ImportDirectoryBuildTargets>$(_SdkBackupImportDirectoryBuildTargets)</ImportDirectoryBuildTargets>
+		<_SdkBackupImportProjectExtensionTargets></_SdkBackupImportProjectExtensionTargets>
+		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
+	</PropertyGroup>
+
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
 
 </Project>

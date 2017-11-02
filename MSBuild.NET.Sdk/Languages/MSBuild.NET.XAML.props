@@ -4,4 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.props" />
+
 </Project>

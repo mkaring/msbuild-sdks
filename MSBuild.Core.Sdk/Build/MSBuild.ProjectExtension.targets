@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtensions.Core.props" Condition="'$(ImportedMSBuildProjectExtensionsCoreProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.Core.props" Condition="'$(ImportedMSBuildProjectExtensionCoreProps)' != 'true'" />
 	<Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.targets" Condition="Exists('$(MSBuildProjectExtensionsPath)')" />
 
 </Project>

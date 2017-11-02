@@ -4,15 +4,14 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />
-
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.props" />
-
 	<!--<PropertyGroup>
 		<Configuration Condition="'$(Configuration)' == '' and '$(DefaultProjectConfiguration)' != ''">$(DefaultProjectConfiguration)</Configuration>
 		<Platform Condition="'$(Platform)' == '' and '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
-	</PropertyGroup>-->
+	</PropertyGroup>
 
-	<!--<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.props" />-->
+	<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.props" />-->
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.props" />
 
 </Project>

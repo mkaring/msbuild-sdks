@@ -4,4 +4,8 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.targets" />
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.targets" />
+
 </Project>

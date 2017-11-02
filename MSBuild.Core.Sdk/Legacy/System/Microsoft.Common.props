@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup Condition="'$(ImportLegacyExtensionProps)' != 'true'">
-		<CustomBeforeMicrosoftCommonProps Condition="'$(CustomBeforeMicrosoftCommonProps)' == ''">_</CustomBeforeMicrosoftCommonProps>
-		<CustomAfterMicrosoftCommonProps Condition="'$(CustomAfterMicrosoftCommonProps)' == ''">_</CustomAfterMicrosoftCommonProps>
+		<CustomBeforeMicrosoftCommonProps Condition="'$(CustomBeforeMicrosoftCommonProps)' == ''">DISABLED-FROM-SDK</CustomBeforeMicrosoftCommonProps>
+		<CustomAfterMicrosoftCommonProps Condition="'$(CustomAfterMicrosoftCommonProps)' == ''">DISABLED-FROM-SDK</CustomAfterMicrosoftCommonProps>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(ImportLegacyExtensionProps)' == 'true'">

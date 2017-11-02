@@ -6,6 +6,14 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />
 
+	<!-- TODO: Remove once the migration is done. -->
+	<PropertyGroup Label="Configure">
+		<!-- Disable `ProjectCore` targets provided within the `MSBuild.Core.Sdk` -->
+		<ImportProjectCoreTargets>false</ImportProjectCoreTargets>
+	</PropertyGroup>
+
+	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />
+
 	<PropertyGroup>
 		<!-- TODO: Change once the migration is done. -->
 		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">false</ImportNuGetPackagingSdkTargets>

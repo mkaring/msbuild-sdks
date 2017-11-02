@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<!--
-		These are different than the defaults set by either Microsoft.Common.targets or the Microsoft.NET.Sdk.
+		These are different than the defaults set by either `Microsoft.Common.targets` or the `Microsoft.NET.Sdk`.
 		These follow the following style, one within the Project and one common to all Projects within a Solution.
 
 		:Project
@@ -33,7 +33,7 @@
 			└───Project.3.pub (folder)
 				|•••
 	-->
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'" />
 
 	<PropertyGroup Label="Build">
 		<IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
@@ -61,13 +61,10 @@
 		<PublishDir Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PublishDir>
 	</PropertyGroup>
 
-	<!--<PropertyGroup Label="NuGet">
-		<RestoreOutputPath Condition="'$(RestoreOutputPath)' == ''">$(BuildPath)\</RestoreOutputPath>
-		<RestoreOutputPath Condition="!HasTrailingSlash('$(RestoreOutputPath)')">$(RestoreOutputPath)\</RestoreOutputPath>
-		<PackageOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PackageOutputPath>
-		<PackageOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PackageOutputPath>
-		<NuspecOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</NuspecOutputPath>
-		<NuspecOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</NuspecOutputPath>
-	</PropertyGroup>-->
+	<Import Project="$(MSBuildThisFileDirectory)NuGet.OutputPaths.targets" />
+
+	<PropertyGroup>
+		<ImportedMSBuildOutputPathsTargets>true</ImportedMSBuildOutputPathsTargets>
+	</PropertyGroup>
 
 </Project>

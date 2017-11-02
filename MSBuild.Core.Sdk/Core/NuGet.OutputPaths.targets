@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!--
+		These are inherited from the `MSBuild.Core.Sdk`. For more information on how it's constructed, see the `MSBuild.OutputPaths` files.
+	-->
+	<PropertyGroup Label="NuGet">
+		<RestoreOutputPath Condition="'$(RestoreOutputPath)' == ''">$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
+		<RestoreOutputPath Condition="!HasTrailingSlash('$(RestoreOutputPath)')">$(RestoreOutputPath)\</RestoreOutputPath>
+
+		<PackageOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PackageOutputPath>
+		<PackageOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PackageOutputPath>
+
+		<NuspecOutputPath Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</NuspecOutputPath>
+		<NuspecOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</NuspecOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportedNuGetOutputPathsTargets>true</ImportedNuGetOutputPathsTargets>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>

@@ -5,17 +5,15 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ImportCoreExtensionTargets Condition="'$(ImportCoreExtensionTargets)' == ''">true</ImportCoreExtensionTargets>
 		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
+		<ImportProjectCoreTargets Condition="'$(ImportProjectCoreTargets)' == ''">true</ImportProjectCoreTargets>
 		<ImportProjectExtensionTargets Condition="'$(ImportProjectExtensionTargets)' == ''">true</ImportProjectExtensionTargets>
 		<ImportDirectoryBuildTargets Condition="'$(ImportDirectoryBuildTargets)' == ''">true</ImportDirectoryBuildTargets>
-
-		<MSBuildCoreExtensionTargetsPath Condition="'$(MSBuildCoreExtensionTargetsPath)' == '' OR !Exists('$(MSBuildCoreExtensionTargetsPath)')">$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.targets</MSBuildCoreExtensionTargetsPath>
 	</PropertyGroup>
 
 	<ImportGroup>
-		<Import Project="$(MSBuildCoreExtensionTargetsPath)" Condition="'$(ImportCoreExtensionTargets)' == 'true'" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Extensions\MSBuild.ProjectExtensions.targets" Condition="'$(ImportProjectExtensionTargets)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectCore.targets" Condition="'$(ImportProjectCoreTargets)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.targets" Condition="'$(ImportProjectExtensionTargets)' == 'true'" />
 		<Import Project="$(MSBuildThisFileDirectory)Directory.Build.targets" Condition="'$(ImportDirectoryBuildTargets)' == 'true'" />
 	</ImportGroup>
 
