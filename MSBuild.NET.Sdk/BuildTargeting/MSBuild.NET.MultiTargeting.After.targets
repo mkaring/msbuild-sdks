@@ -1,9 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="$(MicrosoftNETSdkPath)buildCrossTargeting\Microsoft.NET.Sdk.targets"/>
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
-
-	<Import Project="$(MicrosoftNETSdkPath)buildCrossTargeting\Microsoft.NET.Sdk.targets"/>
 
 </Project>

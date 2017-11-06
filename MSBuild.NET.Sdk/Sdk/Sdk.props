@@ -1,9 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
 	<!-- TODO: Remove once the migration is done. -->
 	<PropertyGroup Label="Configure">
 		<!-- Disable `ProjectCore` props provided within the `MSBuild.Core.Sdk` -->
@@ -19,5 +15,9 @@
 	</PropertyGroup>
 
 	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkProps)' == 'true'" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
 
 </Project>

@@ -1,9 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
 	<!--<PropertyGroup>
 		<Configuration Condition="'$(Configuration)' == '' and '$(DefaultProjectConfiguration)' != ''">$(DefaultProjectConfiguration)</Configuration>
 		<Platform Condition="'$(Platform)' == '' and '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
@@ -13,5 +9,9 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.props" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
 
 </Project>

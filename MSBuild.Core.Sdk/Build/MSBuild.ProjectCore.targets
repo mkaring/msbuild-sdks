@@ -1,13 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<CustomCoreTargetsPath Condition="'$(CustomCoreTargetsPath)' == '' OR !Exists('$(CustomCoreTargetsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.targets</CustomCoreTargetsPath>
 	</PropertyGroup>
 
 	<Import Project="$(CustomCoreTargetsPath)" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
 
 </Project>

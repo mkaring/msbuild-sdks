@@ -14,4 +14,8 @@
 		<VSToolsPath>$(BaseVSToolsPath)\v$(VisualStudioVersion)</VSToolsPath>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
 </Project>

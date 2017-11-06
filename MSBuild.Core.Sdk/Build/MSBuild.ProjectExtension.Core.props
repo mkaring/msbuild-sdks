@@ -1,9 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
 	<!-- We need to initialize `BuildPath` property since `MSBuildProjectExtensionsPath` depends on it. -->
 	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'" />
 
@@ -26,6 +22,10 @@
 
 	<PropertyGroup>
 		<ImportedMSBuildProjectExtensionCoreProps>true</ImportedMSBuildProjectExtensionCoreProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
 </Project>

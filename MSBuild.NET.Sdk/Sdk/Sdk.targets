@@ -1,9 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />
 
 	<!-- TODO: Remove once the migration is done. -->
@@ -31,5 +27,9 @@
 
 	<!-- These are old NuGet Properties specific to 'NuGet.Build.Tasks.Pack', now superseeded by 'NuGet.Packaging.Sdk' Package -->
 	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'true'" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
 
 </Project>

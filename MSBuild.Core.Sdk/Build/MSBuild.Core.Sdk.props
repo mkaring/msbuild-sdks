@@ -1,10 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
 		<ImportDirectoryBuildProps Condition="'$(ImportDirectoryBuildProps)' == ''">true</ImportDirectoryBuildProps>
 		<ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
@@ -19,6 +15,10 @@
 
 	<PropertyGroup>
 		<ImportedMSBuildCoreSdkProps>true</ImportedMSBuildCoreSdkProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
 </Project>

@@ -1,9 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
-
 	<!--
 		We need to initialize `BuildFolder` separately and before the `MSBuild.OutputPaths.targets` import,
 		since `MSBuildProjectExtensionsPath` uses it to import custom props from Package Managers and Tools.
@@ -17,6 +13,10 @@
 
 	<PropertyGroup>
 		<ImportedMSBuildOutputPathsProps>true</ImportedMSBuildOutputPathsProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
 </Project>

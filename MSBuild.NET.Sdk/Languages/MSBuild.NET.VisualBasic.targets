@@ -1,9 +1,9 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.VisualBasic.targets" />
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
-
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.VisualBasic.targets" />
 
 </Project>
