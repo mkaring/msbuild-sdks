@@ -17,9 +17,10 @@
 				<PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
 			</ItemGroup>
 
-			<ItemGroup>
+			<!-- TODO: Enable once ProjectReference support is implemented for NuGetizer! -->
+			<!--<ItemGroup>
 				<ProjectReference Include="$(SolutionDir)$(BaseAssemblyName)\$(BaseAssemblyName).nuproj" />
-			</ItemGroup>
+			</ItemGroup>-->
 		</When>
 		<Otherwise>
 			<!-- Default .NET Standard Includes -->
