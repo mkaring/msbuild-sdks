@@ -7,7 +7,7 @@
 	<PropertyGroup Label="PackageInfo">
 		<Title>MSBuild Sdks Extras for .NET</Title>
 		<PackageId>MSBuild.NET.Extras.Sdk</PackageId>
-		<PackageVersion Condition="'$(PackageVersion)' == ''">1.0.0</PackageVersion>
+		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
 		<Authors>Nirmal Guru</Authors>
 		<Owners>NIRIN</Owners>
 		<Copyright>© NIRIN Foundation.</Copyright>
@@ -31,7 +31,7 @@
 
 	<ItemGroup>
 		<PackageFile Include="**\*.props;**\*.targets" Exclude="**\*~\;**\*~\**\*;**\*~.*" />
-		<None Include="**\*~\;**\*~\**\*;**\*~.*" Exclude="" />
+		<None Include="**\*~\;**\*~\**\*;**\*~.*" />
 	</ItemGroup>
 
 </Project>

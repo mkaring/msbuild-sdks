@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MSBuild.NET.Sdk.Tests
+namespace MSBuild.TestProject.NET
 {
 	public class Class
 	{

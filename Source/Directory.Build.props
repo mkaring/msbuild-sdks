@@ -1,0 +1,27 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Label="PackageInfo">
+		<Authors>Nirmal Guru</Authors>
+		<Owners>NIRIN</Owners>
+		<Copyright>© NIRIN Foundation.</Copyright>
+		<Serviceable>true</Serviceable>
+		<PackageTags>MSBuild;SDK</PackageTags>
+		<Summary>MSBuild targets and properties for SDK-style projects.</Summary>
+		<Description>MSBuild targets and properties for SDK-style projects.</Description>
+		<PackageLicenseUrl>https://github.com/nirin/msbuild-sdks/blob/master/License.md</PackageLicenseUrl>
+		<PackageProjectUrl>https://github.com/nirin/msbuild-sdks</PackageProjectUrl>
+		<RepositoryUrl>git://github.com/nirin/msbuild-sdks</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<DevelopmentDependency>true</DevelopmentDependency>
+		<NeutralLanguage>en</NeutralLanguage>
+		<PackageReleaseNotes></PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Build">
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
+
+</Project>

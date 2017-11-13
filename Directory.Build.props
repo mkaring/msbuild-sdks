@@ -1,10 +1,17 @@
-﻿<Project>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<BuildFolder>Builds</BuildFolder>
-		<PublishFolder>Packages</PublishFolder>
-		<BuildPath>$(MSBuildThisFileDirectory)</BuildPath>
-		<PublishPath>$(MSBuildThisFileDirectory)</PublishPath>
+	<PropertyGroup Label="Globals">
+		<SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildThisFileDirectory)</SolutionDir>
+		<BuildToolsPath>$(MSBuildThisFileDirectory)Tools\</BuildToolsPath>
 	</PropertyGroup>
+
+	<PropertyGroup Label="Output">
+		<BuildFolder>Builds</BuildFolder>
+		<BuildPath>$(SolutionDir)</BuildPath>
+	</PropertyGroup>
+
+	<!--<Import Project="$(BuildToolsPath)Defaults.Author.props" />
+	<Import Project="$(BuildToolsPath)Defaults.Product.props" />
+	<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.props" />-->
 
 </Project>

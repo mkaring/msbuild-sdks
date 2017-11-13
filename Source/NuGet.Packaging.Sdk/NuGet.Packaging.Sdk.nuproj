@@ -1,0 +1,17 @@
+<Project Sdk="NuGet.Packaging.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>208ec1b3-8458-4382-9c82-e20bdc7a0cac</ProjectGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<Title>NuGet Packaging Sdk</Title>
+		<PackageId>NuGet.Packaging.Sdk</PackageId>
+		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageFile Include="**\*.props;**\*.targets;**\*.dll;**\*.exe;**\*.config;**\*.*proj" />
+	</ItemGroup>
+
+</Project>

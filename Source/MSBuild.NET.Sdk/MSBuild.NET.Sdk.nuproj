@@ -1,0 +1,17 @@
+<Project Sdk="NuGet.Packaging.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>b088f8c2-87ce-4a56-b92b-83bf2ef995f7</ProjectGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<Title>MSBuild .NET Sdk</Title>
+		<PackageId>MSBuild.NET.Sdk</PackageId>
+		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageFile Include="**\*.props;**\*.targets" />
+	</ItemGroup>
+
+</Project>

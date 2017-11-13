@@ -1,0 +1,17 @@
+<Project Sdk="NuGet.Packaging.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<ProjectGuid>9b67ef80-5f2b-453e-ab0c-2e3dbe098f22</ProjectGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Label="PackageInfo">
+		<Title>MSBuild Native Sdk</Title>
+		<PackageId>MSBuild.Native.Sdk</PackageId>
+		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageFile Include="**\*.props;**\*.targets" />
+	</ItemGroup>
+
+</Project>
