@@ -4,8 +4,14 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.props" />
 
+	<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.props" />
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
+
+	<!-- TODO: Remove Workaround: https://github.com/dotnet/sdk/issues/1001 -->
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
 
 </Project>

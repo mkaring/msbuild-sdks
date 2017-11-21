@@ -9,7 +9,7 @@
 		This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
 	<PropertyGroup>
-		<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NETLanguages.props</LanguageProps>
+		<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.NETLanguages.props</LanguageProps>
 	</PropertyGroup>
 
 	<!--

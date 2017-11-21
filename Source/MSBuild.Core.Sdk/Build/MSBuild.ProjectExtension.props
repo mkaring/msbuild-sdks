@@ -3,6 +3,7 @@
 	<!-- We need to initialize `MSBuildProjectExtensionsPath` property. -->
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.Core.props" Condition="'$(ImportedMSBuildProjectExtensionCoreProps)' != 'true'" />
 	<Import Project="$(MSBuildProjectExtensionsPath)$(MSBuildProjectFile).*.props" Condition="Exists('$(MSBuildProjectExtensionsPath)')" />
+	<Import Project="$(CustomProjectExtensionProps)" Condition="Exists('$(CustomProjectExtensionProps)')" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

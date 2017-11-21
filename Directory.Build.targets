@@ -27,4 +27,6 @@
 		</Otherwise>
 	</Choose>
 
+	<Import Project="$(BuildToolsPath)MSBuild.TestOutput.targets" />
+
 </Project>

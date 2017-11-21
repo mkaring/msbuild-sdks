@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildLegacySdkPath)\MSBuild.NETFramework.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.targets" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

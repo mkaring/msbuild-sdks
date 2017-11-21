@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.items" />
+
+	<!--
+		Automatically reference Microsoft.NETCore.UniversalWindowsPlatform package if targeting the corresponding target framework.
+		We can refer here in the .props file to properties set in the .targets files because items and their conditions are
+		evaluated in the second pass of evaluation, after all properties have been evaluated.
+	-->
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(ImplicitNETCoreUWPPackageVersion)" IsImplicitlyDefined="true" />
+
+		<!-- Packing should include the Microsoft.NETCore.UniversalWindowsPlatform package dependency. -->
+		<PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" Publish="false"
+			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>

@@ -14,7 +14,7 @@
 		This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
 	<PropertyGroup>
-		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Languages\MSBuild.NETLanguages.targets</LanguageTargets>
+		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.NETLanguages.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
