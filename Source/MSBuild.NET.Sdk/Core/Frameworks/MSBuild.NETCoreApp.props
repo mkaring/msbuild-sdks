@@ -2,6 +2,17 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.props" />
 
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.DefaultIncludes.props" />
+
+	<!--
+		Update the implicit package based on target framework output types and other conditions if necessary
+		Packing should include the implicit package dependency for non-executables.
+	-->
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+		<PackageReference Update="$(ImplicitPackageName)" PrivateAssets="All" Publish="true"
+			Condition="'$(OutputType)' != 'Exe'" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
