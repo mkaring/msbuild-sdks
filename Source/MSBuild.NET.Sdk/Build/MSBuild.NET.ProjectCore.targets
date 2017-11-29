@@ -1,20 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
-
 	<PropertyGroup>
 		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
 		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
-	</PropertyGroup>
-
-	<!--
-		If LanguageTargets isn't otherwise set, then we'll just import the common targets.
-		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
-		This means support for different languages could either be supplied via an SDK or a NuGet package.
-	-->
-	<PropertyGroup>
-		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.NETLanguages.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
@@ -23,7 +11,7 @@
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
 
 	<!--
-		NOTE: Other Legacy `LanguageTargets` still Imports `Microsoft.Common.targets` which inturn imports `ProjectExtension` targets and `DirectoryBuild.targets`
+		NOTE: Other Legacy `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` targets and `DirectoryBuild.targets`
 		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
 		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.
 	-->
@@ -32,6 +20,15 @@
 		<_SdkBackupImportDirectoryBuildTargets>$(ImportDirectoryBuildTargets)</_SdkBackupImportDirectoryBuildTargets>
 		<ImportProjectExtensionTargets>false</ImportProjectExtensionTargets>
 		<ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+	</PropertyGroup>
+
+	<!--
+		If LanguageTargets isn't otherwise set, then we'll just import the common targets.
+		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
+		This means support for different languages could either be supplied via an SDK or a NuGet package.
+	-->
+	<PropertyGroup>
+		<LanguageTargets Condition="'$(LanguageTargets)' == ''">$(MSBuildThisFileDirectory)MSBuild.NET.Languages.targets</LanguageTargets>
 	</PropertyGroup>
 
 	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />

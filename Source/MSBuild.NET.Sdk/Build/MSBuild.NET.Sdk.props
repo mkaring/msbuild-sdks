@@ -29,8 +29,8 @@
 		<MSBuildLegacySdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\Legacy</MSBuildLegacySdkPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.props"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.props"/>
+	<!--<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.props" />-->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.props" />
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkProps>true</ImportedMSBuildNETSdkProps>

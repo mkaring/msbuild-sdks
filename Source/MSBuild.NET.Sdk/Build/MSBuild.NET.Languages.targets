@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
+	</PropertyGroup>
+
+	<!-- Check if we already imported them as props. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" Condition="'$(ImportedMSBuildNETInferenceLanguageProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.NET.$(_SdkLanguageName).targets" />
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.$(_SdkLanguageName).targets" Condition="Exists('$(MSBuildLegacySdkPath)\Microsoft.$(_SdkLanguageName).targets')" />
+
+</Project>

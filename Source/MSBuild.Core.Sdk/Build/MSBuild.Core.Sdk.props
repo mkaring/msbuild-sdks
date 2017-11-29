@@ -1,7 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">true</ImportLegacyExtensionProps>
 		<ImportDirectoryBuildProps Condition="'$(ImportDirectoryBuildProps)' == ''">true</ImportDirectoryBuildProps>
 		<ImportProjectExtensionProps Condition="'$(ImportProjectExtensionProps)' == ''">true</ImportProjectExtensionProps>
 		<ImportProjectCoreProps Condition="'$(ImportProjectCoreProps)' == ''">true</ImportProjectCoreProps>
@@ -15,6 +14,8 @@
 
 	<PropertyGroup>
 		<ImportedMSBuildCoreSdkProps>true</ImportedMSBuildCoreSdkProps>
+		<!-- TODO: Remove once Microsoft.Common.targets import is no longer needed. -->
+		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>
 	</PropertyGroup>
 
 	<PropertyGroup>

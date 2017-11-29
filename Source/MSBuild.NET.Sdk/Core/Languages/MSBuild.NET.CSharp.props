@@ -1,6 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.props" />
+	<PropertyGroup>
+		<WarningLevel Condition=" '$(WarningLevel)' == '' ">4</WarningLevel>
+		<NoWarn Condition=" '$(NoWarn)' == '' ">1701;1702;1705</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);</DefineConstants>
+		<DefineConstants>$(DefineConstants)TRACE</DefineConstants>
+	</PropertyGroup>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

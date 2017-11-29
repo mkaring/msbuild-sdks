@@ -6,8 +6,11 @@
 		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
 	</PropertyGroup>
 
+	<!--<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Frameworks.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Languages.targets" />-->
+
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.targets" />
-	<!--<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.targets"/>-->
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>

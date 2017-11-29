@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<!-- Same condition as in .NET 4.5 C# targets so that we can override the behavior where it defaults to MSBuildToolsPath, which would be incorrect in this case -->
+		<!-- Same condition as in .NET 4.5 C# targets so that we can override the behaviour where it defaults to MSBuildToolsPath, which would be incorrect in this case -->
 		<CscToolPath Condition="'$(CscToolPath)' == '' and '$(BuildingInsideVisualStudio)' != 'true'">$(MSBuildFrameworkToolsPath)</CscToolPath>
 	</PropertyGroup>
 

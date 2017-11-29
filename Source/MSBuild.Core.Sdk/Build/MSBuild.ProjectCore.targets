@@ -2,10 +2,10 @@
 
 	<PropertyGroup>
 		<ImportLegacyTargets Condition="'$(ImportLegacyTargets)' == ''">true</ImportLegacyTargets>
-		<CustomCoreTargetsPath Condition="'$(CustomCoreTargetsPath)' == '' OR !Exists('$(CustomCoreTargetsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.targets</CustomCoreTargetsPath>
+		<CustomProjectCoreTargetsPath Condition="'$(CustomProjectCoreTargetsPath)' == '' OR !Exists('$(CustomProjectCoreTargetsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.targets</CustomProjectCoreTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(CustomCoreTargetsPath)" Condition="'$(ImportLegacyTargets)' != 'true'" />
+	<Import Project="$(CustomProjectCoreTargetsPath)" Condition="'$(ImportLegacyTargets)' != 'true'" />
 
 	<ImportGroup Condition="'$(ImportLegacyTargets)' == 'true'">
 		<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />

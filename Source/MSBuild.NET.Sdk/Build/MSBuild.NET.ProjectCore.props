@@ -1,37 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- We need to init _SdkLanguage, ... properties. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.Language.props" />
-
-	<!--
-		If LanguageProps isn't otherwise set, then we'll just import the common props.
-		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageProps.
-		This means support for different languages could either be supplied via an SDK or a NuGet package.
-	-->
-	<PropertyGroup>
-		<LanguageProps Condition="'$(LanguageProps)' == ''">$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.NETLanguages.props</LanguageProps>
-	</PropertyGroup>
-
-	<!--
-		NOTE: Other Legacy `LanguageProps` still Imports `Microsoft.Common.props` which inturn imports `ProjectExtension` props and `DirectoryBuild.props`
-		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
-		TODO: Remove once the migration is complete and we no longer need/support the legacy props.
-	-->
-	<PropertyGroup>
-		<_SdkBackupImportProjectExtensionProps>$(ImportProjectExtensionProps)</_SdkBackupImportProjectExtensionProps>
-		<_SdkBackupImportDirectoryBuildProps>$(ImportDirectoryBuildProps)</_SdkBackupImportDirectoryBuildProps>
-		<ImportProjectExtensionProps>false</ImportProjectExtensionProps>
-		<ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
-	</PropertyGroup>
-
-	<Import Project="$(LanguageProps)" Condition="Exists('$(LanguageProps)')" />
-
-	<PropertyGroup>
-		<ImportProjectExtensionProps>$(_SdkBackupImportProjectExtensionProps)</ImportProjectExtensionProps>
-		<ImportDirectoryBuildProps>$(_SdkBackupImportDirectoryBuildProps)</ImportDirectoryBuildProps>
-		<_SdkBackupImportProjectExtensionProps></_SdkBackupImportProjectExtensionProps>
-		<_SdkBackupImportDirectoryBuildProps></_SdkBackupImportDirectoryBuildProps>
-	</PropertyGroup>
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Languages.props" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.props" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Frameworks.props" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

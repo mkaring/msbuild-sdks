@@ -1,10 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<CustomCorePropsPath Condition="'$(CustomCorePropsPath)' == '' OR !Exists('$(CustomCorePropsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.props</CustomCorePropsPath>
+		<CustomProjectCorePropsPath Condition="'$(CustomProjectCorePropsPath)' == '' OR !Exists('$(CustomProjectCorePropsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.props</CustomProjectCorePropsPath>
 	</PropertyGroup>
 
-	<Import Project="$(CustomCorePropsPath)" />
+	<Import Project="$(CustomProjectCorePropsPath)" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

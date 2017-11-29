@@ -3,8 +3,8 @@
 	<PropertyGroup>
 		<EnableDefaultItems Condition="'$(EnableDefaultItems)' == ''">true</EnableDefaultItems>
 		<EnableDefaultNoneItems Condition="'$(EnableDefaultNoneItems)' == ''">true</EnableDefaultNoneItems>
-		<IgnoreDefaultLegacyPaths Condition="'$(IgnoreDefaultLegacyPaths)' == ''">false</IgnoreDefaultLegacyPaths>
 		<IgnoreDefaultBuildFiles Condition="'$(IgnoreDefaultBuildFiles)' == ''">false</IgnoreDefaultBuildFiles>
+		<IgnoreDefaultLegacyPaths Condition="'$(IgnoreDefaultLegacyPaths)' == ''">false</IgnoreDefaultLegacyPaths>
 	</PropertyGroup>
 
 	<!--

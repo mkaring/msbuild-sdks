@@ -1,0 +1,26 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Condition="'$(_SdkFrameworkName)' == ''">
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.StartsWith('.NET'))">$(TargetFrameworkIdentifier.TrimStart('.'))</_SdkFrameworkName>
+
+		<_SdkFrameworkName Condition="'$(TargetFrameworkIdentifier)' == 'MonoTouch'">MonoCore</_SdkFrameworkName>
+		<_SdkFrameworkName Condition="'$(TargetFrameworkIdentifier)' == 'MonoDroid'">MonoCore</_SdkFrameworkName>
+
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.Contains('iOS'))">Xamarin</_SdkFrameworkName>
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.Contains('Mac'))">Xamarin</_SdkFrameworkName>
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.Contains('TVOS'))">Xamarin</_SdkFrameworkName>
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.Contains('WatchOS'))">Xamarin</_SdkFrameworkName>
+		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.Contains('Android'))">Xamarin</_SdkFrameworkName>
+
+		<_SdkFrameworkName Condition="'$(_SdkFrameworkName)' == ''">$(TargetFrameworkIdentifier)</_SdkFrameworkName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportedMSBuildNETInferenceFrameworkProps>true</ImportedMSBuildNETInferenceFrameworkProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>

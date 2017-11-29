@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Condition="'$(_SdkPlatformName)' == ''">
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('TV'))">Apple</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Mac'))">Apple</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Watch'))">Apple</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Mobile'))">Apple</_SdkPlatformName>
+
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Phone'))">Apple</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Note'))">Apple</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetPlatformIdentifier.Contains('Pad'))">Apple</_SdkPlatformName>
+
+		<_SdkPlatformName Condition="'$(_SdkPlatformName)' != ''">$(TargetPlatformIdentifier)</_SdkPlatformName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImportedMSBuildNETInferencePlatformProps>true</ImportedMSBuildNETInferencePlatformProps>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>
