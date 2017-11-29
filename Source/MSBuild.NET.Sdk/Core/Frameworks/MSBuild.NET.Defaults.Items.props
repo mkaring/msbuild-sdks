@@ -20,6 +20,25 @@
 		<PackageReference Include="$(ImplicitPackageName)" Version="$(ImplicitPackageVersion)" IsImplicitlyDefined="true" />
 	</ItemGroup>
 
+	<!--
+		Update the implicit package based on target framework output types and other conditions if necessary
+		Packing should include the implicit package dependency for non-executables.
+	-->
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETStandard'">
+		<PackageReference Update="$(ImplicitPackageName)" PrivateAssets="All" Publish="true" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
+		<PackageReference Update="$(ImplicitPackageName)" PrivateAssets="All" Publish="true"
+			Condition="'$(OutputType)' != 'Exe'" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore'">
+		<PackageReference Update="$(ImplicitPackageName)" PrivateAssets="All" Publish="false"
+			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>

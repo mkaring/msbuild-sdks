@@ -1,7 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- Check if we already imported them as props. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.props" Condition="'$(ImportedMSBuildNETInferenceFrameworkProps)' != 'true'" />
+	<!-- We need to init _SdkFrameworkName, etc. properties. -->
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.NET.$(_SdkFrameworkName).props" />
 	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.NET.$(_SdkFrameworkName).targets" />
 
 </Project>

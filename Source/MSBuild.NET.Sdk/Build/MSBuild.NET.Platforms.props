@@ -1,7 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- We need to init _SdkPlatformName, etc. properties. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.PlatformInference.props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.NET.$(_SdkPlatformName).props" />
+	<!--<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.NET.Defaults.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.NET.Defaults.Items.props" />-->
 
 </Project>

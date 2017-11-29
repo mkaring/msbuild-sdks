@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<!--<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" />
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Frameworks.targets" />
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Languages.targets" />-->
 
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Frameworks.targets" />
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.targets" />
 
 	<PropertyGroup>
