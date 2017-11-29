@@ -1,7 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.targets" />
-
 	<PropertyGroup Condition="'$(ImplicitPackageName)' == ''">
 		<ImplicitPackageName>Microsoft.NETCore.UniversalWindowsPlatform</ImplicitPackageName>
 	</PropertyGroup>
@@ -57,6 +55,8 @@
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.targets" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

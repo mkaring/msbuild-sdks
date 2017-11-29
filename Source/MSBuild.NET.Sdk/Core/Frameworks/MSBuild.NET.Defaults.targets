@@ -79,22 +79,11 @@
 
 	</Target>
 
-	<!--
-		Running an SDK task before the NuGet restore task causes issues when running on .NET Framework because it causes the
-		.NET Standard NuGet DLLs to be loaded from the SDK path rather than the .NET Framework versions from the NuGet targets
-		path.  To avoid this, we create a separate target to run before NuGet restore which deduplicates the items without
-		causing the SDK tasks to be loaded (but doesn't generate a warning message, because we need to load the tasks for that).
-	-->
-	<PropertyGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<_ImplicitPackageName Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'">NETStandard.Library</_ImplicitPackageName>
-		<_ImplicitPackageName Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">Microsoft.NETCore.App</_ImplicitPackageName>
-	</PropertyGroup>
-
-	<ItemGroup Condition="'$(_ImplicitPackageName)' != ''">
+	<ItemGroup Condition="'$(ImplicitPackageName)' != ''">
 		<!-- Filter PackageReference to items where the ItemSpec matches the implicit package name, and add IsImplicitlyDefined metadata
 			for items that don't have it-->
 		<_ImplicitPackageReferenceCheck
-			Include="@(PackageReference->WithMetadataValue('Identity', '$(_ImplicitPackageName)'))">
+			Include="@(PackageReference->WithMetadataValue('Identity', '$(ImplicitPackageName)'))">
 			<IsImplicitlyDefined Condition="'%(IsImplicitlyDefined)' != 'true'">false</IsImplicitlyDefined>
 		</_ImplicitPackageReferenceCheck>
 
@@ -103,10 +92,16 @@
 		<_OverridingPackageReference Include="@(_ImplicitPackageReferenceCheck->WithMetadataValue('IsImplicitlyDefined', 'false'))" />
 	</ItemGroup>
 
+	<!--
+		Running an SDK task before the NuGet restore task causes issues when running on .NET Framework because it causes the
+		.NET Standard NuGet DLLs to be loaded from the SDK path rather than the .NET Framework versions from the NuGet targets
+		path.  To avoid this, we create a separate target to run before NuGet restore which deduplicates the items without
+		causing the SDK tasks to be loaded (but doesn't generate a warning message, because we need to load the tasks for that).
+	-->
 	<Target Name="CheckForImplicitPackageReferenceOverridesBeforeRestore" BeforeTargets="_GetRestoreProjectStyle">
 		<ItemGroup>
 			<!-- Remove both the implicit and the override item, if there was both an implicit and an override item -->
-			<PackageReference Remove="@(PackageReference->WithMetadataValue('Identity', '$(_ImplicitPackageName)'))"
+			<PackageReference Remove="@(PackageReference->WithMetadataValue('Identity', '$(ImplicitPackageName)'))"
 				Condition="'@(_ImplicitPackageReference)' != '' AND '@(_OverridingPackageReference)' != ''" />
 
 			<!-- Add the override item back -->
