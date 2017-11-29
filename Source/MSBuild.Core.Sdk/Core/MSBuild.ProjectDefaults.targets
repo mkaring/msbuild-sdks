@@ -3,15 +3,15 @@
 	<PropertyGroup>
 		<EnableDefaultItems Condition="'$(EnableDefaultItems)' == ''">true</EnableDefaultItems>
 		<EnableDefaultNoneItems Condition="'$(EnableDefaultNoneItems)' == ''">true</EnableDefaultNoneItems>
-		<IgnoreDefaultBuildFiles Condition="'$(IgnoreDefaultBuildFiles)' == ''">false</IgnoreDefaultBuildFiles>
-		<IgnoreDefaultLegacyPaths Condition="'$(IgnoreDefaultLegacyPaths)' == ''">false</IgnoreDefaultLegacyPaths>
+		<ExcludeDefaultBuildFiles Condition="'$(ExcludeDefaultBuildFiles)' == ''">false</ExcludeDefaultBuildFiles>
+		<ExcludeDefaultLegacyPaths Condition="'$(ExcludeDefaultLegacyPaths)' == ''">false</ExcludeDefaultLegacyPaths>
 	</PropertyGroup>
 
 	<!--
 		Set DefaultItemExcludes property for items that should be excluded from the default items.
 		This is in the .targets because it needs to come after the final OutputPaths has been evaluated.
 	-->
-	<PropertyGroup Condition="'$(IgnoreDefaultLegacyPaths)' == 'true'">
+	<PropertyGroup Condition="'$(ExcludeDefaultLegacyPaths)' == 'true'">
 		<!-- bin folder, by default -->
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(BaseOutputPath)/**</DefaultItemExcludes>
 		<!-- obj folder, by default -->
@@ -31,7 +31,7 @@
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.vssscc</DefaultItemExcludes>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(IgnoreDefaultBuildFiles)' == 'true'">
+	<PropertyGroup Condition="'$(ExcludeDefaultBuildFiles)' == 'true'">
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.tasks</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.props</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.targets</DefaultItemExcludes>
