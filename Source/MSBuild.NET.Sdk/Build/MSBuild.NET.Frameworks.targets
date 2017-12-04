@@ -2,7 +2,7 @@
 
 	<!-- We need to init _SdkFrameworkName, etc. properties. -->
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.NET.$(_SdkFrameworkName).props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.NET.$(_SdkFrameworkName).targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).targets" />
 
 </Project>

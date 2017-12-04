@@ -2,7 +2,7 @@
 
 	<!-- We need to init _SdkPlatformName, etc. properties. -->
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.PlatformInference.props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.NET.$(_SdkPlatformName).props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.NET.$(_SdkPlatformName).targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).targets" />
 
 </Project>

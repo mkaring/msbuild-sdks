@@ -1,12 +1,14 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />
+
 	<!-- TODO: Remove once the migration is done. -->
 	<PropertyGroup Label="Configure">
 		<NETCoreSdkBundledVersionsProps Condition="'$(NETCoreSdkBundledVersionsProps)' == ''">$(MSBuildSdksPath)\..\Microsoft.NETCoreSdk.BundledVersions.props</NETCoreSdkBundledVersionsProps>
 	</PropertyGroup>
 
-	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />
 	<Import Project="$(NETCoreSdkBundledVersionsProps)" Condition="Exists('$(NETCoreSdkBundledVersionsProps)')" />
+
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props" />
 
 	<PropertyGroup>
