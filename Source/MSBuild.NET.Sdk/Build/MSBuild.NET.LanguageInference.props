@@ -41,10 +41,6 @@
 	</Choose>
 
 	<PropertyGroup>
-		<ImportedMSBuildNETInferenceLanguageProps>true</ImportedMSBuildNETInferenceLanguageProps>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 

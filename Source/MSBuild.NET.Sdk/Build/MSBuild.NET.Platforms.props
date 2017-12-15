@@ -1,6 +1,0 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-	<!--<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.Defaults.props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.Defaults.Items.props" />-->
-
-</Project>

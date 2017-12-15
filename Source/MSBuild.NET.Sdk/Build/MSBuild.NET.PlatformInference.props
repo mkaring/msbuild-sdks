@@ -14,10 +14,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ImportedMSBuildNETInferencePlatformProps>true</ImportedMSBuildNETInferencePlatformProps>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 

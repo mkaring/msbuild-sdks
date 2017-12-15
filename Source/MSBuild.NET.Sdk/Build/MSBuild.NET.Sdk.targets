@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.targets" />
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Frameworks.targets" Condition="'$(TargetFramework)' != ''" />
-
-	<!--<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" />
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Languages.targets" />-->
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>

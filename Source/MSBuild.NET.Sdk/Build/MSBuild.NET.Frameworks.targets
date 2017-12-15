@@ -1,8 +1,0 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-	<!-- We need to init _SdkFrameworkName, etc. properties. -->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).targets" />
-
-</Project>
