@@ -1,4 +1,4 @@
-# MSBuild.NET.Sdk
+# MSBuild.NET.Extras.Sdk
 
 ## Summary
 
@@ -24,9 +24,9 @@ After that, you can use the `Restore`, `Build`, `Pack` targets to restore packag
 
 ### Package Name: `MSBuild.NET.Extras.Sdk`
 
-NuGet: [![MSBuild.NET.Extras.Sdk](https://img.shields.io/nuget/v/MSBuild.NET.Extras.Sdk.svg)](https://nuget.org/packages/MSBuild.NET.Extras.Sdk)
-
-MyGet: [![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MSBuild.NET.Extras.Sdk.svg)](https://myget.org/gallery/msbuild-sdks)
+[![MSBuild.NET.Extras.Sdk](https://img.shields.io/nuget/v/MSBuild.NET.Extras.Sdk.svg)](https://nuget.org/packages/MSBuild.NET.Extras.Sdk)
+[![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MSBuild.NET.Extras.Sdk.svg)](https://myget.org/feed/msbuild-sdks/package/nuget/MSBuild.NET.Extras.Sdk)
+[![MSBuild-SDKs](https://img.shields.io/badge/msbuild--sdks-myget-brightgreen.svg)](https://myget.org/gallery/msbuild-sdks)
 
 ## Using the Package
 
