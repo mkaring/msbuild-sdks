@@ -5,23 +5,12 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="PackageInfo">
-		<Title>MSBuild Sdks Extras for .NET</Title>
+		<Title>MSBuild Sdk Extras for .NET</Title>
 		<PackageId>MSBuild.NET.Extras.Sdk</PackageId>
 		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
-		<Authors>Nirmal Guru</Authors>
-		<Owners>NIRIN</Owners>
-		<Copyright>© NIRIN Foundation.</Copyright>
-		<Serviceable>true</Serviceable>
-		<PackageTags>msbuild dotnet sdk xamarin ios android tizen windows uwp sl portable</PackageTags>
-		<Summary>Additional MSBuild targets and properties for SDK-style .NET projects.</Summary>
-		<Description>Additional MSBuild targets and properties for SDK-style .NET projects.</Description>
-		<PackageLicenseUrl>https://github.com/nirin/msbuild-sdks/blob/master/License.md</PackageLicenseUrl>
-		<PackageProjectUrl>https://github.com/nirin/msbuild-sdks</PackageProjectUrl>
-		<RepositoryUrl>git://github.com/nirin/msbuild-sdks</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<DevelopmentDependency>true</DevelopmentDependency>
-		<NeutralLanguage>en</NeutralLanguage>
-		<PackageReleaseNotes></PackageReleaseNotes>
+		<PackageTags>$(PackageTags);dotnet;xamarin;ios;android;tizen;windows;uwp;sl;portable</PackageTags>
+		<Summary>An MSBuild SDK package for SDK-style .NET projects which extends `Microsoft.NET.Sdk`.</Summary>
+		<Description>An MSBuild SDK package for SDK-style .NET projects that has additional targets and properties which extends `Microsoft.NET.Sdk`.</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Build">
@@ -30,8 +19,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageFile Include="**\*.props;**\*.targets" Exclude="**\*~\;**\*~\**\*;**\*~.*" />
-		<None Include="**\*~\;**\*~\**\*;**\*~.*" />
+		<PackageFile Include="**\*.props;**\*.targets" />
 	</ItemGroup>
 
 </Project>

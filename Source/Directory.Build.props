@@ -5,7 +5,7 @@
 		<Owners>NIRIN</Owners>
 		<Copyright>© NIRIN Foundation.</Copyright>
 		<Serviceable>true</Serviceable>
-		<PackageTags>MSBuild;SDK</PackageTags>
+		<PackageTags>msbuild;project;sdk</PackageTags>
 		<Summary>MSBuild targets and properties for SDK-style projects.</Summary>
 		<Description>MSBuild targets and properties for SDK-style projects.</Description>
 		<PackageLicenseUrl>https://github.com/nirin/msbuild-sdks/blob/master/License.md</PackageLicenseUrl>

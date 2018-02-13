@@ -15,8 +15,8 @@ if not "%BuildRunner%" == "MyGet" (
 )
 
 REM Set Vars
-:: set Project=MSBuild.NET.Sdk.sln
-set Project=%WD%MSBuild.NET.Extras.Sdk\MSBuild.NET.Extras.Sdk.nuproj
+:: set Project=%WD%MSBuild.Sdks.sln
+set Project=%WD%Source\MSBuild.NET.Extras.Sdk\MSBuild.NET.Extras.Sdk.nuproj
 
 set Configuration=Release
 

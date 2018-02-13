@@ -14,4 +14,8 @@
 	<Import Project="$(BuildToolsPath)Defaults.Product.props" />
 	<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.props" />-->
 
+	<PropertyGroup>
+		<DefaultItemExcludes>**\*~\;**\*~\**\*;**\*~.*</DefaultItemExcludes>
+	</PropertyGroup>
+
 </Project>
