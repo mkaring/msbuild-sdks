@@ -12,11 +12,11 @@ Supports projects that do not compile to an assembly. This is usually the base S
 
 ### [MSBuild.Native.Sdk](Source/MSBuild.Native.Sdk)
 
-Supports [Native](Support.md#Native) projects that include C/C++ (CLang, GCC, VisualC), ASM, FORTRAN, etc.
+Supports [Native](Support.md#native-platform-support) projects that include C/C++ (CLang, GCC, VisualC), ASM, FORTRAN, etc.
 
 ### [MSBuild.NET.Sdk](Source/MSBuild.NET.Sdk)
 
-Supports [.NET Platform](Support.md#DotNET) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), .NET Mono (Xamarin) runtimes.
+Supports [.NET Platform](Support.md#net-platform-support) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), .NET Mono (Xamarin) runtimes.
 
 ### [MSBuild.NET.Extras.Sdk](Source/MSBuild.NET.Extras.Sdk)
 
