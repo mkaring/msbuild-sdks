@@ -1,0 +1,20 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Condition="'$(_SdkRuntimeName)' == ''">
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('TV'))">Apple</_SdkRuntimeName>
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Mac'))">Apple</_SdkRuntimeName>
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Watch'))">Apple</_SdkRuntimeName>
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Mobile'))">Apple</_SdkRuntimeName>
+
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Phone'))">Apple</_SdkRuntimeName>
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Note'))">Apple</_SdkRuntimeName>
+		<_SdkRuntimeName Condition="$(TargetRuntimeIdentifier.Contains('Pad'))">Apple</_SdkRuntimeName>
+
+		<_SdkRuntimeName Condition="'$(_SdkRuntimeName)' != ''">$(TargetRuntimeIdentifier)</_SdkRuntimeName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>
