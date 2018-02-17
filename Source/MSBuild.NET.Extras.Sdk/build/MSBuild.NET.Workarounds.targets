@@ -17,7 +17,7 @@
 		 https://github.com/dotnet/sdk/issues/1360 -->
 	<Target Name="WorkaroundIncorrectSatelliteDeployment"
 			AfterTargets="ResolveLockFileCopyLocalProjectDeps"
-			Condition="'$(_SdkDotNetVersion)' &lt; '2.0' and '$(IsMultiTargetingBuild)' != 'true'">
+			Condition="'$(_SdkDotNetVersion)' &lt; '2.0' AND '$(IsMultiTargetingBuild)' != 'true'">
 		<ItemGroup>
 			<ReferenceCopyLocalPaths Remove="@(ResourceCopyLocalItems)" />
 			<ReferenceCopyLocalPaths Include="@(ResourceCopyLocalItems)" Condition="'@(ResourceCopyLocalItems)' != ''">

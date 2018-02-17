@@ -37,8 +37,9 @@
 	-->
 	<PropertyGroup>
 		<_SdkSupportedPlatforms>;$(SupportedPlatforms);</_SdkSupportedPlatforms>
-		<_PlatformInference Condition="$(_SdkSupportedPlatforms.Contains('$(Platform)'))">$(Platform)</_PlatformInference>
+		<_PlatformInference Condition="$(_SdkSupportedPlatforms.Contains(';$(Platform);'))">$(Platform)</_PlatformInference>
 		<PlatformTarget Condition="'$(PlatformTarget)' == '' AND '$(_PlatformInference)' != ''">$(_PlatformInference)</PlatformTarget>
+		<_PlatformInference />
 		<_SdkSupportedPlatforms />
 	</PropertyGroup>
 
@@ -72,7 +73,7 @@
 		<DebugSymbols Condition="'$(DebugSymbols)' == ''">false</DebugSymbols>
 		<TreatWarningsAsErrors Condition="'$(TreatWarningsAsErrors)' == ''">false</TreatWarningsAsErrors>
 
-		<Prefer32Bit Condition="'$(Prefer32Bit)' == '' AND '$(_PlatformInference)' == 'x86'">true</Prefer32Bit>
+		<Prefer32Bit Condition="'$(Prefer32Bit)' == '' AND '$(PlatformTarget)' == 'x86'">true</Prefer32Bit>
 		<Prefer32Bit Condition="'$(Prefer32Bit)' == ''">false</Prefer32Bit>
 
 		<!-- NuGet Code NU1605 for unknown Framework Identifiers -->

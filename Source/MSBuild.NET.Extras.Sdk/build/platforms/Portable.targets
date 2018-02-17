@@ -5,13 +5,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v0.0</TargetFrameworkVersion>
-	</PropertyGroup>
-
-	<Import Project="$(MSBuildThisFileDirectory)frameworkResolvers\Portable.$(TargetFrameworkVersion).targets"
-			Condition="Exists('$(MSBuildThisFileDirectory)frameworkResolvers\Portable.$(TargetFrameworkVersion).targets')"/>
-
-	<PropertyGroup>
 		<!-- Version=v0.0 https://github.com/dotnet/sdk/issues/492 -->
 		<_PortableTargetFrameworkVersion>v0.0</_PortableTargetFrameworkVersion>
 		<NugetTargetMoniker>.NETPortable,Version=$(_PortableTargetFrameworkVersion),Profile=$(TargetFrameworkProfile)</NugetTargetMoniker>

@@ -16,7 +16,7 @@
 	</ImportGroup>
 
 	<!--
-		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` targets and `DirectoryBuild.targets`
+		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
 		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
 		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.
 	-->

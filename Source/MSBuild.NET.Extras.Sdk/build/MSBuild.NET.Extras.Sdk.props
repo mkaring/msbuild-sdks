@@ -5,4 +5,34 @@
 		<MSBuildSdkExtrasDotNetTargets>$(MSBuildThisFileDirectory)MSBuild.NET.Extras.targets</MSBuildSdkExtrasDotNetTargets>
 	</PropertyGroup>
 
+	<Choose>
+		<When Condition="'$(MSBuildProjectExtension)' == '.csproj' OR ('$(MSBuildProjectExtension)' == '.tmp_proj' AND Exists('$(MSBuildProjectDirectory)\$(AssemblyName).csproj'))">
+			<PropertyGroup>
+				<_SdkLanguageName>CSharp</_SdkLanguageName>
+				<_SdkLanguageExtension>.cs</_SdkLanguageExtension>
+			</PropertyGroup>
+		</When>
+
+		<When Condition="'$(MSBuildProjectExtension)' == '.vbproj' OR ('$(MSBuildProjectExtension)' == '.tmp_proj' AND Exists('$(MSBuildProjectDirectory)\$(AssemblyName).vbproj'))">
+			<PropertyGroup>
+				<_SdkLanguageName>VisualBasic</_SdkLanguageName>
+				<_SdkLanguageExtension>.vb</_SdkLanguageExtension>
+			</PropertyGroup>
+		</When>
+
+		<When Condition="'$(MSBuildProjectExtension)' == '.fsproj' OR ('$(MSBuildProjectExtension)' == '.tmp_proj' AND Exists('$(MSBuildProjectDirectory)\$(AssemblyName).fsproj'))">
+			<PropertyGroup>
+				<_SdkLanguageName>FSharp</_SdkLanguageName>
+				<_SdkLanguageExtension>.fs</_SdkLanguageExtension>
+			</PropertyGroup>
+		</When>
+
+		<Otherwise />
+	</Choose>
+
+	<PropertyGroup>
+		<EnableEmbeddedResourceGenerator Condition="'$(EnableEmbeddedResourceGenerator)' == ''">true</EnableEmbeddedResourceGenerator>
+		<EmbeddedResourceGeneratorVisibilityIsInternal Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == ''">true</EmbeddedResourceGeneratorVisibilityIsInternal>
+	</PropertyGroup>
+
 </Project>

@@ -4,22 +4,14 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 and
-			$(_SdkShortFrameworkProfile.Contains('+client+'))">
-		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
-		<IncludeProjectPriFile>false</IncludeProjectPriFile>
-		<!-- .NET Client profiles defines as NET35_CLIENT, NET40_CLIENT etc -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(_SdkShortFrameworkIdentifierWithVersion.ToUpperInvariant())_CLIENT</ImplicitFrameworkDefine>
-		<DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
-	</PropertyGroup>
-
 	<PropertyGroup>
 		<_SdkPlatformName>$(TargetFrameworkIdentifier)</_SdkPlatformName>
-		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' or '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' OR '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
 		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
 
 		<_SdkPlatformTargets>$(MSBuildThisFileDirectory)platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
-		<_SdkLanguageTargets>$(MSBuildThisFileDirectory)platforms\languageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
+		<_SdkLanguageTargets>$(MSBuildThisFileDirectory)languageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
 		<LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
 	</PropertyGroup>
 
@@ -36,7 +28,7 @@
 	</Target>
 
 	<Target Name="ExtrasIncludeLibraryLayoutItems"
-			Condition="'$(GenerateLibraryLayout)' == 'true' and '$(SDKIdentifier)' == 'Windows'"
+			Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'"
 			DependsOnTargets="PrepareLibraryLayout">
 		<ItemGroup>
 			<TfmSpecificPackageFile Include="@(_LayoutFile)" PackagePath="lib\$(TargetFramework)\%(_LayoutFile.TargetPath)" />

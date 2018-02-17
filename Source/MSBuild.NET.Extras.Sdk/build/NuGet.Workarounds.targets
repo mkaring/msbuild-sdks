@@ -7,7 +7,7 @@
 	<!-- By default we suppress the old sdk warning, if the user has loaded v4.3.0+ NuGet 'Pack' target, which contain some fixes around PRI files. -->
 	<PropertyGroup>
 		<PackDependsOn>WarnWhenUsingOldSdk;$(PackDependsOn)</PackDependsOn>
-		<SuppressOldSdkWarning Condition="'$(SuppressOldSdkWarning)' == '' and '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</SuppressOldSdkWarning>
+		<SuppressOldSdkWarning Condition="'$(SuppressOldSdkWarning)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'false'">true</SuppressOldSdkWarning>
 	</PropertyGroup>
 
 	<!-- Check to see if we are on an Old SDK and warn the user about 'Pack' target! -->
