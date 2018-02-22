@@ -6,12 +6,13 @@
 		<NuGetBuildTasksPackTargets>NO-SDK-PACK</NuGetBuildTasksPackTargets>
 		<ImportNuGetBuildTasksPackTargetsFromSdk>false</ImportNuGetBuildTasksPackTargetsFromSdk>
 		<!-- Ensure the right value is always available  -->
-		<IsCrossTargetingBuild Condition="'$(IsCrossTargetingBuild)' == '' and '$(TargetFrameworks)' != '' and '$(TargetFramework)' == ''">true</IsCrossTargetingBuild>
+		<IsMultiTargetingBuild Condition="'$(IsMultiTargetingBuild)' == '' and '$(TargetFrameworks)' != '' and '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
+		<IsMultiTargetingBuild>$(IsCrossTargetingBuild)</IsMultiTargetingBuild>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<ApiIntersectToolPath Condition=" '$(ApiIntersectTool)' == '' ">$(MSBuildThisFileDirectory)</ApiIntersectToolPath>
-		<ApiIntersectToolExe Condition=" '$(ApiIntersectToolExe)' == '' ">ApiIntersect.exe</ApiIntersectToolExe>
+		<ApiIntersectToolPath Condition="'$(ApiIntersectTool)' == ''">$(MSBuildThisFileDirectory)</ApiIntersectToolPath>
+		<ApiIntersectToolExe Condition="'$(ApiIntersectToolExe)' == ''">ApiIntersect.exe</ApiIntersectToolExe>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -91,7 +92,7 @@
 		</PackageItemKind>
 
 		<!-- For unknown Kind we apply the heuristics of turning the metadata value into pascalCase
-			 and using that as the package folder (i.e. 'Workbooks' -> 'workbooks') -->
+             and using that as the package folder (i.e. 'Workbooks' -> 'workbooks') -->
 
 		<!-- Finally, specially treated items that we include here for completeness and documentation -->
 

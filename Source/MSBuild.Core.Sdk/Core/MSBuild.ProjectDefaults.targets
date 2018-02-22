@@ -47,11 +47,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<!-- This will turn off the base UWP-specific 'ResolveNuGetPackages' target for Non-UWP targets -->
-		<ResolveNuGetPackages Condition="!$(TargetFramework.StartsWith('uap10.0'))">false</ResolveNuGetPackages>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 

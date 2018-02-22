@@ -33,15 +33,15 @@
 		<ProjectCapability Include="DependenciesTree" />
 
 		<ProjectCapability Include="
-						  AssemblyReferences;
-						  ProjectReferences;
-						  PackageReferences;
-						  OutputGroups;
-						  AllTargetOutputGroups;
-						  VisualStudioWellKnownOutputGroups;
-						  SingleFileGenerators;
-						  DeclaredSourceItems;
-						  UserSourceItems" />
+			AssemblyReferences;
+			ProjectReferences;
+			PackageReferences;
+			OutputGroups;
+			AllTargetOutputGroups;
+			VisualStudioWellKnownOutputGroups;
+			SingleFileGenerators;
+			DeclaredSourceItems;
+			UserSourceItems" />
 
 		<!-- Reference Manager capabilities -->
 		<ProjectCapability Include="ReferenceManagerAssemblies" />

@@ -48,10 +48,11 @@
 		<DebugType Condition="'$(DebugType)' == ''">portable</DebugType>
 
 		<!-- This will turn off the base UWP-specific 'ResolveNuGetPackages' target for Non-UWP targets -->
-		<!-- TODO: Check and remove this. since, MSBuild.ProjectDefaults.targets has the same logic -->
+		<!-- TODO: Check and remove this after 'ResolveNuGetPackages' logic for all Target Frameworks have been merged -->
 		<ResolveNuGetPackages Condition="!$(TargetFramework.StartsWith('uap10.0'))">false</ResolveNuGetPackages>
 
-		<!-- TODO: Check and Remove this. Skip import of Microsoft.NuGet.props and Microsoft.NuGet.targets -->
+		<!-- Skip import of Microsoft.NuGet.props and Microsoft.NuGet.targets -->
+		<!-- TODO: Check and Remove this after legacy extensions have been disabled -->
 		<SkipImportNuGetProps>true</SkipImportNuGetProps>
 		<SkipImportNuGetBuildTargets>true</SkipImportNuGetBuildTargets>
 

@@ -22,15 +22,15 @@
 		</ItemGroup>
 
 		<MSBuild
-				Projects="@(_ReferenceAssemblyProjects)"
-				Targets="GetTargetPathWithTargetPlatformMoniker">
+		Projects="@(_ReferenceAssemblyProjects)"
+		Targets="GetTargetPathWithTargetPlatformMoniker">
 			<Output TaskParameter="TargetOutputs" ItemName="IntersectionAssembly" />
 		</MSBuild>
 
 		<GetApiIntersectTargetPaths
-				Frameworks="%(ReferenceAssemblyFramework.Identity)"
-				RootOutputDirectory="$(IntermediateOutputPath)"
-				Assemblies="@(IntersectionAssembly)">
+			Frameworks="%(ReferenceAssemblyFramework.Identity)"
+			RootOutputDirectory="$(IntermediateOutputPath)"
+			Assemblies="@(IntersectionAssembly)">
 			<Output TaskParameter="TargetPaths" ItemName="_ReferenceAssemblyTargetPath" />
 		</GetApiIntersectTargetPaths>
 
@@ -60,29 +60,29 @@
 		</ItemGroup>
 
 		<ApiIntersect
-				Framework="%(ReferenceAssemblyFramework.Identity)"
-				RootOutputDirectory="$(IntermediateOutputPath)"
-				IntersectionAssembly="@(IntersectionAssembly)"
-				ReferencePath="@(_IntersectionReferencePath)"
-				ExcludeType="$(IntersectionExcludeType)"
-				RemoveAbstractTypeMembers="$(IntersectionRemoveAbstractTypeMembers)"
-				ExcludeAssembly="@(IntersectionExcludeAssembly)"
-				KeepInternalConstructors="$(IntersectionKeepInternalConstructors)"
-				KeepMarshalling="$(IntersectionKeepMarshalling)"
-				ToolPath="$(ApiIntersectToolPath)"
-				ToolExe="$(ApiIntersectToolExe)">
+			Framework="%(ReferenceAssemblyFramework.Identity)"
+			RootOutputDirectory="$(IntermediateOutputPath)"
+			IntersectionAssembly="@(IntersectionAssembly)"
+			ReferencePath="@(_IntersectionReferencePath)"
+			ExcludeType="$(IntersectionExcludeType)"
+			RemoveAbstractTypeMembers="$(IntersectionRemoveAbstractTypeMembers)"
+			ExcludeAssembly="@(IntersectionExcludeAssembly)"
+			KeepInternalConstructors="$(IntersectionKeepInternalConstructors)"
+			KeepMarshalling="$(IntersectionKeepMarshalling)"
+			ToolPath="$(ApiIntersectToolPath)"
+			ToolExe="$(ApiIntersectToolExe)">
 			<Output TaskParameter="OutputDirectory" ItemName="_ReferenceAssemblyBuildInfo" />
 		</ApiIntersect>
 
 		<GenerateAssemblyInfo
-				Assemblies="@(IntersectionAssembly)"
-				OutputDirectories="@(_ReferenceAssemblyBuildInfo->'%(Identity)Contract')">
+			Assemblies="@(IntersectionAssembly)"
+			OutputDirectories="@(_ReferenceAssemblyBuildInfo->'%(Identity)Contract')">
 			<Output TaskParameter="AssemblyName" PropertyName="_ReferenceAssemblyName" />
 		</GenerateAssemblyInfo>
 
 		<MSBuild
-				Projects="$(MSBuildThisFileDirectory)GenerateReferenceAssembly.csproj"
-				Properties="
+			Projects="$(MSBuildThisFileDirectory)GenerateReferenceAssembly.csproj"
+			Properties="
 				AssemblyName=$(_ReferenceAssemblyName);
 				SrcDir=%(_ReferenceAssemblyBuildInfo.FullPath);
 				OutputPath=%(_ReferenceAssemblyBuildInfo.FullPath)bin\;

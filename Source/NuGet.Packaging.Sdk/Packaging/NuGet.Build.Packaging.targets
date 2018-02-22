@@ -62,7 +62,7 @@
 	OUTPUTS:
 		$(PackageVersion)            The determined package version
 
-	=================================================================================================
+    =================================================================================================
 	-->
 	<PropertyGroup>
 		<GetPackageVersionDependsOn>
@@ -78,20 +78,20 @@
 	</Target>
 
 	<!--
-	=================================================================================================
+    =================================================================================================
 	GetPackageTargetPath
-	=================================================================================================
+    =================================================================================================
 
-	If the project builds a package (that is, it has a PackageId),
-	this target returns an item for the $(PackageTargetPath) that
-	the project builds, as well as manifest metadata included in
-	the project for the resulting package, not including its
-	contents and dependencies, which must be retrieved from the
-	GetPackageContents target instead.
+    If the project builds a package (that is, it has a PackageId),
+    this target returns an item for the $(PackageTargetPath) that
+    the project builds, as well as manifest metadata included in
+    the project for the resulting package, not including its
+    contents and dependencies, which must be retrieved from the
+    GetPackageContents target instead.
 
-	OUTPUTS:
-		@(PackageTargetPath)            The metadata of the package that would be built.
-	=================================================================================================
+    OUTPUTS:
+        @(PackageTargetPath)            The metadata of the package that would be built.
+    =================================================================================================
 	-->
 	<PropertyGroup>
 		<GetPackageTargetPathDependsOn>
@@ -109,6 +109,7 @@
 				<Version>$(PackageVersion)</Version>
 				<Serviceable>$(Serviceable)</Serviceable>
 				<DevelopmentDependency>$(DevelopmentDependency)</DevelopmentDependency>
+				<DevelopmentDependency Condition="'$(IsDevelopmentDependency)' == 'true'">true</DevelopmentDependency>
 
 				<Authors>$(Authors)</Authors>
 				<Owners>$(Owners)</Owners>
@@ -138,28 +139,28 @@
 	</Target>
 
 	<!--
-	=================================================================================================
+    =================================================================================================
 	PackageOutputGroup
-	=================================================================================================
+    =================================================================================================
 
 	For compatibility and naming consistency with the targets in AllProjectOutputGroups, this target
 	returns the same output as GetPackageTargetPath
 
-	OUTPUTS:
-		@(PackageTargetPath)            The metadata of the package that would be built.
-	=================================================================================================
-	-->
+    OUTPUTS:
+        @(PackageTargetPath)            The metadata of the package that would be built.
+    =================================================================================================
+    -->
 	<PropertyGroup>
 		<PackageOutputGroupDependsOn>GetPackageTargetPath;$(PackageOutputGroupDependsOn)</PackageOutputGroupDependsOn>
 	</PropertyGroup>
 	<Target Name="PackageOutputGroup" BeforeTargets="AllProjectOutputGroups" Returns="@(PackageTargetPath)" DependsOnTargets="$(PackageOutputGroupDependsOn)" />
 
 	<!--
-	=================================================================================================
+    =================================================================================================
 	GetPackageContents
-	=================================================================================================
+    =================================================================================================
 
-	Returns the "virtual package" for the current project, containing
+    Returns the "virtual package" for the current project, containing
 	all items that would end up in a .nupkg if the project were
 	to be packed.
 
@@ -173,9 +174,9 @@
 	All items returned from this target contain a %(PackageId) metadata
 	with the project's $(PackageId), if any.
 
-	OUTPUTS:
-		@(_PackageContent)            The contents that this project contributes to a package
-	=================================================================================================
+    OUTPUTS:
+        @(_PackageContent)            The contents that this project contributes to a package
+    =================================================================================================
 	-->
 	<PropertyGroup>
 		<GetPackageContentsDependsOn>
@@ -227,8 +228,8 @@
 			DependsOnTargets="$(_GetReferencedPackageContentsDependsOn)"
 			Returns="@(PackageFile)">
 		<Error Condition="'@(_NonNuGetizedProjectReference)' != ''"
-				   Code="NG0011"
-				   Text="Some project references cannot be properly packaged. Please install the NuGet.Build.Packaging package on the following projects: @(_NonNuGetizedProjectReference)." />
+			Code="NG0011"
+			Text="Some project references cannot be properly packaged. Please install the NuGet.Build.Packaging package on the following projects: @(_NonNuGetizedProjectReference)." />
 
 		<!--
 			PackageId metadata on all PackageFile items means we can tell appart which ones came from which dependencies
@@ -237,17 +238,17 @@
 		-->
 
 		<MSBuild Projects="@(_NuGetizedProjectReference)"
-					 Targets="GetPackageContents"
-					 BuildInParallel="$(BuildInParallel)"
-					 Properties="%(_NuGetizedProjectReference.SetConfiguration); %(_NuGetizedProjectReference.SetPlatform); BuildingPackage=$(BuildingPackage)"
-					 Condition="'@(ProjectReferenceWithConfiguration)' != '' and '@(_NuGetizedProjectReference)' != ''"
-					 RemoveProperties="%(_NuGetizedProjectReference.GlobalPropertiesToRemove)">
+			Targets="GetPackageContents"
+			BuildInParallel="$(BuildInParallel)"
+			Properties="%(_NuGetizedProjectReference.SetConfiguration); %(_NuGetizedProjectReference.SetPlatform); BuildingPackage=$(BuildingPackage)"
+			Condition="'@(ProjectReferenceWithConfiguration)' != '' and '@(_NuGetizedProjectReference)' != ''"
+			RemoveProperties="%(_NuGetizedProjectReference.GlobalPropertiesToRemove)">
 			<Output TaskParameter="TargetOutputs" ItemName="_ReferencedPackageContent" />
 		</MSBuild>
 
 		<ItemGroup>
 			<_ReferencedPackageDependency Include="@(_ReferencedPackageContent)"
-												Condition="'%(_ReferencedPackageContent.PackageId)' != '$(PackageId)' and '%(_ReferencedPackageContent.Kind)' == 'Metadata'">
+				Condition="'%(_ReferencedPackageContent.PackageId)' != '$(PackageId)' and '%(_ReferencedPackageContent.Kind)' == 'Metadata'">
 				<!-- For consistency, annotate like the rest -->
 				<PackageId Condition="'$(IsPackable)' == 'true'">$(PackageId)</PackageId>
 				<TargetFrameworkMoniker Condition="'$(IsPackagingProject)' != 'true'">$(TargetFrameworkMoniker)</TargetFrameworkMoniker>
@@ -255,15 +256,15 @@
 			</_ReferencedPackageDependency>
 			<!-- Remove the referenced package actual contents if it provides a manifest, since it will be a dependency in that case. -->
 			<_PackageContentFromDependency Include="@(_ReferencedPackageContent)"
-												 Condition="'%(_ReferencedPackageContent.PackageId)' != '' and
-													  '%(_ReferencedPackageContent.PackageId)' != '$(PackageId)'" />
+				Condition="'%(_ReferencedPackageContent.PackageId)' != '' and
+										              '%(_ReferencedPackageContent.PackageId)' != '$(PackageId)'" />
 			<_ReferencedPackageContent Remove="@(_PackageContentFromDependency)" />
 		</ItemGroup>
 
 		<!-- Always annotate package contents with the original target framework and moniker -->
 		<CreateItem Include="@(_ReferencedPackageContent)" PreserveExistingMetadata="true"
-						Condition="'@(_ReferencedPackageContent)' != ''"
-						AdditionalMetadata="OriginalTargetFramework=%(_ReferencedPackageContent.TargetFramework);OriginalTargetFrameworkMoniker=%(_ReferencedPackageContent.TargetFrameworkMoniker)">
+			Condition="'@(_ReferencedPackageContent)' != ''"
+			AdditionalMetadata="OriginalTargetFramework=%(_ReferencedPackageContent.TargetFramework);OriginalTargetFrameworkMoniker=%(_ReferencedPackageContent.TargetFrameworkMoniker)">
 			<Output TaskParameter="Include" ItemName="_ReferencedPackageContentWithOriginalValues"/>
 		</CreateItem>
 
@@ -273,7 +274,7 @@
 				<PackageId Condition="'$(IsPackable)' == 'true'">$(PackageId)</PackageId>
 				<!-- Clear the target framework since it trumps the TFM in AsignPackagePath now -->
 				<!-- Only do this for assets that come from project references that don't build nugets themselves (IsPackagingProject=='true' above) -->
-				<TargetFramework></TargetFramework>
+				<TargetFramework />
 				<!-- NOTE: we're always overwriting the TFM for framework-specific
 					 items in this case since this item will end up making up the
 					 contents of this package project in its current TFM configuration.
@@ -291,7 +292,7 @@
 				<PackageId Condition="'$(IsPackable)' == 'true'">$(PackageId)</PackageId>
 				<!-- Clear the target framework since it trumps the TFM in AsignPackagePath now -->
 				<!-- Only do this for framework-specifc assets that come from project references that don't build nugets (PackageId=='' above) -->
-				<TargetFramework Condition="'%(_ReferencedPackageContentWithOriginalValues.FrameworkSpecific)' == 'true'"></TargetFramework>
+				<TargetFramework Condition="'%(_ReferencedPackageContentWithOriginalValues.FrameworkSpecific)' == 'true'" />
 				<TargetFrameworkMoniker>%(_ReferencedPackageContentWithOriginalValues.OriginalTargetFrameworkMoniker)</TargetFrameworkMoniker>
 			</_ReferencedPackageContentWithOriginalValues>
 		</ItemGroup>
@@ -309,15 +310,15 @@
 
 	<!-- This target separates project references that have the packaging targets from those that don't -->
 	<Target Name="_SplitProjectReferencesByIsNuGetized"
-			  Condition="'@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''"
-			  Inputs="@(_MSBuildProjectReferenceExistent)"
-			  Outputs="%(_MSBuildProjectReferenceExistent.Identity)-BATCH">
+			Condition="'@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceExistent)' != ''"
+			Inputs="@(_MSBuildProjectReferenceExistent)"
+			Outputs="%(_MSBuildProjectReferenceExistent.Identity)-BATCH">
 
 		<MSBuild Projects="@(_MSBuildProjectReferenceExistent)"
-				 Targets="GetTargetPathWithTargetPlatformMoniker"
-				 BuildInParallel="$(BuildInParallel)"
-				 Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration); %(_MSBuildProjectReferenceExistent.SetPlatform)"
-				 RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)">
+			Targets="GetTargetPathWithTargetPlatformMoniker"
+			BuildInParallel="$(BuildInParallel)"
+			Properties="%(_MSBuildProjectReferenceExistent.SetConfiguration); %(_MSBuildProjectReferenceExistent.SetPlatform)"
+			RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)">
 			<Output TaskParameter="TargetOutputs" ItemName="_ReferencedProjectTargetPath" />
 		</MSBuild>
 
@@ -389,7 +390,7 @@
 
 	<Import Project="NuGet.Build.Packaging.ReferenceAssembly.targets" />
 	<Import Project="NuGet.Build.Packaging.Authoring.targets" Condition="'$(IsPackagingProject)' == 'true'" />
-	<Import Project="NuGet.Build.Packaging.CrossTargeting.targets" Condition="'$(IsCrossTargetingBuild)' == 'true' And '$(FromPackagingProject)' == 'true'" />
+	<Import Project="NuGet.Build.Packaging.MultiTargeting.targets" Condition="'$(IsMultiTargetingBuild)' == 'true' And '$(FromPackagingProject)' == 'true'" />
 	<Import Project="NuGet.Build.Packaging.Legacy.targets" />
 
 </Project>

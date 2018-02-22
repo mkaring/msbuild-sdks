@@ -30,14 +30,14 @@
 
 	<!--
 	============================================================
-							 GetPackageContents
+						GetPackageContents
 	Cross-targeting version of GetPackageContents.
 	NOTE: depends on Microsoft.Common.CrossTargeting.targets
 
 	[OUT]
 	@(InnerOutput) - The combined output items of the inner targets across all builds.
-  ============================================================
-  -->
+	============================================================
+	-->
 	<Target Name="GetPackageContents" DependsOnTargets="_SetGetPackageContentsInnerTarget;DispatchToInnerBuilds" Returns="@(InnerOutput)" />
 
 	<Target Name="_SetGetPackageContentsInnerTarget">
