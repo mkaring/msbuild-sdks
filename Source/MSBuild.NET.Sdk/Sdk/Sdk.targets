@@ -1,32 +1,21 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />
+	<!--<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />-->
 
-	<!-- TODO: Remove once the migration is done. -->
-	<PropertyGroup Label="Configure">
-		<!-- Disable `ProjectCore` targets provided within the `MSBuild.Core.Sdk` -->
-		<ImportProjectCoreTargets>false</ImportProjectCoreTargets>
+	<PropertyGroup>
+		<!-- ISSUE: We need to import 'MSBuild.NET.Sdk.targets' after the 'ProjectCore.targets' in the 'MSBuild.Core.Sdk' since it depends on it's core defaults -->
+		<CustomProjectExtensionTargets>$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets</CustomProjectExtensionTargets>
+		<ImportLegacyTargets>false</ImportLegacyTargets>
 	</PropertyGroup>
 
 	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />
 
 	<PropertyGroup>
-		<!-- TODO: Change once the migration is done. -->
 		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">false</ImportNuGetPackagingSdkTargets>
-		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' == '1.0'" />
 	</PropertyGroup>
 
 	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'" />
-
-	<!-- TODO: Remove the hook, once the migration is done. Import targets from NuGet.Build.Tasks.Pack package/Sdk -->
-	<PropertyGroup Condition="'$(NuGetBuildTasksPackTargets)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' != 'false'">
-		<NuGetBuildTasksPackTargets Condition="'$(IsMultiTargetingBuild)' == 'true'">$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
-		<NuGetBuildTasksPackTargets Condition="'$(IsMultiTargetingBuild)' != 'true'">$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
-		<ImportNuGetBuildTasksPackTargetsFromSdk>true</ImportNuGetBuildTasksPackTargetsFromSdk>
-	</PropertyGroup>
-
-	<!-- These are old NuGet Properties specific to 'NuGet.Build.Tasks.Pack', now superseeded by 'NuGet.Packaging.Sdk' Package -->
-	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'true'" />
+	<Import Project="Sdk.Pack.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' != 'true'" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

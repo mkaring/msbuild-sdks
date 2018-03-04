@@ -1,9 +1,16 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Defaults.AssemblyInfo.targets" />
+	<!--
+		Sets RestoreAdditionalProjectSources or RestoreAdditionalProjectFallbackFolders to the SDK Offline Cache
+		based on the TargetFramework.
+	-->
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\NuGet.OfflineCache.targets" />
 
-	<!-- Set default intermediate and output paths -->
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Defaults.OutputPaths.targets" />
+	<!--
+		Expand TargetFramework to TargetFrameworkIdentifier and TargetFrameworkVersion,
+		and adjust intermediate and output paths to include it.
+	-->
+	<!--<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.FrameworkInference.targets" />-->
 
 	<PropertyGroup>
 		<_IsExecutable Condition="'$(OutputType)' == 'Exe' or '$(OutputType)'=='WinExe'">true</_IsExecutable>
@@ -13,12 +20,6 @@
 		<HasRuntimeOutput>$(_IsExecutable)</HasRuntimeOutput>
 		<_UsingDefaultForHasRuntimeOutput>true</_UsingDefaultForHasRuntimeOutput>
 	</PropertyGroup>
-
-	<!--
-		Expand TargetFramework to TargetFrameworkIdentifier and TargetFrameworkVersion,
-		and adjust intermediate and output paths to include it.
-	-->
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.TargetFrameworkInference.targets" />
 
 	<!--
 		Use RuntimeIdentifier to determine PlatformTarget.
@@ -67,9 +68,9 @@
 		<PublishDirName Condition="'$(PublishDirName)' == ''">publish</PublishDirName>
 		<!-- ensure the PublishDir is RID specific-->
 		<PublishDir Condition="'$(PublishDir)' == '' and
-							'$(AppendRuntimeIdentifierToOutputPath)' != 'true' and
-							'$(RuntimeIdentifier)' != '' and
-							'$(_UsingDefaultRuntimeIdentifier)' != 'true'">$(OutputPath)$(RuntimeIdentifier)\$(PublishDirName)\</PublishDir>
+			'$(AppendRuntimeIdentifierToOutputPath)' != 'true' and
+			'$(RuntimeIdentifier)' != '' and
+			'$(_UsingDefaultRuntimeIdentifier)' != 'true'">$(OutputPath)$(RuntimeIdentifier)\$(PublishDirName)\</PublishDir>
 		<PublishDir Condition="'$(PublishDir)' == ''">$(OutputPath)$(PublishDirName)\</PublishDir>
 	</PropertyGroup>
 
@@ -79,12 +80,6 @@
 		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
 		<_TargetFrameworkVersionWithoutV Condition="$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion.Substring(1))</_TargetFrameworkVersionWithoutV>
 	</PropertyGroup>
-
-	<!--
-		Sets RestoreAdditionalProjectSources or RestoreAdditionalProjectFallbackFolders to the SDK Offline Cache based
-		on the TargetFramework.
-	-->
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.NuGetOfflineCache.targets" />
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' and '$(TargetFrameworkIdentifier)' == '.NETFramework'">
 

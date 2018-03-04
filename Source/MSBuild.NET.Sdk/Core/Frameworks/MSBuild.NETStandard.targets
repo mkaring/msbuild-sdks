@@ -20,7 +20,7 @@
 		<ImplicitPackageVersion Condition="'$(ImplicitPackageVersion)' == ''">2.0.1</ImplicitPackageVersion>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\MSBuild.NET.Defaults.targets" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

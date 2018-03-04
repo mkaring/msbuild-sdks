@@ -1,19 +1,37 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
-	</PropertyGroup>
+	<!-- Set default intermediate and output paths -->
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.OutputPaths.targets" />
 
-	<!-- TODO: Needed for overriding Output paths in 'Microsoft.NET.Sdk'. Remove it once the migration is done -->
-	<Import Project="$(MSBuildCoreSdkPath)Core\MSBuild.OutputPaths.targets" />
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).Before.targets" />
+	<!-- Set default assembly info properties -->
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.AssemblyInfo.targets" />
 
 	<ImportGroup>
 		<!-- Check if we already imported them as props. -->
 		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
 	</ImportGroup>
+
+	<ImportGroup Condition="'$(TargetPlatform)' != ''">
+		<!-- We need to init _SdkPlatformName, etc. properties. -->
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.PlatformInference.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).props" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).targets" />
+	</ImportGroup>
+
+	<ImportGroup Condition="'$(TargetFramework)' != ''">
+		<!-- We need to init _SdkFrameworkName, etc. properties. -->
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).targets" />
+	</ImportGroup>
+
+	<PropertyGroup>
+		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
+		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.BeforeLegacy.$(_SdkBuildTargeting).targets" />
 
 	<!--
 		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
@@ -46,21 +64,7 @@
 		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.$(_SdkBuildTargeting).After.targets" />
-
-	<ImportGroup Condition="'$(TargetPlatform)' != ''">
-		<!-- We need to init _SdkPlatformName, etc. properties. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.PlatformInference.props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).targets" />
-	</ImportGroup>
-
-	<ImportGroup Condition="'$(TargetFramework)' != ''">
-		<!-- We need to init _SdkFrameworkName, etc. properties. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).targets" />
-	</ImportGroup>
+	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.AfterLegacy.$(_SdkBuildTargeting).targets" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

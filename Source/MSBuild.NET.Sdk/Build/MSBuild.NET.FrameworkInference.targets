@@ -27,7 +27,7 @@
 		or TargetFrameworkVersion that is already set.
 	-->
 
-	<PropertyGroup Condition="!$(TargetFramework.Contains(','))'">
+	<PropertyGroup Condition="!$(TargetFramework.Contains(','))">
 		<!-- Convert $(TargetFramework) to lower case -->
 		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 		<!-- if net-client is only specified then default to the highest supported version of the profile -->
@@ -40,11 +40,11 @@
 			net45 into 'net', '45'
 			net40-client into 'net', '40', '+client+'
 			portable45-net45+win8+wp8+wpa81 into 'portable', '45', '+net45+win8+wp8+wpa81+'
-	--->
+	-->
 	<Choose>
-		<When Condition="$(TargetFramework.Contains(','))'" />
+		<When Condition="$(TargetFramework.Contains(','))" />
 
-		<When Condition="$(TargetFramework.Contains('-'))'">
+		<When Condition="$(TargetFramework.Contains('-'))">
 			<!-- Handle short framework ids with profiles -->
 			<PropertyGroup>
 				<_ShortFrameworkIdentifierWithVersion>$(TargetFramework.Split('-')[0])</_ShortFrameworkIdentifierWithVersion>
@@ -145,7 +145,7 @@
 	</Target>
 
 	<Target Name="_CollectTargetFrameworkForTelemetry" AfterTargets="_CheckForUnsupportedTargetFramework">
-		<Telemetry EventName="targetframeworkeval" EventData="TargetFrameworkVersion=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))" />
+		<Telemetry EventName="targetframeworkeval" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))" />
 	</Target>
 
 	<!--
