@@ -6,13 +6,8 @@
 	<!-- Set default assembly info properties -->
 	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.AssemblyInfo.targets" />
 
-	<ImportGroup>
-		<!-- Check if we already imported them as props. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
-	</ImportGroup>
-
-	<ImportGroup Condition="'$(TargetFramework)' != ''">
+	<!--<ImportGroup Condition="'$(TargetFramework)' != ''">-->
+	<ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true' OR '$(TargetFramework)' != ''">
 		<!-- We need to init _SdkFrameworkName, etc. properties. -->
 		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.targets" />
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
@@ -65,6 +60,13 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.AfterLegacy.$(_SdkBuildTargeting).targets" />
+
+	<!--<ImportGroup>-->
+	<ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
+		<!-- Check if we already imported them as props. -->
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
+	</ImportGroup>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

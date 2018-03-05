@@ -12,7 +12,7 @@
 		<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets" Condition="Exists('$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets')" />
 	</ImportGroup>
 
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Sdk.DefaultItems.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.targets" />
 
 	<UsingTask TaskName="GenerateDepsFile" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
 	<UsingTask TaskName="GenerateRuntimeConfigurationFiles" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
@@ -109,22 +109,22 @@
 			should be included during 'Build'. They are only excluded on 'Publish'.
 		-->
 		<GenerateDepsFile ProjectPath="$(MSBuildProjectFullPath)"
-											AssetsFilePath="$(ProjectAssetsFile)"
-											DepsFilePath="$(ProjectDepsFilePath)"
-											TargetFramework="$(TargetFrameworkMoniker)"
-											AssemblyName="$(AssemblyName)"
-											AssemblyExtension="$(TargetExt)"
-											AssemblyVersion="$(Version)"
-											AssemblySatelliteAssemblies="@(IntermediateSatelliteAssembliesWithTargetPath)"
-											ReferencePaths="@(ReferencePath)"
-											ReferenceSatellitePaths="@(ReferenceSatellitePaths)"
-											ReferenceAssemblies="@(_ReferenceAssemblies)"
-											IncludeMainProject="$(IncludeMainProjectInDepsFile)"
-											RuntimeIdentifier="$(RuntimeIdentifier)"
-											PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
-											FilesToSkip="@(_ConflictPackageFiles)"
-											CompilerOptions="@(DependencyFileCompilerOptions)"
-											IsSelfContained="$(SelfContained)">
+			AssetsFilePath="$(ProjectAssetsFile)"
+			DepsFilePath="$(ProjectDepsFilePath)"
+			TargetFramework="$(TargetFrameworkMoniker)"
+			AssemblyName="$(AssemblyName)"
+			AssemblyExtension="$(TargetExt)"
+			AssemblyVersion="$(Version)"
+			AssemblySatelliteAssemblies="@(IntermediateSatelliteAssembliesWithTargetPath)"
+			ReferencePaths="@(ReferencePath)"
+			ReferenceSatellitePaths="@(ReferenceSatellitePaths)"
+			ReferenceAssemblies="@(_ReferenceAssemblies)"
+			IncludeMainProject="$(IncludeMainProjectInDepsFile)"
+			RuntimeIdentifier="$(RuntimeIdentifier)"
+			PlatformLibraryName="$(MicrosoftNETPlatformLibrary)"
+			FilesToSkip="@(_ConflictPackageFiles)"
+			CompilerOptions="@(DependencyFileCompilerOptions)"
+			IsSelfContained="$(SelfContained)">
 		</GenerateDepsFile>
 
 		<ItemGroup>
@@ -143,7 +143,6 @@
 	Generates the $(project).runtimeconfig.json and $(project).runtimeconfig.dev.json files during Build
 	============================================================
 	-->
-
 	<Target Name="GenerateBuildRuntimeConfigurationFiles"
 			DependsOnTargets="_DefaultMicrosoftNETPlatformLibrary"
 			BeforeTargets="CopyFilesToOutputDirectory"
@@ -218,7 +217,6 @@
 	Defaults @(RuntimeHostConfigurationOption) items based on MSBuild properties.
 	============================================================
 	-->
-
 	<ItemGroup>
 		<RuntimeHostConfigurationOption Include="System.GC.Concurrent"
 										Condition="'$(ConcurrentGarbageCollection)' != ''"
@@ -248,7 +246,6 @@
 	Adds the default @(AdditionalProbingPath) items.
 	============================================================
 	-->
-
 	<ItemGroup Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true' and '$(SkipDefaultAdditionalProbingPaths)' != 'true'">
 		<!-- Note: can't use Path.Combine here since `|` is an illegal path character -->
 		<AdditionalProbingPath Include="$(UserProfileRuntimeStorePath)$([System.IO.Path]::DirectorySeparatorChar)|arch|$([System.IO.Path]::DirectorySeparatorChar)|tfm|" />
@@ -367,7 +364,6 @@
 	The ProcessStart information that can be used to run this project.
 	============================================================
 	-->
-
 	<PropertyGroup>
 		<RunWorkingDirectory Condition="'$(RunWorkingDirectory)' == ''">$(StartWorkingDirectory)</RunWorkingDirectory>
 	</PropertyGroup>
@@ -534,7 +530,6 @@
 						Project Capabilities
 	============================================================
 	-->
-
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(_IsExecutable)' == 'true'">
 		<ProjectCapability Include="CrossPlatformExecutable" />
 	</ItemGroup>
@@ -558,8 +553,6 @@
 	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.targets" />
 	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PreserveCompilationContext.targets" />
 	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ConflictResolution.targets" />
-
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\Microsoft.$(_SdkLanguageName).targets" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
