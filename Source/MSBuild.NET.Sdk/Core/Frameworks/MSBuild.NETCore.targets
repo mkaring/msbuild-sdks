@@ -32,17 +32,17 @@
 		<!-- If the ImplicitPackageVersion is already set, do nothing -->
 		<When Condition="'$(ImplicitPackageVersion)' != ''" />
 
-		<When Condition="$(_TargetFrameworkVersionWithoutV.StartsWith('4.5'))">
+		<When Condition="$(TargetFrameworkVersion.StartsWith('4.5'))">
 			<PropertyGroup>
 				<DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '5.0'">
+		<When Condition="'$(TargetFrameworkVersion)' == '5.0'">
 			<PropertyGroup>
 				<ImplicitPackageVersion>5.4.1</ImplicitPackageVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '6.0'">
+		<When Condition="'$(TargetFrameworkVersion)' == '6.0'">
 			<PropertyGroup>
 				<ImplicitPackageVersion>6.0.2</ImplicitPackageVersion>
 			</PropertyGroup>
@@ -51,7 +51,7 @@
 		<!-- If not covered by the previous cases, use the target framework version for the ImplicitPackageVersion -->
 		<Otherwise>
 			<PropertyGroup>
-				<ImplicitPackageVersion>$(_TargetFrameworkVersionWithoutV)</ImplicitPackageVersion>
+				<ImplicitPackageVersion>$(TargetFrameworkVersion)</ImplicitPackageVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>

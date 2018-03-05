@@ -19,12 +19,11 @@
 			<TargetFrameworks>portable-net451+win81;xyz1.0</TargetFrameworks>
 		<PropertyGroup>
 		<PropertyGroup Condition="'$(TargetFramework)' == 'xyz1.0'">
-			<TargetFrameworkIdentifier>Xyz</TargetFrameworkVersion>
+			<TargetFrameworkIdentifier>Xyz</TargetFrameworkIdentifier>
 		<PropertyGroup>
 
 		Note in the xyz1.0 case, which is meant to demonstrate a framework we don't yet recognize, we can still
-		infer the version of 1.0. The user can also override it as always we honor a TargetFrameworkIdentifier
-		or TargetFrameworkVersion that is already set.
+		infer the version of 1.0. The user can also override it as always we honor a value that is already set.
 	-->
 
 	<PropertyGroup Condition="!$(TargetFramework.Contains(','))">
@@ -94,29 +93,33 @@
 
 	<Choose>
 		<When Condition="'$(_ShortFrameworkVersion)' != '' AND $(_ShortFrameworkVersion.Contains('.'))">
-			<!-- Versions with dots are taken as is and just given leading 'v'. -->
+			<!-- Versions with dots are taken as is. -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
-				<TargetFrameworkVersion>v$(_ShortFrameworkVersion)</TargetFrameworkVersion>
+				<TargetFrameworkVersion>$(_ShortFrameworkVersion)</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(_ShortFrameworkVersion)' != ''">
-			<!-- Versions with no dots and up to 3 characters get leading 'v' and implicit dots between characters. -->
+			<!-- Versions with no dots and up to 3 characters and implicit dots between characters. -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
-				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 1">v$(_ShortFrameworkVersion[0]).0</TargetFrameworkVersion>
-				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 2">v$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1])</TargetFrameworkVersion>
-				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 3">v$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1]).$(_ShortFrameworkVersion[2])</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 1">$(_ShortFrameworkVersion[0]).0</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 2">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1])</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 3">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1]).$(_ShortFrameworkVersion[2])</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
-		<Otherwise />
+		<Otherwise>
+			<PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
+				<TargetFrameworkVersion>$(TargetFrameworkVersion.TrimStart('vV'))</TargetFrameworkVersion>
+			</PropertyGroup>
+		</Otherwise>
 	</Choose>
 
 	<!--
 		Trigger an error if we're unable to infer the framework identifier and version.
 
 		We have to evaluate this here and not in the target because by the time the target runs,
-		Microsoft.Common.targets will have defaulted to .NETFramework,Version=v4.0
+		It will have defaulted to .NETFramework,Version=v4.0
 	-->
 	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkVersion)' == ''">
 		<_UnsupportedTargetFrameworkError>true</_UnsupportedTargetFrameworkError>
@@ -125,7 +128,7 @@
 	<!--
 		NOTE:
 		We must not validate the TFM before restore target runs as it prevents adding additional TFM
-		support from being provided by a nuget package such as MSBuild.Sdk.Extras.
+		support from being provided by a nuget package such as MSBuild.NET.Extras.Sdk.
 
 		We run before RunResolvePackageDependencies and GetReferenceAssemblyPaths so that design-time builds
 		which do not currently invoke _CheckForInvalidConfigurationAndPlatform, will not trigger spurious
@@ -158,13 +161,12 @@
 	-->
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v0.0</TargetFrameworkVersion>
+		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<!--
 		Trigger an error if targeting a higher version of .NET Core or .NET Standard than is supported by the current SDK.
 	-->
-
 	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' != '_' AND '$(TargetFrameworkMaxVersion)' == ''">
 		<TargetFrameworkDisplayName Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">.NET Core</TargetFrameworkDisplayName>
 		<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">$(BundledNETCoreAppTargetFrameworkVersion)</TargetFrameworkMaxVersion>
@@ -177,9 +179,9 @@
 		BeforeTargets="_CheckForInvalidConfigurationAndPlatform;Restore;CollectPackageReferences"
 		Condition="'$(TargetFrameworkIdentifier)' != '_' AND '$(TargetFrameworkMaxVersion)' != ''">
 
-		<NETSdkError Condition="'$(_TargetFrameworkVersionWithoutV)' > '$(TargetFrameworkMaxVersion)'"
+		<NETSdkError Condition="'$(TargetFrameworkVersion)' > '$(TargetFrameworkMaxVersion)'"
 			ResourceName="UnsupportedTargetFrameworkVersion"
-			FormatArguments="$(TargetFrameworkDisplayName);$(_TargetFrameworkVersionWithoutV);$(TargetFrameworkMaxVersion)" />
+			FormatArguments="$(TargetFrameworkDisplayName);$(TargetFrameworkVersion);$(TargetFrameworkMaxVersion)" />
 	</Target>
 
 	<PropertyGroup>
@@ -187,8 +189,7 @@
 	</PropertyGroup>
 
 	<!--
-		Append $(TargetFramework) directory to output and intermediate paths to prevent bin clashes between
-		targets.
+		Append $(TargetFramework) directory to output and intermediate paths to prevent bin clashes between targets.
 	-->
 	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true' and '$(TargetFramework)' != '' and '$(_UnsupportedTargetFrameworkError)' != 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(TargetFramework)\</IntermediateOutputPath>

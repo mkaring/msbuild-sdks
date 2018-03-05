@@ -35,17 +35,17 @@
 		<!-- If the ImplicitPackageVersion is already set, do nothing -->
 		<When Condition="'$(ImplicitPackageVersion)' != ''" />
 
-		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '1.0'">
+		<When Condition="'$(TargetFrameworkVersion)' == '1.0'">
 			<PropertyGroup>
 				<ImplicitPackageVersion>1.0.5</ImplicitPackageVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '1.1'">
+		<When Condition="'$(TargetFrameworkVersion)' == '1.1'">
 			<PropertyGroup>
 				<ImplicitPackageVersion>1.1.2</ImplicitPackageVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '2.0'">
+		<When Condition="'$(TargetFrameworkVersion)' == '2.0'">
 			<PropertyGroup>
 				<ImplicitPackageVersion Condition="'$(SelfContained)' != 'true'">2.0.0</ImplicitPackageVersion>
 				<ImplicitPackageVersion Condition="'$(SelfContained)' == 'true'">2.0.1</ImplicitPackageVersion>
@@ -55,7 +55,7 @@
 		<!-- If not covered by the previous cases, use the target framework version for the ImplicitPackageVersion -->
 		<Otherwise>
 			<PropertyGroup>
-				<ImplicitPackageVersion>$(_TargetFrameworkVersionWithoutV)</ImplicitPackageVersion>
+				<ImplicitPackageVersion>$(TargetFrameworkVersion)</ImplicitPackageVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>

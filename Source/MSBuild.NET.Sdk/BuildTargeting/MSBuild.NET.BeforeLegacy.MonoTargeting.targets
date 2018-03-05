@@ -25,11 +25,10 @@
 		Use RuntimeIdentifier to determine PlatformTarget.
 		Also, enforce that RuntimeIdentifier is always specified for .NETFramework executables.
 	-->
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.RuntimeIdentifierInference.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.RuntimeInference.targets" />
 
 	<PropertyGroup Condition="'$(_IsNETCoreOrNETStandard)' == ''">
-		<_IsNETCoreOrNETStandard Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">true</_IsNETCoreOrNETStandard>
-		<_IsNETCoreOrNETStandard Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'">true</_IsNETCoreOrNETStandard>
+		<_IsNETCoreOrNETStandard Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard' OR '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">true</_IsNETCoreOrNETStandard>
 	</PropertyGroup>
 
 	<!-- Unification / automatic binding redirect logic -->
@@ -77,52 +76,11 @@
 	<!-- For .NET Framework, reference core assemblies -->
 
 	<PropertyGroup>
-		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
-		<_TargetFrameworkVersionWithoutV Condition="$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion.Substring(1))</_TargetFrameworkVersionWithoutV>
-	</PropertyGroup>
-
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' and '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-
-		<_SDKImplicitReference Include="System"/>
-		<_SDKImplicitReference Include="System.Data"/>
-		<_SDKImplicitReference Include="System.Drawing"/>
-		<_SDKImplicitReference Include="System.Xml"/>
-
-		<!-- When doing greater than/less than comparisons between strings, MSBuild will try to parse the strings as Version objects and compare them as
-			such if the parse succeeds. -->
-
-		<!-- Framework assemblies introduced in .NET 3.5 -->
-		<_SDKImplicitReference Include="System.Core" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'" />
-		<_SDKImplicitReference Include="System.Runtime.Serialization" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'" />
-		<_SDKImplicitReference Include="System.Xml.Linq" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'" />
-
-		<!-- Framework assemblies introduced in .NET 4.0 -->
-		<_SDKImplicitReference Include="System.Numerics" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'" />
-
-		<!-- Framework assemblies introduced in .NET 4.5 -->
-		<_SDKImplicitReference Include="System.IO.Compression.FileSystem" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.5'" />
-
-		<!-- Don't automatically reference System.IO.Compression or System.Net.Http to help avoid hitting https://github.com/Microsoft/msbuild/issues/1329. -->
-		<!--<Reference Include="System.IO.Compression" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.5'" />
-		<_SDKImplicitReference Include="System.Net.Http" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.5'" />-->
-
-		<!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
-		<_SDKImplicitReference Update="@(_SDKImplicitReference)" Pack="false" />
-
-		<!-- Don't duplicate any references that are explicit in the project file.  This means that if you do want to include a framework assembly in your
-			NuGet package, you can just add the Reference to your project file. -->
-		<_SDKImplicitReference Remove="@(Reference)" />
-
-		<!-- Add the implicit references to @(Reference) -->
-		<Reference Include="@(_SDKImplicitReference)" />
-	</ItemGroup>
-
-	<PropertyGroup>
 		<!-- Prevent System.Core reference from being added separately (see Microsoft.NETFramework.CurrentVersion.props) -->
 		<AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(DisableImplicitAssetTargetFallback)' != 'true' and '$(_IsNETCoreOrNETStandard)' == 'true' and '$(_TargetFrameworkVersionWithoutV)' >= '2.0'">
+	<PropertyGroup Condition="'$(DisableImplicitAssetTargetFallback)' != 'true' and '$(_IsNETCoreOrNETStandard)' == 'true' and '$(TargetFrameworkVersion)' >= '2.0'">
 		<AssetTargetFallback>$(AssetTargetFallback);net461</AssetTargetFallback>
 	</PropertyGroup>
 
@@ -131,11 +89,8 @@
 		<_FrameworkIdentifierForImplicitDefine>$(TargetFrameworkIdentifier.Replace('.', '').ToUpperInvariant())</_FrameworkIdentifierForImplicitDefine>
 		<_FrameworkIdentifierForImplicitDefine Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">NET</_FrameworkIdentifierForImplicitDefine>
 
-		<_FrameworkVersionForImplicitDefine Condition="$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion.Substring(1))</_FrameworkVersionForImplicitDefine>
-		<_FrameworkVersionForImplicitDefine Condition="!$(TargetFrameworkVersion.StartsWith('v'))">$(TargetFrameworkVersion)</_FrameworkVersionForImplicitDefine>
-
+		<_FrameworkVersionForImplicitDefine>$(TargetFrameworkVersion)</_FrameworkVersionForImplicitDefine>
 		<_FrameworkVersionForImplicitDefine>$(_FrameworkVersionForImplicitDefine.Replace('.', '_'))</_FrameworkVersionForImplicitDefine>
-
 		<_FrameworkVersionForImplicitDefine Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">$(_FrameworkVersionForImplicitDefine.Replace('_', ''))</_FrameworkVersionForImplicitDefine>
 
 		<ImplicitFrameworkDefine>$(_FrameworkIdentifierForImplicitDefine)$(_FrameworkVersionForImplicitDefine)</ImplicitFrameworkDefine>

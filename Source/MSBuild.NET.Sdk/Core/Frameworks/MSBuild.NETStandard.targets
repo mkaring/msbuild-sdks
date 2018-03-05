@@ -14,7 +14,7 @@
 			updating to the 2.0 or higher SDK. When targeting .NET Standard 2.0 or higher, the NETStandard.Library reference won't show up as a dependency of the package
 			produced, so we will roll forward to the latest version.
 		-->
-		<ImplicitPackageVersion Condition="'$(ImplicitPackageVersion)' == '' AND '$(_TargetFrameworkVersionWithoutV)' &lt; '2.0'">1.6.1</ImplicitPackageVersion>
+		<ImplicitPackageVersion Condition="'$(ImplicitPackageVersion)' == '' AND '$(TargetFrameworkVersion)' &lt; '2.0'">1.6.1</ImplicitPackageVersion>
 
 		<!-- Default to use the latest stable release. Currently this is the same as the previous clause, but when we have a stable 2.0 package this should change. -->
 		<ImplicitPackageVersion Condition="'$(ImplicitPackageVersion)' == ''">2.0.1</ImplicitPackageVersion>
