@@ -27,9 +27,9 @@
 		<HasRuntimeOutput Condition="'$(_UsingDefaultForHasRuntimeOutput)' == 'true'">$(_IsExecutable)</HasRuntimeOutput>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(CliToolTargetFramework)' == '' And '$(BundledNETCoreAppTargetFrameworkVersion)' != ''">
+	<PropertyGroup Condition="'$(DotnetCliToolTargetFramework)' == '' And '$(BundledNETCoreAppTargetFrameworkVersion)' != ''">
 		<!-- Set the TFM used to restore .NET CLI tools to match the version of .NET Core bundled in the CLI -->
-		<CliToolTargetFramework>netcoreapp$(BundledNETCoreAppTargetFrameworkVersion)</CliToolTargetFramework>
+		<DotnetCliToolTargetFramework>netcoreapp$(BundledNETCoreAppTargetFrameworkVersion)</DotnetCliToolTargetFramework>
 	</PropertyGroup>
 
 	<UsingTask TaskName="GetNearestTargetFramework" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />

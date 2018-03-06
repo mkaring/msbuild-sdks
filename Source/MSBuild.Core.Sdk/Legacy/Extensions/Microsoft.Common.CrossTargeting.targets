@@ -10,14 +10,6 @@
 	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" />
 	<Import Project="$(CustomAfterMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomAfterMicrosoftCommonCrossTargetingTargets)' == '' and Exists('$(CustomAfterMicrosoftCommonCrossTargetingTargets)')" />
 
-	<!-- This will import NuGet restore targets. We need restore to work before any package assets are available. -->
-	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == ''">$(MSBuildToolsPath)\NuGet.targets</NuGetRestoreTargets>
-	</PropertyGroup>
-	<Import Project="$(NuGetRestoreTargets)" />
-
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets>
 		<_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>
