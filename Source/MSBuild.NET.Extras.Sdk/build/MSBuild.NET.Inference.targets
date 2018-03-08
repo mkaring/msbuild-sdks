@@ -5,20 +5,18 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en</DefaultLanguage>
-		<_SdkVisualStudioVersion>$(VisualStudioVersion)</_SdkVisualStudioVersion>
-		<_SdkVisualStudioVersion Condition="'$(_SdkVisualStudioVersion)' == '' or '$(_SdkVisualStudioVersion)' &lt; '14.0'">15.0</_SdkVisualStudioVersion>
+		<!-- Convert $(TargetFramework) to lower case -->
+		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
+		<!-- if net-client is only specified then default to the highest supported version of the profile -->
+		<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
 	</PropertyGroup>
 
 	<Choose>
-		<When Condition="'$(TargetFramework)' != '' AND $(TargetFramework.Contains(','))" />
+		<When Condition="$(TargetFramework.Contains(','))" />
 
-		<When Condition="'$(TargetFramework)' != '' AND $(TargetFramework.Contains('-'))">
-			<!-- Handle legacy PCL and client profiles -->
-			<PropertyGroup Condition="'$(TargetFramework)' != ''" >
-				<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
-				<!-- if net-client is only specified then default to the highest supported version of the profile -->
-				<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
+		<When Condition="$(TargetFramework.Contains('-'))">
+			<!-- Handle legacy client and portable profiles -->
+			<PropertyGroup>
 				<_SdkShortFrameworkIdentifierWithVersion>$(TargetFramework.Split('-')[0])</_SdkShortFrameworkIdentifierWithVersion>
 				<_SdkShortFrameworkIdentifier>$(_SdkShortFrameworkIdentifierWithVersion.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>
 				<_SdkShortFrameworkVersion>$(_SdkShortFrameworkIdentifierWithVersion.Substring($(_SdkShortFrameworkIdentifier.Length)))</_SdkShortFrameworkVersion>
@@ -30,8 +28,8 @@
 		</When>
 
 		<Otherwise>
-			<!-- Convert $(TargetFramework) to lower case and split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
-			<PropertyGroup Condition="'$(TargetFramework)' != ''">
+			<!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
+			<PropertyGroup>
 				<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 				<_SdkShortFrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>
 				<_SdkShortFrameworkVersion>$(TargetFramework.Substring($(_SdkShortFrameworkIdentifier.Length)))</_SdkShortFrameworkVersion>
@@ -54,11 +52,11 @@
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
 
-		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.android' or '$(_SdkShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.ios' or '$(_SdkShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.mac' or '$(_SdkShortFrameworkIdentifier)' == 'xamarinmac'">Xamarin.Mac</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.tvos' or '$(_SdkShortFrameworkIdentifier)' == 'xamarintvos'">Xamarin.TVOS</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.watchos' or '$(_SdkShortFrameworkIdentifier)' == 'xamarinwatchos'">Xamarin.WatchOS</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.mac' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinmac'">Xamarin.Mac</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.tvos' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarintvos'">Xamarin.TVOS</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.watchos' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinwatchos'">Xamarin.WatchOS</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'tizen'">Tizen</TargetFrameworkIdentifier>
 
@@ -66,48 +64,36 @@
 
 	<Choose>
 		<When Condition="'$(_SdkShortFrameworkVersion)' != '' AND $(_SdkShortFrameworkVersion.Contains('.'))">
-			<!-- Versions with dots are taken as is and just given leading 'v'. -->
+			<!-- Versions with dots are taken as is. -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
-				<TargetFrameworkVersion>v$(_SdkShortFrameworkVersion)</TargetFrameworkVersion>
+				<TargetFrameworkVersion>$(_SdkShortFrameworkVersion)</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(_SdkShortFrameworkVersion)' != ''">
-			<!-- Versions with no dots and up to 3 characters get leading 'v' and implicit dots between characters. -->
+			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters. -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
-				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 1">v$(_SdkShortFrameworkVersion[0]).0</TargetFrameworkVersion>
-				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 2">v$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1])</TargetFrameworkVersion>
-				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 3">v$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1]).$(_SdkShortFrameworkVersion[2])</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 1">$(_SdkShortFrameworkVersion[0]).0</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 2">$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1])</TargetFrameworkVersion>
+				<TargetFrameworkVersion Condition="$(_SdkShortFrameworkVersion.Length) == 3">$(_SdkShortFrameworkVersion[0]).$(_SdkShortFrameworkVersion[1]).$(_SdkShortFrameworkVersion[2])</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
-		<Otherwise />
+		<Otherwise>
+			<PropertyGroup>
+				<TargetFrameworkVersion>$(TargetFrameworkVersion.TrimStart('vV'))</TargetFrameworkVersion>
+			</PropertyGroup>
+		</Otherwise>
 	</Choose>
 
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v0.0</TargetFrameworkVersion>
+		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
+		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
+		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)frameworkResolvers\Portable.$(TargetFrameworkVersion).targets"
-			Condition="'$(TargetFrameworkIdentifier)' == 'NETPortable'"/>
-
-	<PropertyGroup Label="Build.Output">
-		<Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
-		<Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
-		<PlatformName Condition="'$(PlatformName)' == ''">$(Platform)</PlatformName>
-
-		<BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
-		<BaseOutputPath Condition="!HasTrailingSlash('$(BaseOutputPath)')">$(BaseOutputPath)\</BaseOutputPath>
-		<OutputPath Condition="'$(OutputPath)' == '' AND '$(PlatformName)' == 'AnyCPU'">$(BaseOutputPath)$(Configuration)\</OutputPath>
-		<OutputPath Condition="'$(OutputPath)' == '' AND '$(PlatformName)' != 'AnyCPU'">$(BaseOutputPath)$(Configuration)-$(PlatformName)\</OutputPath>
-		<OutputPath Condition="!HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
-
-		<BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)' == ''">obj\</BaseIntermediateOutputPath>
-		<BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
-		<IntermediateOutputPath Condition="$(IntermediateOutputPath) == '' AND '$(PlatformName)' == 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
-		<IntermediateOutputPath Condition="$(IntermediateOutputPath) == '' AND '$(PlatformName)' != 'AnyCPU'">$(BaseIntermediateOutputPath)$(Configuration)-$(PlatformName)\</IntermediateOutputPath>
-		<IntermediateOutputPath Condition="!HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
-	</PropertyGroup>
+			Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'"/>
 
 </Project>

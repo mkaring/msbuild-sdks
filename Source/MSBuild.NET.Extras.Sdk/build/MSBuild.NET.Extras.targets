@@ -1,6 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" />
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en</DefaultLanguage>
+		<_SdkVisualStudioVersion>$(VisualStudioVersion)</_SdkVisualStudioVersion>
+		<_SdkVisualStudioVersion Condition="'$(_SdkVisualStudioVersion)' == '' or '$(_SdkVisualStudioVersion)' &lt; '14.0'">15.0</_SdkVisualStudioVersion>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" Condition="'$(TargetFramework)' != ''" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.OuputPaths.targets" />
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets" />
 
 </Project>
