@@ -6,7 +6,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<DisableImplicitFrameworkReferences Condition="'$(ImplicitPackageName)' == '' AND '$(ImplicitPackageVersion)' == ''">true</DisableImplicitFrameworkReferences>
+		<DisableImplicitFrameworkReferences Condition="'$(ImplicitFrameworkPackageName)' == '' AND '$(ImplicitFrameworkPackageVersion)' == ''">true</DisableImplicitFrameworkReferences>
 	</PropertyGroup>
 
 	<!--

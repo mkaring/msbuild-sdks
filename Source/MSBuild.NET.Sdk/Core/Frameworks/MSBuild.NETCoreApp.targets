@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup Condition="'$(ImplicitPackageName)' == ''">
-		<ImplicitPackageName>Microsoft.NETCore.App</ImplicitPackageName>
+	<PropertyGroup Condition="'$(ImplicitFrameworkPackageName)' == ''">
+		<ImplicitFrameworkPackageName>Microsoft.NETCore.App</ImplicitFrameworkPackageName>
 	</PropertyGroup>
 
 	<!--
@@ -10,17 +10,17 @@
 	-->
 
 	<!--
-		Determine the ImplicitPackageVersion when targeting .NET Core
+		Determine the ImplicitFrameworkPackageVersion when targeting .NET Core
 
 		When targeting .NET Core, the TargetFramework is generally used to specify which version of the runtime to use.
 
-		In order to target a specific patch version, or to float the version number (2.0-*), the ImplicitPackageVersion
+		In order to target a specific patch version, or to float the version number (2.0-*), the ImplicitFrameworkPackageVersion
 		property can be used.
 
 		The framework version that is written to the runtimeconfig.json file is based on the actual resolved package version
 		of Microsoft.NETCore.App. This is to allow floating the verion number.
 
-		If ImplicitPackageVersion is not specified, the following logic applies:
+		If ImplicitFrameworkPackageVersion is not specified, the following logic applies:
 
 		- Self-contained apps use the latest corrsesponding patch version (from when the SDK shipped)
 
@@ -32,30 +32,30 @@
 		- This is done for compatibility with previous releases that bumped the self-contained and framework-dependent versions together.
 	-->
 	<Choose>
-		<!-- If the ImplicitPackageVersion is already set, do nothing -->
-		<When Condition="'$(ImplicitPackageVersion)' != ''" />
+		<!-- If the ImplicitFrameworkPackageVersion is already set, do nothing -->
+		<When Condition="'$(ImplicitFrameworkPackageVersion)' != ''" />
 
-		<When Condition="'$(TargetFrameworkVersion)' == '1.0'">
+		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '1.0'">
 			<PropertyGroup>
-				<ImplicitPackageVersion>1.0.5</ImplicitPackageVersion>
+				<ImplicitFrameworkPackageVersion>1.0.5</ImplicitFrameworkPackageVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(TargetFrameworkVersion)' == '1.1'">
+		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '1.1'">
 			<PropertyGroup>
-				<ImplicitPackageVersion>1.1.2</ImplicitPackageVersion>
+				<ImplicitFrameworkPackageVersion>1.1.2</ImplicitFrameworkPackageVersion>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(TargetFrameworkVersion)' == '2.0'">
+		<When Condition="'$(_TargetFrameworkVersionWithoutV)' == '2.0'">
 			<PropertyGroup>
-				<ImplicitPackageVersion Condition="'$(SelfContained)' != 'true'">2.0.0</ImplicitPackageVersion>
-				<ImplicitPackageVersion Condition="'$(SelfContained)' == 'true'">2.0.1</ImplicitPackageVersion>
+				<ImplicitFrameworkPackageVersion Condition="'$(SelfContained)' != 'true'">2.0.0</ImplicitFrameworkPackageVersion>
+				<ImplicitFrameworkPackageVersion Condition="'$(SelfContained)' == 'true'">2.0.1</ImplicitFrameworkPackageVersion>
 			</PropertyGroup>
 		</When>
 
-		<!-- If not covered by the previous cases, use the target framework version for the ImplicitPackageVersion -->
+		<!-- If not covered by the previous cases, use the target framework version for the ImplicitFrameworkPackageVersion -->
 		<Otherwise>
 			<PropertyGroup>
-				<ImplicitPackageVersion>$(TargetFrameworkVersion)</ImplicitPackageVersion>
+				<ImplicitFrameworkPackageVersion>$(_TargetFrameworkVersionWithoutV)</ImplicitFrameworkPackageVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>

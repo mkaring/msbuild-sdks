@@ -115,7 +115,7 @@
 
 	<Target Name="_CheckForNETCoreSdkIsPreview"
 			BeforeTargets="_CheckForInvalidConfigurationAndPlatform">
-		<NETSdkMessage Condition=" '$(_NETCoreSdkIsPreview)' == 'true' "
+		<NETSdkMessage Condition="'$(_NETCoreSdkIsPreview)' == 'true'"
 			Importance="High"
 			ResourceName="UsingPreviewSdkWarning" />
 	</Target>

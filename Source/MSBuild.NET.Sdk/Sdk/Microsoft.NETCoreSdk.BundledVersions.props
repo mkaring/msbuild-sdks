@@ -1,8 +1,8 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<BundledNETCoreAppTargetFrameworkVersion>2.0</BundledNETCoreAppTargetFrameworkVersion>
-		<BundledNETCoreAppPackageVersion>2.0.0</BundledNETCoreAppPackageVersion>
+		<BundledNETCoreAppTargetFrameworkVersion>2.1</BundledNETCoreAppTargetFrameworkVersion>
+		<BundledNETCoreAppPackageVersion>2.1.0</BundledNETCoreAppPackageVersion>
 		<BundledNETStandardTargetFrameworkVersion>2.0</BundledNETStandardTargetFrameworkVersion>
 		<BundledNETStandardPackageVersion>2.0.0</BundledNETStandardPackageVersion>
 	</PropertyGroup>

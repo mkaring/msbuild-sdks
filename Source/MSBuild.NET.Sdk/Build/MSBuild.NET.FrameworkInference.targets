@@ -162,6 +162,8 @@
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
+		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
+		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<!--
@@ -179,9 +181,9 @@
 		BeforeTargets="_CheckForInvalidConfigurationAndPlatform;Restore;CollectPackageReferences"
 		Condition="'$(TargetFrameworkIdentifier)' != '_' AND '$(TargetFrameworkMaxVersion)' != ''">
 
-		<NETSdkError Condition="'$(TargetFrameworkVersion)' > '$(TargetFrameworkMaxVersion)'"
+		<NETSdkError Condition="'$(_TargetFrameworkVersionWithoutV)' > '$(TargetFrameworkMaxVersion)'"
 			ResourceName="UnsupportedTargetFrameworkVersion"
-			FormatArguments="$(TargetFrameworkDisplayName);$(TargetFrameworkVersion);$(TargetFrameworkMaxVersion)" />
+			FormatArguments="$(TargetFrameworkDisplayName);$(_TargetFrameworkVersionWithoutV);$(TargetFrameworkMaxVersion)" />
 	</Target>
 
 	<PropertyGroup>
