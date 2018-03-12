@@ -37,9 +37,9 @@
 	-->
 	<PropertyGroup>
 		<_SdkSupportedPlatforms>;$(SupportedPlatforms);</_SdkSupportedPlatforms>
-		<_PlatformInference Condition="$(_SdkSupportedPlatforms.Contains(';$(Platform);'))">$(Platform)</_PlatformInference>
-		<PlatformTarget Condition="'$(PlatformTarget)' == '' AND '$(_PlatformInference)' != ''">$(_PlatformInference)</PlatformTarget>
-		<_PlatformInference />
+		<_SdkPlatformInference Condition="$(_SdkSupportedPlatforms.Contains(';$(Platform);'))">$(Platform)</_SdkPlatformInference>
+		<PlatformTarget Condition="'$(PlatformTarget)' == '' AND '$(_SdkPlatformInference)' != ''">$(_SdkPlatformInference)</PlatformTarget>
+		<_SdkPlatformInference />
 		<_SdkSupportedPlatforms />
 	</PropertyGroup>
 

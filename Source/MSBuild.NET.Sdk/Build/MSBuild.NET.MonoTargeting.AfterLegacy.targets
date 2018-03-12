@@ -6,13 +6,15 @@
 		<GenerateResourceMSBuildRuntime Condition=" '$(GenerateResourceMSBuildRuntime)' == '' ">CurrentRuntime</GenerateResourceMSBuildRuntime>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.AfterLegacy.Core.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets" />
+
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets" Condition="Exists('$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets')" />
 
 	<ImportGroup>
-		<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets" Condition="Exists('$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets')" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Specifics.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.targets" />
 	</ImportGroup>
-
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.targets" />
 
 	<UsingTask TaskName="GenerateDepsFile" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
 	<UsingTask TaskName="GenerateRuntimeConfigurationFiles" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />

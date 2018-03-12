@@ -8,6 +8,10 @@
 	<PropertyGroup Label="Output">
 		<BuildFolder>Builds</BuildFolder>
 		<BuildPath>$(SolutionDir)</BuildPath>
+		<IntermediateOutputFolder>Objects</IntermediateOutputFolder>
+		<OutputFolder>Binaries</OutputFolder>
+		<PublishFolder>Packages</PublishFolder>
+		<PublishPath>$(SolutionDir)</PublishPath>
 	</PropertyGroup>
 
 	<!--<Import Project="$(BuildToolsPath)Defaults.Author.props" />

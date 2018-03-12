@@ -60,8 +60,6 @@
 		</Otherwise>
 	</Choose>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\MSBuild.NET.Defaults.targets" />
-
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>

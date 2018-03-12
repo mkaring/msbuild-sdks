@@ -6,67 +6,24 @@
 	<!-- Set default assembly info properties -->
 	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.AssemblyInfo.targets" />
 
-	<!--<ImportGroup Condition="'$(TargetFramework)' != ''">-->
-	<ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true' OR '$(TargetFramework)' != ''">
-		<!-- We need to init _SdkFrameworkName, etc. properties. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.FrameworkInference.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.$(_SdkFrameworkName).targets" />
-	</ImportGroup>
+	<PropertyGroup Label="Globals">
+		<IsMultiTargetingBuild Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
+		<!-- TODO: Remove once the migration is done. Microsoft.CSharp.targets and Microsoft.VisualBasic.targets use 'IsCrossTargetingBuild'. -->
+		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
+	</PropertyGroup>
 
-	<ImportGroup Condition="'$(TargetPlatform)' != ''">
-		<!-- We need to init _SdkPlatformName, etc. properties. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.PlatformInference.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Platforms\MSBuild.$(_SdkPlatformName).targets" />
-	</ImportGroup>
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MultiTargeting.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'" />
+
+	<!-- Check if we already imported them as props -->
+	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.targets" Condition="'$(IsMultiTargetingBuild)' != 'true'" />
+
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
 
 	<PropertyGroup>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' != 'true'">MonoTargeting</_SdkBuildTargeting>
-		<_SdkBuildTargeting Condition="'$(IsMultiTargetingBuild)' == 'true'">MultiTargeting</_SdkBuildTargeting>
+		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>
 	</PropertyGroup>
-
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.BeforeLegacy.$(_SdkBuildTargeting).targets" />
-
-	<!--
-		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
-		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
-		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.
-	-->
-	<PropertyGroup>
-		<_SdkBackupImportProjectExtensionTargets>$(ImportProjectExtensionTargets)</_SdkBackupImportProjectExtensionTargets>
-		<_SdkBackupImportDirectoryBuildTargets>$(ImportDirectoryBuildTargets)</_SdkBackupImportDirectoryBuildTargets>
-		<ImportProjectExtensionTargets>false</ImportProjectExtensionTargets>
-		<ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
-	</PropertyGroup>
-
-	<!--
-		If LanguageTargets isn't otherwise set, then we'll just import the common targets.
-		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
-		This means support for different languages could either be supplied via an SDK or a NuGet package.
-	-->
-	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
-		<LanguageTargets>$(MSBuildLegacySdkPath)\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
-		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">true</ImportLegacyExtensionTargets>
-	</PropertyGroup>
-
-	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
-
-	<PropertyGroup>
-		<ImportProjectExtensionTargets>$(_SdkBackupImportProjectExtensionTargets)</ImportProjectExtensionTargets>
-		<ImportDirectoryBuildTargets>$(_SdkBackupImportDirectoryBuildTargets)</ImportDirectoryBuildTargets>
-		<_SdkBackupImportProjectExtensionTargets></_SdkBackupImportProjectExtensionTargets>
-		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
-	</PropertyGroup>
-
-	<Import Project="$(MSBuildThisFileDirectory)..\BuildTargeting\MSBuild.NET.AfterLegacy.$(_SdkBuildTargeting).targets" />
-
-	<!--<ImportGroup>-->
-	<ImportGroup Condition="'$(IsMultiTargetingBuild)' != 'true'">
-		<!-- Check if we already imported them as props. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
-	</ImportGroup>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

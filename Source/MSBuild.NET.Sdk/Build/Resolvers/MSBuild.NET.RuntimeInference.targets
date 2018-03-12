@@ -42,9 +42,9 @@
 			requirement limits us.
 	-->
 	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and
-								'$(HasRuntimeOutput)' == 'true' and
-								'$(OS)' == 'Windows_NT' and
-								'$(RuntimeIdentifier)' == ''">
+		'$(HasRuntimeOutput)' == 'true' and
+		'$(OS)' == 'Windows_NT' and
+		'$(RuntimeIdentifier)' == ''">
 		<_UsingDefaultRuntimeIdentifier>true</_UsingDefaultRuntimeIdentifier>
 		<RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x64'">win7-x64</RuntimeIdentifier>
 		<RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == ''">win7-x86</RuntimeIdentifier>

@@ -1,0 +1,42 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.BeforeLegacy.targets" />
+
+	<!--
+		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
+		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
+		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.
+	-->
+	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
+		<_SdkBackupImportProjectExtensionTargets>$(ImportProjectExtensionTargets)</_SdkBackupImportProjectExtensionTargets>
+		<_SdkBackupImportDirectoryBuildTargets>$(ImportDirectoryBuildTargets)</_SdkBackupImportDirectoryBuildTargets>
+		<ImportProjectExtensionTargets>false</ImportProjectExtensionTargets>
+		<ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+	</PropertyGroup>
+
+	<!--
+		If LanguageTargets isn't otherwise set, then we'll just import the legacy targets.
+		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
+		This means support for different languages could either be supplied via an SDK or a NuGet package.
+	-->
+	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
+		<LanguageTargets>$(MSBuildLegacySdkPath)\Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
+		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">false</ImportLegacyExtensionTargets>
+	</PropertyGroup>
+
+	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
+
+	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
+		<ImportProjectExtensionTargets>$(_SdkBackupImportProjectExtensionTargets)</ImportProjectExtensionTargets>
+		<ImportDirectoryBuildTargets>$(_SdkBackupImportDirectoryBuildTargets)</ImportDirectoryBuildTargets>
+		<_SdkBackupImportProjectExtensionTargets></_SdkBackupImportProjectExtensionTargets>
+		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.AfterLegacy.targets" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>

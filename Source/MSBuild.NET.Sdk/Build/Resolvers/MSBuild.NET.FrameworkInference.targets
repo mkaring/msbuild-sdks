@@ -116,12 +116,31 @@
 	</Choose>
 
 	<!--
+		Don't leave TargetFrameworkVersion empty if it still hasn't been determined. We will trigger the error above,
+		but we need this to be a valid version so that our error message does not get pre-empted by failure to interpret
+		version comparison expressions, which is currently unrecoverable in VS.
+
+		Also don't leave TargetFrameworkIdentifier unset as it will be defaulted to .NETFramework by common targets, which
+		can cause restore (which we cannot block, see above) to silently succeed for empty TargetFramework.
+	-->
+	<PropertyGroup>
+		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
+		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
+		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
+		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+	</PropertyGroup>
+
+	<!-- Support for resolving portable framework profiles -->
+	<Import Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
+			Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'"/>
+
+	<!--
 		Trigger an error if we're unable to infer the framework identifier and version.
 
 		We have to evaluate this here and not in the target because by the time the target runs,
 		It will have defaulted to .NETFramework,Version=v4.0
 	-->
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkVersion)' == ''">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '_' OR '$(TargetFrameworkVersion)' == 'v0.0'">
 		<_UnsupportedTargetFrameworkError>true</_UnsupportedTargetFrameworkError>
 	</PropertyGroup>
 
@@ -150,21 +169,6 @@
 	<Target Name="_CollectTargetFrameworkForTelemetry" AfterTargets="_CheckForUnsupportedTargetFramework">
 		<Telemetry EventName="targetframeworkeval" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))" />
 	</Target>
-
-	<!--
-		Don't leave TargetFrameworkVersion empty if it still hasn't been determined. We will trigger the error above,
-		but we need this to be a valid version so that our error message does not get pre-empted by failure to interpret
-		version comparison expressions, which is currently unrecoverable in VS.
-
-		Also don't leave TargetFrameworkIdentifier unset as it will be defaulted to .NETFramework by common targets, which
-		can cause restore (which we cannot block, see above) to silently succeed for empty TargetFramework.
-	-->
-	<PropertyGroup>
-		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
-		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
-		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
-	</PropertyGroup>
 
 	<!--
 		Trigger an error if targeting a higher version of .NET Core or .NET Standard than is supported by the current SDK.
@@ -196,14 +200,6 @@
 	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true' and '$(TargetFramework)' != '' and '$(_UnsupportedTargetFrameworkError)' != 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(TargetFramework)\</IntermediateOutputPath>
 		<OutputPath>$(OutputPath)$(TargetFramework)\</OutputPath>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.StartsWith('.NET'))">$(TargetFrameworkIdentifier.TrimStart('.'))</_SdkFrameworkName>
-		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.StartsWith('Windows'))">Windows</_SdkFrameworkName>
-		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">Xamarin</_SdkFrameworkName>
-		<_SdkFrameworkName Condition="$(TargetFrameworkIdentifier.StartsWith('Mono'))">MonoCore</_SdkFrameworkName>
-		<_SdkFrameworkName Condition="'$(_SdkFrameworkName)' == ''">$(TargetFrameworkIdentifier)</_SdkFrameworkName>
 	</PropertyGroup>
 
 	<PropertyGroup>

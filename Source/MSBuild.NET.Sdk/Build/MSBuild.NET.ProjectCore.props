@@ -6,11 +6,7 @@
 
 	<ImportGroup Condition="'$(ImportProjectDefaults)' == 'true'">
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.props" />
-
-		<!-- We need to init _SdkLanguageName, etc. properties. -->
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.LanguageInference.props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).props" />
-
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Specifics.props" />
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.props" />
 	</ImportGroup>
 

@@ -1,11 +1,11 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup Label="Output">
+	<!--<PropertyGroup Label="Output">
 		<IntermediateOutputFolder>Objects</IntermediateOutputFolder>
 		<OutputFolder>Binaries</OutputFolder>
 		<PublishFolder>Packages</PublishFolder>
 		<PublishPath>$(SolutionDir)</PublishPath>
-	</PropertyGroup>
+	</PropertyGroup>-->
 
 	<!--<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.targets" />-->
 

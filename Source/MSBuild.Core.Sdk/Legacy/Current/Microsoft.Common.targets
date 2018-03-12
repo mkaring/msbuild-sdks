@@ -1971,31 +1971,31 @@
 			Only read and write cache file at build time, skip it for load time because its more
 			expensive to write the newly created cache file.
 		-->
-		<PropertyGroup>
-			<ResolveAssemblyReferencesStateFile Condition="'$(DisableRarCache)'!='true'">$(IntermediateOutputPath)$(MSBuildProjectFile)ResolveAssemblyReference.cache</ResolveAssemblyReferencesStateFile>
+		<PropertyGroup Condition="'$(DisableRarCache)' != 'true'">
+			<ResolveAssemblyReferencesStateFile Condition="'$(ResolveAssemblyReferencesStateFile)' == ''">$(IntermediateOutputPath)$(MSBuildProjectFile)AssemblyReference.cache</ResolveAssemblyReferencesStateFile>
 		</PropertyGroup>
 
 		<!-- Make an App.Config item that exists when AutoUnify is false. -->
 		<ItemGroup>
-		<_ResolveAssemblyReferencesApplicationConfigFileForExes Include="@(AppConfigWithTargetPath)" Condition="'$(AutoGenerateBindingRedirects)'=='true' or '$(AutoUnifyAssemblyReferences)'=='false'"/>
+			<_ResolveAssemblyReferencesApplicationConfigFileForExes Include="@(AppConfigWithTargetPath)" Condition="'$(AutoGenerateBindingRedirects)'=='true' or '$(AutoUnifyAssemblyReferences)'=='false'"/>
 		</ItemGroup>
 
 		<PropertyGroup>
-		<!-- Default in task is true -->
-		<_FindDependencies Condition="'$(BuildingProject)' != 'true' and '$(_ResolveReferenceDependencies)' != 'true'">false</_FindDependencies>
-		<ResolveAssemblyReferencesSilent Condition="'$(ResolveAssemblyReferencesSilent)' == '' and '$(TraceDesignTime)' != 'true' and '$(BuildingProject)' == 'false'">true</ResolveAssemblyReferencesSilent>
-		<ResolveAssemblyReferencesSilent Condition="'$(ResolveAssemblyReferencesSilent)' == ''">false</ResolveAssemblyReferencesSilent>
-		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch Condition="'$(ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch)' == ''">Warning</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+			<!-- Default in task is true -->
+			<_FindDependencies Condition="'$(BuildingProject)' != 'true' and '$(_ResolveReferenceDependencies)' != 'true'">false</_FindDependencies>
+			<ResolveAssemblyReferencesSilent Condition="'$(ResolveAssemblyReferencesSilent)' == '' and '$(TraceDesignTime)' != 'true' and '$(BuildingProject)' == 'false'">true</ResolveAssemblyReferencesSilent>
+			<ResolveAssemblyReferencesSilent Condition="'$(ResolveAssemblyReferencesSilent)' == ''">false</ResolveAssemblyReferencesSilent>
+			<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch Condition="'$(ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch)' == ''">Warning</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
 		</PropertyGroup>
 
 		<ItemGroup>
-		<!-- Remove any references which we have added as explicit reference so that we do not get duplicates. We need to make sure we do not have duplicates
-				because this confuses the IDE  when it tries to compare the list of references passed in to the list of resolved references. If it does not match then the
-				ide will show one of the references as not resolved, this will not break the build but is a display issue -->
-		<Reference Remove="$(AdditionalExplicitAssemblyReferences)"/>
-		<Reference Include="$(AdditionalExplicitAssemblyReferences)">
-			<Implicit>true</Implicit>
-		</Reference>
+			<!-- Remove any references which we have added as explicit reference so that we do not get duplicates. We need to make sure we do not have duplicates
+					because this confuses the IDE  when it tries to compare the list of references passed in to the list of resolved references. If it does not match then the
+					ide will show one of the references as not resolved, this will not break the build but is a display issue -->
+			<Reference Remove="$(AdditionalExplicitAssemblyReferences)"/>
+			<Reference Include="$(AdditionalExplicitAssemblyReferences)">
+				<Implicit>true</Implicit>
+			</Reference>
 		</ItemGroup>
 
 		<!--

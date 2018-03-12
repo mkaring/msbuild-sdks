@@ -182,13 +182,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<_SdkPlatformName Condition="'$(TargetPlatformIdentifier)' == ''">Windows</_SdkPlatformName>
-		<_SdkPlatformName Condition="'$(TargetPlatformIdentifier)' == ''">Linux</_SdkPlatformName>
-		<_SdkPlatformName Condition="'$(TargetPlatformIdentifier)' == ''">Mac</_SdkPlatformName>
-		<_SdkPlatformName Condition="'$(_SdkPlatformName)' != ''">$(TargetPlatformIdentifier)</_SdkPlatformName>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 

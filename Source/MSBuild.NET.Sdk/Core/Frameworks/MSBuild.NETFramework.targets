@@ -1,7 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)..\MSBuild.NET.Defaults.targets" />
-
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
 
 		<_ImplicitReference Include="System"/>
