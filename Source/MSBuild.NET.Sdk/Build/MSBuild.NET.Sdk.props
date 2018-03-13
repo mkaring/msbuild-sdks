@@ -22,7 +22,7 @@
 		<!-- Ease of Access -->
 		<MicrosoftNETSdk>Microsoft.NET.Sdk</MicrosoftNETSdk>
 		<MicrosoftNETSdkPath>$(MSBuildSdksPath)\$(MicrosoftNETSdk)\</MicrosoftNETSdkPath>
-		<MicrosoftNETSdkBuildPath>$(MicrosoftNETSdkPath)build\</MicrosoftNETSdkBuildPath>
+		<MicrosoftNETSdkBuildPath>$(MicrosoftNETSdkPath)targets\</MicrosoftNETSdkBuildPath>
 
 		<MSBuildCoreSdk>MSBuild.Core.Sdk</MSBuildCoreSdk>
 		<MSBuildCoreSdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\</MSBuildCoreSdkPath>

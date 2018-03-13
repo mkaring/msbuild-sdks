@@ -5,7 +5,7 @@
 		<CustomProjectCoreTargetsPath Condition="'$(CustomProjectCoreTargetsPath)' == '' OR !Exists('$(CustomProjectCoreTargetsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.targets</CustomProjectCoreTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(CustomProjectCoreTargetsPath)" Condition="'$(ImportLegacyTargets)' != 'true'" />
+	<Import Project="$(CustomProjectCoreTargetsPath)" />
 
 	<ImportGroup Condition="'$(ImportLegacyTargets)' == 'true'">
 		<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />

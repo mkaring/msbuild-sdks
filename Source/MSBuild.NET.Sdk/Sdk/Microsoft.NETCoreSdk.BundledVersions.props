@@ -4,7 +4,7 @@
 		<BundledNETCoreAppTargetFrameworkVersion>2.1</BundledNETCoreAppTargetFrameworkVersion>
 		<BundledNETCoreAppPackageVersion>2.1.0</BundledNETCoreAppPackageVersion>
 		<BundledNETStandardTargetFrameworkVersion>2.0</BundledNETStandardTargetFrameworkVersion>
-		<BundledNETStandardPackageVersion>2.0.0</BundledNETStandardPackageVersion>
+		<BundledNETStandardPackageVersion>2.0.1</BundledNETStandardPackageVersion>
 	</PropertyGroup>
 
 </Project>
