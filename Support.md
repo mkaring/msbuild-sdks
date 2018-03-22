@@ -24,13 +24,19 @@
   - EF
 
 - .NET Core (Windows, Linux, MacOS):
-  - UWP
   - ASP.NET Core
   - EF Core
 
-- .NET Mono (Xamarin):
+- .NET Core (Application Platforms):
+  - UWP (Windows)
+  - Tizen (w/ Xamarin.Forms)
+
+- Mono (based on .NET Framework)
+  - [Supported Platforms](http://www.mono-project.com/docs/about-mono/supported-platforms/)
+  - [Compatibility](https://www.mono-project.com/docs/about-mono/compatibility)
+
+- Xamarin (based on Mono):
   - Android
-  - Tizen
   - iOS
   - MacOS
   - TVOS

@@ -16,7 +16,11 @@ Supports [Native](Support.md#native-platform-support) projects that include C/C+
 
 ### [MSBuild.NET.Sdk](Source/MSBuild.NET.Sdk)
 
-Supports [.NET Platform](Support.md#net-platform-support) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), .NET Mono (Xamarin) runtimes.
+Supports [.NET Platform](Support.md#net-platform-support) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), Mono (Windows, Linux, MacOS), Xamarin (based on Mono) runtimes.
+
+### [MSBuild.NET.Legacy.Sdk](Source/MSBuild.NET.Legacy.Sdk)
+
+Supports only .NET Framework (Windows). Contains the original .NET Framework Build files that were included with MSBuild. Use them to slowly migrate your legacy projects to SDK-style.
 
 ### [MSBuild.NET.Extras.Sdk](Source/MSBuild.NET.Extras.Sdk)
 
@@ -46,7 +50,7 @@ An MSBuild SDK, in a nutshell, is a packaged and versioned set of MSBuild tasks,
 These SDK-style projects looks like:
 
 ```xml
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSBuild.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
@@ -57,13 +61,13 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
 
 ```xml
 <Project>
-  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.props" Sdk="MSBuild.NET.Sdk" />
 
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="MSBuild.NET.Sdk" />
 </Project>
 ```
 
