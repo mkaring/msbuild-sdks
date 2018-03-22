@@ -7,7 +7,7 @@
 	<PropertyGroup Condition="'$(DirectoryBuildPropsPath)' == ''">
 		<DirectoryBuildPropsFile Condition="'$(DirectoryBuildPropsFile)' == ''">Directory.Build.props</DirectoryBuildPropsFile>
 		<DirectoryBuildPropsBasePath Condition="'$(DirectoryBuildPropsBasePath)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '$(DirectoryBuildPropsFile)'))</DirectoryBuildPropsBasePath>
-		<DirectoryBuildPropsPath Condition="'$(DirectoryBuildPropsBasePath)' != '' and '$(DirectoryBuildPropsFile)' != ''">$([System.IO.Path]::Combine('$(DirectoryBuildPropsBasePath)', '$(DirectoryBuildPropsFile)'))</DirectoryBuildPropsPath>
+		<DirectoryBuildPropsPath Condition="'$(DirectoryBuildPropsBasePath)' != '' AND '$(DirectoryBuildPropsFile)' != ''">$([System.IO.Path]::Combine('$(DirectoryBuildPropsBasePath)', '$(DirectoryBuildPropsFile)'))</DirectoryBuildPropsPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="Exists('$(DirectoryBuildPropsPath)')">

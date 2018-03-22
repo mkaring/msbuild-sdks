@@ -6,6 +6,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(NuGetBuildTasksPackTargets)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' != 'false'">
+		<IncludeBuildOutput Condition=" '$(PackAsTool)' == 'true' ">false</IncludeBuildOutput>
+		<PackageType Condition=" '$(PackAsTool)' == 'true' ">DotNetTool</PackageType>
 		<NuGetBuildTasksPackTargets>$(MSBuildThisFileDirectory)..\Packing\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
 		<ImportNuGetBuildTasksPackTargetsFromSdk>true</ImportNuGetBuildTasksPackTargetsFromSdk>
 	</PropertyGroup>

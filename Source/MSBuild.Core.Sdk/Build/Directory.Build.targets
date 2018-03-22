@@ -7,7 +7,7 @@
 	<PropertyGroup Condition="'$(DirectoryBuildTargetsPath)' == ''">
 		<DirectoryBuildTargetsFile Condition="'$(DirectoryBuildTargetsFile)' == ''">Directory.Build.targets</DirectoryBuildTargetsFile>
 		<DirectoryBuildTargetsBasePath Condition="'$(DirectoryBuildTargetsBasePath)' == ''">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), '$(DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsBasePath>
-		<DirectoryBuildTargetsPath Condition="'$(DirectoryBuildTargetsBasePath)' != '' and '$(DirectoryBuildTargetsFile)' != ''">$([System.IO.Path]::Combine('$(DirectoryBuildTargetsBasePath)', '$(DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsPath>
+		<DirectoryBuildTargetsPath Condition="'$(DirectoryBuildTargetsBasePath)' != '' AND '$(DirectoryBuildTargetsFile)' != ''">$([System.IO.Path]::Combine('$(DirectoryBuildTargetsBasePath)', '$(DirectoryBuildTargetsFile)'))</DirectoryBuildTargetsPath>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="Exists('$(DirectoryBuildTargetsPath)')">

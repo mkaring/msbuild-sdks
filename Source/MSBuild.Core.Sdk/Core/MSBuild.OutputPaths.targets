@@ -51,7 +51,7 @@
 		<PublishFolder Condition="'$(PublishFolder)' == ''">publish</PublishFolder>
 		<PublishPath Condition="'$(PublishPath)' == ''">$(PublishFolder)\</PublishPath>
 		<PublishPath Condition="!HasTrailingSlash('$(PublishPath)')">$(PublishPath)\</PublishPath>
-		<PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) and !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(PublishFolder)\</PublishPath>
+		<PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) AND !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(PublishFolder)\</PublishPath>
 
 		<PublishDir Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PublishDir>
 		<PublishDir Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PublishDir>

@@ -28,12 +28,14 @@
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.sln</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.user</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.*proj</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.projitems</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.vssscc</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(ExcludeDefaultBuildFiles)' == 'true'">
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.tasks</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.props</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.items</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.tasks</DefaultItemExcludes>
 		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.targets</DefaultItemExcludes>
 	</PropertyGroup>
 

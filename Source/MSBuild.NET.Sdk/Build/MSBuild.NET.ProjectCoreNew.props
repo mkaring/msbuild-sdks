@@ -1,19 +1,19 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
+		<ImportLanguageDefaults Condition="'$(ImportLanguageDefaults)' == ''">true</ImportLanguageDefaults>
 		<ImportFrameworkDefaults Condition="'$(ImportFrameworkDefaults)' == ''">true</ImportFrameworkDefaults>
 		<ImportPlatformDefaults Condition="'$(ImportPlatformDefaults)' == ''">true</ImportPlatformDefaults>
-		<ImportLanguageDefaults Condition="'$(ImportLanguageDefaults)' == ''">true</ImportLanguageDefaults>
 	</PropertyGroup>
-
-	<ImportGroup Condition="'$(ImportFrameworkDefaults)' == 'true'">
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.Defaults.props" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.Defaults.Items.props" />
-	</ImportGroup>
 
 	<ImportGroup Condition="'$(ImportLanguageDefaults)' == 'true'">
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.Defaults.props" />
 		<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.Defaults.Items.props" />
+	</ImportGroup>
+
+	<ImportGroup Condition="'$(ImportFrameworkDefaults)' == 'true'">
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.Defaults.props" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\Frameworks\MSBuild.Defaults.Items.props" />
 	</ImportGroup>
 
 	<ImportGroup Condition="'$(ImportPlatformDefaults)' == 'true'">

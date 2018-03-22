@@ -1,16 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<PropertyGroup>
-		<ImportLegacyTargets Condition="'$(ImportLegacyTargets)' == ''">true</ImportLegacyTargets>
-		<CustomProjectCoreTargetsPath Condition="'$(CustomProjectCoreTargetsPath)' == '' OR !Exists('$(CustomProjectCoreTargetsPath)')">$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.targets</CustomProjectCoreTargetsPath>
-	</PropertyGroup>
-
-	<Import Project="$(CustomProjectCoreTargetsPath)" />
-
-	<ImportGroup Condition="'$(ImportLegacyTargets)' == 'true'">
-		<Import Project="$(MSBuildThisFileDirectory)..\Legacy\Microsoft.Legacy.props" />
-		<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.targets" />
-	</ImportGroup>
+	<Import Project="$(CustomProjectCoreTargetsPath)" Condition="Exists('$(CustomProjectCoreTargetsPath)')" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.Core.props" Condition="!Exists('$(CustomProjectCoreTargetsPath)')" />
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
