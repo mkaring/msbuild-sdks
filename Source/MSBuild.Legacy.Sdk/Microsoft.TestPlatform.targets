@@ -6,6 +6,7 @@
 		<VSTestConsolePath Condition="$(VSTestConsolePath) == ''">$([System.IO.Path]::Combine($(MSBuildToolsPath),"vstest.console.dll"))</VSTestConsolePath>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
+
 	<UsingTask TaskName="Microsoft.TestPlatform.Build.Tasks.VSTestTask" AssemblyFile="$(VSTestTaskAssemblyFile)" />
 	<UsingTask TaskName="Microsoft.TestPlatform.Build.Tasks.BuildLogTask" AssemblyFile="$(VSTestTaskAssemblyFile)" />
 
@@ -20,7 +21,7 @@
 
 		<CallTarget Targets="ShowCallOfVSTestTaskWithParameter" />
 
-		<Microsoft.TestPlatform.Build.Tasks.VSTestTask
+		<VSTestTask
 			TestFileFullPath="$(TargetPath)"
 			VSTestSetting="$(VSTestSetting)"
 			VSTestTestAdapterPath="$(VSTestTestAdapterPath)"
@@ -40,9 +41,9 @@
 	<Target Name="BuildProject">
 		<CallTarget Targets="ShowMsbuildWithParameter" />
 
-		<Microsoft.TestPlatform.Build.Tasks.BuildLogTask BuildStarted="True" />
+		<BuildLogTask BuildStarted="True" />
 		<MSBuild Projects="$(MSBuildProjectFullPath)" />
-		<Microsoft.TestPlatform.Build.Tasks.BuildLogTask />
+		<BuildLogTask />
 
 		<Message Text="Done Building project $(MSBuildProjectFullPath) for TargetFramework=$(TargetFramework)" Importance="low" />
 	</Target>
@@ -57,7 +58,7 @@
 	</Target>
 
 	<Target Name="ShowCallOfVSTestTaskWithParameter">
-		<Message Text="Calling task Microsoft.TestPlatform.Build.Tasks.VSTestTask with following parameter..." Importance="low" />
+		<Message Text="Calling task VSTestTask with following parameter..." Importance="low" />
 		<Message Text="TestFileFullPath = $(TargetPath)" Importance="low" />
 		<Message Text="VSTestSetting = $(VSTestSetting)" Importance="low" />
 		<Message Text="VSTestTestAdapterPath = $(VSTestTestAdapterPath)" Importance="low" />

@@ -18,7 +18,7 @@
 				<HasSingleTargetFramework Condition="'$(IsCrossTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
 				<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 				<IsRidAgnostic>false</IsRidAgnostic>
-				<IsRidAgnostic Condition=" '$(RuntimeIdentifier)' == '' and '$(RuntimeIdentifiers)' == '' ">true</IsRidAgnostic>
+				<IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</IsRidAgnostic>
 			</_ThisProjectBuildMetadata>
 		</ItemGroup>
 	</Target>
@@ -53,7 +53,7 @@
 			Returns="@(InnerOutput)">
 		<!-- If this logic is changed, also update Clean -->
 		<MSBuild Projects="@(_InnerBuildProjects)"
-				 Condition="'@(_InnerBuildProjects)' != '' "
+				 Condition="'@(_InnerBuildProjects)' != ''"
 				 Targets="$(InnerTargets)"
 				 BuildInParallel="$(BuildInParallel)">
 			<Output ItemName="InnerOutput" TaskParameter="TargetOutputs" />
@@ -104,7 +104,7 @@
 			DependsOnTargets="_ComputeTargetFrameworkItems">
 		<!-- If this logic is changed, also update DispatchToInnerBuilds -->
 		<MSBuild Projects="@(_InnerBuildProjects)"
-				 Condition="'@(_InnerBuildProjects)' != '' "
+				 Condition="'@(_InnerBuildProjects)' != ''"
 				 Targets="Clean"
 				 BuildInParallel="$(BuildInParallel)" />
 	</Target>
@@ -120,8 +120,8 @@
 
 	<!-- Import NuGet.targets (required for GetReferenceNearestTargetFrameworkTask and used for Restore functionality) -->
 	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
+		<DevEnvDir Condition="'$(DevEnvDir)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
+		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
 		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == ''">$(MSBuildToolsPath)\NuGet.targets</NuGetRestoreTargets>
 	</PropertyGroup>
 

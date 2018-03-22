@@ -2,17 +2,17 @@
 
 	<PropertyGroup>
 		<ImportUserLocationsByWildcardBeforeMicrosoftCSharpTargets Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCSharpTargets)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftCSharpTargets>
-		<_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath>
-		<_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath>
+		<_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath>
+		<_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCSharpTargets)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftCSharpTargetsPath)')"/>
+	<Import Project="$(_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCSharpTargets)' == 'true' AND Exists('$(_ImportUserExtensionsBeforeMicrosoftCSharpTargetsPath)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftCSharpTargets Condition="'$(ImportByWildcardBeforeMicrosoftCSharpTargets)' == ''">true</ImportByWildcardBeforeMicrosoftCSharpTargets>
-		<_ImportBeforeMicrosoftCSharpTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftCSharpTargetsPath>
-		<_ImportBeforeMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftCSharpTargetsPath>
+		<_ImportExtensionsBeforeMicrosoftCSharpTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportExtensionsBeforeMicrosoftCSharpTargetsPath>
+		<_ImportExtensionsBeforeMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportBefore</_ImportExtensionsBeforeMicrosoftCSharpTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportBeforeMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCSharpTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftCSharpTargetsPath)')"/>
+	<Import Project="$(_ImportExtensionsBeforeMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCSharpTargets)' == 'true' AND Exists('$(_ImportExtensionsBeforeMicrosoftCSharpTargetsPath)')"/>
 
 	<PropertyGroup Condition="'$(CustomBeforeMicrosoftCSharpTargets)' == ''">
 		<CustomBeforeMicrosoftCSharpTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftCSharpTargets>
@@ -30,16 +30,16 @@
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftCSharpTargets Condition="'$(ImportByWildcardAfterMicrosoftCSharpTargets)' == ''">true</ImportByWildcardAfterMicrosoftCSharpTargets>
-		<_ImportAfterMicrosoftCSharpTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCSharpTargetsPath>
-		<_ImportAfterMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCSharpTargetsPath>
+		<_ImportExtensionsAfterMicrosoftCSharpTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportExtensionsAfterMicrosoftCSharpTargetsPath>
+		<_ImportExtensionsAfterMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportExtensionsAfterMicrosoftCSharpTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportAfterMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCSharpTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftCSharpTargetsPath)')"/>
+	<Import Project="$(_ImportExtensionsAfterMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCSharpTargets)' == 'true' AND Exists('$(_ImportExtensionsAfterMicrosoftCSharpTargetsPath)')"/>
 
 	<PropertyGroup>
 		<ImportUserLocationsByWildcardAfterMicrosoftCSharpTargets Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCSharpTargets)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftCSharpTargets>
-		<_ImportUserLocationsAfterMicrosoftCSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftCSharpTargetsPath>
-		<_ImportUserLocationsAfterMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftCSharpTargetsPath>
+		<_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath>
+		<_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\$(MSBuildThisFile)\ImportAfter</_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsAfterMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCSharpTargets)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCSharpTargetsPath)')"/>
+	<Import Project="$(_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCSharpTargets)' == 'true' AND Exists('$(_ImportUserExtensionsAfterMicrosoftCSharpTargetsPath)')"/>
 
 </Project>

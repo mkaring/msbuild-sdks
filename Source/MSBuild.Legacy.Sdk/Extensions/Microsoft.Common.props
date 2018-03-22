@@ -2,17 +2,17 @@
 
 	<PropertyGroup>
 		<ImportUserLocationsByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardBeforeMicrosoftCommonProps>
-		<_ImportUserLocationsBeforeMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftCommonPropsPath>
-		<_ImportUserLocationsBeforeMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportBefore</_ImportUserLocationsBeforeMicrosoftCommonPropsPath>
+		<_ImportUserExtensionsBeforeMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportBefore</_ImportUserExtensionsBeforeMicrosoftCommonPropsPath>
+		<_ImportUserExtensionsBeforeMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportBefore</_ImportUserExtensionsBeforeMicrosoftCommonPropsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsBeforeMicrosoftCommonPropsPath)')"/>
+	<Import Project="$(_ImportUserExtensionsBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardBeforeMicrosoftCommonProps)' == 'true' AND Exists('$(_ImportUserExtensionsBeforeMicrosoftCommonPropsPath)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftCommonProps Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == ''">true</ImportByWildcardBeforeMicrosoftCommonProps>
-		<_ImportBeforeMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftCommonPropsPath>
-		<_ImportBeforeMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftCommonPropsPath>
+		<_ImportExtensionsBeforeMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportBefore</_ImportExtensionsBeforeMicrosoftCommonPropsPath>
+		<_ImportExtensionsBeforeMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportBefore</_ImportExtensionsBeforeMicrosoftCommonPropsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonPropsPath)')"/>
+	<Import Project="$(_ImportExtensionsBeforeMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonProps)' == 'true' AND Exists('$(_ImportExtensionsBeforeMicrosoftCommonPropsPath)')"/>
 
 	<PropertyGroup Condition="'$(CustomBeforeMicrosoftCommonProps)' == ''">
 		<CustomBeforeMicrosoftCommonProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftCommonProps>
@@ -30,16 +30,16 @@
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftCommonProps Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportByWildcardAfterMicrosoftCommonProps>
-		<_ImportAfterMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCommonPropsPath>
-		<_ImportAfterMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCommonPropsPath>
+		<_ImportExtensionsAfterMicrosoftCommonPropsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportAfter</_ImportExtensionsAfterMicrosoftCommonPropsPath>
+		<_ImportExtensionsAfterMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportAfter</_ImportExtensionsAfterMicrosoftCommonPropsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonPropsPath)')"/>
+	<Import Project="$(_ImportExtensionsAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonProps)' == 'true' AND Exists('$(_ImportExtensionsAfterMicrosoftCommonPropsPath)')"/>
 
 	<PropertyGroup>
 		<ImportUserLocationsByWildcardAfterMicrosoftCommonProps Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == ''">true</ImportUserLocationsByWildcardAfterMicrosoftCommonProps>
-		<_ImportUserLocationsAfterMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftCommonPropsPath>
-		<_ImportUserLocationsAfterMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportAfter</_ImportUserLocationsAfterMicrosoftCommonPropsPath>
+		<_ImportUserExtensionsAfterMicrosoftCommonPropsPath>$(MSBuildUserExtensionsPath)\$(MSBuildToolsVersion)\Imports\$(MSBuildThisFile)\ImportAfter</_ImportUserExtensionsAfterMicrosoftCommonPropsPath>
+		<_ImportUserExtensionsAfterMicrosoftCommonPropsPath Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildUserExtensionsPath)\4.0\Imports\$(MSBuildThisFile)\ImportAfter</_ImportUserExtensionsAfterMicrosoftCommonPropsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == 'true' and Exists('$(_ImportUserLocationsAfterMicrosoftCommonPropsPath)')"/>
+	<Import Project="$(_ImportUserExtensionsAfterMicrosoftCommonPropsPath)\*" Condition="'$(ImportUserLocationsByWildcardAfterMicrosoftCommonProps)' == 'true' AND Exists('$(_ImportUserExtensionsAfterMicrosoftCommonPropsPath)')"/>
 
 </Project>

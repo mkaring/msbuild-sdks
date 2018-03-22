@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup Label="Microsoft.Common.props">
+		<ImportByWildcardBeforeMicrosoftCommonProps>false</ImportByWildcardBeforeMicrosoftCommonProps>
+		<ImportByWildcardAfterMicrosoftCommonProps>false</ImportByWildcardAfterMicrosoftCommonProps>
+		<ImportUserLocationsByWildcardBeforeMicrosoftCommonProps>false</ImportUserLocationsByWildcardBeforeMicrosoftCommonProps>
+		<ImportUserLocationsByWildcardAfterMicrosoftCommonProps>false</ImportUserLocationsByWildcardAfterMicrosoftCommonProps>
+		<CustomBeforeMicrosoftCommonProps>DISABLED-FROM-SDK</CustomBeforeMicrosoftCommonProps>
+		<CustomAfterMicrosoftCommonProps>DISABLED-FROM-SDK</CustomAfterMicrosoftCommonProps>
+	</PropertyGroup>
+
+</Project>

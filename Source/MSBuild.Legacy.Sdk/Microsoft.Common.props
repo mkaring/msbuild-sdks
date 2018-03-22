@@ -15,11 +15,7 @@
 		</Otherwise>
 	</Choose>
 
-	<ImportGroup Condition="'$(MSBuildAssemblyVersion)' != ''">
-		<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'" />
-		<Import Project="$(MicrosoftCommonPropsPath)" Condition="'$(ImportLegacyExtensionProps)' != 'true'" />
-	</ImportGroup>
-
-	<Import Project="$(MicrosoftCommonPropsPath)" Condition="'$(MSBuildAssemblyVersion)' == ''" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'" />
+	<Import Project="$(MicrosoftCommonPropsPath)" Condition="'$(ImportLegacyExtensionProps)' != 'true'" />
 
 </Project>

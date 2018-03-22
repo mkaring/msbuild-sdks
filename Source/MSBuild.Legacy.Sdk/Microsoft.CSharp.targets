@@ -5,7 +5,7 @@
 		nor is there a current target framework being built individually. In that case, this import is
 		redirected to $(MSBuildThisFileName).CrossTargeting.targets.
 	-->
-	<PropertyGroup Condition="'$(TargetFrameworks)' != '' and '$(TargetFramework)' == ''">
+	<PropertyGroup Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">
 		<IsCrossTargetingBuild>true</IsCrossTargetingBuild>
 	</PropertyGroup>
 

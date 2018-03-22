@@ -2,18 +2,18 @@
 
 	<PropertyGroup>
 		<ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets Condition="'$(ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets)' == ''">true</ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets>
-		<_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath>
+		<_ImportExtensionsBeforeMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportBefore</_ImportExtensionsBeforeMicrosoftCommonCrossTargetingTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets)' == 'true' and Exists('$(_ImportBeforeMicrosoftCommonCrossTargetingTargetsPath)')"/>
+	<Import Project="$(_ImportExtensionsBeforeMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardBeforeMicrosoftCommonCrossTargetingTargets)' == 'true' AND Exists('$(_ImportExtensionsBeforeMicrosoftCommonCrossTargetingTargetsPath)')"/>
 
-	<Import Project="$(CustomBeforeMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomBeforeMicrosoftCommonCrossTargetingTargets)' == '' and Exists('$(CustomBeforeMicrosoftCommonCrossTargetingTargets)')" />
+	<Import Project="$(CustomBeforeMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomBeforeMicrosoftCommonCrossTargetingTargets)' == '' AND Exists('$(CustomBeforeMicrosoftCommonCrossTargetingTargets)')" />
 	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" />
-	<Import Project="$(CustomAfterMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomAfterMicrosoftCommonCrossTargetingTargets)' == '' and Exists('$(CustomAfterMicrosoftCommonCrossTargetingTargets)')" />
+	<Import Project="$(CustomAfterMicrosoftCommonCrossTargetingTargets)" Condition="'$(CustomAfterMicrosoftCommonCrossTargetingTargets)' == '' AND Exists('$(CustomAfterMicrosoftCommonCrossTargetingTargets)')" />
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == ''">true</ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets>
-		<_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportAfterMicrosoftCommonCrossTargetingTargetsPath>
+		<_ImportExtensionsAfterMicrosoftCommonCrossTargetingTargetsPath>$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\$(MSBuildThisFile)\ImportAfter</_ImportExtensionsAfterMicrosoftCommonCrossTargetingTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(_ImportAfterMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == 'true' and Exists('$(_ImportAfterMicrosoftCommonCrossTargetingTargetsPath)')"/>
+	<Import Project="$(_ImportExtensionsAfterMicrosoftCommonCrossTargetingTargetsPath)\*" Condition="'$(ImportByWildcardAfterMicrosoftCommonCrossTargetingTargets)' == 'true' AND Exists('$(_ImportExtensionsAfterMicrosoftCommonCrossTargetingTargetsPath)')"/>
 
 </Project>

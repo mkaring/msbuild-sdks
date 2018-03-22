@@ -1,7 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'" />
-	<Import Project="$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props" Condition="'$(MicrosoftCommonPropsHasBeenImported)' != 'true' and Exists('$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props')" />
+	<Import Project="$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props" Condition="'$(MicrosoftCommonPropsHasBeenImported)' != 'true' AND Exists('$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props')" />
 
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">

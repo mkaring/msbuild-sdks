@@ -6,7 +6,7 @@
 		<VisualBasicDesignTimeTargetsPath Condition="'$(VisualBasicDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\Managed\Microsoft.VisualBasic.DesignTime.targets</VisualBasicDesignTimeTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(VisualBasicDesignTimeTargetsPath)" Condition="'$(VisualBasicDesignTimeTargetsPath)' != '' and Exists('$(VisualBasicDesignTimeTargetsPath)')" />
+	<Import Project="$(VisualBasicDesignTimeTargetsPath)" Condition="'$(VisualBasicDesignTimeTargetsPath)' != '' AND Exists('$(VisualBasicDesignTimeTargetsPath)')" />
 
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.CrossTargeting.targets" />
 
