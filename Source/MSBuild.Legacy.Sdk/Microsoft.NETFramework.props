@@ -3,7 +3,7 @@
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
 			<PropertyGroup>
-				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\System\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
+				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\Inbox\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
 			</PropertyGroup>
 		</When>
 		<Otherwise>

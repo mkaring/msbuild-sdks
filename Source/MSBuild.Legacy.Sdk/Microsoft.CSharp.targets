@@ -12,7 +12,7 @@
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
 			<PropertyGroup>
-				<MicrosoftCSharpTargetsPath>$(MSBuildLegacySdkPath)\System\$(MSBuildThisFile)</MicrosoftCSharpTargetsPath>
+				<MicrosoftCSharpTargetsPath>$(MSBuildLegacySdkPath)\Inbox\$(MSBuildThisFile)</MicrosoftCSharpTargetsPath>
 			</PropertyGroup>
 		</When>
 		<When Condition="'$(IsCrossTargetingBuild)' == 'true'">
