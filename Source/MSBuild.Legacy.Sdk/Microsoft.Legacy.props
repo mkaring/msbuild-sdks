@@ -3,6 +3,9 @@
 	<PropertyGroup>
 		<MSBuildMinToolsVersion>$(MSBuildToolsVersion)</MSBuildMinToolsVersion>
 		<MSBuildMinToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</MSBuildMinToolsVersion>
+
+		<ImportLegacyExtensionTargets Condition="'$(MSBuildAssemblyVersion)' != ''">true</ImportLegacyExtensionTargets>
+
 		<MSBuildLegacySdkPath Condition="'$(MSBuildLegacySdkPath)' == ''">$(MSBuildThisFileDirectory)</MSBuildLegacySdkPath>
 		<MSBuildLegacySdkPath Condition="HasTrailingSlash('$(MSBuildLegacySdkPath)')">$(MSBuildLegacySdkPath.TrimEnd('\'))</MSBuildLegacySdkPath>
 

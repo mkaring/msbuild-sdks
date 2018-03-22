@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<CustomProjectCorePropsPath>$(MSBuildThisFileDirectory)..\Microsoft.Common.props</CustomProjectCorePropsPath>
+	</PropertyGroup>
+
+	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" Condition="'$(ImportedMSBuildCoreSdkProps)' != 'true'" />
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>
