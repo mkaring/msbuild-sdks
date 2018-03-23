@@ -2,7 +2,7 @@
 <ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
 
 	<ItemType Name="PackageFile"
-			  DisplayName="Package File" />
+			  DisplayName="Package File"/>
 
 	<ContentType Name="PackageFile"
 				 DisplayName="Package File"
@@ -10,10 +10,10 @@
 	</ContentType>
 
 	<ItemType Name="None"
-			  DisplayName="None" />
+			  DisplayName="None"/>
 
 	<ItemType Name="Content"
-			  DisplayName="Content" />
+			  DisplayName="Content"/>
 
 	<ContentType Name="Text"
 				 DisplayName="Text file"
@@ -46,44 +46,44 @@
 	</ContentType>
 
 	<FileExtension Name=".asax"
-				   ContentType="Asax" />
+				   ContentType="Asax"/>
 	<FileExtension Name=".asmx"
-				   ContentType="HTML" />
+				   ContentType="HTML"/>
 	<FileExtension Name=".asp"
-				   ContentType="AspPage" />
+				   ContentType="AspPage"/>
 	<FileExtension Name=".txt"
-				   ContentType="Text" />
+				   ContentType="Text"/>
 	<FileExtension Name=".resx"
-				   ContentType="RESX" />
+				   ContentType="RESX"/>
 	<FileExtension Name=".html"
-				   ContentType="HTML" />
+				   ContentType="HTML"/>
 	<FileExtension Name=".htm"
-				   ContentType="HTML" />
+				   ContentType="HTML"/>
 	<FileExtension Name=".css"
-				   ContentType="CSS" />
+				   ContentType="CSS"/>
 	<FileExtension Name=".bmp"
-				   ContentType="BMP" />
+				   ContentType="BMP"/>
 	<FileExtension Name=".ico"
-				   ContentType="ICO" />
+				   ContentType="ICO"/>
 	<FileExtension Name=".cur"
-				   ContentType="CUR" />
+				   ContentType="CUR"/>
 	<FileExtension Name=".vbS"
-				   ContentType="Script" />
+				   ContentType="Script"/>
 	<FileExtension Name=".jS"
-				   ContentType="Script" />
+				   ContentType="Script"/>
 	<FileExtension Name=".xml"
-				   ContentType="XML" />
+				   ContentType="XML"/>
 	<FileExtension Name=".cs"
-				   ContentType="CSharpFile" />
+				   ContentType="CSharpFile"/>
 	<FileExtension Name=".mht"
-				   ContentType="MHT" />
+				   ContentType="MHT"/>
 	<FileExtension Name=".manifest"
-				   ContentType="Manifest" />
+				   ContentType="Manifest"/>
 	<FileExtension Name=".rdlc"
-				   ContentType="RDLC" />
+				   ContentType="RDLC"/>
 	<FileExtension Name=".cd"
-				   ContentType="ClassDiagram" />
+				   ContentType="ClassDiagram"/>
 	<FileExtension Name=".licenses"
-				   ContentType="Licenses" />
+				   ContentType="Licenses"/>
 
 </ProjectSchemaDefinitions>

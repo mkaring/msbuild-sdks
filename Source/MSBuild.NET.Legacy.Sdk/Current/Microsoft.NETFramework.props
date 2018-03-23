@@ -4,9 +4,9 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 
 		<!-- By default we want to replace subsets with profiles, but we do need a way to turning off this "upgrade" in case a user needs to target a subset-->
-		<UpgradeSubsetToProfile Condition="'$(UpgradeSubsetToProfile)' == '' ">true</UpgradeSubsetToProfile>
+		<UpgradeSubsetToProfile Condition="'$(UpgradeSubsetToProfile)' == ''">true</UpgradeSubsetToProfile>
 
-		<TargetFrameworkProfile Condition="'$(UpgradeSubsetToProfile)' == 'true' and '$(TargetFrameworkSubset)' != '' and '$(TargetFrameworkProfile)' == ''">$(TargetFrameworkSubset)</TargetFrameworkProfile>
+		<TargetFrameworkProfile Condition="'$(UpgradeSubsetToProfile)' == 'true' AND '$(TargetFrameworkSubset)' != '' AND '$(TargetFrameworkProfile)' == ''">$(TargetFrameworkSubset)</TargetFrameworkProfile>
 
 		<!-- If we are not upgrading the Subset to a profile this means we want to target a subset, do not wipe out the subset name-->
 		<TargetFrameworkSubset Condition="'$(UpgradeTargetFrameworkSubsetToProfile)' == 'true'"/>
@@ -17,7 +17,7 @@
 		<_TargetFrameworkDirectories>$(FrameworkPathOverride)</_TargetFrameworkDirectories>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(TargetFrameworkVersion)' == 'v4.0' and '$(FrameworkPathOverride)' == ''">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetFrameworkVersion)' == 'v4.0' AND '$(FrameworkPathOverride)' == ''">
 
 		<!--
 			The FrameworkPathOverride property is required for the IDE Visual Basic compiler to initialize.
@@ -32,20 +32,20 @@
 		<FrameworkPathOverride Condition="'$(TargetFrameworkProfile)' == ''">$(_TargetFrameworkDirectories)</FrameworkPathOverride>
 
 		<!-- Hard code for the most common TargetFrameworkVersion of v4.0 with Client profile: this enables us to avoid calling the GetReferenceAssemblyPaths task -->
-		<_TargetFrameworkDirectories Condition="'$(TargetFrameworkProfile)' == 'Client' and Exists('$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\$(TargetFrameworkProfile)\RedistList\FrameworkList.xml')">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\$(TargetFrameworkProfile)</_TargetFrameworkDirectories>
+		<_TargetFrameworkDirectories Condition="'$(TargetFrameworkProfile)' == 'Client' AND Exists('$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\$(TargetFrameworkProfile)\RedistList\FrameworkList.xml')">$(MSBuildProgramFiles32)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\$(TargetFrameworkProfile)</_TargetFrameworkDirectories>
 		<FrameworkPathOverride Condition="'$(TargetFrameworkProfile)' == 'Client'">$(_TargetFrameworkDirectories)</FrameworkPathOverride>
-		<TargetFrameworkMonikerDisplayName Condition="'$(TargetFrameworkMonikerDisplayName)' == '' and '$(TargetFrameworkProfile)' == ''">.NET Framework 4</TargetFrameworkMonikerDisplayName>
-		<TargetFrameworkMonikerDisplayName Condition="'$(TargetFrameworkMonikerDisplayName)' == '' and '$(TargetFrameworkProfile)' == 'Client'">.NET Framework 4 Client Profile</TargetFrameworkMonikerDisplayName>
+		<TargetFrameworkMonikerDisplayName Condition="'$(TargetFrameworkMonikerDisplayName)' == '' AND '$(TargetFrameworkProfile)' == ''">.NET Framework 4</TargetFrameworkMonikerDisplayName>
+		<TargetFrameworkMonikerDisplayName Condition="'$(TargetFrameworkMonikerDisplayName)' == '' AND '$(TargetFrameworkProfile)' == 'Client'">.NET Framework 4 Client Profile</TargetFrameworkMonikerDisplayName>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<MSBuildFrameworkToolsRoot Condition="'$(MSBuildFrameworkToolsRoot)' == '' and '$(MSBuildRuntimeType)' != 'Core'">$(Registry:HKEY_LOCAL_MACHINE\Software\Microsoft\.NETFramework@InstallRoot)</MSBuildFrameworkToolsRoot>
-		<_DeploymentSignClickOnceManifests Condition="'$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.0' or '$(SignManifests)' == 'true'">true</_DeploymentSignClickOnceManifests>
+		<MSBuildFrameworkToolsRoot Condition="'$(MSBuildFrameworkToolsRoot)' == '' AND '$(MSBuildRuntimeType)' != 'Core'">$(Registry:HKEY_LOCAL_MACHINE\Software\Microsoft\.NETFramework@InstallRoot)</MSBuildFrameworkToolsRoot>
+		<_DeploymentSignClickOnceManifests Condition="'$(TargetFrameworkVersion)' == 'v2.0' OR '$(TargetFrameworkVersion)' == 'v3.0' OR '$(SignManifests)' == 'true'">true</_DeploymentSignClickOnceManifests>
 
 		<!-- Assembly names added to the AdditionalExplicitAssemblyReferences property will be added as references to the resolve assembly reference call by default this is done because
 			 when upgrading from a project targeting 2.0 to 3.5 the system.core reference is not added, therefore we need to add it automatically -->
 		<AddAdditionalExplicitAssemblyReferences Condition="'$(AddAdditionalExplicitAssemblyReferences)' == ''">true</AddAdditionalExplicitAssemblyReferences>
-		<AdditionalExplicitAssemblyReferences Condition="'$(AddAdditionalExplicitAssemblyReferences)' == 'true' and '$(TargetCompactFramework)' != 'true' and ('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.0')">System.Core;$(AdditionalExplicitAssemblyReferences)</AdditionalExplicitAssemblyReferences>
+		<AdditionalExplicitAssemblyReferences Condition="'$(AddAdditionalExplicitAssemblyReferences)' == 'true' AND '$(TargetCompactFramework)' != 'true' AND ('$(TargetFrameworkVersion)' != 'v2.0' AND '$(TargetFrameworkVersion)' != 'v3.0')">System.Core;$(AdditionalExplicitAssemblyReferences)</AdditionalExplicitAssemblyReferences>
 	</PropertyGroup>
 
 	<!--
@@ -57,7 +57,7 @@
 	-->
 
 	<PropertyGroup>
-		<TargetingClr2Framework Condition="'$(TargetFrameworkVersion)' == 'v2.0' or '$(TargetFrameworkVersion)' == 'v3.0' or '$(TargetFrameworkVersion)' == 'v3.5'">true</TargetingClr2Framework>
+		<TargetingClr2Framework Condition="'$(TargetFrameworkVersion)' == 'v2.0' OR '$(TargetFrameworkVersion)' == 'v3.0' OR '$(TargetFrameworkVersion)' == 'v3.5'">true</TargetingClr2Framework>
 
 		<MSBuildManagedCompilerPath Condition="'$(TargetingClr2Framework)' == 'true'">$(MSBuildFrameworkToolsRoot)\v3.5</MSBuildManagedCompilerPath>
 
@@ -69,14 +69,14 @@
 			revised along with another toolsversion.
 		-->
 
-		<TargetFrameworkSDKToolsDirectory Condition=" '$(TargetFrameworkSDKToolsDirectory)' == '' ">$(SDK40ToolsPath)</TargetFrameworkSDKToolsDirectory>
+		<TargetFrameworkSDKToolsDirectory Condition="'$(TargetFrameworkSDKToolsDirectory)' == ''">$(SDK40ToolsPath)</TargetFrameworkSDKToolsDirectory>
 
-		<TargetedRuntimeVersion Condition="'$(TargetedRuntimeVersion)' == '' and ('$(TargetingClr2Framework)' == 'true')">v2.0.50727</TargetedRuntimeVersion>
+		<TargetedRuntimeVersion Condition="'$(TargetedRuntimeVersion)' == '' AND ('$(TargetingClr2Framework)' == 'true')">v2.0.50727</TargetedRuntimeVersion>
 		<TargetedRuntimeVersion Condition="'$(TargetedRuntimeVersion)' == ''">v$(MSBuildRuntimeVersion)</TargetedRuntimeVersion>
 
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(TargetingClr2Framework)' != 'true' and '$(TargetFrameworkVersion)' != 'v4.0' and ('$(OutputType)' == 'exe' or '$(OutputType)' == 'winexe' or '$(OutputType)' == 'appcontainerexe' or '$(OutputType)' == '')">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetingClr2Framework)' != 'true' AND '$(TargetFrameworkVersion)' != 'v4.0' AND ('$(OutputType)' == 'exe' OR '$(OutputType)' == 'winexe' OR '$(OutputType)' == 'appcontainerexe' OR '$(OutputType)' == '')">
 		<Prefer32Bit Condition="'$(Prefer32Bit)' == ''">true</Prefer32Bit>
 	</PropertyGroup>
 
@@ -84,7 +84,7 @@
 		<Prefer32Bit Condition="'$(Prefer32Bit)' == ''">false</Prefer32Bit>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(TargetingClr2Framework)' != 'true' and '$(TargetFrameworkVersion)' != 'v4.0'">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetingClr2Framework)' != 'true' AND '$(TargetFrameworkVersion)' != 'v4.0'">
 		<HighEntropyVA Condition="'$(HighEntropyVA)' == ''">true</HighEntropyVA>
 	</PropertyGroup>
 
@@ -94,24 +94,24 @@
 
 	<PropertyGroup>
 		<!-- ARM and AppContainerExe require subsystem version >= 6.02 (Windows 8) -->
-		<SubsystemVersion Condition="'$(SubsystemVersion)' == '' and ('$(PlatformTarget)' == 'ARM' or '$(OutputType)' == 'appcontainerexe' or '$(OutputType)' == 'winmdobj')">6.02</SubsystemVersion>
+		<SubsystemVersion Condition="'$(SubsystemVersion)' == '' AND ('$(PlatformTarget)' == 'ARM' OR '$(OutputType)' == 'appcontainerexe' OR '$(OutputType)' == 'winmdobj')">6.02</SubsystemVersion>
 		<!-- Starting with .Net 4.5 projects use subsystem 6.00 (Vista) as default -->
-		<SubsystemVersion Condition="'$(SubsystemVersion)' == '' and ('$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(TargetingClr2Framework)' != 'true' and '$(TargetFrameworkVersion)' != 'v4.0')">6.00</SubsystemVersion>
+		<SubsystemVersion Condition="'$(SubsystemVersion)' == '' AND ('$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetingClr2Framework)' != 'true' AND '$(TargetFrameworkVersion)' != 'v4.0')">6.00</SubsystemVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<ComReferenceExecuteAsTool Condition="'$(ExecuteAsTool)'!=''">$(ExecuteAsTool)</ComReferenceExecuteAsTool>
-		<ComReferenceExecuteAsTool Condition="'$(ExecuteAsTool)'=='' and '$(TargetingClr2Framework)' == 'true'">true</ComReferenceExecuteAsTool>
+		<ComReferenceExecuteAsTool Condition="'$(ExecuteAsTool)'=='' AND '$(TargetingClr2Framework)' == 'true'">true</ComReferenceExecuteAsTool>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<ResGenExecuteAsTool Condition="'$(ExecuteAsTool)'!=''">$(ExecuteAsTool)</ResGenExecuteAsTool>
-		<ResGenExecuteAsTool Condition="'$(ExecuteAsTool)'=='' and '$(TargetingClr2Framework)' == 'true'">true</ResGenExecuteAsTool>
+		<ResGenExecuteAsTool Condition="'$(ExecuteAsTool)'=='' AND '$(TargetingClr2Framework)' == 'true'">true</ResGenExecuteAsTool>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<!-- Starting with .NET 4.5 projects we implictly reference all portable design-time facades -->
-		<ImplicitlyExpandDesignTimeFacades Condition="'$(ImplicitlyExpandDesignTimeFacades)' == '' and ('$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(TargetingClr2Framework)' != 'true' and '$(TargetFrameworkVersion)' != 'v4.0')">true</ImplicitlyExpandDesignTimeFacades>
+		<ImplicitlyExpandDesignTimeFacades Condition="'$(ImplicitlyExpandDesignTimeFacades)' == '' AND ('$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetingClr2Framework)' != 'true' AND '$(TargetFrameworkVersion)' != 'v4.0')">true</ImplicitlyExpandDesignTimeFacades>
 	</PropertyGroup>
 
 </Project>

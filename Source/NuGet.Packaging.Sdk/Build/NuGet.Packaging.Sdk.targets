@@ -5,7 +5,7 @@
 		<PackageOutputPath Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PackageOutputPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Packaging\NuGet.Build.Packaging.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Packaging\NuGet.Build.Packaging.targets"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

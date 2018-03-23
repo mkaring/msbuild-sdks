@@ -30,7 +30,7 @@
 	-->
 	<Choose>
 		<!-- If the ImplicitFrameworkPackageVersion is already set, do nothing -->
-		<When Condition="'$(ImplicitFrameworkPackageVersion)' != ''" />
+		<When Condition="'$(ImplicitFrameworkPackageVersion)' != ''"/>
 
 		<When Condition="$(TargetFrameworkVersion.StartsWith('4.5'))">
 			<PropertyGroup>

@@ -1,40 +1,40 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!-- Workaround: https://github.com/Microsoft/msbuild/issues/1293 -->
-	<PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core' Or '$(TargetFrameworkIdentifier)' != '.NETFramework'">
-		<GenerateResourceMSBuildArchitecture Condition=" '$(GenerateResourceMSBuildArchitecture)' == '' ">CurrentArchitecture</GenerateResourceMSBuildArchitecture>
-		<GenerateResourceMSBuildRuntime Condition=" '$(GenerateResourceMSBuildRuntime)' == '' ">CurrentRuntime</GenerateResourceMSBuildRuntime>
+	<!-- TODO: Remove this Workaround when a solution is found. ISSUE: https://github.com/Microsoft/msbuild/issues/1293 -->
+	<PropertyGroup Condition="'$(MSBuildRuntimeType)' == 'Core' OR '$(TargetFrameworkIdentifier)' != '.NETFramework'">
+		<GenerateResourceMSBuildArchitecture Condition="'$(GenerateResourceMSBuildArchitecture)' == ''">CurrentArchitecture</GenerateResourceMSBuildArchitecture>
+		<GenerateResourceMSBuildRuntime Condition="'$(GenerateResourceMSBuildRuntime)' == ''">CurrentRuntime</GenerateResourceMSBuildRuntime>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets"/>
 
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets" Condition="Exists('$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets')" />
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets" Condition="Exists('$(MicrosoftNETSdkBuildPath)Microsoft.PackageDependencyResolution.targets')"/>
 
 	<ImportGroup>
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Specifics.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Specifics.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.Items.targets"/>
 	</ImportGroup>
 
-	<UsingTask TaskName="GenerateDepsFile" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
-	<UsingTask TaskName="GenerateRuntimeConfigurationFiles" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
-	<UsingTask TaskName="GetAssemblyVersion" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
-	<UsingTask TaskName="GenerateSatelliteAssemblies" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="GenerateDepsFile" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
+	<UsingTask TaskName="GenerateRuntimeConfigurationFiles" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
+	<UsingTask TaskName="GetAssemblyVersion" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
+	<UsingTask TaskName="GenerateSatelliteAssemblies" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<PropertyGroup>
 		<DisableStandardFrameworkResolution Condition="'$(DisableStandardFrameworkResolution)' == ''">$(_IsNETCoreOrNETStandard)</DisableStandardFrameworkResolution>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<GenerateRuntimeConfigurationFiles Condition=" '$(GenerateRuntimeConfigurationFiles)' == '' and '$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(HasRuntimeOutput)' == 'true' ">true</GenerateRuntimeConfigurationFiles>
-		<UserRuntimeConfig Condition=" '$(UserRuntimeConfig)' == '' ">$(MSBuildProjectDirectory)/runtimeconfig.template.json</UserRuntimeConfig>
-		<GenerateSatelliteAssembliesForCore Condition=" '$(GenerateSatelliteAssembliesForCore)' == '' and '$(MSBuildRuntimeType)' == 'Core' ">true</GenerateSatelliteAssembliesForCore>
-		<ComputeNETCoreBuildOutputFiles Condition=" '$(ComputeNETCoreBuildOutputFiles)' == '' and '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">true</ComputeNETCoreBuildOutputFiles>
+		<GenerateRuntimeConfigurationFiles Condition="'$(GenerateRuntimeConfigurationFiles)' == '' AND '$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(HasRuntimeOutput)' == 'true'">true</GenerateRuntimeConfigurationFiles>
+		<UserRuntimeConfig Condition="'$(UserRuntimeConfig)' == ''">$(MSBuildProjectDirectory)/runtimeconfig.template.json</UserRuntimeConfig>
+		<GenerateSatelliteAssembliesForCore Condition="'$(GenerateSatelliteAssembliesForCore)' == '' AND '$(MSBuildRuntimeType)' == 'Core'">true</GenerateSatelliteAssembliesForCore>
+		<ComputeNETCoreBuildOutputFiles Condition="'$(ComputeNETCoreBuildOutputFiles)' == '' AND '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">true</ComputeNETCoreBuildOutputFiles>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<GenerateRuntimeConfigurationFilesInputs Include="$(ProjectAssetsFile)" />
-		<GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition=" Exists($(UserRuntimeConfig)) " />
+		<GenerateRuntimeConfigurationFilesInputs Include="$(ProjectAssetsFile)"/>
+		<GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition=" Exists($(UserRuntimeConfig)) "/>
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -43,17 +43,17 @@
 		<ProjectRuntimeConfigFileName Condition="'$(ProjectRuntimeConfigFileName)' == ''">$(AssemblyName).runtimeconfig.json</ProjectRuntimeConfigFileName>
 		<ProjectRuntimeConfigFilePath Condition="'$(ProjectRuntimeConfigFilePath)' == ''">$(TargetDir)$(ProjectRuntimeConfigFileName)</ProjectRuntimeConfigFilePath>
 		<ProjectRuntimeConfigDevFilePath Condition="'$(ProjectRuntimeConfigDevFilePath)' == ''">$(TargetDir)$(AssemblyName).runtimeconfig.dev.json</ProjectRuntimeConfigDevFilePath>
-		<IncludeMainProjectInDepsFile Condition=" '$(IncludeMainProjectInDepsFile)' == '' ">true</IncludeMainProjectInDepsFile>
+		<IncludeMainProjectInDepsFile Condition="'$(IncludeMainProjectInDepsFile)' == ''">true</IncludeMainProjectInDepsFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<_NativeLibraryPrefix Condition="'$(_NativeLibraryPrefix)' == '' and !$(RuntimeIdentifier.StartsWith('win'))">lib</_NativeLibraryPrefix>
+		<_NativeLibraryPrefix Condition="'$(_NativeLibraryPrefix)' == '' AND !$(RuntimeIdentifier.StartsWith('win'))">lib</_NativeLibraryPrefix>
 
-		<_NativeLibraryExtension Condition="'$(_NativeLibraryExtension)' == '' and $(RuntimeIdentifier.StartsWith('win'))">.dll</_NativeLibraryExtension>
-		<_NativeLibraryExtension Condition="'$(_NativeLibraryExtension)' == '' and $(RuntimeIdentifier.StartsWith('osx'))">.dylib</_NativeLibraryExtension>
+		<_NativeLibraryExtension Condition="'$(_NativeLibraryExtension)' == '' AND $(RuntimeIdentifier.StartsWith('win'))">.dll</_NativeLibraryExtension>
+		<_NativeLibraryExtension Condition="'$(_NativeLibraryExtension)' == '' AND $(RuntimeIdentifier.StartsWith('osx'))">.dylib</_NativeLibraryExtension>
 		<_NativeLibraryExtension Condition="'$(_NativeLibraryExtension)' == ''">.so</_NativeLibraryExtension>
 
-		<_NativeExecutableExtension Condition="'$(_NativeExecutableExtension)' == '' and $(RuntimeIdentifier.StartsWith('win'))">.exe</_NativeExecutableExtension>
+		<_NativeExecutableExtension Condition="'$(_NativeExecutableExtension)' == '' AND $(RuntimeIdentifier.StartsWith('win'))">.exe</_NativeExecutableExtension>
 
 		<_DotNetHostExecutableName>dotnet$(_NativeExecutableExtension)</_DotNetHostExecutableName>
 		<_DotNetAppHostExecutableName>apphost$(_NativeExecutableExtension)</_DotNetAppHostExecutableName>
@@ -102,7 +102,7 @@
 	<Target Name="GenerateBuildDependencyFile"
 			DependsOnTargets="_DefaultMicrosoftNETPlatformLibrary;_HandlePackageFileConflicts;_ComputeReferenceAssemblies"
 			BeforeTargets="CopyFilesToOutputDirectory"
-			Condition=" '$(GenerateDependencyFile)' == 'true'"
+			Condition="'$(GenerateDependencyFile)' == 'true'"
 			Inputs="$(ProjectAssetsFile)"
 			Outputs="$(ProjectDepsFilePath)">
 
@@ -148,7 +148,7 @@
 	<Target Name="GenerateBuildRuntimeConfigurationFiles"
 			DependsOnTargets="_DefaultMicrosoftNETPlatformLibrary"
 			BeforeTargets="CopyFilesToOutputDirectory"
-			Condition=" '$(GenerateRuntimeConfigurationFiles)' == 'true'"
+			Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true'"
 			Inputs="@(GenerateRuntimeConfigurationFilesInputs)"
 			Outputs="$(ProjectRuntimeConfigFilePath);$(ProjectRuntimeConfigDevFilePath)">
 
@@ -179,10 +179,10 @@
 
 	<!-- Add runtimeconfig.json file to BuiltProjectOutputGroupOutput, so that it will get included in the NuGet package by the Pack target -->
 	<Target Name="AddRuntimeConfigFileToBuiltProjectOutputGroupOutput"
-			Condition=" '$(GenerateRuntimeConfigurationFiles)' == 'true'"
+			Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true'"
 			BeforeTargets="BuiltProjectOutputGroup">
 		<ItemGroup>
-			<BuiltProjectOutputGroupOutput Include="$(ProjectRuntimeConfigFilePath)" FinalOutputPath="$(ProjectRuntimeConfigFilePath)" />
+			<BuiltProjectOutputGroupOutput Include="$(ProjectRuntimeConfigFilePath)" FinalOutputPath="$(ProjectRuntimeConfigFilePath)"/>
 		</ItemGroup>
 	</Target>
 
@@ -222,23 +222,23 @@
 	<ItemGroup>
 		<RuntimeHostConfigurationOption Include="System.GC.Concurrent"
 										Condition="'$(ConcurrentGarbageCollection)' != ''"
-										Value="$(ConcurrentGarbageCollection)" />
+										Value="$(ConcurrentGarbageCollection)"/>
 
 		<RuntimeHostConfigurationOption Include="System.GC.Server"
 										Condition="'$(ServerGarbageCollection)' != ''"
-										Value="$(ServerGarbageCollection)" />
+										Value="$(ServerGarbageCollection)"/>
 
 		<RuntimeHostConfigurationOption Include="System.GC.RetainVM"
 										Condition="'$(RetainVMGarbageCollection)' != ''"
-										Value="$(RetainVMGarbageCollection)" />
+										Value="$(RetainVMGarbageCollection)"/>
 
 		<RuntimeHostConfigurationOption Include="System.Threading.ThreadPool.MinThreads"
 										Condition="'$(ThreadPoolMinThreads)' != ''"
-										Value="$(ThreadPoolMinThreads)" />
+										Value="$(ThreadPoolMinThreads)"/>
 
 		<RuntimeHostConfigurationOption Include="System.Threading.ThreadPool.MaxThreads"
 										Condition="'$(ThreadPoolMaxThreads)' != ''"
-										Value="$(ThreadPoolMaxThreads)" />
+										Value="$(ThreadPoolMaxThreads)"/>
 	</ItemGroup>
 
 	<!--
@@ -248,9 +248,9 @@
 	Adds the default @(AdditionalProbingPath) items.
 	============================================================
 	-->
-	<ItemGroup Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true' and '$(SkipDefaultAdditionalProbingPaths)' != 'true'">
+	<ItemGroup Condition="'$(GenerateRuntimeConfigurationFiles)' == 'true' AND '$(SkipDefaultAdditionalProbingPaths)' != 'true'">
 		<!-- Note: can't use Path.Combine here since `|` is an illegal path character -->
-		<AdditionalProbingPath Include="$(UserProfileRuntimeStorePath)$([System.IO.Path]::DirectorySeparatorChar)|arch|$([System.IO.Path]::DirectorySeparatorChar)|tfm|" />
+		<AdditionalProbingPath Include="$(UserProfileRuntimeStorePath)$([System.IO.Path]::DirectorySeparatorChar)|arch|$([System.IO.Path]::DirectorySeparatorChar)|tfm|"/>
 	</ItemGroup>
 
 	<!--
@@ -260,7 +260,7 @@
 	Computes any files that need to be copied to the build output folder for .NET Core.
 	============================================================
 	-->
-	<UsingTask TaskName="EmbedAppNameInHost" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="EmbedAppNameInHost" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 	<Target Name="_ComputeNETCoreBuildOutputFiles"
 			DependsOnTargets="ResolvePackageAssets"
 			AfterTargets="ResolveReferences"
@@ -273,48 +273,48 @@
 			it requires a host in the output directory to load the app.
 			During "publish", all required assets are copied to the publish directory.
 		-->
-		<ItemGroup Condition="'$(SelfContained)' == 'true' and '$(RuntimeIdentifier)' != '' and '$(_IsExecutable)' == 'true'">
+		<ItemGroup Condition="'$(SelfContained)' == 'true' AND '$(RuntimeIdentifier)' != '' AND '$(_IsExecutable)' == 'true'">
 			<NativeNETCoreCopyLocalItems Include="@(NativeCopyLocalItems)"
 				Condition="'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetHostPolicyLibraryName)' or
-					'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetHostFxrLibraryName)'" />
+					'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetHostFxrLibraryName)'"/>
 
 			<NativeRestoredAppHostNETCore Include="@(NativeCopyLocalItems)"
 				Condition="'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetAppHostExecutableName)'"/>
 		</ItemGroup>
 
-		<PropertyGroup Condition="'@(NativeRestoredAppHostNETCore)' != '' ">
+		<PropertyGroup Condition="'@(NativeRestoredAppHostNETCore)' != ''">
 			<AppHostDestinationDirectoryPath>$(BaseIntermediateOutputPath)\$(TargetFramework)\$(RuntimeIdentifier)\host</AppHostDestinationDirectoryPath>
 		</PropertyGroup>
 
-		<NETSdkError Condition="'@(NativeRestoredAppHostNETCore->Count())' &gt; 1"
+		<NETSdkError Condition="'@(NativeRestoredAppHostNETCore->Count())' > '1'"
 			ResourceName="MultipleFilesResolved"
-			FormatArguments="$(_DotNetAppHostExecutableName)" />
+			FormatArguments="$(_DotNetAppHostExecutableName)"/>
 
 		<EmbedAppNameInHost AppHostSourcePath="@(NativeRestoredAppHostNETCore)"
 							AppHostDestinationDirectoryPath="$(AppHostDestinationDirectoryPath)"
 							AppBinaryName="$(AssemblyName)$(TargetExt)"
-							Condition="'@(NativeRestoredAppHostNETCore)' != '' ">
+							Condition="'@(NativeRestoredAppHostNETCore)' != ''">
 
-			<Output TaskParameter="ModifiedAppHostPath" ItemName="NativeAppHostNETCore" />
+			<Output TaskParameter="ModifiedAppHostPath" ItemName="NativeAppHostNETCore"/>
 		</EmbedAppNameInHost>
 
-		<ItemGroup Condition="'@(NativeAppHostNETCore)' == '' ">
+		<ItemGroup Condition="'@(NativeAppHostNETCore)' == ''">
 			<NativeAppHostNETCore Include="@(NativeCopyLocalItems)"
-				Condition="'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetHostExecutableName)'" />
+				Condition="'%(NativeCopyLocalItems.FileName)%(NativeCopyLocalItems.Extension)' == '$(_DotNetHostExecutableName)'"/>
 		</ItemGroup>
 
-		<NETSdkError Condition="'@(NativeAppHostNETCore->Count())' &gt; 1"
+		<NETSdkError Condition="'@(NativeAppHostNETCore->Count())' > '1'"
 			ResourceName="MultipleFilesResolved"
-			FormatArguments="@(NativeAppHostNETCore)" />
+			FormatArguments="@(NativeAppHostNETCore)"/>
 
-		<ItemGroup Condition="'@(NativeAppHostNETCore)' != '' ">
+		<ItemGroup Condition="'@(NativeAppHostNETCore)' != ''">
 			<NativeNETCoreCopyLocalItems Include="@(NativeAppHostNETCore)">
 				<!-- Rename the host executable to the app's name -->
 				<Link>$(AssemblyName)%(NativeAppHostNETCore.Extension)</Link>
 			</NativeNETCoreCopyLocalItems>
 		</ItemGroup>
 
-		<ItemGroup Condition="'$(SelfContained)' == 'true' and '$(RuntimeIdentifier)' != '' and '$(_IsExecutable)' == 'true'">
+		<ItemGroup Condition="'$(SelfContained)' == 'true' AND '$(RuntimeIdentifier)' != '' AND '$(_IsExecutable)' == 'true'">
 			<AllNETCoreCopyLocalItems Include="@(NativeNETCoreCopyLocalItems)">
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 				<CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -322,7 +322,7 @@
 		</ItemGroup>
 		<ItemGroup>
 			<!-- Use 'None' so we can rename files using the 'Link' metadata as necessary -->
-			<None Include="@(AllNETCoreCopyLocalItems)" />
+			<None Include="@(AllNETCoreCopyLocalItems)"/>
 		</ItemGroup>
 
 	</Target>
@@ -339,7 +339,7 @@
 
 		<ItemGroup>
 			<_FrameworkReferenceAssemblies Include="@(ReferencePath)"
-				Condition="%(ReferencePath.FrameworkFile) == 'true' or %(ReferencePath.ResolvedFrom) == 'ImplicitlyExpandDesignTimeFacades'" />
+				Condition="%(ReferencePath.FrameworkFile) == 'true' OR %(ReferencePath.ResolvedFrom) == 'ImplicitlyExpandDesignTimeFacades'"/>
 
 			<!--
 				"ReferenceOnly" assemblies are assemblies that are only used at compile-time, and they can't be resolved
@@ -351,10 +351,10 @@
 			-->
 			<_ReferenceOnlyAssemblies Include="@(ReferencePath)"
 				Exclude="@(_FrameworkReferenceAssemblies)"
-				Condition="%(ReferencePath.CopyLocal) != 'true' and %(ReferencePath.NuGetSourceType) == ''" />
+				Condition="%(ReferencePath.CopyLocal) != 'true' AND %(ReferencePath.NuGetSourceType) == ''"/>
 
-			<_ReferenceAssemblies Include="@(_FrameworkReferenceAssemblies)" />
-			<_ReferenceAssemblies Include="@(_ReferenceOnlyAssemblies)" />
+			<_ReferenceAssemblies Include="@(_FrameworkReferenceAssemblies)"/>
+			<_ReferenceAssemblies Include="@(_ReferenceOnlyAssemblies)"/>
 		</ItemGroup>
 
 	</Target>
@@ -378,13 +378,13 @@
 			</PropertyGroup>
 		</When>
 
-		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(_IsExecutable)' == 'true'">
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(_IsExecutable)' == 'true'">
 			<PropertyGroup Condition="'$(SelfContained)' != 'true'">
 				<!-- TODO: https://github.com/dotnet/sdk/issues/20 Need to get the DotNetHost path from MSBuild -->
 				<RunCommand Condition="'$(RunCommand)' == ''">dotnet</RunCommand>
 
 				<_NetCoreRunArguments>exec &quot;$(TargetPath)&quot;</_NetCoreRunArguments>
-				<RunArguments Condition="'$(RunArguments)' == '' and '$(StartArguments)' != ''">$(_NetCoreRunArguments) $(StartArguments)</RunArguments>
+				<RunArguments Condition="'$(RunArguments)' == '' AND '$(StartArguments)' != ''">$(_NetCoreRunArguments) $(StartArguments)</RunArguments>
 				<RunArguments Condition="'$(RunArguments)' == ''">$(_NetCoreRunArguments)</RunArguments>
 			</PropertyGroup>
 
@@ -394,7 +394,7 @@
 			</PropertyGroup>
 		</When>
 
-		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(_IsExecutable)' == 'true'">
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(_IsExecutable)' == 'true'">
 			<PropertyGroup>
 				<RunCommand Condition="'$(RunCommand)' == ''">$(TargetPath)</RunCommand>
 				<RunArguments Condition="'$(RunArguments)' == ''">$(StartArguments)</RunArguments>
@@ -404,7 +404,7 @@
 
 	<PropertyGroup>
 		<!-- Ensure $(RunWorkingDirectory) is a full path -->
-		<RunWorkingDirectory Condition="'$(RunWorkingDirectory)' != '' and '$([System.IO.Path]::IsPathRooted($(RunWorkingDirectory)))' != 'true'">$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(RunWorkingDirectory)'))))</RunWorkingDirectory>
+		<RunWorkingDirectory Condition="'$(RunWorkingDirectory)' != '' AND '$([System.IO.Path]::IsPathRooted($(RunWorkingDirectory)))' != 'true'">$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '$(RunWorkingDirectory)'))))</RunWorkingDirectory>
 	</PropertyGroup>
 
 	<!--
@@ -419,15 +419,15 @@
 		</CreateSatelliteAssembliesDependsOn>
 	</PropertyGroup>
 
-	<UsingTask TaskName="GetAssemblyAttributes" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="GetAssemblyAttributes" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<Target Name="CoreGenerateSatelliteAssemblies"
 			DependsOnTargets="ResolveAssemblyReferences;_GetAssemblyInfoFromTemplateFile"
 			Inputs="$(MSBuildAllProjects);@(_SatelliteAssemblyResourceInputs);$(IntermediateOutputPath)$(TargetName)$(TargetExt)"
 			Outputs="$(IntermediateOutputPath)%(Culture)\$(TargetName).resources.dll"
-			Condition="'@(_SatelliteAssemblyResourceInputs)' != ''  and '$(GenerateSatelliteAssembliesForCore)' == 'true' ">
+			Condition="'@(_SatelliteAssemblyResourceInputs)' != '' AND '$(GenerateSatelliteAssembliesForCore)' == 'true'">
 
-		<MakeDir Directories="@(_SatelliteAssemblyResourceInputs->'$(IntermediateOutputPath)%(Culture)')" />
+		<MakeDir Directories="@(_SatelliteAssemblyResourceInputs->'$(IntermediateOutputPath)%(Culture)')"/>
 
 		<PropertyGroup>
 			<_AssemblyInfoFile>$(IntermediateOutputPath)%(_SatelliteAssemblyResourceInputs.Culture)\$(TargetName).resources.cs</_AssemblyInfoFile>
@@ -441,7 +441,7 @@
 		</ItemGroup>
 
 		<WriteCodeFragment AssemblyAttributes="@(SatelliteAssemblyAttribute)" Language="C#" OutputFile="$(_AssemblyInfoFile)">
-			<Output TaskParameter="OutputFile" ItemName="FileWrites" />
+			<Output TaskParameter="OutputFile" ItemName="FileWrites"/>
 		</WriteCodeFragment>
 
 		<PropertyGroup Condition="'$(UseSharedCompilation)' == ''">
@@ -474,12 +474,12 @@
 	</Target>
 
 	<Target Name="_GetAssemblyInfoFromTemplateFile">
-		<GetAssemblyAttributes PathToTemplateFile="$(IntermediateOutputPath)$(TargetName)$(TargetExt)" >
-			<Output TaskParameter="AssemblyAttributes" ItemName="_AssemblyAttributesFromTemplateFile" />
+		<GetAssemblyAttributes PathToTemplateFile="$(IntermediateOutputPath)$(TargetName)$(TargetExt)">
+			<Output TaskParameter="AssemblyAttributes" ItemName="_AssemblyAttributesFromTemplateFile"/>
 		</GetAssemblyAttributes>
 
 		<ItemGroup>
-			<SatelliteAssemblyAttribute Include="@(_AssemblyAttributesFromTemplateFile)" />
+			<SatelliteAssemblyAttribute Include="@(_AssemblyAttributesFromTemplateFile)"/>
 		</ItemGroup>
 	</Target>
 
@@ -504,7 +504,7 @@
 	============================================================
 	-->
 	<Target Name="GetAllRuntimeIdentifiers"
-			Returns="$(RuntimeIdentifiers);$(RuntimeIdentifier)" />
+			Returns="$(RuntimeIdentifiers);$(RuntimeIdentifier)"/>
 
 	<!--
 	============================================================
@@ -532,29 +532,29 @@
 						Project Capabilities
 	============================================================
 	-->
-	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(_IsExecutable)' == 'true'">
-		<ProjectCapability Include="CrossPlatformExecutable" />
+	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(_IsExecutable)' == 'true'">
+		<ProjectCapability Include="CrossPlatformExecutable"/>
 	</ItemGroup>
 
 	<!-- Reference Manager capabilities -->
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
-		<ProjectCapability Remove="ReferenceManagerAssemblies" />
-		<ProjectCapability Remove="ReferenceManagerCOM" />
+		<ProjectCapability Remove="ReferenceManagerAssemblies"/>
+		<ProjectCapability Remove="ReferenceManagerCOM"/>
 	</ItemGroup>
 
 	<!-- Publish capabilities -->
 	<ItemGroup>
-		<ProjectCapability Include="FolderPublish" />
+		<ProjectCapability Include="FolderPublish"/>
 	</ItemGroup>
 
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.DisableStandardFrameworkResolution.targets" Condition="'$(DisableStandardFrameworkResolution)' == 'true'" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.GenerateAssemblyInfo.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ComposeStore.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.CrossGen.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Publish.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PreserveCompilationContext.targets" />
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ConflictResolution.targets" />
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.DisableStandardFrameworkResolution.targets" Condition="'$(DisableStandardFrameworkResolution)' == 'true'"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.GenerateAssemblyInfo.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ComposeStore.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.CrossGen.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Publish.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PreserveCompilationContext.targets"/>
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ConflictResolution.targets"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

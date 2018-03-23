@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
 
 	<!--
 		We are doing a cross-targeting build if there is no list of target frameworks specified
@@ -29,7 +29,7 @@
 		</Otherwise>
 	</Choose>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionTargets)' == 'true'" />
-	<Import Project="$(MicrosoftVisualBasicTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionTargets)' == 'true'"/>
+	<Import Project="$(MicrosoftVisualBasicTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'"/>
 
 </Project>

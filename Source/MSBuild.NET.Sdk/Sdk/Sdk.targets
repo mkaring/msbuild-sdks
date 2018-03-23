@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<!--<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets" />-->
+	<!--<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.targets"/>-->
 
 	<PropertyGroup>
 		<!-- ISSUE: We need to import 'MSBuild.NET.Sdk.targets' after the 'ProjectCore.targets' in the 'MSBuild.Core.Sdk' since it depends on it's core defaults -->
@@ -8,14 +8,14 @@
 		<ImportLegacyTargets>false</ImportLegacyTargets>
 	</PropertyGroup>
 
-	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" />
+	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk"/>
 
 	<PropertyGroup>
 		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">false</ImportNuGetPackagingSdkTargets>
 	</PropertyGroup>
 
-	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'" />
-	<Import Project="Sdk.Pack.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' != 'true'" />
+	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'"/>
+	<Import Project="Sdk.Pack.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' != 'true'"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

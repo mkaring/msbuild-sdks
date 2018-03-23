@@ -5,8 +5,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' and '$(DefaultProjectConfiguration)' != '' ">$(DefaultProjectConfiguration)</Configuration>
-		<Platform Condition=" '$(Platform)' == '' and '$(DefaultProjectPlatform)' != '' ">$(DefaultProjectPlatform)</Platform>
+		<Configuration Condition="'$(Configuration)' == '' AND '$(DefaultProjectConfiguration)' != ''">$(DefaultProjectConfiguration)</Configuration>
+		<Platform Condition="'$(Platform)' == '' AND '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -18,6 +18,6 @@
 		<MicrosoftCommonPropsHasBeenImported>true</MicrosoftCommonPropsHasBeenImported>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualStudioVersion.v*.Common.props" Condition="'$(VisualStudioVersion)' == ''" />
+	<Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.VisualStudioVersion.v*.Common.props" Condition="'$(VisualStudioVersion)' == ''"/>
 
 </Project>

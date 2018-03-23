@@ -15,7 +15,7 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultItems)' == 'true' AND '$(EnableDefaultNoneItems)' == 'true'">
-		<None Include="**/*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+		<None Include="**/*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
 	</ItemGroup>
 
 	<PropertyGroup>

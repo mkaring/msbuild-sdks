@@ -1,17 +1,17 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" />
+	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.NETCoreSdk.BundledVersions.props" />
+	<Import Project="$(MSBuildThisFileDirectory)Microsoft.NETCoreSdk.BundledVersions.props"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props"/>
 
 	<PropertyGroup>
 		<!-- TODO: Change once the migration is done. -->
 		<ImportNuGetPackagingSdkProps Condition="'$(ImportNuGetPackagingSdkProps)' == ''">false</ImportNuGetPackagingSdkProps>
 	</PropertyGroup>
 
-	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkProps)' == 'true'" />
+	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkProps)' == 'true'"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

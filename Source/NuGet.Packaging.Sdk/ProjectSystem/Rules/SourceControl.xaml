@@ -8,11 +8,11 @@
 	<Rule.DataSource>
 		<DataSource Persistence="ProjectFile"
 					Label="Globals"
-					HasConfigurationCondition="false" />
+					HasConfigurationCondition="false"/>
 	</Rule.DataSource>
 
-	<StringProperty Name="SccProjectName" />
-	<StringProperty Name="SccProvider" />
-	<StringProperty Name="SccAuxPath" />
-	<StringProperty Name="SccLocalPath" />
+	<StringProperty Name="SccProjectName"/>
+	<StringProperty Name="SccProvider"/>
+	<StringProperty Name="SccAuxPath"/>
+	<StringProperty Name="SccLocalPath"/>
 </Rule>

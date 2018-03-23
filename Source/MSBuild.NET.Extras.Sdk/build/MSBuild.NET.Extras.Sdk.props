@@ -27,7 +27,7 @@
 			</PropertyGroup>
 		</When>
 
-		<Otherwise />
+		<Otherwise/>
 	</Choose>
 
 	<PropertyGroup>

@@ -3,7 +3,7 @@
 	<!--
 		Note that this file is only included when $(TargetPlatform) is set and so we do not need to check that here.
 
-		Common targets require that $(TargetPlatformIdentifier), $(TargetPlatformVersion) and $(TargetPlatformArchitecture)
+		Common targets require that $(TargetPlatformIdentifier), $(TargetPlatformVersion) AND $(TargetPlatformArchitecture)
 		are set by static evaluation before they are imported.
 		In common cases, we infer them from the short names given via TargetPlatform
 		to allow for terseness and lack of duplication in project files.
@@ -40,7 +40,7 @@
 			win8.1-arm into 'win', '8.1', 'arm'
 	-->
 	<Choose>
-		<When Condition="$(TargetPlatform.Contains(','))" />
+		<When Condition="$(TargetPlatform.Contains(','))"/>
 
 		<When Condition="$(TargetPlatform.Contains('-'))">
 			<!-- Handle short platform ids with profiles -->
@@ -125,15 +125,15 @@
 
 		<NETSdkError Condition="!$(TargetPlatform.Contains(';'))"
 			ResourceName="CannotInferTargetPlatformIdentiferAndVersion"
-			FormatArguments="$([MSBuild]::Escape('$(TargetPlatform)'))" />
+			FormatArguments="$([MSBuild]::Escape('$(TargetPlatform)'))"/>
 
 		<NETSdkError Condition="$(TargetPlatform.Contains(';'))"
 			ResourceName="TargetPlatformWithSemicolon"
-			FormatArguments="$([MSBuild]::Escape('$(TargetPlatform)'))" />
+			FormatArguments="$([MSBuild]::Escape('$(TargetPlatform)'))"/>
 	</Target>
 
 	<Target Name="_CollectTargetPlatformForTelemetry" AfterTargets="_CheckForUnsupportedTargetPlatform">
-		<Telemetry EventName="targetplatformeval" EventData="TargetPlatform=$([MSBuild]::Escape('$(TargetPlatformMoniker)'))" />
+		<Telemetry EventName="targetplatformeval" EventData="TargetPlatform=$([MSBuild]::Escape('$(TargetPlatformMoniker)'))"/>
 	</Target>
 
 	<!--
@@ -166,7 +166,7 @@
 
 		<NETSdkError Condition="'$(TargetPlatformVersion)' > '$(TargetPlatformMaxVersion)'"
 			ResourceName="UnsupportedTargetPlatformVersion"
-			FormatArguments="$(TargetPlatformDisplayName);$(TargetPlatformVersion);$(TargetPlatformMaxVersion)" />
+			FormatArguments="$(TargetPlatformDisplayName);$(TargetPlatformVersion);$(TargetPlatformMaxVersion)"/>
 	</Target>
 
 	<PropertyGroup>
@@ -176,7 +176,7 @@
 	<!--
 		Append $(TargetPlatform) directory to output and intermediate paths to prevent bin clashes between targets.
 	-->
-	<PropertyGroup Condition="'$(AppendTargetPlatformToOutputPath)' == 'true' and '$(TargetPlatform)' != '' and '$(_UnsupportedTargetPlatformError)' != 'true'">
+	<PropertyGroup Condition="'$(AppendTargetPlatformToOutputPath)' == 'true' AND '$(TargetPlatform)' != '' AND '$(_UnsupportedTargetPlatformError)' != 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(TargetPlatform)\</IntermediateOutputPath>
 		<OutputPath>$(OutputPath)$(TargetPlatform)\</OutputPath>
 	</PropertyGroup>

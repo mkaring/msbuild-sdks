@@ -11,7 +11,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageFile Include="**\*.props;**\*.targets" />
+		<PackageFile Include="**\*.props;**\*.targets"/>
 	</ItemGroup>
 
 </Project>

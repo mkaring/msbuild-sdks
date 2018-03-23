@@ -29,7 +29,7 @@
 			└───Project.3.pub (folder)
 				|•••
 	-->
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'"/>
 
 	<PropertyGroup Label="Build">
 		<IntermediateOutputFolder Condition="'$(IntermediateOutputFolder)' == ''">obj</IntermediateOutputFolder>
@@ -57,7 +57,7 @@
 		<PublishDir Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PublishDir>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)NuGet.OutputPaths.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)NuGet.OutputPaths.targets"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildOutputPathsTargets>true</ImportedMSBuildOutputPathsTargets>

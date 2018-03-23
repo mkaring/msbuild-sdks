@@ -6,15 +6,15 @@
 		<Language>VB</Language>
 		<TargetRuntime>Managed</TargetRuntime>
 		<AlwaysUseNumericalSuffixInItemNames>true</AlwaysUseNumericalSuffixInItemNames>
-		<DefineCommonItemSchemas Condition=" '$(DefineCommonItemSchemas)' == '' ">true</DefineCommonItemSchemas>
-		<DefineCommonReferenceSchemas Condition=" '$(DefineCommonReferenceSchemas)' == '' ">true</DefineCommonReferenceSchemas>
-		<DefineCommonCapabilities Condition=" '$(DefineCommonCapabilities)' == '' ">true</DefineCommonCapabilities>
-		<SynthesizeLinkMetadata Condition=" '$(SynthesizeLinkMetadata)' == '' and '$(HasSharedItems)' == 'true' ">true</SynthesizeLinkMetadata>
-		<DefaultProjectTypeGuid Condition=" '$(DefaultProjectTypeGuid)' == '' ">{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</DefaultProjectTypeGuid>
+		<DefineCommonItemSchemas Condition="'$(DefineCommonItemSchemas)' == ''">true</DefineCommonItemSchemas>
+		<DefineCommonReferenceSchemas Condition="'$(DefineCommonReferenceSchemas)' == ''">true</DefineCommonReferenceSchemas>
+		<DefineCommonCapabilities Condition="'$(DefineCommonCapabilities)' == ''">true</DefineCommonCapabilities>
+		<SynthesizeLinkMetadata Condition="'$(SynthesizeLinkMetadata)' == '' AND '$(HasSharedItems)' == 'true'">true</SynthesizeLinkMetadata>
+		<DefaultProjectTypeGuid Condition="'$(DefaultProjectTypeGuid)' == ''">{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</DefaultProjectTypeGuid>
 		<AppDesignerFolder Condition="'$(AppDesignerFolder)' == ''">My Project</AppDesignerFolder>
 	</PropertyGroup>
 
-	<ItemGroup Condition=" '$(DefineVisualBasicItemSchemas)' != 'false' ">
+	<ItemGroup Condition="'$(DefineVisualBasicItemSchemas)' != 'false'">
 		<PropertyPageSchema Include="$(CommonXamlResourcesDirectory)VisualBasic.ProjectItemsSchema.xaml;"/>
 		<PropertyPageSchema Include="$(CommonXamlResourcesDirectory)VisualBasic.xaml;">
 			<Context>File</Context>
@@ -26,8 +26,8 @@
 		<ProjectCapability Include="VB;Managed"/>
 	</ItemGroup>
 
-	<ItemGroup Condition=" '$(DefineCommonCapabilities)' == 'true' ">
-		<ProjectCapability Include="ReferencesFolder;LanguageService" />
+	<ItemGroup Condition="'$(DefineCommonCapabilities)' == 'true'">
+		<ProjectCapability Include="ReferencesFolder;LanguageService"/>
 	</ItemGroup>
 
 	<!--
@@ -59,16 +59,16 @@
 		DependsOnTargets="$(CreateManifestResourceNamesDependsOn)">
 
 		<ItemGroup>
-			<_Temporary Remove="@(_Temporary)" />
+			<_Temporary Remove="@(_Temporary)"/>
 		</ItemGroup>
 
 		<!-- Create manifest names for culture and non-culture Resx files, and for non-culture Non-Resx resources -->
 		<CreateVisualBasicManifestResourceName
 			ResourceFiles="@(EmbeddedResource)"
 			RootNamespace="$(RootNamespace)"
-			Condition="'%(EmbeddedResource.ManifestResourceName)' == '' and ('%(EmbeddedResource.WithCulture)' == 'false' or '%(EmbeddedResource.Type)' == 'Resx')">
+			Condition="'%(EmbeddedResource.ManifestResourceName)' == '' AND ('%(EmbeddedResource.WithCulture)' == 'false' OR '%(EmbeddedResource.Type)' == 'Resx')">
 
-			<Output TaskParameter="ResourceFilesWithManifestResourceNames" ItemName="_Temporary" />
+			<Output TaskParameter="ResourceFilesWithManifestResourceNames" ItemName="_Temporary"/>
 
 		</CreateVisualBasicManifestResourceName>
 
@@ -77,16 +77,16 @@
 			ResourceFiles="@(EmbeddedResource)"
 			RootNamespace="$(RootNamespace)"
 			PrependCultureAsDirectory="false"
-			Condition="'%(EmbeddedResource.ManifestResourceName)' == '' and '%(EmbeddedResource.WithCulture)' == 'true' and '%(EmbeddedResource.Type)' == 'Non-Resx'">
+			Condition="'%(EmbeddedResource.ManifestResourceName)' == '' AND '%(EmbeddedResource.WithCulture)' == 'true' AND '%(EmbeddedResource.Type)' == 'Non-Resx'">
 
-			<Output TaskParameter="ResourceFilesWithManifestResourceNames" ItemName="_Temporary" />
+			<Output TaskParameter="ResourceFilesWithManifestResourceNames" ItemName="_Temporary"/>
 
 		</CreateVisualBasicManifestResourceName>
 
 		<ItemGroup>
 			<EmbeddedResource Remove="@(EmbeddedResource)" Condition="'%(EmbeddedResource.ManifestResourceName)' == ''"/>
-			<EmbeddedResource Include="@(_Temporary)" />
-			<_Temporary Remove="@(_Temporary)" />
+			<EmbeddedResource Include="@(_Temporary)"/>
+			<_Temporary Remove="@(_Temporary)"/>
 		</ItemGroup>
 
 	</Target>
@@ -100,7 +100,7 @@
 			CodeAnalysisRuleSetDirectories="$(CodeAnalysisRuleSetDirectories)"
 			MSBuildProjectDirectory="$(MSBuildProjectDirectory)">
 
-			<Output TaskParameter="ResolvedCodeAnalysisRuleSet" PropertyName="ResolvedCodeAnalysisRuleSet" />
+			<Output TaskParameter="ResolvedCodeAnalysisRuleSet" PropertyName="ResolvedCodeAnalysisRuleSet"/>
 
 		</ResolveCodeAnalysisRuleSet>
 
@@ -108,22 +108,22 @@
 
 	<PropertyGroup>
 		<FinalDefineConstants>CONFIG=&quot;$(Configuration)&quot;</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(DefineDebug)' == 'true' ">$(FinalDefineConstants),DEBUG=-1</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(DefineTrace)' == 'true' ">$(FinalDefineConstants),TRACE=-1</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(MyType)' != '' ">$(FinalDefineConstants),_MyType=&quot;$(MyType)&quot;</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(Platform)' != '' ">$(FinalDefineConstants),PLATFORM=&quot;$(Platform)&quot;</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(Platform)' == '' ">$(FinalDefineConstants),PLATFORM=&quot;AnyCPU&quot;</FinalDefineConstants>
-		<FinalDefineConstants Condition=" '$(DefineConstants)' != '' ">$(FinalDefineConstants),$(DefineConstants)</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(DefineDebug)' == 'true'">$(FinalDefineConstants),DEBUG=-1</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(DefineTrace)' == 'true'">$(FinalDefineConstants),TRACE=-1</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(MyType)' != ''">$(FinalDefineConstants),_MyType=&quot;$(MyType)&quot;</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(Platform)' != ''">$(FinalDefineConstants),PLATFORM=&quot;$(Platform)&quot;</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(Platform)' == ''">$(FinalDefineConstants),PLATFORM=&quot;AnyCPU&quot;</FinalDefineConstants>
+		<FinalDefineConstants Condition="'$(DefineConstants)' != ''">$(FinalDefineConstants),$(DefineConstants)</FinalDefineConstants>
 
 		<!-- Provide a facility to override UseHostCompilerIfAvailable-->
-		<UseHostCompilerIfAvailable Condition=" '$(UseHostCompilerIfAvailable)' == ''">true</UseHostCompilerIfAvailable>
+		<UseHostCompilerIfAvailable Condition="'$(UseHostCompilerIfAvailable)' == ''">true</UseHostCompilerIfAvailable>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<DocFileItem Include="$(IntermediateOutputPath)$(DocumentationFile)" Condition="'$(DocumentationFile)'!=''"/>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(_DebugSymbolsProduced)' == 'true' and '$(PdbFile)' != ''">
+	<ItemGroup Condition="'$(_DebugSymbolsProduced)' == 'true' AND '$(PdbFile)' != ''">
 		<_DebugSymbolsIntermediatePathTemporary Include="$(PdbFile)"/>
 		<!-- Add any missing .pdb extension, as the compiler does -->
 		<_DebugSymbolsIntermediatePath Include="@(_DebugSymbolsIntermediatePathTemporary->'%(RootDir)%(Directory)%(Filename).pdb')"/>
@@ -131,7 +131,7 @@
 
 	<PropertyGroup>
 		<CoreCompileDependsOn>_ComputeNonExistentFileProperty;ResolveCodeAnalysisRuleSet</CoreCompileDependsOn>
-		<ExportWinMDFile Condition="'$(ExportWinMDFile)' == '' and '$(OutputType)' == 'WinMDObj'">true</ExportWinMDFile>
+		<ExportWinMDFile Condition="'$(ExportWinMDFile)' == '' AND '$(OutputType)' == 'WinMDObj'">true</ExportWinMDFile>
 	</PropertyGroup>
 
 	<!--
@@ -163,15 +163,15 @@
 			@(CustomAdditionalCompileOutputs)"
 		Returns=""
 		DependsOnTargets="$(CoreCompileDependsOn)"
-		Condition="'@(Page)' != '' Or '@(ApplicationDefinition)' != ''">
+		Condition="'@(Page)' != '' OR '@(ApplicationDefinition)' != ''">
 		<PropertyGroup>
-			<_NoWarnings Condition=" '$(WarningLevel)' == '0' ">true</_NoWarnings>
-			<_NoWarnings Condition=" '$(WarningLevel)' == '1' ">false</_NoWarnings>
+			<_NoWarnings Condition="'$(WarningLevel)' == '0'">true</_NoWarnings>
+			<_NoWarnings Condition="'$(WarningLevel)' == '1'">false</_NoWarnings>
 		</PropertyGroup>
 
 		<PropertyGroup>
 			<!-- If we are targeting winmdobj we want to specifically set the pdbFile property so that it does not collide with the output of winmdexp which we will run subsequently -->
-			<PdbFile Condition="'$(PdbFile)' == '' and '$(OutputType)' == 'winmdobj' and '$(DebugSymbols)' == 'true'">$(IntermediateOutputPath)$(TargetName).compile.pdb</PdbFile>
+			<PdbFile Condition="'$(PdbFile)' == '' AND '$(OutputType)' == 'winmdobj' AND '$(DebugSymbols)' == 'true'">$(IntermediateOutputPath)$(TargetName).compile.pdb</PdbFile>
 		</PropertyGroup>
 
 		<ItemGroup Condition="'$(TargetingClr2Framework)'=='true'">
@@ -186,8 +186,8 @@
 		</PropertyGroup>
 
 		<ItemGroup Condition="('$(AdditionalFileItemNames)' != '')">
-			<AdditionalFileItems Include="$(AdditionalFileItemNames)" />
-			<AdditionalFiles Include="@(%(AdditionalFileItems.Identity))" />
+			<AdditionalFileItems Include="$(AdditionalFileItemNames)"/>
+			<AdditionalFiles Include="@(%(AdditionalFileItems.Identity))"/>
 		</ItemGroup>
 
 		<!-- Don't run analyzers for Vbc task on XamlPrecompile pass, we only want to run them on core compile. -->
@@ -198,7 +198,7 @@
 		</PropertyGroup>
 
 		<!-- Condition is to filter out the _CoreCompileResourceInputs so that it doesn't pass in culture resources to the compiler -->
-		<Vbc Condition=" '%(_CoreCompileResourceInputs.WithCulture)' != 'true' "
+		<Vbc Condition="'%(_CoreCompileResourceInputs.WithCulture)' != 'true'"
 			AdditionalLibPaths="$(AdditionalLibPaths)"
 			AddModules="@(AddModules)"
 			AdditionalFiles="@(AdditionalFiles)"
@@ -265,38 +265,38 @@
 			Win32Icon="$(ApplicationIcon)"
 			Win32Manifest="$(Win32Manifest)"
 			Win32Resource="$(Win32Resource)"
-			VBRuntime="$(VBRuntime)" />
+			VBRuntime="$(VBRuntime)"/>
 
 		<!-- Only Applicable to the regular CoreCompile:
 			<ItemGroup>
-				<_CoreCompileResourceInputs Remove="@(_CoreCompileResourceInputs)" />
+				<_CoreCompileResourceInputs Remove="@(_CoreCompileResourceInputs)"/>
 			</ItemGroup>
 
 			<CallTarget Targets="$(TargetsTriggeredByCompilation)" Condition="'$(TargetsTriggeredByCompilation)' != ''"/>
 		-->
-		<OnError Condition="'$(OnXamlPreCompileErrorTarget)' != ''" ExecuteTargets="$(OnXamlPreCompileErrorTarget)" />
+		<OnError Condition="'$(OnXamlPreCompileErrorTarget)' != ''" ExecuteTargets="$(OnXamlPreCompileErrorTarget)"/>
 	</Target>
 
 	<PropertyGroup>
 		<VisualBasicCoreTargetsPath Condition="'$(VisualBasicCoreTargetsPath)' == ''">$(RoslynTargetsPath)\Microsoft.VisualBasic.Core.targets</VisualBasicCoreTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(VisualBasicCoreTargetsPath)" />
+	<Import Project="$(VisualBasicCoreTargetsPath)"/>
 
 	<!-- Import design time targets for Roslyn Project System. These are only available if Visual Studio is installed. -->
 	<!-- Import design time targets before the common targets, which import targets from Nuget. -->
 	<PropertyGroup>
 		<VisualBasicDesignTimeTargetsPath Condition="'$(VisualBasicDesignTimeTargetsPath)'==''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\Managed\Microsoft.VisualBasic.DesignTime.targets</VisualBasicDesignTimeTargetsPath>
 	</PropertyGroup>
-	<Import Project="$(VisualBasicDesignTimeTargetsPath)" Condition="'$(VisualBasicDesignTimeTargetsPath)' != '' and Exists('$(VisualBasicDesignTimeTargetsPath)')" />
+	<Import Project="$(VisualBasicDesignTimeTargetsPath)" Condition="'$(VisualBasicDesignTimeTargetsPath)' != '' AND Exists('$(VisualBasicDesignTimeTargetsPath)')"/>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.targets" />
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets" Condition="('$(TargetFrameworkVersion)' != 'v2.0' and '$(TargetFrameworkVersion)' != 'v3.0' and '$(TargetFrameworkVersion)' != 'v3.5') and Exists('$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.targets"/>
+	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets" Condition="('$(TargetFrameworkVersion)' != 'v2.0' AND '$(TargetFrameworkVersion)' != 'v3.0' AND '$(TargetFrameworkVersion)' != 'v3.5') AND Exists('$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets')"/>
 
 	<Target Name="_SetTargetFrameworkMonikerAttribute" BeforeTargets="GenerateTargetFrameworkMonikerAttribute">
 		<PropertyGroup>
 			<!-- This attribute is only available in mscorlib v4 and later -->
-			<TargetFrameworkMonikerAssemblyAttributeText Condition="'$(TargetFrameworkMoniker)' != '' and '$(TargetingClr2Framework)' != 'true'">
+			<TargetFrameworkMonikerAssemblyAttributeText Condition="'$(TargetFrameworkMoniker)' != '' AND '$(TargetingClr2Framework)' != 'true'">
 				Option Strict Off
 				Option Explicit On
 
@@ -317,15 +317,15 @@
 			NoStdLib on the other hand indicates that the user doesn't want standard references
 			so only if NoStdLib isn't set to true, will we provide the standard references
 		-->
-		<NoCompilerStandardLib Condition=" '$(NoCompilerStandardLib)' == '' ">true</NoCompilerStandardLib>
+		<NoCompilerStandardLib Condition="'$(NoCompilerStandardLib)' == ''">true</NoCompilerStandardLib>
 
 		<!-- When building inside VS, by default use the same language for compiler messages as VS itself does. -->
-		<PreferredUILang Condition="'$(BuildingInsideVisualStudio)' == 'true' and '$(PreferredUILang)' == ''">$([System.Globalization.CultureInfo]::CurrentUICulture.Name)</PreferredUILang>
+		<PreferredUILang Condition="'$(BuildingInsideVisualStudio)' == 'true' AND '$(PreferredUILang)' == ''">$([System.Globalization.CultureInfo]::CurrentUICulture.Name)</PreferredUILang>
 	</PropertyGroup>
 
 	<!-- Add any "automatic" compiler references that need to be resolved when NoCompilerStandardLib is set
 		 but the user hasn't told us to not include standard references -->
-	<ItemGroup Condition=" '$(NoCompilerStandardLib)' == 'true' and '$(NoStdLib)' != 'true' ">
+	<ItemGroup Condition="'$(NoCompilerStandardLib)' == 'true' AND '$(NoStdLib)' != 'true'">
 		<!--
 			Note that unlike C#, VB gets its mscorlib.dll path from the $(FrameworkPathOverride) property
 			via the /sdkpath parameter.
@@ -333,7 +333,7 @@
 			passing NoCompilerStandardLib=true we need an explicit reference to System in order to maintain the
 			correct behaviour.
 		-->
-		<_ExplicitReference Include="$(FrameworkPathOverride)\System.dll" />
+		<_ExplicitReference Include="$(FrameworkPathOverride)\System.dll"/>
 	</ItemGroup>
 
 </Project>

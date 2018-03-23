@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
 
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
@@ -15,7 +15,7 @@
 		</Otherwise>
 	</Choose>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'" />
-	<Import Project="$(MicrosoftCommonPropsPath)" Condition="'$(ImportLegacyExtensionProps)' != 'true'" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'"/>
+	<Import Project="$(MicrosoftCommonPropsPath)" Condition="'$(ImportLegacyExtensionProps)' != 'true'"/>
 
 </Project>

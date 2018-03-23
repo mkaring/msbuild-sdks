@@ -3,7 +3,7 @@
 	<!--
 		Note that this file is only included when $(TargetFramework) is set and so we do not need to check that here.
 
-		Common targets require that $(TargetFrameworkIdentifier) and $(TargetFrameworkVersion) are set by static evaluation
+		Common targets require that $(TargetFrameworkIdentifier) AND $(TargetFrameworkVersion) are set by static evaluation
 		before they are imported. In common cases, we infer them from the short names given via TargetFramework
 		to allow for terseness and lack of duplication in project files.
 
@@ -41,7 +41,7 @@
 			portable45-net45+win8+wp8+wpa81 into 'portable', '45', '+net45+win8+wp8+wpa81+'
 	-->
 	<Choose>
-		<When Condition="$(TargetFramework.Contains(','))" />
+		<When Condition="$(TargetFramework.Contains(','))"/>
 
 		<When Condition="$(TargetFramework.Contains('-'))">
 			<!-- Handle short framework ids with profiles -->
@@ -159,15 +159,15 @@
 
 		<NETSdkError Condition="!$(TargetFramework.Contains(';'))"
 			ResourceName="CannotInferTargetFrameworkIdentiferAndVersion"
-			FormatArguments="$([MSBuild]::Escape('$(TargetFramework)'))" />
+			FormatArguments="$([MSBuild]::Escape('$(TargetFramework)'))"/>
 
 		<NETSdkError Condition="$(TargetFramework.Contains(';'))"
 			ResourceName="TargetFrameworkWithSemicolon"
-			FormatArguments="$([MSBuild]::Escape('$(TargetFramework)'))" />
+			FormatArguments="$([MSBuild]::Escape('$(TargetFramework)'))"/>
 	</Target>
 
 	<Target Name="_CollectTargetFrameworkForTelemetry" AfterTargets="_CheckForUnsupportedTargetFramework">
-		<Telemetry EventName="targetframeworkeval" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))" />
+		<Telemetry EventName="targetframeworkeval" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))"/>
 	</Target>
 
 	<!--
@@ -187,7 +187,7 @@
 
 		<NETSdkError Condition="'$(_TargetFrameworkVersionWithoutV)' > '$(TargetFrameworkMaxVersion)'"
 			ResourceName="UnsupportedTargetFrameworkVersion"
-			FormatArguments="$(TargetFrameworkDisplayName);$(_TargetFrameworkVersionWithoutV);$(TargetFrameworkMaxVersion)" />
+			FormatArguments="$(TargetFrameworkDisplayName);$(_TargetFrameworkVersionWithoutV);$(TargetFrameworkMaxVersion)"/>
 	</Target>
 
 	<PropertyGroup>
@@ -197,7 +197,7 @@
 	<!--
 		Append $(TargetFramework) directory to output and intermediate paths to prevent bin clashes between targets.
 	-->
-	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true' and '$(TargetFramework)' != '' and '$(_UnsupportedTargetFrameworkError)' != 'true'">
+	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true' AND '$(TargetFramework)' != '' AND '$(_UnsupportedTargetFrameworkError)' != 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(TargetFramework)\</IntermediateOutputPath>
 		<OutputPath>$(OutputPath)$(TargetFramework)\</OutputPath>
 	</PropertyGroup>

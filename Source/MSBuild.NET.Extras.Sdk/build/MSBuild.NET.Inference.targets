@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<Choose>
-		<When Condition="$(TargetFramework.Contains(','))" />
+		<When Condition="$(TargetFramework.Contains(','))"/>
 
 		<When Condition="$(TargetFramework.Contains('-'))">
 			<!-- Handle legacy client and portable profiles -->
@@ -28,7 +28,7 @@
 		</When>
 
 		<Otherwise>
-			<!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. 'net' and '45'). -->
+			<!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. net and 45). -->
 			<PropertyGroup>
 				<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 				<_SdkShortFrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>

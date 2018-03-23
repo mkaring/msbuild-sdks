@@ -5,9 +5,9 @@
 	</PropertyGroup>
 
 	<ImportGroup>
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.0.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.5.targets" />
-		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.6.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.0.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.5.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)Portable.v4.6.targets"/>
 	</ImportGroup>
 
 </Project>

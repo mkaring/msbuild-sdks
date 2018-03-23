@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.BeforeLegacy.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.BeforeLegacy.targets"/>
 
 	<!--
 		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
@@ -24,7 +24,7 @@
 		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">false</ImportLegacyExtensionTargets>
 	</PropertyGroup>
 
-	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')" />
+	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')"/>
 
 	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
 		<ImportProjectExtensionTargets>$(_SdkBackupImportProjectExtensionTargets)</ImportProjectExtensionTargets>
@@ -33,7 +33,7 @@
 		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.AfterLegacy.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.AfterLegacy.targets"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

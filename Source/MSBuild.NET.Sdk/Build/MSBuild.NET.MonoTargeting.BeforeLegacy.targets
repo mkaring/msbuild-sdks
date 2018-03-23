@@ -4,16 +4,16 @@
 		Sets RestoreAdditionalProjectSources or RestoreAdditionalProjectFallbackFolders to the SDK Offline Cache
 		based on the TargetFramework.
 	-->
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\NuGet.OfflineCache.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\NuGet.OfflineCache.targets"/>
 
 	<!--
 		Expand TargetFramework to TargetFrameworkIdentifier and TargetFrameworkVersion,
 		and adjust intermediate and output paths to include it.
 	-->
-	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.FrameworkInference.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.FrameworkInference.targets"/>
 
 	<PropertyGroup>
-		<_IsExecutable Condition="'$(OutputType)' == 'Exe' or '$(OutputType)'=='WinExe'">true</_IsExecutable>
+		<_IsExecutable Condition="'$(OutputType)' == 'Exe' OR '$(OutputType)'=='WinExe'">true</_IsExecutable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(HasRuntimeOutput)' == ''">
@@ -25,7 +25,7 @@
 		Use RuntimeIdentifier to determine PlatformTarget.
 		Also, enforce that RuntimeIdentifier is always specified for .NETFramework executables.
 	-->
-	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.RuntimeInference.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.RuntimeInference.targets"/>
 
 	<PropertyGroup Condition="'$(_IsNETCoreOrNETStandard)' == ''">
 		<_IsNETCoreOrNETStandard Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard' OR '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">true</_IsNETCoreOrNETStandard>
@@ -34,11 +34,11 @@
 	<!-- Unification / automatic binding redirect logic -->
 	<PropertyGroup>
 		<DesignTimeAutoUnify Condition="'$(DesignTimeAutoUnify)' == ''">true</DesignTimeAutoUnify>
-		<AutoUnifyAssemblyReferences Condition="'$(AutoUnifyAssemblyReferences)' == '' and '$(OutputType)' == 'Library'">true</AutoUnifyAssemblyReferences>
-		<AutoUnifyAssemblyReferences Condition="'$(AutoUnifyAssemblyReferences)' == '' and '$(_IsNETCoreOrNETStandard)' == 'true'">true</AutoUnifyAssemblyReferences>
+		<AutoUnifyAssemblyReferences Condition="'$(AutoUnifyAssemblyReferences)' == '' AND '$(OutputType)' == 'Library'">true</AutoUnifyAssemblyReferences>
+		<AutoUnifyAssemblyReferences Condition="'$(AutoUnifyAssemblyReferences)' == '' AND '$(_IsNETCoreOrNETStandard)' == 'true'">true</AutoUnifyAssemblyReferences>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' and '$(HasRuntimeOutput)' == 'true'">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(HasRuntimeOutput)' == 'true'">
 		<AutoGenerateBindingRedirects Condition="'$(AutoGenerateBindingRedirects)' == ''">true</AutoGenerateBindingRedirects>
 	</PropertyGroup>
 
@@ -80,12 +80,12 @@
 		<AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(DisableImplicitAssetTargetFallback)' != 'true' and '$(_IsNETCoreOrNETStandard)' == 'true' and '$(_TargetFrameworkVersionWithoutV)' >= '2.0'">
+	<PropertyGroup Condition="'$(DisableImplicitAssetTargetFallback)' != 'true' AND '$(_IsNETCoreOrNETStandard)' == 'true' AND '$(_TargetFrameworkVersionWithoutV)' >= '2.0'">
 		<AssetTargetFallback>$(AssetTargetFallback);net461</AssetTargetFallback>
 	</PropertyGroup>
 
 	<!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
-	<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' and '$(TargetFrameworkIdentifier)' != '.NETPortable' and '$(TargetFrameworkIdentifier)' != ''">
+	<PropertyGroup Condition="'$(DisableImplicitFrameworkDefines)' != 'true' AND '$(TargetFrameworkIdentifier)' != '.NETPortable' AND '$(TargetFrameworkIdentifier)' != ''">
 		<_FrameworkIdentifierForImplicitDefine>$(TargetFrameworkIdentifier.Replace('.', '').ToUpperInvariant())</_FrameworkIdentifierForImplicitDefine>
 		<_FrameworkIdentifierForImplicitDefine Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">NET</_FrameworkIdentifierForImplicitDefine>
 
@@ -102,7 +102,7 @@
 		<GenerateDocumentationFile Condition="'$(DocumentationFile)' != ''">true</GenerateDocumentationFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(GenerateDocumentationFile)' == 'true' and '$(DocumentationFile)' == ''">
+	<PropertyGroup Condition="'$(GenerateDocumentationFile)' == 'true' AND '$(DocumentationFile)' == ''">
 		<DocumentationFile>$(IntermediateOutputPath)$(AssemblyName).xml</DocumentationFile>
 		<!-- TODO: Verify and remove this workaround if VB side is fixed! -->
 		<!--<DocumentationFile Condition="'$(MSBuildProjectExtension)' == '.vbproj'">$(AssemblyName).xml</DocumentationFile>
@@ -110,18 +110,18 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(GenerateDocumentationFile)' != 'true'">
-		<DocumentationFile />
+		<DocumentationFile/>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<PublishDocumentationFiles Condition="'$(PublishDocumentationFiles)' == ''">true</PublishDocumentationFiles>
-		<PublishDocumentationFile Condition="'$(PublishDocumentationFile)' == '' and '$(PublishDocumentationFiles)' == 'true'">true</PublishDocumentationFile>
-		<PublishReferencesDocumentationFiles Condition="'$(PublishReferencesDocumentationFiles)' == '' and '$(PublishDocumentationFiles)' == 'true'">true</PublishReferencesDocumentationFiles>
+		<PublishDocumentationFile Condition="'$(PublishDocumentationFile)' == '' AND '$(PublishDocumentationFiles)' == 'true'">true</PublishDocumentationFile>
+		<PublishReferencesDocumentationFiles Condition="'$(PublishReferencesDocumentationFiles)' == '' AND '$(PublishDocumentationFiles)' == 'true'">true</PublishReferencesDocumentationFiles>
 	</PropertyGroup>
 
 	<!-- Add a project capability so that the project properties in the IDE can show the option to generate an XML documentation file without specifying the filename -->
 	<ItemGroup>
-		<ProjectCapability Include="GenerateDocumentationFile" />
+		<ProjectCapability Include="GenerateDocumentationFile"/>
 	</ItemGroup>
 
 	<PropertyGroup>

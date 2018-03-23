@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" Condition="'$(ImportedMSBuildCoreSdkProps)' != 'true'" />
-	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.props" />
+	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk" Condition="'$(ImportedMSBuildCoreSdkProps)' != 'true'"/>
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.props"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

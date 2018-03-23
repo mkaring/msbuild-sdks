@@ -18,15 +18,15 @@
 		<CustomBeforeMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftVisualBasicTargets>
 		<CustomBeforeMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftVisualBasicTargets>
 	</PropertyGroup>
-	<Import Project="$(CustomBeforeMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomBeforeMicrosoftVisualBasicTargets)')" />
+	<Import Project="$(CustomBeforeMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomBeforeMicrosoftVisualBasicTargets)')"/>
 
-	<Import Project="$(MicrosoftVisualBasicTargetsPath)" />
+	<Import Project="$(MicrosoftVisualBasicTargetsPath)"/>
 
 	<PropertyGroup Condition="'$(CustomAfterMicrosoftVisualBasicTargets)' == ''">
 		<CustomAfterMicrosoftVisualBasicTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftVisualBasicTargets>
 		<CustomAfterMicrosoftVisualBasicTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftVisualBasicTargets>
 	</PropertyGroup>
-	<Import Project="$(CustomAfterMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomAfterMicrosoftVisualBasicTargets)')" />
+	<Import Project="$(CustomAfterMicrosoftVisualBasicTargets)" Condition="Exists('$(CustomAfterMicrosoftVisualBasicTargets)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftVisualBasicTargets Condition="'$(ImportByWildcardAfterMicrosoftVisualBasicTargets)' == ''">true</ImportByWildcardAfterMicrosoftVisualBasicTargets>

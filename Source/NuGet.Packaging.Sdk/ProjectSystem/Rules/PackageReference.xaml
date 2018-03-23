@@ -7,7 +7,7 @@
 	xmlns="http://schemas.microsoft.com/build/2009/properties">
 
 	<Rule.DataSource>
-		<DataSource Persistence="ProjectFile" ItemType="PackageReference" HasConfigurationCondition="False" />
+		<DataSource Persistence="ProjectFile" ItemType="PackageReference" HasConfigurationCondition="False"/>
 	</Rule.DataSource>
 
 	<StringProperty Name="Version"
@@ -15,28 +15,28 @@
 					DisplayName="Version"
 					Description="Version of dependency.">
 		<StringProperty.DataSource>
-			<DataSource PersistenceStyle="Attribute" />
+			<DataSource PersistenceStyle="Attribute"/>
 		</StringProperty.DataSource>
 	</StringProperty>
 
 	<StringProperty Name="IncludeAssets"
 					Visible="True"
 					DisplayName="IncludeAssets"
-					Description="Assets to include from this reference" />
+					Description="Assets to include from this reference"/>
 
 	<StringProperty Name="ExcludeAssets"
 					Visible="True"
 					DisplayName="ExcludeAssets"
-					Description="Assets to exclude from this reference" />
+					Description="Assets to exclude from this reference"/>
 
 	<StringProperty Name="PrivateAssets"
 					Visible="True"
 					DisplayName="PrivateAssets"
-					Description="Assets that are private in this reference" />
+					Description="Assets that are private in this reference"/>
 
 	<StringProperty Name="OriginalItemSpec"
 					Visible="False"
 					ReadOnly="True"
-					Description="The evaluated item name of the original reference item whose resolution resulted in this resolved reference item." />
+					Description="The evaluated item name of the original reference item whose resolution resulted in this resolved reference item."/>
 
 </Rule>

@@ -38,7 +38,7 @@
 			NuProj will end up causing multiple build breaks being reported because it will re-delete outputs that
 			VS just produced and that other project references that are building in parallel now expect to be there.
 		-->
-		<BuildProjectReferences Condition="'$(BuildProjectReferences)' == '' and ('$(BuildingInsideVisualStudio)' == 'true' or '$(DesignTimeBuild)' == 'true')">false</BuildProjectReferences>
+		<BuildProjectReferences Condition="'$(BuildProjectReferences)' == '' AND ('$(BuildingInsideVisualStudio)' == 'true' OR '$(DesignTimeBuild)' == 'true')">false</BuildProjectReferences>
 		<!-- By default we will build (and if applicable, clean) all project references. But this can be used to disable that. -->
 		<BuildProjectReferences Condition="'$(BuildProjectReferences)' == ''">true</BuildProjectReferences>
 	</PropertyGroup>

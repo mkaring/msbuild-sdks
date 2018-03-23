@@ -57,7 +57,7 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
-	<UsingTask TaskName="CheckForImplicitPackageReferenceOverrides" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="CheckForImplicitPackageReferenceOverrides" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<!-- Remove package references with metadata IsImplicitlyDefined = true, if there are other PackageReference items with the same identity -->
 	<Target Name="CheckForImplicitPackageReferenceOverrides" BeforeTargets="_CheckForInvalidConfigurationAndPlatform;CollectPackageReferences">
@@ -68,7 +68,7 @@
 		<CheckForImplicitPackageReferenceOverrides
 			PackageReferenceItems="@(PackageReference)"
 			MoreInformationLink="$(ImplicitPackageReferenceInformationLink)">
-			<Output TaskParameter="ItemsToRemove" ItemName="_PackageReferenceToRemove" />
+			<Output TaskParameter="ItemsToRemove" ItemName="_PackageReferenceToRemove"/>
 		</CheckForImplicitPackageReferenceOverrides>
 
 		<ItemGroup>
@@ -79,7 +79,7 @@
 
 	</Target>
 
-	<UsingTask TaskName="CheckForDuplicateItems" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="CheckForDuplicateItems" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<Target Name="CheckForDuplicateItems" BeforeTargets="_CheckForInvalidConfigurationAndPlatform;CoreCompile">
 		<PropertyGroup>
@@ -103,7 +103,7 @@
 			PropertyNameToDisableDefaultItems="EnableDefaultContentItems"
 			MoreInformationLink="$(DefaultItemsMoreInformationLink)"
 			ContinueOnError="$(CheckForDuplicateItemsContinueOnError)">
-			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedContentItems" />
+			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedContentItems"/>
 		</CheckForDuplicateItems>
 
 		<CheckForDuplicateItems
@@ -114,7 +114,7 @@
 			PropertyNameToDisableDefaultItems="EnableDefaultCompileItems"
 			MoreInformationLink="$(DefaultItemsMoreInformationLink)"
 			ContinueOnError="$(CheckForDuplicateItemsContinueOnError)">
-			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedCompileItems" />
+			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedCompileItems"/>
 		</CheckForDuplicateItems>
 
 		<CheckForDuplicateItems
@@ -125,22 +125,22 @@
 			PropertyNameToDisableDefaultItems="EnableDefaultEmbeddedResourceItems"
 			MoreInformationLink="$(DefaultItemsMoreInformationLink)"
 			ContinueOnError="$(CheckForDuplicateItemsContinueOnError)">
-			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedEmbeddedResourceItems" />
+			<Output TaskParameter="DeduplicatedItems" ItemName="DeduplicatedEmbeddedResourceItems"/>
 		</CheckForDuplicateItems>
 
 		<ItemGroup Condition="'$(DesignTimeBuild)' == 'true' AND '@(DeduplicatedContentItems)' != ''">
-			<Content Remove="@(Content)" />
-			<Content Include="@(DeduplicatedContentItems)" />
+			<Content Remove="@(Content)"/>
+			<Content Include="@(DeduplicatedContentItems)"/>
 		</ItemGroup>
 
 		<ItemGroup Condition="'$(DesignTimeBuild)' == 'true' AND '@(DeduplicatedCompileItems)' != ''">
-			<Compile Remove="@(Compile)" />
-			<Compile Include="@(DeduplicatedCompileItems)" />
+			<Compile Remove="@(Compile)"/>
+			<Compile Include="@(DeduplicatedCompileItems)"/>
 		</ItemGroup>
 
 		<ItemGroup Condition="'$(DesignTimeBuild)' == 'true' AND '@(DeduplicatedEmbeddedResourceItems)' != ''">
-			<EmbeddedResource Remove="@(EmbeddedResource)" />
-			<EmbeddedResource Include="@(DeduplicatedEmbeddedResourceItems)" />
+			<EmbeddedResource Remove="@(EmbeddedResource)"/>
+			<EmbeddedResource Include="@(DeduplicatedEmbeddedResourceItems)"/>
 		</ItemGroup>
 	</Target>
 

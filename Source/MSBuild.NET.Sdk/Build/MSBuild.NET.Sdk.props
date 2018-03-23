@@ -30,9 +30,9 @@
 		<MSBuildLegacySdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\Legacy</MSBuildLegacySdkPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.props" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.props"/>
 
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.props" />
+	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.props"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkProps>true</ImportedMSBuildNETSdkProps>

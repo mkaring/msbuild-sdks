@@ -6,20 +6,20 @@
 	  xmlns="http://schemas.microsoft.com/build/2009/properties">
 
 	<Rule.Categories>
-		<Category Name="General" DisplayName="General" Description="General" />
+		<Category Name="General" DisplayName="General" Description="General"/>
 	</Rule.Categories>
 
 	<Rule.DataSource>
-		<DataSource Persistence="ProjectFile" Label="Configuration" HasConfigurationCondition="false" />
+		<DataSource Persistence="ProjectFile" Label="Configuration" HasConfigurationCondition="false"/>
 	</Rule.DataSource>
 
 	<StringProperty Name="FullPath" ReadOnly="True">
 		<StringProperty.DataSource>
-			<DataSource Persistence="ProjectFile" PersistedName="MSBuildProjectFullPath" />
+			<DataSource Persistence="ProjectFile" PersistedName="MSBuildProjectFullPath"/>
 		</StringProperty.DataSource>
 	</StringProperty>
 
-	<StringProperty Name="PackageId" DisplayName="Package ID" />
-	<StringProperty Name="Title" DisplayName="Title" />
+	<StringProperty Name="PackageId" DisplayName="Package ID"/>
+	<StringProperty Name="Title" DisplayName="Title"/>
 
 </Rule>

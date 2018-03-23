@@ -18,15 +18,15 @@
 		<CustomBeforeMicrosoftNETFrameworkTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkTargets>
 		<CustomBeforeMicrosoftNETFrameworkTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkTargets>
 	</PropertyGroup>
-	<Import Project="$(CustomBeforeMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkTargets)')" />
+	<Import Project="$(CustomBeforeMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkTargets)')"/>
 
-	<Import Project="$(MicrosoftNETFrameworkTargetsPath)" />
+	<Import Project="$(MicrosoftNETFrameworkTargetsPath)"/>
 
 	<PropertyGroup Condition="'$(CustomAfterMicrosoftNETFrameworkTargets)' == ''">
 		<CustomAfterMicrosoftNETFrameworkTargets>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkTargets>
 		<CustomAfterMicrosoftNETFrameworkTargets Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkTargets>
 	</PropertyGroup>
-	<Import Project="$(CustomAfterMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkTargets)')" />
+	<Import Project="$(CustomAfterMicrosoftNETFrameworkTargets)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkTargets)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftNETFrameworkTargets Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkTargets)' == ''">true</ImportByWildcardAfterMicrosoftNETFrameworkTargets>

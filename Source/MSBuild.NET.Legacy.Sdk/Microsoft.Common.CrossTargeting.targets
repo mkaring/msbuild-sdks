@@ -4,10 +4,10 @@
 		<MicrosoftCommonCrossTargetingTargetsPath>$(MSBuildLegacySdkPath)\Current\Microsoft.Common.CrossTargeting.targets</MicrosoftCommonCrossTargetingTargetsPath>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Extensions\Microsoft.Common.CrossTargeting.targets" Condition="'$(ImportLegacyExtensionTargets)' == 'true'" />
-	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\Microsoft.Common.CrossTargeting.targets" Condition="'$(ImportLegacyExtensionTargets)' == 'true'"/>
+	<Import Project="$(MicrosoftCommonCrossTargetingTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'"/>
 
 	<!-- TODO: Remove this temporary hook when possible. ISSUE: https://github.com/Microsoft/msbuild/issues/1062 -->
-	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' AND Exists('$(CoreCrossTargetingTargetsPath)')" />
+	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' AND Exists('$(CoreCrossTargetingTargetsPath)')"/>
 
 </Project>

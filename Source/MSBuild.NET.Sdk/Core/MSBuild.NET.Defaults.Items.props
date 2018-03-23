@@ -2,8 +2,8 @@
 
 	<!-- Include default items for the current project type -->
 	<ItemGroup Condition="'$(EnableDefaultItems)' == 'true'">
-		<Compile Include="**/*$(DefaultLanguageSourceExtension)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="'$(EnableDefaultCompileItems)' == 'true'" />
-		<EmbeddedResource Include="**/*.resx" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true'" />
+		<Compile Include="**/*$(DefaultLanguageSourceExtension)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="'$(EnableDefaultCompileItems)' == 'true'"/>
+		<EmbeddedResource Include="**/*.resx" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true'"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultItems)' == 'true' AND '$(EnableDefaultNoneItems)' == 'true'">
@@ -17,7 +17,7 @@
 		evaluated in the second pass of evaluation, after all properties have been evaluated.
 	-->
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' != ''">
-		<PackageReference Include="$(ImplicitFrameworkPackageName)" Version="$(ImplicitFrameworkPackageVersion)" IsImplicitlyDefined="true" />
+		<PackageReference Include="$(ImplicitFrameworkPackageName)" Version="$(ImplicitFrameworkPackageVersion)" IsImplicitlyDefined="true"/>
 	</ItemGroup>
 
 	<!--
@@ -26,17 +26,17 @@
 	-->
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETStandard'">
-		<PackageReference Update="$(ImplicitFrameworkPackageName)" PrivateAssets="All" Publish="true" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '2.0'" />
+		<PackageReference Update="$(ImplicitFrameworkPackageName)" PrivateAssets="All" Publish="true" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '2.0'"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
 		<PackageReference Update="$(ImplicitFrameworkPackageName)" PrivateAssets="All" Publish="true"
-			Condition="'$(OutputType)' != 'Exe' AND '$(_TargetFrameworkVersionWithoutV)' >= '2.0'" />
+			Condition="'$(OutputType)' != 'Exe' AND '$(_TargetFrameworkVersionWithoutV)' >= '2.0'"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore'">
 		<PackageReference Update="$(ImplicitFrameworkPackageName)" PrivateAssets="All" Publish="false"
-			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'" />
+			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'"/>
 	</ItemGroup>
 
 	<PropertyGroup>

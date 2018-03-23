@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'" />
-	<Import Project="$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props" Condition="'$(MicrosoftCommonPropsHasBeenImported)' != 'true' AND Exists('$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props')" />
+	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
+	<Import Project="$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props" Condition="'$(MicrosoftCommonPropsHasBeenImported)' != 'true' AND Exists('$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).props')"/>
 
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
@@ -16,7 +16,7 @@
 		</Otherwise>
 	</Choose>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionTargets)' == 'true'" />
-	<Import Project="$(MicrosoftCommonTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'" />
+	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionTargets)' == 'true'"/>
+	<Import Project="$(MicrosoftCommonTargetsPath)" Condition="'$(ImportLegacyExtensionTargets)' != 'true'"/>
 
 </Project>

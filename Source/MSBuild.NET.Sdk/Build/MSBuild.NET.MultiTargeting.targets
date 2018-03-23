@@ -7,7 +7,7 @@
 		<DesignTimeLanguageTargets Condition="'$(DesignTimeLanguageTargets)'==''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\Managed\Microsoft.$(_SdkLanguageName).DesignTime.targets</DesignTimeLanguageTargets>
 	</PropertyGroup>
 
-	<Import Project="$(DesignTimeLanguageTargets)" Condition="'$(DesignTimeLanguageTargets)' != '' and Exists('$(DesignTimeLanguageTargets)')" />
+	<Import Project="$(DesignTimeLanguageTargets)" Condition="'$(DesignTimeLanguageTargets)' != '' AND Exists('$(DesignTimeLanguageTargets)')"/>
 
 	<!-- ============================== Microsoft.Common.CrossTargeting.targets ============================== -->
 
@@ -25,14 +25,14 @@
 				<HasSingleTargetFramework Condition="'$(IsCrossTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
 				<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 				<IsRidAgnostic>false</IsRidAgnostic>
-				<IsRidAgnostic Condition=" '$(RuntimeIdentifier)' == '' and '$(RuntimeIdentifiers)' == '' ">true</IsRidAgnostic>
+				<IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</IsRidAgnostic>
 			</_ThisProjectBuildMetadata>
 		</ItemGroup>
 	</Target>
 
 	<Target Name="_ComputeTargetFrameworkItems" Returns="@(InnerOutput)">
 		<ItemGroup>
-			<_TargetFramework Include="$(TargetFrameworks)" />
+			<_TargetFramework Include="$(TargetFrameworks)"/>
 			<_InnerBuildProjects Include="$(MSBuildProjectFile)">
 				<AdditionalProperties>TargetFramework=%(_TargetFramework.Identity)</AdditionalProperties>
 			</_InnerBuildProjects>
@@ -60,10 +60,10 @@
 			Returns="@(InnerOutput)">
 		<!-- If this logic is changed, also update Clean -->
 		<MSBuild Projects="@(_InnerBuildProjects)"
-				 Condition="'@(_InnerBuildProjects)' != '' "
+				 Condition="'@(_InnerBuildProjects)' != ''"
 				 Targets="$(InnerTargets)"
 				 BuildInParallel="$(BuildInParallel)">
-			<Output ItemName="InnerOutput" TaskParameter="TargetOutputs" />
+			<Output ItemName="InnerOutput" TaskParameter="TargetOutputs"/>
 		</MSBuild>
 	</Target>
 
@@ -86,7 +86,7 @@
 						all builds.
 	============================================================
 	-->
-	<Target Name="Build" DependsOnTargets="_SetBuildInnerTarget;DispatchToInnerBuilds" />
+	<Target Name="Build" DependsOnTargets="_SetBuildInnerTarget;DispatchToInnerBuilds"/>
 
 	<Target Name="_SetBuildInnerTarget" Returns="@(InnerOutput)">
 		<PropertyGroup Condition="'$(InnerTargets)' == ''">
@@ -111,9 +111,9 @@
 			DependsOnTargets="_ComputeTargetFrameworkItems">
 		<!-- If this logic is changed, also update DispatchToInnerBuilds -->
 		<MSBuild Projects="@(_InnerBuildProjects)"
-				 Condition="'@(_InnerBuildProjects)' != '' "
+				 Condition="'@(_InnerBuildProjects)' != ''"
 				 Targets="Clean"
-				 BuildInParallel="$(BuildInParallel)" />
+				 BuildInParallel="$(BuildInParallel)"/>
 	</Target>
 
 	<!--
@@ -123,26 +123,26 @@
 	Cross-targeting version of rebuild.
 	============================================================
 	-->
-	<Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+	<Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
 
 	<!-- ============================== Microsoft.Common.CrossTargeting.targets ============================== -->
 
 	<!-- Import NuGet.targets (required for GetReferenceNearestTargetFrameworkTask and used for Restore functionality) -->
 	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' and '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
+		<DevEnvDir Condition="'$(DevEnvDir)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
+		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
 		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == ''">$(MSBuildToolsPath)\NuGet.targets</NuGetRestoreTargets>
 	</PropertyGroup>
 
 	<!-- This will import NuGet restore targets. We need restore to work before any package assets are available. -->
-	<Import Project="$(NuGetRestoreTargets)" Condition="Exists('$(NuGetRestoreTargets)')" />
+	<Import Project="$(NuGetRestoreTargets)" Condition="Exists('$(NuGetRestoreTargets)')"/>
 
 	<!-- TODO: https://github.com/Microsoft/msbuild/issues/1062 : Remove this temporary hook when possible. -->
-	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' and Exists('$(CoreCrossTargetingTargetsPath)')" />
+	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' AND Exists('$(CoreCrossTargetingTargetsPath)')"/>
 
 	<!-- ============================== Microsoft.NET.Sdk.CrossTargeting.targets ============================== -->
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets"/>
 
 	<!--
 	============================================================
@@ -155,7 +155,7 @@
 	============================================================
 	 -->
 	<Target Name="Publish">
-		<Error Text="The 'Publish' target is not supported without specifying a target framework. The current project targets multiple frameworks, please specify the framework for the published application." />
+		<Error Text="The 'Publish' target is not supported without specifying a target framework. The current project targets multiple frameworks, please specify the framework for the published application."/>
 	</Target>
 
 	<!--
@@ -185,14 +185,14 @@
 			BeforeTargets="_GenerateRestoreProjectSpec">
 
 		<ItemGroup>
-			<_GetAllRuntimeIdentifiersTargetFrameworks Include="$(TargetFrameworks)" />
-			<_AllRuntimeIdentifiers Include="$(RuntimeIdentifiers);$(RuntimeIdentifier)" />
+			<_GetAllRuntimeIdentifiersTargetFrameworks Include="$(TargetFrameworks)"/>
+			<_AllRuntimeIdentifiers Include="$(RuntimeIdentifiers);$(RuntimeIdentifier)"/>
 		</ItemGroup>
 
 		<MSBuild Projects="$(MSBuildProjectFile)"
 				 Targets="GetAllRuntimeIdentifiers"
 				 Properties="TargetFramework=%(_GetAllRuntimeIdentifiersTargetFrameworks.Identity)">
-			<Output ItemName="_AllRuntimeIdentifiers" TaskParameter="TargetOutputs" />
+			<Output ItemName="_AllRuntimeIdentifiers" TaskParameter="TargetOutputs"/>
 		</MSBuild>
 
 		<PropertyGroup>
@@ -230,7 +230,7 @@
 
 	============================================================
 	-->
-	<Target Name="GetPackagingOutputs" />
+	<Target Name="GetPackagingOutputs"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

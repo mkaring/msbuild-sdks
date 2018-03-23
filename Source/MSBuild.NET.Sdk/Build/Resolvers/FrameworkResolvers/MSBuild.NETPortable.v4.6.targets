@@ -49,24 +49,24 @@
 	<!-- Some PCL profiles have WinRT support -->
 
 	<ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile31'">
-		<TargetPlatform Include="Windows Phone, Version=8.1" />
-		<TargetPlatform Include="Windows, Version=8.1" />
+		<TargetPlatform Include="Windows Phone, Version=8.1"/>
+		<TargetPlatform Include="Windows, Version=8.1"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile32'">
-		<TargetPlatform Include="Windows, Version=8.1" />
-		<TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+		<TargetPlatform Include="Windows, Version=8.1"/>
+		<TargetPlatform Include="WindowsPhoneApp, Version=8.1"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile84'">
-		<TargetPlatform Include="Windows Phone, Version=8.1" />
-		<TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+		<TargetPlatform Include="Windows Phone, Version=8.1"/>
+		<TargetPlatform Include="WindowsPhoneApp, Version=8.1"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFrameworkProfile)' == 'Profile157'">
-		<TargetPlatform Include="Windows Phone, Version=8.1" />
-		<TargetPlatform Include="Windows, Version=8.1" />
-		<TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+		<TargetPlatform Include="Windows Phone, Version=8.1"/>
+		<TargetPlatform Include="Windows, Version=8.1"/>
+		<TargetPlatform Include="WindowsPhoneApp, Version=8.1"/>
 	</ItemGroup>
 
 	<PropertyGroup>

@@ -5,7 +5,7 @@
 		<TargetName>$(PackageId)</TargetName>
 
 		<!-- Speed-up build since we don't do assembly resolution -->
-		<ResolveAssemblyReferencesDependsOn />
+		<ResolveAssemblyReferencesDependsOn/>
 	</PropertyGroup>
 
 	<ItemDefinitionGroup>
@@ -24,13 +24,13 @@
 
 	<!-- ProjectCapabilities in dev15 should be supported via NuGet packages -->
 	<ItemGroup>
-		<ProjectCapability Include="PackagingProject" />
+		<ProjectCapability Include="PackagingProject"/>
 
 		<!-- Allows configurations inferred from Condition="CONFIG|PLATFORM" usage -->
-		<ProjectCapability Include="ProjectConfigurationsInferredFromUsage" />
+		<ProjectCapability Include="ProjectConfigurationsInferredFromUsage"/>
 
 		<!-- DependenciesTree capability lights up a Dependencies tree node and it's sub node providers-->
-		<ProjectCapability Include="DependenciesTree" />
+		<ProjectCapability Include="DependenciesTree"/>
 
 		<ProjectCapability Include="
 			AssemblyReferences;
@@ -41,12 +41,12 @@
 			VisualStudioWellKnownOutputGroups;
 			SingleFileGenerators;
 			DeclaredSourceItems;
-			UserSourceItems" />
+			UserSourceItems"/>
 
 		<!-- Reference Manager capabilities -->
-		<ProjectCapability Include="ReferenceManagerAssemblies" />
-		<ProjectCapability Include="ReferenceManagerBrowse" />
-		<ProjectCapability Include="ReferenceManagerProjects" />
+		<ProjectCapability Include="ReferenceManagerAssemblies"/>
+		<ProjectCapability Include="ReferenceManagerBrowse"/>
+		<ProjectCapability Include="ReferenceManagerProjects"/>
 
 	</ItemGroup>
 
@@ -60,13 +60,13 @@
 		</PropertyGroup>
 	</Target>
 
-	<Target Name="CoreCompile" DependsOnTargets="Pack" />
-	<Target Name="CreateManifestResourceNames" />
-	<Target Name="GetReferenceAssemblyPaths" />
+	<Target Name="CoreCompile" DependsOnTargets="Pack"/>
+	<Target Name="CreateManifestResourceNames"/>
+	<Target Name="GetReferenceAssemblyPaths"/>
 
 	<Target Name="_CleanReferences" AfterTargets="ResolveAssemblyReferences">
 		<ItemGroup>
-			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+			<ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"/>
 		</ItemGroup>
 	</Target>
 

@@ -4,8 +4,8 @@
 
 	<PropertyGroup>
 		<MicrosoftNETBuildTasksDirectoryRoot>$(MicrosoftNETSdkPath)tools\</MicrosoftNETBuildTasksDirectoryRoot>
-		<MicrosoftNETBuildTasksTFM Condition=" '$(MSBuildRuntimeType)' == 'Core'">netcoreapp2.0</MicrosoftNETBuildTasksTFM>
-		<MicrosoftNETBuildTasksTFM Condition=" '$(MicrosoftNETBuildTasksTFM)' == ''">net46</MicrosoftNETBuildTasksTFM>
+		<MicrosoftNETBuildTasksTFM Condition="'$(MSBuildRuntimeType)' == 'Core'">netcoreapp2.0</MicrosoftNETBuildTasksTFM>
+		<MicrosoftNETBuildTasksTFM Condition="'$(MicrosoftNETBuildTasksTFM)' == ''">net46</MicrosoftNETBuildTasksTFM>
 		<MicrosoftNETBuildTasksDirectory>$(MicrosoftNETBuildTasksDirectoryRoot)$(MicrosoftNETBuildTasksTFM)/</MicrosoftNETBuildTasksDirectory>
 		<MicrosoftNETBuildTasksAssembly>$(MicrosoftNETBuildTasksDirectory)Microsoft.NET.Build.Tasks.dll</MicrosoftNETBuildTasksAssembly>
 
@@ -23,18 +23,18 @@
 		compatibilty with that.
 	-->
 	<PropertyGroup>
-		<_IsExecutable Condition="'$(OutputType)' == 'Exe' or '$(OutputType)'=='WinExe'">true</_IsExecutable>
+		<_IsExecutable Condition="'$(OutputType)' == 'Exe' OR '$(OutputType)'=='WinExe'">true</_IsExecutable>
 		<HasRuntimeOutput Condition="'$(_UsingDefaultForHasRuntimeOutput)' == 'true'">$(_IsExecutable)</HasRuntimeOutput>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(DotnetCliToolTargetFramework)' == '' And '$(BundledNETCoreAppTargetFrameworkVersion)' != ''">
+	<PropertyGroup Condition="'$(DotnetCliToolTargetFramework)' == '' AND '$(BundledNETCoreAppTargetFrameworkVersion)' != ''">
 		<!-- Set the TFM used to restore .NET CLI tools to match the version of .NET Core bundled in the CLI -->
 		<DotnetCliToolTargetFramework>netcoreapp$(BundledNETCoreAppTargetFrameworkVersion)</DotnetCliToolTargetFramework>
 	</PropertyGroup>
 
-	<UsingTask TaskName="GetNearestTargetFramework" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
-	<UsingTask TaskName="NETSdkError" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
-	<UsingTask TaskName="NETSdkMessage" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)" />
+	<UsingTask TaskName="GetNearestTargetFramework" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
+	<UsingTask TaskName="NETSdkError" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
+	<UsingTask TaskName="NETSdkMessage" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<!--
 	============================================================
@@ -61,10 +61,10 @@
 		<PropertyGroup>
 			<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 			<_IsRidAgnostic>false</_IsRidAgnostic>
-			<_IsRidAgnostic Condition=" '$(RuntimeIdentifier)' == '' and '$(RuntimeIdentifiers)' == '' ">true</_IsRidAgnostic>
+			<_IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</_IsRidAgnostic>
 
 			<!-- If a ReferringTargetFramework was not specified, and we only have one TargetFramework, then don't try to check compatibility -->
-			<_SkipNearestTargetFrameworkResolution Condition="'$(TargetFramework)' != '' and '$(ReferringTargetFramework)' == ''">true</_SkipNearestTargetFrameworkResolution>
+			<_SkipNearestTargetFrameworkResolution Condition="'$(TargetFramework)' != '' AND '$(ReferringTargetFramework)' == ''">true</_SkipNearestTargetFrameworkResolution>
 			<NearestTargetFramework Condition="'$(_SkipNearestTargetFrameworkResolution)' == 'true'">$(TargetFramework)</NearestTargetFramework>
 
 			<!-- A project can only have more than one output if the current global properties are such that the current build is a multi-targeting one. -->
@@ -79,7 +79,7 @@
 			PossibleTargetFrameworks="$(_PossibleTargetFrameworks)"
 			ProjectFilePath="$(MSBuildProjectFullPath)"
 			Condition="'$(_SkipNearestTargetFrameworkResolution)' != 'true'">
-			<Output PropertyName="NearestTargetFramework" TaskParameter="NearestTargetFramework" />
+			<Output PropertyName="NearestTargetFramework" TaskParameter="NearestTargetFramework"/>
 		</GetNearestTargetFramework>
 	</Target>
 

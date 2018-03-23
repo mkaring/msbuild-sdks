@@ -2,17 +2,17 @@
 
 	<PropertyGroup>
 		<!-- Shim for MSBuild.NET.Extras.Sdk for disabling v1.0 Microsoft.NET.Sdk workaround! -->
-		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' == '1.0'" />
+		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' == '1.0'"/>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(NuGetBuildTasksPackTargets)' == '' AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' != 'false'">
-		<IncludeBuildOutput Condition=" '$(PackAsTool)' == 'true' ">false</IncludeBuildOutput>
-		<PackageType Condition=" '$(PackAsTool)' == 'true' ">DotNetTool</PackageType>
+		<IncludeBuildOutput Condition="'$(PackAsTool)' == 'true'">false</IncludeBuildOutput>
+		<PackageType Condition="'$(PackAsTool)' == 'true'">DotNetTool</PackageType>
 		<NuGetBuildTasksPackTargets>$(MSBuildThisFileDirectory)..\Packing\NuGet.Build.Tasks.Pack.targets</NuGetBuildTasksPackTargets>
 		<ImportNuGetBuildTasksPackTargetsFromSdk>true</ImportNuGetBuildTasksPackTargetsFromSdk>
 	</PropertyGroup>
 
-	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'true'" />
+	<Import Project="$(NuGetBuildTasksPackTargets)" Condition="Exists('$(NuGetBuildTasksPackTargets)') AND '$(ImportNuGetBuildTasksPackTargetsFromSdk)' == 'true'"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

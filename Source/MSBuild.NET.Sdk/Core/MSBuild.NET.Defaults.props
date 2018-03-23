@@ -39,8 +39,8 @@
 		<_SdkSupportedPlatforms>;$(SupportedPlatforms);</_SdkSupportedPlatforms>
 		<_SdkPlatformInference Condition="$(_SdkSupportedPlatforms.Contains(';$(Platform);'))">$(Platform)</_SdkPlatformInference>
 		<PlatformTarget Condition="'$(PlatformTarget)' == '' AND '$(_SdkPlatformInference)' != ''">$(_SdkPlatformInference)</PlatformTarget>
-		<_SdkPlatformInference />
-		<_SdkSupportedPlatforms />
+		<_SdkPlatformInference/>
+		<_SdkSupportedPlatforms/>
 	</PropertyGroup>
 
 	<!-- Default settings for all projects built with this Sdk package -->

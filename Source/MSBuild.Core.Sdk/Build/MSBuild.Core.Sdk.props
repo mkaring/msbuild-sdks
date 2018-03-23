@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<ImportGroup>
-		<Import Project="$(MSBuildThisFileDirectory)Directory.Build.props" Condition="'$(ImportDirectoryBuildProps)' == 'true'" />
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.props" Condition="'$(ImportProjectExtensionProps)' == 'true'" />
-		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectCore.props" Condition="'$(ImportProjectCoreProps)' == 'true'" />
+		<Import Project="$(MSBuildThisFileDirectory)Directory.Build.props" Condition="'$(ImportDirectoryBuildProps)' == 'true'"/>
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectExtension.props" Condition="'$(ImportProjectExtensionProps)' == 'true'"/>
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectCore.props" Condition="'$(ImportProjectCoreProps)' == 'true'"/>
 	</ImportGroup>
 
 	<PropertyGroup>

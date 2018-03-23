@@ -33,7 +33,7 @@ After that, you can use the `Restore`, `Build`, `Pack` targets to restore packag
 To use this package, Install it from NuGet or manually add a `PackageReference` to your project file like this (latest version recommended):
 
 ```xml
-<PackageReference Include="MSBuild.NET.Extras.Sdk" Version="1.0.0" PrivateAssets="All" />
+<PackageReference Include="MSBuild.NET.Extras.Sdk" Version="1.0.0" PrivateAssets="All"/>
 ```
 
 Setting `PrivateAssets="All"` means that this build-time package won't be added as a dependency to any packages you create by using the `Pack` target (`msbuild /t:Pack`).
@@ -41,7 +41,7 @@ Setting `PrivateAssets="All"` means that this build-time package won't be added 
 Then, at the end of your project file, either `.csproj`, `.vbproj` or `.fsproj`, add the following `Import` just before the closing tag
 
 ```xml
-<Import Project="$(MSBuildSdkExtrasDotNet)" Condition="Exists('$(MSBuildSdkExtrasDotNet)')" />
+<Import Project="$(MSBuildSdkExtrasDotNet)" Condition="Exists('$(MSBuildSdkExtrasDotNet)')"/>
 ```
 
 This last step is required until [Microsoft/msbuild#1045](/Microsoft/msbuild/issues/1045) is resolved.
@@ -52,7 +52,7 @@ If you plan to target UWP, then you must include the UWP meta-package in your pr
 
 ```xml
 <ItemGroup Condition="'$(TargetFramework)' == 'uap10.0'">
-  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
+  <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1"/>
 </ItemGroup>
 ```
 
@@ -64,7 +64,7 @@ If you plan to target Tizen, then you should include the following meta-package:
 
 ```xml
 <ItemGroup Condition="'$(TargetFramework)' == 'tizen30'">
-  <PackageReference Include="Tizen.NET" Version="3.0.0" />
+  <PackageReference Include="Tizen.NET" Version="3.0.0"/>
 </ItemGroup>
 ```
 

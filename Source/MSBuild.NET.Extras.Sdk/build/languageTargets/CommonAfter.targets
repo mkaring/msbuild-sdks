@@ -25,6 +25,6 @@
 
 	<!-- Import common targets so NuGet restore succeeds -->
 	<!-- https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/sdk/Sdk.targets#L40-L41 -->
-	<Import Project="$(LanguageTargets)" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'" />
+	<Import Project="$(LanguageTargets)" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>

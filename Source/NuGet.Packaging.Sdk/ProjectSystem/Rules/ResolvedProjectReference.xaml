@@ -6,8 +6,8 @@
 	  xmlns="http://schemas.microsoft.com/build/2009/properties">
 
 	<Rule.Categories>
-		<Category Name="Advanced" DisplayName="Advanced" />
-		<Category Name="General" DisplayName="General" />
+		<Category Name="Advanced" DisplayName="Advanced"/>
+		<Category Name="General" DisplayName="General"/>
 	</Rule.Categories>
 
 	<Rule.DataSource>
@@ -15,7 +15,7 @@
 					ItemType="ProjectReference"
 					HasConfigurationCondition="false"
 					SourceType="TargetResults"
-					MSBuildTarget="ResolveProjectReferencesDesignTime" />
+					MSBuildTarget="ResolveProjectReferencesDesignTime"/>
 	</Rule.DataSource>
 
 	<StringProperty Name="OriginalItemSpec"
@@ -32,7 +32,7 @@
 					Description="The location of the file being referenced.">
 
 		<StringProperty.DataSource>
-			<DataSource PersistedName="Identity" />
+			<DataSource PersistedName="Identity"/>
 		</StringProperty.DataSource>
 	</StringProperty>
 
@@ -41,46 +41,46 @@
 				  Category="Advanced"
 				  Description="The directory to receive the output of this reference.">
 		<EnumProperty.DataSource>
-			<DataSource Persistence="ProjectFile" ItemType="ProjectReference" HasConfigurationCondition="False" />
+			<DataSource Persistence="ProjectFile" ItemType="ProjectReference" HasConfigurationCondition="False"/>
 		</EnumProperty.DataSource>
-		<EnumValue Name="Lib" DisplayName="lib" />
-		<EnumValue Name="Tools" DisplayName="tools" />
+		<EnumValue Name="Lib" DisplayName="lib"/>
+		<EnumValue Name="Tools" DisplayName="tools"/>
 	</EnumProperty>
 
 	<StringProperty Name="Version"
 					ReadOnly="true"
-					Visible="false" />
+					Visible="false"/>
 
 	<StringProperty Name="RuntimeVersion"
 					ReadOnly="true"
-					Visible="false" />
+					Visible="false"/>
 
 	<BoolProperty Name="SpecificVersion"
-				  Visible="false" />
+				  Visible="false"/>
 
 	<BoolProperty Name="StrongName"
 				  ReadOnly="true"
-				  Visible="false" />
+				  Visible="false"/>
 
 	<!-- This is the metadata we store on the reference item when we add it. -->
 	<BoolProperty Name="IsWinMDFile"
-				  Visible="false" />
+				  Visible="false"/>
 
 	<!-- These are metadata added to the resolved item by MSBuild that we don't show to the user but use internally. -->
 	<BoolProperty Name="WinMDFile"
 				  Visible="false"
-				  ReadOnly="true" />
+				  ReadOnly="true"/>
 
 	<StringProperty Name="RequiredTargetFramework"
-					Visible="false" />
+					Visible="false"/>
 	<StringProperty Name="HintPath"
-					Visible="false" />
+					Visible="false"/>
 	<StringProperty Name="SDKIdentity"
-					Visible="false" />
+					Visible="false"/>
 	<StringProperty Name="FusionName"
 					Visible="false"
-					ReadOnly="true" />
+					ReadOnly="true"/>
 	<StringProperty Name="Name"
 					Visible="false"
-					ReadOnly="True" />
+					ReadOnly="True"/>
 </Rule>

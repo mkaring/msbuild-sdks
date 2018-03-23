@@ -47,7 +47,7 @@
 		'$(RuntimeIdentifier)' == ''">
 		<_UsingDefaultRuntimeIdentifier>true</_UsingDefaultRuntimeIdentifier>
 		<RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x64'">win7-x64</RuntimeIdentifier>
-		<RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == ''">win7-x86</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x86' OR '$(PlatformTarget)' == ''">win7-x86</RuntimeIdentifier>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(PlatformTarget)' == ''">
@@ -56,21 +56,21 @@
 
 	<!-- Determine PlatformTarget (if not already set) from runtime identifier. -->
 	<Choose>
-		<When Condition="'$(PlatformTarget)' != '' or '$(RuntimeIdentifier)' == ''" />
+		<When Condition="'$(PlatformTarget)' != '' OR '$(RuntimeIdentifier)' == ''"/>
 
-		<When Condition="$(RuntimeIdentifier.EndsWith('-x86')) or $(RuntimeIdentifier.Contains('-x86-'))">
+		<When Condition="$(RuntimeIdentifier.EndsWith('-x86')) OR $(RuntimeIdentifier.Contains('-x86-'))">
 			<PropertyGroup>
 				<PlatformTarget>x86</PlatformTarget>
 			</PropertyGroup>
 		</When>
 
-		<When Condition="$(RuntimeIdentifier.EndsWith('-x64')) or $(RuntimeIdentifier.Contains('-x64-'))">
+		<When Condition="$(RuntimeIdentifier.EndsWith('-x64')) OR $(RuntimeIdentifier.Contains('-x64-'))">
 			<PropertyGroup>
 				<PlatformTarget>x64</PlatformTarget>
 			</PropertyGroup>
 		</When>
 
-		<When Condition="$(RuntimeIdentifier.EndsWith('-arm')) or $(RuntimeIdentifier.Contains('-arm-'))">
+		<When Condition="$(RuntimeIdentifier.EndsWith('-arm')) OR $(RuntimeIdentifier.Contains('-arm-'))">
 			<PropertyGroup>
 				<PlatformTarget>arm</PlatformTarget>
 			</PropertyGroup>
@@ -89,27 +89,27 @@
 		Default SelfContained based on the RuntimeIdentifier, so projects don't have to explicitly set SelfContained.
 		This avoids a breaking change from 1.0 behavior.
 	-->
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(HasRuntimeOutput)' == 'true' and '$(SelfContained)' == ''">
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(HasRuntimeOutput)' == 'true' AND '$(SelfContained)' == ''">
 		<SelfContained Condition="'$(RuntimeIdentifier)' == ''">false</SelfContained>
 		<SelfContained Condition="'$(RuntimeIdentifier)' != ''">true</SelfContained>
 	</PropertyGroup>
 
 	<Target Name="_CheckForUnsupportedSelfContained"
 			BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
-			Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' and '$(HasRuntimeOutput)' == 'true'">
+			Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(HasRuntimeOutput)' == 'true'">
 
-		<NETSdkError Condition="'$(SelfContained)' == 'true' and '$(RuntimeIdentifier)' == ''"
-			ResourceName="CannotHaveSelfContainedWithoutRuntimeIdentifier" />
+		<NETSdkError Condition="'$(SelfContained)' == 'true' AND '$(RuntimeIdentifier)' == ''"
+			ResourceName="CannotHaveSelfContainedWithoutRuntimeIdentifier"/>
 
 	</Target>
 
 	<Target Name="_CheckForMismatchingPlatform"
 			BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
-			Condition="'$(RuntimeIdentifier)' != '' and '$(PlatformTarget)' != ''">
+			Condition="'$(RuntimeIdentifier)' != '' AND '$(PlatformTarget)' != ''">
 
-		<NETSdkError Condition="'$(PlatformTarget)' != 'AnyCPU' and !$(RuntimeIdentifier.ToUpper().Contains($(PlatformTarget.ToUpper())))"
+		<NETSdkError Condition="'$(PlatformTarget)' != 'AnyCPU' AND !$(RuntimeIdentifier.ToUpper().Contains($(PlatformTarget.ToUpper())))"
 			ResourceName="CannotHaveRuntimeIdentifierPlatformMismatchPlatformTarget"
-			FormatArguments="$(RuntimeIdentifier);$(PlatformTarget)" />
+			FormatArguments="$(RuntimeIdentifier);$(PlatformTarget)"/>
 
 	</Target>
 
@@ -117,7 +117,7 @@
 			BeforeTargets="_CheckForInvalidConfigurationAndPlatform">
 		<NETSdkMessage Condition="'$(_NETCoreSdkIsPreview)' == 'true'"
 			Importance="High"
-			ResourceName="UsingPreviewSdkWarning" />
+			ResourceName="UsingPreviewSdkWarning"/>
 	</Target>
 
 	<PropertyGroup>
@@ -132,7 +132,7 @@
 		But do not append the implicit default runtime identifier for .NET Framework apps as that would
 		append a RID the user never mentioned in the path and do so even in the AnyCPU case.
 	-->
-	<PropertyGroup Condition="'$(AppendRuntimeIdentifierToOutputPath)' == 'true' and '$(RuntimeIdentifier)' != '' and '$(_UsingDefaultRuntimeIdentifier)' != 'true'">
+	<PropertyGroup Condition="'$(AppendRuntimeIdentifierToOutputPath)' == 'true' AND '$(RuntimeIdentifier)' != '' AND '$(_UsingDefaultRuntimeIdentifier)' != 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(RuntimeIdentifier)\</IntermediateOutputPath>
 		<OutputPath>$(OutputPath)$(RuntimeIdentifier)\</OutputPath>
 	</PropertyGroup>
@@ -144,20 +144,13 @@
 	<Target Name="AdjustDefaultPlatformTargetForNetFrameworkExeWithNoNativeCopyLocalItems"
 			AfterTargets="ResolvePackageAssets"
 			BeforeTargets="CoreCompile"
-			Condition="'$(_UsingDefaultPlatformTarget)' == 'true' and
-						'$(_UsingDefaultRuntimeIdentifier)' == 'true' and
+			Condition="'$(_UsingDefaultPlatformTarget)' == 'true' AND
+						'$(_UsingDefaultRuntimeIdentifier)' == 'true' AND
 						'@(NativeCopyLocalItems)' == ''">
 		<PropertyGroup>
 			<PlatformTarget>AnyCPU</PlatformTarget>
 		</PropertyGroup>
 	</Target>
-
-	<PropertyGroup>
-		<_SdkRuntimeName Condition="'$(TargetRuntimeIdentifier)' == ''">.NETCore</_SdkRuntimeName>
-		<_SdkRuntimeName Condition="'$(TargetRuntimeIdentifier)' == ''">.NETCoreApp</_SdkRuntimeName>
-		<_SdkRuntimeName Condition="'$(TargetRuntimeIdentifier)' == ''">.NETFramework</_SdkRuntimeName>
-		<_SdkRuntimeName Condition="'$(_SdkRuntimeName)' != ''">$(TargetRuntimeIdentifier)</_SdkRuntimeName>
-	</PropertyGroup>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

@@ -18,15 +18,15 @@
 		<CustomBeforeMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkProps>
 		<CustomBeforeMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.Before.$(MSBuildThisFile)</CustomBeforeMicrosoftNETFrameworkProps>
 	</PropertyGroup>
-	<Import Project="$(CustomBeforeMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkProps)')" />
+	<Import Project="$(CustomBeforeMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomBeforeMicrosoftNETFrameworkProps)')"/>
 
-	<Import Project="$(MicrosoftNETFrameworkPropsPath)" />
+	<Import Project="$(MicrosoftNETFrameworkPropsPath)"/>
 
 	<PropertyGroup Condition="'$(CustomAfterMicrosoftNETFrameworkProps)' == ''">
 		<CustomAfterMicrosoftNETFrameworkProps>$(MSBuildExtensionsPath)\v$(MSBuildToolsVersion)\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkProps>
 		<CustomAfterMicrosoftNETFrameworkProps Condition="'$(MSBuildAssemblyVersion)' == ''">$(MSBuildExtensionsPath)\v4.0\Custom.After.$(MSBuildThisFile)</CustomAfterMicrosoftNETFrameworkProps>
 	</PropertyGroup>
-	<Import Project="$(CustomAfterMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkProps)')" />
+	<Import Project="$(CustomAfterMicrosoftNETFrameworkProps)" Condition="Exists('$(CustomAfterMicrosoftNETFrameworkProps)')"/>
 
 	<PropertyGroup>
 		<ImportByWildcardAfterMicrosoftNETFrameworkProps Condition="'$(ImportByWildcardAfterMicrosoftNETFrameworkProps)' == ''">true</ImportByWildcardAfterMicrosoftNETFrameworkProps>

@@ -1,10 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<!-- Set default intermediate and output paths -->
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.OutputPaths.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.OutputPaths.targets"/>
 
 	<!-- Set default assembly info properties -->
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.AssemblyInfo.targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\MSBuild.NET.Defaults.AssemblyInfo.targets"/>
 
 	<PropertyGroup Label="Globals">
 		<IsMultiTargetingBuild Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
@@ -12,14 +12,14 @@
 		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MultiTargeting.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MultiTargeting.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'"/>
 
 	<!-- Check if we already imported them as props -->
-	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''" />
+	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.targets" Condition="'$(IsMultiTargetingBuild)' != 'true'" />
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.targets" Condition="'$(IsMultiTargetingBuild)' != 'true'"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets" />
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>

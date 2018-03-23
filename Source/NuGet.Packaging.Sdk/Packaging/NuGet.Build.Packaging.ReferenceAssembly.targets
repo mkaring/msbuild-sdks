@@ -1,12 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.ApiIntersect" AssemblyFile="NuGet.Build.Packaging.Tasks.dll" />
-	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.GenerateAssemblyInfo" AssemblyFile="NuGet.Build.Packaging.Tasks.dll" />
-	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.GetApiIntersectTargetPaths" AssemblyFile="NuGet.Build.Packaging.Tasks.dll" />
+	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.ApiIntersect" AssemblyFile="NuGet.Build.Packaging.Tasks.dll"/>
+	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.GenerateAssemblyInfo" AssemblyFile="NuGet.Build.Packaging.Tasks.dll"/>
+	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.GetApiIntersectTargetPaths" AssemblyFile="NuGet.Build.Packaging.Tasks.dll"/>
 
 	<ItemGroup>
 		<!-- Converts potentially multiple $(ReferenceAssemblyFrameworks) into @(ReferenceAssemblyFramework) -->
-		<ReferenceAssemblyFramework Include="$(ReferenceAssemblyFrameworks)" Condition="'$(ReferenceAssemblyFrameworks)' != ''" />
+		<ReferenceAssemblyFramework Include="$(ReferenceAssemblyFrameworks)" Condition="'$(ReferenceAssemblyFrameworks)' != ''"/>
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -18,20 +18,20 @@
 			DependsOnTargets="AssignProjectConfiguration;_SplitProjectReferencesByFileExistence"
 			Condition="'@(ReferenceAssemblyFramework)' != ''">
 		<ItemGroup>
-			<_ReferenceAssemblyProjects Include="@(_MSBuildProjectReferenceExistent)" Condition="'%(_MSBuildProjectReferenceExistent.Pack)' != 'false'" />
+			<_ReferenceAssemblyProjects Include="@(_MSBuildProjectReferenceExistent)" Condition="'%(_MSBuildProjectReferenceExistent.Pack)' != 'false'"/>
 		</ItemGroup>
 
 		<MSBuild
 		Projects="@(_ReferenceAssemblyProjects)"
 		Targets="GetTargetPathWithTargetPlatformMoniker">
-			<Output TaskParameter="TargetOutputs" ItemName="IntersectionAssembly" />
+			<Output TaskParameter="TargetOutputs" ItemName="IntersectionAssembly"/>
 		</MSBuild>
 
 		<GetApiIntersectTargetPaths
 			Frameworks="%(ReferenceAssemblyFramework.Identity)"
 			RootOutputDirectory="$(IntermediateOutputPath)"
 			Assemblies="@(IntersectionAssembly)">
-			<Output TaskParameter="TargetPaths" ItemName="_ReferenceAssemblyTargetPath" />
+			<Output TaskParameter="TargetPaths" ItemName="_ReferenceAssemblyTargetPath"/>
 		</GetApiIntersectTargetPaths>
 
 		<ItemGroup>
@@ -55,8 +55,8 @@
 		</PropertyGroup>
 
 		<ItemGroup>
-			<_IntersectionReferencePath Include="@(IntersectionAssembly->'%(RootDir)%(Directory)')" Condition="'$(EnableDefaultIntersectionAssemblyReferencePath)' == 'true'" />
-			<_IntersectionReferencePath Include="$(IntersectionAssemblyReferencePath)" />
+			<_IntersectionReferencePath Include="@(IntersectionAssembly->'%(RootDir)%(Directory)')" Condition="'$(EnableDefaultIntersectionAssemblyReferencePath)' == 'true'"/>
+			<_IntersectionReferencePath Include="$(IntersectionAssemblyReferencePath)"/>
 		</ItemGroup>
 
 		<ApiIntersect
@@ -71,13 +71,13 @@
 			KeepMarshalling="$(IntersectionKeepMarshalling)"
 			ToolPath="$(ApiIntersectToolPath)"
 			ToolExe="$(ApiIntersectToolExe)">
-			<Output TaskParameter="OutputDirectory" ItemName="_ReferenceAssemblyBuildInfo" />
+			<Output TaskParameter="OutputDirectory" ItemName="_ReferenceAssemblyBuildInfo"/>
 		</ApiIntersect>
 
 		<GenerateAssemblyInfo
 			Assemblies="@(IntersectionAssembly)"
 			OutputDirectories="@(_ReferenceAssemblyBuildInfo->'%(Identity)Contract')">
-			<Output TaskParameter="AssemblyName" PropertyName="_ReferenceAssemblyName" />
+			<Output TaskParameter="AssemblyName" PropertyName="_ReferenceAssemblyName"/>
 		</GenerateAssemblyInfo>
 
 		<MSBuild
@@ -88,19 +88,19 @@
 				OutputPath=%(_ReferenceAssemblyBuildInfo.FullPath)bin\;
 				IntermediateOutputPath=%(_ReferenceAssemblyBuildInfo.FullPath)obj\;
 				TargetFrameworkVersion=%(_ReferenceAssemblyBuildInfo.TargetFrameworkVersion);
-				TargetFrameworkProfile=%(_ReferenceAssemblyBuildInfo.TargetFrameworkProfile)" />
+				TargetFrameworkProfile=%(_ReferenceAssemblyBuildInfo.TargetFrameworkProfile)"/>
 	</Target>
 
-	<Target Name="_CleanReferenceAssemblyIntermediateOutputs" Condition="'@(ReferenceAssemblyFramework)' != '' and Exists('$(IntermediateOutputPath)')">
+	<Target Name="_CleanReferenceAssemblyIntermediateOutputs" Condition="'@(ReferenceAssemblyFramework)' != '' AND Exists('$(IntermediateOutputPath)')">
 		<PropertyGroup>
 			<_ReferenceAssemblyIntermediateOutputDirectories>$([System.IO.Directory]::GetDirectories('$(IntermediateOutputPath)'))</_ReferenceAssemblyIntermediateOutputDirectories>
 		</PropertyGroup>
 
 		<ItemGroup>
-			<_ReferenceAssemblyIntermediateOutputDirectory Include="$(_ReferenceAssemblyIntermediateOutputDirectories)" />
+			<_ReferenceAssemblyIntermediateOutputDirectory Include="$(_ReferenceAssemblyIntermediateOutputDirectories)"/>
 		</ItemGroup>
 
-		<RemoveDir Directories="@(_ReferenceAssemblyIntermediateOutputDirectory)" />
+		<RemoveDir Directories="@(_ReferenceAssemblyIntermediateOutputDirectory)"/>
 	</Target>
 
 </Project>

@@ -6,9 +6,9 @@
 
 	<ImportGroup>
 		<Import Project="$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_SdkLanguageName).targets"
-				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_SdkLanguageName).targets')" />
+				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\WatchOS\Xamarin.WatchOS.$(_SdkLanguageName).targets')"/>
 	
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets" />
+		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets"/>
 	</ImportGroup>
 
 </Project>
