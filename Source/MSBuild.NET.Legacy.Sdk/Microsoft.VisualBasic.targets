@@ -3,12 +3,12 @@
 	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
 
 	<!--
-		We are doing a cross-targeting build if there is no list of target frameworks specified
+		We are doing a multi-targeting build if there is no list of target frameworks specified
 		nor is there a current target framework being built individually. In that case, this import is
 		redirected to $(MSBuildThisFileName).CrossTargeting.targets.
 	-->
 	<PropertyGroup Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">
-		<IsCrossTargetingBuild>true</IsCrossTargetingBuild>
+		<IsMultiTargetingBuild>true</IsMultiTargetingBuild>
 	</PropertyGroup>
 
 	<Choose>
@@ -17,7 +17,7 @@
 				<MicrosoftVisualBasicTargetsPath>$(MSBuildLegacySdkPath)\Inbox\$(MSBuildThisFile)</MicrosoftVisualBasicTargetsPath>
 			</PropertyGroup>
 		</When>
-		<When Condition="'$(IsCrossTargetingBuild)' == 'true'">
+		<When Condition="'$(IsMultiTargetingBuild)' == 'true'">
 			<PropertyGroup>
 				<MicrosoftVisualBasicTargetsPath>$(MSBuildLegacySdkPath)\$(MSBuildThisFileName).CrossTargeting.targets</MicrosoftVisualBasicTargetsPath>
 			</PropertyGroup>

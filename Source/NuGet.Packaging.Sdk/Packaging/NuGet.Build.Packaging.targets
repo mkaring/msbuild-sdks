@@ -1,9 +1,16 @@
 <Project InitialTargets="_SetPropertiesFromCapabilities" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="NuGet.Build.Packaging.props" Condition="'$(NuGetBuildPackagingPropsImported)' == ''"/>
+
 	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.AssignPackagePath" AssemblyFile="NuGet.Build.Packaging.Tasks.dll"/>
 	<UsingTask TaskName="NuGet.Build.Packaging.Tasks.CreatePackage" AssemblyFile="NuGet.Build.Packaging.Tasks.dll"/>
 
-	<Import Project="NuGet.Build.Packaging.props" Condition="'$(NuGetBuildPackagingPropsImported)' == ''"/>
+	<PropertyGroup Label="Globals">
+		<IsMultiTargetingBuild Condition="'$(TargetFrameworks)' != '' AND '$(TargetFramework)' == ''">true</IsMultiTargetingBuild>
+		<!-- TODO: Remove once the migration is done. Microsoft.CSharp.targets and Microsoft.VisualBasic.targets use this property. -->
+		<IsCrossTargetingBuild>$(IsMultiTargetingBuild)</IsCrossTargetingBuild>
+	</PropertyGroup>
+
 	<!-- Adds compatibility targets with Pack SDK -->
 	<Import Project="NuGet.Build.Packaging.Compatibility.props"/>
 	<Import Project="NuGet.Build.Packaging.Legacy.props"/>
@@ -21,7 +28,9 @@
 		<BuildingPackage Condition="'$(BuildingPackage)' == '' AND '$(IsPackagingProject)' == 'true'">true</BuildingPackage>
 
 		<!-- Directory where the .nupkg will be saved to if Pack is run, used also in GetPackageTargetPath -->
-		<PackageOutputPath Condition="'$(PackageOutputPath)' == ''">$(OutputPath)</PackageOutputPath>
+		<PackageOutputPath Condition="'$(PackageOutputPath)' == ''">$(PublishPath)$(Configuration)\</PackageOutputPath>
+		<!-- Directory where the .nuspec will be saved to if Pack is run, used also in CreatePackageTask -->
+		<NuspecOutputPath Condition="'$(NuspecOutputPath)' == ''">$(BaseOutputPath)$(Configuration)\</NuspecOutputPath>
 
 		<!-- This file signals that the Build should actually do a Pack. Supports the IDE solution-wide Build command for authoring projects. -->
 		<PackOnBuildFile>$(MSBuildProjectDirectory)\.packonbuild</PackOnBuildFile>
@@ -29,7 +38,7 @@
 		<!-- Whether to emit the nuspec that's used to create the final package -->
 		<EmitNuSpec Condition="'$(EmitNuSpec)' == ''">false</EmitNuSpec>
 		<!-- Only default the nuspec file if we are supposed to emit one. -->
-		<NuspecFile Condition="'$(NuspecFile)' == '' AND '$(EmitNuSpec)' == 'true'">$(OutputPath)\$(PackageId).nuspec</NuspecFile>
+		<NuspecFile Condition="'$(NuspecFile)' == '' AND '$(EmitNuSpec)' == 'true'">$(NuspecOutputPath)$(PackageId).nuspec</NuspecFile>
 	</PropertyGroup>
 
 	<Import Project="NuGet.Build.Packaging.Inference.targets" Condition="'$(InferPackageContents)' != 'false'"/>
@@ -280,7 +289,7 @@
 					 contents of this package project in its current TFM configuration.
 					 TBD: we might want to preserve it anyways and adjust later
 					 (i.e. net45 project references netstandard1.6 project)
-					 TODO: take into account cross-targeting.
+					 TODO: take into account multi-targeting.
 				-->
 				<TargetFrameworkMoniker Condition="'%(_ReferencedPackageContentWithOriginalValues.FrameworkSpecific)' == 'true'">$(TargetFrameworkMoniker)</TargetFrameworkMoniker>
 			</_ReferencedPackageContentWithOriginalValues>

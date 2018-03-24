@@ -22,7 +22,7 @@
 				<TargetFrameworks Condition="'$(TargetFrameworks)' != ''">$(TargetFrameworks)</TargetFrameworks>
 				<TargetFrameworks Condition="'$(TargetFrameworks)' == ''">$(TargetFramework)</TargetFrameworks>
 				<HasSingleTargetFramework>true</HasSingleTargetFramework>
-				<HasSingleTargetFramework Condition="'$(IsCrossTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
+				<HasSingleTargetFramework Condition="'$(IsMultiTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
 				<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 				<IsRidAgnostic>false</IsRidAgnostic>
 				<IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</IsRidAgnostic>
@@ -71,7 +71,7 @@
 	============================================================
 								Build
 
-	Cross-targeting version of Build.
+	Multi-targeting version of Build.
 
 	[IN]
 	$(TargetFrameworks) - Semicolon delimited list of target frameworks.
@@ -99,7 +99,7 @@
 	============================================================
 							Clean
 
-	Cross-targeting version of clean.
+	Multi-targeting version of clean.
 
 	Inner-build dispatch is a clone of DispatchToInnerBuilds;
 	the only reason it's replicated is that it must be a different
@@ -120,7 +120,7 @@
 	============================================================
 							Rebuild
 
-	Cross-targeting version of rebuild.
+	Multi-targeting version of rebuild.
 	============================================================
 	-->
 	<Target Name="Rebuild" DependsOnTargets="Clean;Build"/>

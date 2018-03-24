@@ -8,7 +8,7 @@
 					GetTargetPathWithTargetPlatformMoniker
 	NOTE: depends on Microsoft.Common.CrossTargeting.targets
 
-	When cross-targeting and the authoring project references a
+	When multi-targeting and the authoring project references a
 	nugetized library, return all the determined target paths.
 	============================================================
 	-->
@@ -31,7 +31,7 @@
 	<!--
 	============================================================
 						GetPackageContents
-	Cross-targeting version of GetPackageContents.
+	Multi-targeting version of GetPackageContents.
 	NOTE: depends on Microsoft.Common.CrossTargeting.targets
 
 	[OUT]

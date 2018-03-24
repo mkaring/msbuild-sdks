@@ -1,10 +1,13 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
 	<!-- Load NuGet.Build.Tasks.Pack.dll, this can be overridden to use a different version with $(NuGetPackTaskAssemblyFile) -->
 	<PropertyGroup Condition="$(NuGetPackTaskAssemblyFile) == ''">
 		<NuGetPackTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)CoreCLR\NuGet.Build.Tasks.Pack.dll</NuGetPackTaskAssemblyFile>
 		<NuGetPackTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' != 'Core'">$(MSBuildThisFileDirectory)Desktop\NuGet.Build.Tasks.Pack.dll</NuGetPackTaskAssemblyFile>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
 	<UsingTask TaskName="NuGet.Build.Tasks.Pack.PackTask" AssemblyFile="$(NuGetPackTaskAssemblyFile)"/>
@@ -29,8 +32,6 @@
 		<IsInnerBuild Condition="'$(TargetFramework)' != '' AND '$(TargetFrameworks)' != ''">true</IsInnerBuild>
 		<NoBuild Condition="'$(GeneratePackageOnBuild)' == 'true'">true</NoBuild>
 		<AddPriFileDependsOn Condition="'$(MicrosoftPortableCurrentVersionPropsHasBeenImported)' == 'true'">DeterminePortableBuildCapabilities</AddPriFileDependsOn>
-		<NuspecOutputPath Condition="'$(NuspecOutputPath)' == ''">$(BaseIntermediateOutputPath)$(Configuration)\</NuspecOutputPath>
-		<ImportNuGetBuildTasksPackTargetsFromSdk Condition="'$(ImportNuGetBuildTasksPackTargetsFromSdk)' == ''">false</ImportNuGetBuildTasksPackTargetsFromSdk>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>.dll;.exe;.winmd;.json;.pri;.xml;$(AllowedOutputExtensionsInPackageBuildOutputFolder)</AllowedOutputExtensionsInPackageBuildOutputFolder>
 		<AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>.pdb;.mdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder);$(AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder)</AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>
 	</PropertyGroup>
@@ -135,20 +136,22 @@
 	</Target>
 
 	<Target Name="_CalculateInputsOutputsForPack" DependsOnTargets="_GetOutputItemsFromPack">
+
 		<PropertyGroup Condition="$(ContinuePackingAfterGeneratingNuspec) == ''">
 			<ContinuePackingAfterGeneratingNuspec>false</ContinuePackingAfterGeneratingNuspec>
 		</PropertyGroup>
+
 		<PropertyGroup>
-			<PublishPath Condition="'$(PublishPath)' == ''">$(OuputPath)</PublishPath>
-			<PackageOutputPath Condition="'$(PackageOutputPath)' == ''">$(PublishPath)</PackageOutputPath>
 			<RestoreOutputPath Condition="'$(RestoreOutputPath)' == ''">$(MSBuildProjectExtensionsPath)</RestoreOutputPath>
+			<NuspecOutputPath Condition="'$(NuspecOutputPath)' == ''">$(BaseOutputPath)$(Configuration)\</NuspecOutputPath>
+			<PackageOutputPath Condition="'$(PackageOutputPath)' == ''">$(PublishPath)$(Configuration)\</PackageOutputPath>
 		</PropertyGroup>
 
-		<ConvertToAbsolutePath Paths="$(NuspecOutputPath)">
-			<Output TaskParameter="AbsolutePaths" PropertyName="NuspecOutputAbsolutePath"/>
-		</ConvertToAbsolutePath>
 		<ConvertToAbsolutePath Paths="$(RestoreOutputPath)">
 			<Output TaskParameter="AbsolutePaths" PropertyName="RestoreOutputAbsolutePath"/>
+		</ConvertToAbsolutePath>
+		<ConvertToAbsolutePath Paths="$(NuspecOutputPath)">
+			<Output TaskParameter="AbsolutePaths" PropertyName="NuspecOutputAbsolutePath"/>
 		</ConvertToAbsolutePath>
 		<ConvertToAbsolutePath Paths="$(PackageOutputPath)">
 			<Output TaskParameter="AbsolutePaths" PropertyName="PackageOutputAbsolutePath"/>

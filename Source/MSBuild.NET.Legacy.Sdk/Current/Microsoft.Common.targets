@@ -1503,7 +1503,7 @@
 		Builds the GetTargetFrameworks target of all existent project references to get a list
 		of all supported TargetFrameworks of the referenced projects. Calls the
 		GetReferenceNearestTargetFrameworkTask to determine the closest match for each project.
-		This allows a cross-targeting project to select how it should be configured to build
+		This allows a multi-targeting project to select how it should be configured to build
 		against the most appropriate target for the referring target framework.
 
 		======================================================================================
@@ -1631,7 +1631,7 @@
 				<TargetFrameworks Condition="'$(TargetFrameworks)' != ''">$(TargetFrameworks)</TargetFrameworks>
 				<TargetFrameworks Condition="'$(TargetFrameworks)' == ''">$(TargetFramework)</TargetFrameworks>
 				<HasSingleTargetFramework>true</HasSingleTargetFramework>
-				<HasSingleTargetFramework Condition="'$(IsCrossTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
+				<HasSingleTargetFramework Condition="'$(IsMultiTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
 				<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 				<IsRidAgnostic>false</IsRidAgnostic>
 				<IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</IsRidAgnostic>
@@ -1643,7 +1643,7 @@
 		============================================================
 										GetTargetFrameworkProperties
 
-		Overrridden by cross-targeting projects to return the set of
+		Overrridden by multi-targeting projects to return the set of
 		properties (in the form "key1=value1;...keyN=valueN") needed
 		to build it with the best target for the referring project's
 		target framework.
@@ -1665,7 +1665,7 @@
 			[OUT]
 			@(ProjectReferenceWithConfiguration)   - Project references with apporpriate metadata
 			@(_MSBuildProjectReferenceExistent)    - Subset of @(ProjectReferenceWithConfiguration) that exist
-													with added SetTargetFramework metadata for cross-targeting
+													with added SetTargetFramework metadata for multi-targeting
 			@(_MSBuildProjectReferenceNonExistent) - Subset of  @(ProjectReferenceWithConfiguration) that do not exist
 		============================================================
 	-->
