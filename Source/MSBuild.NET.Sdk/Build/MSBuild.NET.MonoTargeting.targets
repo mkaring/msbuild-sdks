@@ -14,6 +14,11 @@
 		<ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(LanguageTargets)' != ''">
+		<_SdkBackupNuGetRestoreTargets>$(NuGetRestoreTargets)</_SdkBackupNuGetRestoreTargets>
+		<NuGetRestoreTargets>DISABLED-FROM-SDK</NuGetRestoreTargets>
+	</PropertyGroup>
+
 	<!--
 		If LanguageTargets isn't otherwise set, then we'll just import the legacy targets.
 		This should allow the restore target to run, which could bring in NuGet packages that sets the LanguageTargets.
@@ -26,11 +31,16 @@
 
 	<Import Project="$(LanguageTargets)" Condition="Exists('$(LanguageTargets)')"/>
 
+	<PropertyGroup Condition="'$(LanguageTargets)' != ''">
+		<NuGetRestoreTargets>$(_SdkBackupNuGetRestoreTargets)</NuGetRestoreTargets>
+		<_SdkBackupNuGetRestoreTargets/>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
 		<ImportProjectExtensionTargets>$(_SdkBackupImportProjectExtensionTargets)</ImportProjectExtensionTargets>
 		<ImportDirectoryBuildTargets>$(_SdkBackupImportDirectoryBuildTargets)</ImportDirectoryBuildTargets>
-		<_SdkBackupImportProjectExtensionTargets></_SdkBackupImportProjectExtensionTargets>
-		<_SdkBackupImportDirectoryBuildTargets></_SdkBackupImportDirectoryBuildTargets>
+		<_SdkBackupImportProjectExtensionTargets/>
+		<_SdkBackupImportDirectoryBuildTargets/>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.AfterLegacy.targets"/>

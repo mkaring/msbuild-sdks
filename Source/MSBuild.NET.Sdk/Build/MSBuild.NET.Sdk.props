@@ -23,11 +23,11 @@
 		<MicrosoftNETSdk>Microsoft.NET.Sdk</MicrosoftNETSdk>
 		<MicrosoftNETSdkPath>$(MSBuildSdksPath)\$(MicrosoftNETSdk)\</MicrosoftNETSdkPath>
 		<MicrosoftNETSdkBuildPath>$(MicrosoftNETSdkPath)targets\</MicrosoftNETSdkBuildPath>
-		<MicrosoftNETSdkBuildPath>D:\Projects\GitHub\dotnet-sdk\src\Tasks\Microsoft.NET.Build.Tasks\targets\</MicrosoftNETSdkBuildPath>
 
 		<MSBuildCoreSdk>MSBuild.Core.Sdk</MSBuildCoreSdk>
 		<MSBuildCoreSdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\</MSBuildCoreSdkPath>
-		<MSBuildLegacySdkPath>$(MSBuildSdksPath)\$(MSBuildCoreSdk)\Legacy</MSBuildLegacySdkPath>
+		<MSBuildLegacySdk>MSBuild.NET.Legacy.Sdk</MSBuildLegacySdk>
+		<MSBuildLegacySdkPath>$(MSBuildSdksPath)\$(MSBuildLegacySdk)</MSBuildLegacySdkPath>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.ProjectCore.props"/>

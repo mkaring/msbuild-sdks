@@ -16,15 +16,15 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="$(TargetFramework) == 'netcoreapp2.1'">
-		<PackageReference Include="Microsoft.AspNetCore.App" Version="$(ImplicitFrameworkPackageVersion)" IsImplicitlyDefined="true" />
+		<PackageReference Include="Microsoft.AspNetCore.App" Version="$(ImplicitFrameworkPackageVersion)" IsImplicitlyDefined="true"/>
 	</ItemGroup>
 
 	<!--<ItemGroup>
-		<PackageReference Include="MSBuild.NET.Extras.Sdk" Version="1.2.0" PrivateAssets="All" />
+		<PackageReference Include="MSBuild.NET.Extras.Sdk" Version="1.2.0" PrivateAssets="All"/>
 	</ItemGroup>-->
 
 	<!--<ItemGroup Condition="'$(TargetFramework)' == 'tizen40'">
-		<PackageReference Include="Tizen.NET" Version="4.0.0" />
+		<PackageReference Include="Tizen.NET" Version="4.0.0"/>
 	</ItemGroup>-->
 
 </Project>

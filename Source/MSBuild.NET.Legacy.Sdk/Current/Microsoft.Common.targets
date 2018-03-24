@@ -7,10 +7,6 @@
 		<VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<ReportingServicesTargets Condition="'$(ReportingServicesTargets)'==''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\ReportingServices\Microsoft.ReportingServices.targets</ReportingServicesTargets>
-	</PropertyGroup>
-
 	<!-- By default, we are creating a managed app because .NET 2.0 projects did not have this property. -->
 	<PropertyGroup>
 		<TargetRuntime Condition="'$(TargetRuntime)' == ''">Managed</TargetRuntime>
@@ -94,37 +90,37 @@
 	<PropertyGroup>
 		<!-- Ensure any OutputPath has a trailing slash, so it can be concatenated -->
 		<OutputPath Condition="'$(OutputPath)' != '' AND !HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
-		<AssemblyName Condition="'$(AssemblyName)'==''">$(MSBuildProjectName)</AssemblyName>
+		<AssemblyName Condition="'$(AssemblyName)' == ''">$(MSBuildProjectName)</AssemblyName>
 		<!--
 			Be careful not to give OutputPath a default value in the case of an invalid Configuration/Platform.
 			We use OutputPath specifically to check for invalid configurations/platforms.
 		-->
-		<OutputPath Condition="'$(Platform)'=='' AND '$(Configuration)'=='' AND '$(OutputPath)'==''">bin\Debug\</OutputPath>
+		<OutputPath Condition="'$(Platform)' == '' AND '$(Configuration)' == '' AND '$(OutputPath)' == ''">bin\Debug\</OutputPath>
 		<_OriginalConfiguration>$(Configuration)</_OriginalConfiguration>
 		<_OriginalPlatform>$(Platform)</_OriginalPlatform>
-		<Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+		<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 		<ConfigurationName Condition="'$(ConfigurationName)' == ''">$(Configuration)</ConfigurationName>
 		<!-- Example, Debug -->
-		<Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
+		<Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
 
 		<OutputType Condition="'$(TargetType)' != ''">$(TargetType)</OutputType>
 		<OutputType Condition="'$(TargetType)' == 'Container' OR '$(TargetType)' == 'DocumentContainer'">library</OutputType>
 		<OutputType Condition="'$(OutputType)' == ''">exe</OutputType>
 
-		<DebugSymbols Condition="'$(ConfigurationName)' == 'Debug' AND '$(DebugSymbols)' == '' AND '$(DebugType)'==''">true</DebugSymbols>
+		<DebugSymbols Condition="'$(ConfigurationName)' == 'Debug' AND '$(DebugSymbols)' == '' AND '$(DebugType)' == ''">true</DebugSymbols>
 
 		<!-- Whether or not a .pdb file is produced. -->
 		<_DebugSymbolsProduced>false</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugSymbols)'=='true'">true</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugType)'=='none'">false</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugType)'=='pdbonly'">true</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugType)'=='full'">true</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugType)'=='portable'">true</_DebugSymbolsProduced>
-		<_DebugSymbolsProduced Condition="'$(DebugType)'=='embedded'">false</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugSymbols)' == 'true'">true</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugType)' == 'none'">false</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugType)' == 'pdbonly'">true</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugType)' == 'full'">true</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugType)' == 'portable'">true</_DebugSymbolsProduced>
+		<_DebugSymbolsProduced Condition="'$(DebugType)' == 'embedded'">false</_DebugSymbolsProduced>
 
 		<!-- Whether or not a .xml file is produced. -->
 		<_DocumentationFileProduced>true</_DocumentationFileProduced>
-		<_DocumentationFileProduced Condition="'$(DocumentationFile)'==''">false</_DocumentationFileProduced>
+		<_DocumentationFileProduced Condition="'$(DocumentationFile)' == ''">false</_DocumentationFileProduced>
 
 		<!-- Whether or not a reference assembly is produced. -->
 		<ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">false</ProduceReferenceAssembly>
@@ -146,18 +142,18 @@
 		pre and post build steps.
 	-->
 	<PropertyGroup>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='exe'">.exe</TargetExt>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='winexe'">.exe</TargetExt>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='appcontainerexe'">.exe</TargetExt>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='library'">.dll</TargetExt>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='module'">.netmodule</TargetExt>
-		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)'=='winmdobj'">.winmdobj</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'exe'">.exe</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'winexe'">.exe</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'appcontainerexe'">.exe</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'library'">.dll</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'module'">.netmodule</TargetExt>
+		<TargetExt Condition="'$(TargetExt)' == '' AND '$(OutputType)' == 'winmdobj'">.winmdobj</TargetExt>
 	</PropertyGroup>
 
 	<PropertyGroup>
 
 		<!-- Required for enabling Team Build for packaging app package-generating projects -->
-		<OutDirWasSpecified Condition="'$(OutDir)'!='' AND '$(OutDirWasSpecified)'==''">true</OutDirWasSpecified>
+		<OutDirWasSpecified Condition="'$(OutDir)'!='' AND '$(OutDirWasSpecified)' == ''">true</OutDirWasSpecified>
 
 		<OutDir Condition="'$(OutDir)' == ''">$(OutputPath)</OutDir>
 		<!-- Example, bin\Debug\ -->
@@ -191,40 +187,40 @@
 			or "Console Application" project type is publishable. However, a project that would otherwise
 			be published can be skipped by defining the PublishableProject property in the project itself.
 		-->
-		<_DeploymentPublishableProjectDefault Condition="'$(OutputType)'=='winexe' OR '$(OutputType)'=='exe' OR '$(OutputType)'=='appcontainerexe'">true</_DeploymentPublishableProjectDefault>
-		<PublishableProject Condition="'$(PublishableProject)'==''">$(_DeploymentPublishableProjectDefault)</PublishableProject>
+		<_DeploymentPublishableProjectDefault Condition="'$(OutputType)' == 'winexe' OR '$(OutputType)' == 'exe' OR '$(OutputType)' == 'appcontainerexe'">true</_DeploymentPublishableProjectDefault>
+		<PublishableProject Condition="'$(PublishableProject)' == ''">$(_DeploymentPublishableProjectDefault)</PublishableProject>
 
-		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)'=='library'">Native.$(AssemblyName).manifest</_DeploymentTargetApplicationManifestFileName>
+		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)' == 'library'">Native.$(AssemblyName).manifest</_DeploymentTargetApplicationManifestFileName>
 		<!-- Example, Native.MyAssembly.manifest -->
-		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)'=='winexe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
+		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)' == 'winexe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
 		<!-- Example, MyAssembly.exe.manifest -->
-		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)'=='exe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
+		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)' == 'exe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
 		<!-- Example, MyAssembly.exe.manifest -->
-		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)'=='appcontainerexe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
+		<_DeploymentTargetApplicationManifestFileName Condition="'$(OutputType)' == 'appcontainerexe'">$(TargetFileName).manifest</_DeploymentTargetApplicationManifestFileName>
 		<!-- Example, MyAssembly.exe.manifest -->
 		<TargetDeployManifestFileName Condition="'$(TargetDeployManifestFileName)' == '' AND '$(HostInBrowser)' != 'true'">$(AssemblyName).application</TargetDeployManifestFileName>
 		<!-- Example, MyAssembly.application -->
 		<TargetDeployManifestFileName Condition="'$(TargetDeployManifestFileName)' == '' AND '$(HostInBrowser)' == 'true'">$(AssemblyName).xbap</TargetDeployManifestFileName>
 		<!-- Example, MyAssembly.xbap -->
-		<GenerateClickOnceManifests Condition="'$(OutputType)'=='winexe' OR '$(OutputType)'=='exe' OR '$(OutputType)'=='appcontainerexe'">$(GenerateManifests)</GenerateClickOnceManifests>
+		<GenerateClickOnceManifests Condition="'$(OutputType)' == 'winexe' OR '$(OutputType)' == 'exe' OR '$(OutputType)' == 'appcontainerexe'">$(GenerateManifests)</GenerateClickOnceManifests>
 
-		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)'=='library'">Native.$(AssemblyName)</_DeploymentApplicationManifestIdentity>
-		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)'=='winexe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
-		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)'=='exe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
-		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)'=='appcontainerexe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
+		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)' == 'library'">Native.$(AssemblyName)</_DeploymentApplicationManifestIdentity>
+		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)' == 'winexe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
+		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)' == 'exe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
+		<_DeploymentApplicationManifestIdentity Condition="'$(OutputType)' == 'appcontainerexe'">$(AssemblyName).exe</_DeploymentApplicationManifestIdentity>
 		<_DeploymentDeployManifestIdentity Condition="'$(HostInBrowser)' != 'true'">$(AssemblyName).application</_DeploymentDeployManifestIdentity>
 		<_DeploymentDeployManifestIdentity Condition="'$(HostInBrowser)' == 'true'">$(AssemblyName).xbap</_DeploymentDeployManifestIdentity>
 
-		<_DeploymentFileMappingExtension Condition="'$(MapFileExtensions)'=='true'">.deploy</_DeploymentFileMappingExtension>
+		<_DeploymentFileMappingExtension Condition="'$(MapFileExtensions)' == 'true'">.deploy</_DeploymentFileMappingExtension>
 		<_DeploymentFileMappingExtension Condition="'$(MapFileExtensions)'!='true'"></_DeploymentFileMappingExtension>
 
-		<_DeploymentBuiltUpdateInterval Condition="'$(UpdatePeriodically)'=='true'">$(UpdateInterval)</_DeploymentBuiltUpdateInterval>
-		<_DeploymentBuiltUpdateIntervalUnits Condition="'$(UpdatePeriodically)'=='true'">$(UpdateIntervalUnits)</_DeploymentBuiltUpdateIntervalUnits>
+		<_DeploymentBuiltUpdateInterval Condition="'$(UpdatePeriodically)' == 'true'">$(UpdateInterval)</_DeploymentBuiltUpdateInterval>
+		<_DeploymentBuiltUpdateIntervalUnits Condition="'$(UpdatePeriodically)' == 'true'">$(UpdateIntervalUnits)</_DeploymentBuiltUpdateIntervalUnits>
 		<_DeploymentBuiltUpdateInterval Condition="'$(UpdatePeriodically)'!='true'">0</_DeploymentBuiltUpdateInterval>
 		<_DeploymentBuiltUpdateIntervalUnits Condition="'$(UpdatePeriodically)'!='true'">Days</_DeploymentBuiltUpdateIntervalUnits>
-		<_DeploymentBuiltMinimumRequiredVersion Condition="'$(UpdateRequired)'=='true' AND '$(Install)'=='true'">$(MinimumRequiredVersion)</_DeploymentBuiltMinimumRequiredVersion>
+		<_DeploymentBuiltMinimumRequiredVersion Condition="'$(UpdateRequired)' == 'true' AND '$(Install)' == 'true'">$(MinimumRequiredVersion)</_DeploymentBuiltMinimumRequiredVersion>
 
-		<MaxTargetPath Condition="'$(MaxTargetPath)'==''">100</MaxTargetPath>
+		<MaxTargetPath Condition="'$(MaxTargetPath)' == ''">100</MaxTargetPath>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -232,8 +228,8 @@
 			By default, GenerateApplicationManifest puts all satellite assemblies to the manifest
 			record by default by setting TargetCulture to *.
 		-->
-		<TargetCulture Condition="'$(TargetCulture)'==''">*</TargetCulture>
-		<FallbackCulture Condition="'$(UICulture)'!='' AND '$(FallbackCulture)'==''">$(UICulture)</FallbackCulture>
+		<TargetCulture Condition="'$(TargetCulture)' == ''">*</TargetCulture>
+		<FallbackCulture Condition="'$(UICulture)'!='' AND '$(FallbackCulture)' == ''">$(UICulture)</FallbackCulture>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -279,21 +275,21 @@
 		a project from the command line, only when building a solution.
 	-->
 	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)'==''">*Undefined*</DevEnvDir>
-		<SolutionName Condition="'$(SolutionName)'==''">*Undefined*</SolutionName>
+		<DevEnvDir Condition="'$(DevEnvDir)' == ''">*Undefined*</DevEnvDir>
+		<SolutionName Condition="'$(SolutionName)' == ''">*Undefined*</SolutionName>
 		<!-- Example, MySolution -->
-		<SolutionFileName Condition="'$(SolutionFileName)'==''">*Undefined*</SolutionFileName>
+		<SolutionFileName Condition="'$(SolutionFileName)' == ''">*Undefined*</SolutionFileName>
 		<!-- Example, MySolution.sln -->
-		<SolutionPath Condition="'$(SolutionPath)'==''">*Undefined*</SolutionPath>
+		<SolutionPath Condition="'$(SolutionPath)' == ''">*Undefined*</SolutionPath>
 		<!-- Example, f:\MySolutions\MySolution\MySolution.sln -->
-		<SolutionDir Condition="'$(SolutionDir)'==''">*Undefined*</SolutionDir>
+		<SolutionDir Condition="'$(SolutionDir)' == ''">*Undefined*</SolutionDir>
 		<!-- Example, f:\MySolutions\MySolution\ -->
-		<SolutionExt Condition="'$(SolutionExt)'==''">*Undefined*</SolutionExt>
+		<SolutionExt Condition="'$(SolutionExt)' == ''">*Undefined*</SolutionExt>
 		<!-- Example, .sln -->
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<GenerateBindingRedirectsOutputType Condition="'$(OutputType)'=='exe' OR '$(OutputType)'=='winexe'">true</GenerateBindingRedirectsOutputType>
+		<GenerateBindingRedirectsOutputType Condition="'$(OutputType)' == 'exe' OR '$(OutputType)' == 'winexe'">true</GenerateBindingRedirectsOutputType>
 		<!-- It would be a breaking change to automatically turn on binding redirects for existing projects, so turn them on only when opting into a new framework. -->
 		<AutoGenerateBindingRedirects Condition="'$(AutoGenerateBindingRedirects)' == '' AND '$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(TargetFrameworkVersion.TrimStart(vV))' >= '4.7.2'">true</AutoGenerateBindingRedirects>
 	</PropertyGroup>
@@ -303,7 +299,7 @@
 	</PropertyGroup>
 	<PropertyGroup>
 		<BaseIntermediateOutputPath Condition="!HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
-		<CleanFile Condition="'$(CleanFile)'==''">$(MSBuildProjectFile).FileListAbsolute.txt</CleanFile>
+		<CleanFile Condition="'$(CleanFile)' == ''">$(MSBuildProjectFile).FileListAbsolute.txt</CleanFile>
 		<!-- During DesignTime Builds, skip project reference build as Design time is only queueing information.-->
 		<BuildProjectReferences Condition="'$(BuildProjectReferences)' == '' AND '$(DesignTimeBuild)' == 'true'">false</BuildProjectReferences>
 		<!-- By default we will build (and if applicable, clean) all project references. But this can be used to disable that-->
@@ -396,10 +392,10 @@
 		Otherwise, only set the _DeploymentUrl if it's an installed app and updates are enabled.
 	-->
 	<PropertyGroup>
-		<_DeploymentUrl Condition="'$(_DeploymentUrl)'==''">$(UpdateUrl)</_DeploymentUrl>
-		<_DeploymentUrl Condition="'$(_DeploymentUrl)'==''">$(InstallUrl)</_DeploymentUrl>
-		<_DeploymentUrl Condition="'$(_DeploymentUrl)'==''">$(PublishUrl)</_DeploymentUrl>
-		<_DeploymentUrl Condition="!('$(UpdateUrl)'=='') AND '$(Install)'=='false'"></_DeploymentUrl>
+		<_DeploymentUrl Condition="'$(_DeploymentUrl)' == ''">$(UpdateUrl)</_DeploymentUrl>
+		<_DeploymentUrl Condition="'$(_DeploymentUrl)' == ''">$(InstallUrl)</_DeploymentUrl>
+		<_DeploymentUrl Condition="'$(_DeploymentUrl)' == ''">$(PublishUrl)</_DeploymentUrl>
+		<_DeploymentUrl Condition="!('$(UpdateUrl)' == '') AND '$(Install)' == 'false'"></_DeploymentUrl>
 		<_DeploymentUrl Condition="'$(_DeploymentUrl)'!=''">$(_DeploymentUrl)$(TargetDeployManifestFileName)</_DeploymentUrl>
 		<!--
 			Need to explicitly blank out the _DeploymentUrl when it's not used. Otherwise an
@@ -407,27 +403,27 @@
 			is something we never want to see in the manifest because it means you could
 			only install the app from that machine.
 		-->
-		<_DeploymentUrl Condition="'$(UpdateUrl)'=='' AND !('$(Install)'=='true' AND '$(UpdateEnabled)'=='true')"></_DeploymentUrl>
-		<_DeploymentUrl Condition="'$(ExcludeDeploymentUrl)'=='true'"></_DeploymentUrl>
+		<_DeploymentUrl Condition="'$(UpdateUrl)' == '' AND !('$(Install)' == 'true' AND '$(UpdateEnabled)' == 'true')"></_DeploymentUrl>
+		<_DeploymentUrl Condition="'$(ExcludeDeploymentUrl)' == 'true'"></_DeploymentUrl>
 	</PropertyGroup>
 
 	<!-- Determine the URLs for the bootstrapper. -->
 	<PropertyGroup>
-		<_DeploymentApplicationUrl Condition="'$(IsWebBootstrapper)'=='true'">$(InstallUrl)</_DeploymentApplicationUrl>
-		<_DeploymentApplicationUrl Condition="'$(IsWebBootstrapper)'=='true' AND '$(InstallUrl)'==''">$(PublishUrl)</_DeploymentApplicationUrl>
-		<_DeploymentComponentsUrl Condition="'$(BootstrapperComponentsLocation)'=='Absolute'">$(BootstrapperComponentsUrl)</_DeploymentComponentsUrl>
+		<_DeploymentApplicationUrl Condition="'$(IsWebBootstrapper)' == 'true'">$(InstallUrl)</_DeploymentApplicationUrl>
+		<_DeploymentApplicationUrl Condition="'$(IsWebBootstrapper)' == 'true' AND '$(InstallUrl)' == ''">$(PublishUrl)</_DeploymentApplicationUrl>
+		<_DeploymentComponentsUrl Condition="'$(BootstrapperComponentsLocation)' == 'Absolute'">$(BootstrapperComponentsUrl)</_DeploymentComponentsUrl>
 	</PropertyGroup>
 
 	<!-- Output location for publish target. -->
 	<PropertyGroup>
 		<PublishDir Condition="'$(PublishDir)' != '' AND !HasTrailingSlash('$(PublishDir)')">$(PublishDir)\</PublishDir>
-		<PublishDir Condition="'$(PublishDir)'==''">$(OutputPath)app.publish\</PublishDir>
+		<PublishDir Condition="'$(PublishDir)' == ''">$(OutputPath)app.publish\</PublishDir>
 	</PropertyGroup>
 
 	<!--
 		ProcessorArchitecture is the target processor architecture.
 	-->
-	<PropertyGroup Condition="'$(ProcessorArchitecture)'==''">
+	<PropertyGroup Condition="'$(ProcessorArchitecture)' == ''">
 		<!--
 			If ProcessorArchitecture is not set, set it to PlatformTarget
 			Note: if $(PlatformTarget) is also blank resolve assembly reference defaults to msil which is the
@@ -460,8 +456,8 @@
 		<ProcessorArchitecture Condition="'$(ProcessorArchitectureAsPlatform)' == 'ARM'">arm</ProcessorArchitecture>
 
 		<!--For compatibility with the 4.0 behavior, if not set above, default to the environment. To override this, set ProcessorArchitecture explicitly. We also need to disable the warning since we do not know if what the environment is set to is correct-->
-		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch Condition="'$(ProcessorArchitecture)'==''">None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-		<ProcessorArchitecture Condition="'$(ProcessorArchitecture)'==''">$(PROCESSOR_ARCHITECTURE)</ProcessorArchitecture>
+		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch Condition="'$(ProcessorArchitecture)' == ''">None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+		<ProcessorArchitecture Condition="'$(ProcessorArchitecture)' == ''">$(PROCESSOR_ARCHITECTURE)</ProcessorArchitecture>
 	</PropertyGroup>
 
 
@@ -482,7 +478,7 @@
 
 	<!-- Flavor is the project flavor. For example, Client, Smart Devices, SQL Server, etc. -->
 	<PropertyGroup>
-		<ProjectFlavor Condition="'$(ProjectFlavor)'==''">Client</ProjectFlavor>
+		<ProjectFlavor Condition="'$(ProjectFlavor)' == ''">Client</ProjectFlavor>
 	</PropertyGroup>
 
 	<!--
@@ -663,8 +659,8 @@
 			SingleFileGenerators;
 			DeclaredSourceItems;
 			UserSourceItems;"/>
-		<ProjectCapability Condition="'$(TargetPlatformIdentifier)' == 'Windows' AND '$(TargetPlatformVersion)' < '8.0'"
-			Include="BuildWindowsDesktopTarget"/>
+		<ProjectCapability Include="BuildWindowsDesktopTarget"
+			Condition="'$(TargetPlatformIdentifier)' == 'Windows' AND '$(TargetPlatformVersion)' &lt; '8.0'"/>
 	</ItemGroup>
 
 	<ItemDefinitionGroup Condition="'$(DefineExplicitDefaults)' == 'true'">
@@ -825,7 +821,7 @@
 		Name="CoreBuild"
 		DependsOnTargets="$(CoreBuildDependsOn)">
 
-		<OnError ExecuteTargets="_TimeStampAfterCompile;PostBuildEvent" Condition="'$(RunPostBuildEvent)'=='Always' OR '$(RunPostBuildEvent)'=='OnOutputUpdated'"/>
+		<OnError ExecuteTargets="_TimeStampAfterCompile;PostBuildEvent" Condition="'$(RunPostBuildEvent)' == 'Always' OR '$(RunPostBuildEvent)' == 'OnOutputUpdated'"/>
 		<OnError ExecuteTargets="_CleanRecordFileWrites"/>
 
 	</Target>
@@ -1052,7 +1048,7 @@
 			</AppConfigWithTargetPath>
 		</ItemGroup>
 
-		<FindAppConfigFile PrimaryList="@(None)" SecondaryList="@(Content)" TargetPath="$(TargetFileName).config" Condition="'$(AppConfig)'==''">
+		<FindAppConfigFile PrimaryList="@(None)" SecondaryList="@(Content)" TargetPath="$(TargetFileName).config" Condition="'$(AppConfig)' == ''">
 			<Output TaskParameter="AppConfigFile" ItemName="AppConfigWithTargetPath"/>
 			<Output TaskParameter="AppConfigFile" PropertyName="AppConfig"/>
 		</FindAppConfigFile>
@@ -1476,7 +1472,7 @@
 		<ResolveNonMSBuildProjectOutput
 			ProjectReferences="@(ProjectReferenceWithConfiguration)"
 			PreresolvedProjectOutputs="$(VSIDEResolvedNonMSBuildProjectOutputs)"
-			Condition="'$(BuildingInsideVisualStudio)'=='true' AND '@(ProjectReferenceWithConfiguration)'!=''">
+			Condition="'$(BuildingInsideVisualStudio)' == 'true' AND '@(ProjectReferenceWithConfiguration)'!=''">
 
 			<Output TaskParameter="ResolvedOutputPaths" ItemName="_ResolvedProjectReferencePaths"/>
 			<Output TaskParameter="UnresolvedProjectReferences" ItemName="_MSBuildProjectReference"/>
@@ -1729,7 +1725,7 @@
 			ContinueOnError="!$(BuildingProject)"
 			RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)">
 
-			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)'=='true'"/>
+			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)' == 'true'"/>
 			<Output TaskParameter="TargetOutputs" ItemName="%(_MSBuildProjectReferenceExistent.OutputItemType)" Condition="'%(_MSBuildProjectReferenceExistent.OutputItemType)' != ''"/>
 
 		</MSBuild>
@@ -1756,7 +1752,7 @@
 			ContinueOnError="!$(BuildingProject)"
 			RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)">
 
-			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)'=='true'"/>
+			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)' == 'true'"/>
 			<Output TaskParameter="TargetOutputs" ItemName="%(_MSBuildProjectReferenceExistent.OutputItemType)" Condition="'%(_MSBuildProjectReferenceExistent.OutputItemType)' != ''"/>
 
 		</MSBuild>
@@ -1773,7 +1769,7 @@
 			ContinueOnError="$(ContinueOnError)"
 			RemoveProperties="%(_MSBuildProjectReferenceExistent.GlobalPropertiesToRemove)">
 
-			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)'=='true' OR '$(DesignTimeBuild)' == 'true'"/>
+			<Output TaskParameter="TargetOutputs" ItemName="_ResolvedProjectReferencePaths" Condition="'%(_MSBuildProjectReferenceExistent.ReferenceOutputAssembly)' == 'true' OR '$(DesignTimeBuild)' == 'true'"/>
 			<Output TaskParameter="TargetOutputs" ItemName="%(_MSBuildProjectReferenceExistent.OutputItemType)" Condition="'%(_MSBuildProjectReferenceExistent.OutputItemType)' != ''"/>
 
 		</MSBuild>
@@ -2005,7 +2001,7 @@
 
 		<!-- Make an App.Config item that exists when AutoUnify is false. -->
 		<ItemGroup>
-			<_ResolveAssemblyReferencesApplicationConfigFileForExes Include="@(AppConfigWithTargetPath)" Condition="'$(AutoGenerateBindingRedirects)'=='true' OR '$(AutoUnifyAssemblyReferences)'=='false'"/>
+			<_ResolveAssemblyReferencesApplicationConfigFileForExes Include="@(AppConfigWithTargetPath)" Condition="'$(AutoGenerateBindingRedirects)' == 'true' OR '$(AutoUnifyAssemblyReferences)' == 'false'"/>
 		</ItemGroup>
 
 		<PropertyGroup>
@@ -2613,7 +2609,7 @@
 		============================================================
 	-->
 	<PropertyGroup>
-		<ComReferenceExecuteAsTool Condition="'$(ComReferenceExecuteAsTool)'==''">false</ComReferenceExecuteAsTool>
+		<ComReferenceExecuteAsTool Condition="'$(ComReferenceExecuteAsTool)' == ''">false</ComReferenceExecuteAsTool>
 	</PropertyGroup>
 
 	<Target
@@ -2767,7 +2763,7 @@
 			<Output TaskParameter="AssignedFiles" ItemName="_DeploymentBaseManifestWithTargetPath"/>
 		</AssignTargetPath>
 
-		<AssignTargetPath Files="@(None)" RootFolder="$(MSBuildProjectDirectory)" Condition="'@(_DeploymentBaseManifestWithTargetPath)'=='' AND '%(None.Extension)'=='.manifest'">
+		<AssignTargetPath Files="@(None)" RootFolder="$(MSBuildProjectDirectory)" Condition="'@(_DeploymentBaseManifestWithTargetPath)' == '' AND '%(None.Extension)' == '.manifest'">
 			<Output TaskParameter="AssignedFiles" ItemName="_DeploymentBaseManifestWithTargetPath"/>
 		</AssignTargetPath>
 
@@ -2814,7 +2810,7 @@
 		<Warning Condition="'@(NonResxWithNoCulture)'!=''" Code="MSB9003" Text="NonResxWithNoCulture item type is deprecated. Use EmbeddedResource items instead."/>
 
 		<ItemGroup>
-			<_LicxFile Include="@(EmbeddedResource)" Condition="'%(Extension)'=='.licx'"/>
+			<_LicxFile Include="@(EmbeddedResource)" Condition="'%(Extension)' == '.licx'"/>
 
 			<!-- CONSUMED FOR COMPATIBILITY REASONS ONLY. EMIT EMBEDDEDRESOURCE INSTEAD -->
 			<EmbeddedResource Include="@(ResxWithNoCulture);@(ResxWithCulture)">
@@ -2841,11 +2837,11 @@
 			<EmbeddedResource Remove="@(_LicxFile)"/>
 
 			<!-- Add back everything except Licx, so that we have culture info -->
-			<EmbeddedResource Include="@(_MixedResourceWithNoCulture);@(_MixedResourceWithCulture)" Condition="'%(Extension)'=='.resx' OR '%(Extension)'=='.restext'">
-				<Type Condition="'%(_MixedResourceWithNoCulture.Type)'=='' AND '%(_MixedResourceWithCulture.Type)'==''">Resx</Type>
+			<EmbeddedResource Include="@(_MixedResourceWithNoCulture);@(_MixedResourceWithCulture)" Condition="'%(Extension)' == '.resx' OR '%(Extension)' == '.restext'">
+				<Type Condition="'%(_MixedResourceWithNoCulture.Type)' == '' AND '%(_MixedResourceWithCulture.Type)' == ''">Resx</Type>
 			</EmbeddedResource>
 			<EmbeddedResource Include="@(_MixedResourceWithNoCulture);@(_MixedResourceWithCulture)" Condition="'%(Extension)'!='.resx' AND '%(Extension)'!='.restext'">
-				<Type Condition="'%(_MixedResourceWithNoCulture.Type)'=='' AND '%(_MixedResourceWithCulture.Type)'==''">Non-Resx</Type>
+				<Type Condition="'%(_MixedResourceWithNoCulture.Type)' == '' AND '%(_MixedResourceWithCulture.Type)' == ''">Non-Resx</Type>
 			</EmbeddedResource>
 
 			<!-- EMITTED FOR COMPATIBILITY REASONS ONLY. CONSUME EMBEDDEDRESOURCE INSTEAD -->
@@ -2853,10 +2849,10 @@
 			<NonResxWithNoCulture Remove="@(NonResxWithNoCulture)"/>
 			<ResxWithCulture Remove="@(ResxWithCulture)"/>
 			<NonResxWithCulture Remove="@(NonResxWithCulture)"/>
-			<ResxWithNoCulture Include="@(_MixedResourceWithNoCulture)" Condition="'%(WithCulture)'=='false' AND ('%(Extension)'=='.resx' OR '%(Extension)'=='.restext')"/>
-			<NonResxWithNoCulture Include="@(_MixedResourceWithNoCulture)" Condition="'%(WithCulture)'=='false' AND ('%(Extension)'!='.resx' AND '%(Extension)'!='.restext')"/>
-			<ResxWithCulture Include="@(_MixedResourceWithCulture)" Condition="'%(WithCulture)'=='true' AND ('%(Extension)'=='.resx' OR '%(Extension)'=='.restext')"/>
-			<NonResxWithCulture Include="@(_MixedResourceWithCulture)" Condition="'%(WithCulture)'=='true' AND ('%(Extension)'!='.resx' AND '%(Extension)'!='.restext')"/>
+			<ResxWithNoCulture Include="@(_MixedResourceWithNoCulture)" Condition="'%(WithCulture)' == 'false' AND ('%(Extension)' == '.resx' OR '%(Extension)' == '.restext')"/>
+			<NonResxWithNoCulture Include="@(_MixedResourceWithNoCulture)" Condition="'%(WithCulture)' == 'false' AND ('%(Extension)'!='.resx' AND '%(Extension)'!='.restext')"/>
+			<ResxWithCulture Include="@(_MixedResourceWithCulture)" Condition="'%(WithCulture)' == 'true' AND ('%(Extension)' == '.resx' OR '%(Extension)' == '.restext')"/>
+			<NonResxWithCulture Include="@(_MixedResourceWithCulture)" Condition="'%(WithCulture)' == 'true' AND ('%(Extension)'!='.resx' AND '%(Extension)'!='.restext')"/>
 
 			<!-- Clean up temporary lists -->
 			<_MixedResourceWithNoCulture Remove="@(_MixedResourceWithNoCulture)"/>
@@ -2892,8 +2888,8 @@
 	<PropertyGroup>
 		<ResGenDependsOn>ResolveAssemblyReferences;SplitResourcesByCulture;BeforeResGen;CoreResGen;AfterResGen</ResGenDependsOn>
 		<CoreResGenDependsOn>FindReferenceAssembliesForReferences</CoreResGenDependsOn>
-		<UseSourcePath Condition="'$(UseSourcePath)'==''">true</UseSourcePath>
-		<ResGenExecuteAsTool Condition="'$(ResGenExecuteAsTool)'==''">false</ResGenExecuteAsTool>
+		<UseSourcePath Condition="'$(UseSourcePath)' == ''">true</UseSourcePath>
+		<ResGenExecuteAsTool Condition="'$(ResGenExecuteAsTool)' == ''">false</ResGenExecuteAsTool>
 	</PropertyGroup>
 	<Target
 		Name="ResGen"
@@ -3021,18 +3017,18 @@
 			<_Temporary Remove="@(_Temporary)"/>
 
 			<!-- EMITTED FOR COMPATIBILITY REASONS ONLY. CONSUME EMBEDDEDRESOURCE INSTEAD -->
-			<ManifestResourceWithNoCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)'=='false' AND '%(EmbeddedResource.Type)' == 'Resx'">
+			<ManifestResourceWithNoCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)' == 'false' AND '%(EmbeddedResource.Type)' == 'Resx'">
 				<EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
 			</ManifestResourceWithNoCulture>
-			<ManifestNonResxWithNoCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)'=='false' AND '%(EmbeddedResource.Type)' == 'Non-Resx'">
+			<ManifestNonResxWithNoCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)' == 'false' AND '%(EmbeddedResource.Type)' == 'Non-Resx'">
 				<EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
 			</ManifestNonResxWithNoCultureOnDisk>
 
 			<!-- EMITTED FOR COMPATIBILITY REASONS ONLY. CONSUME EMBEDDEDRESOURCE INSTEAD -->
-			<ManifestResourceWithCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)'=='true' AND '%(EmbeddedResource.Type)' == 'Resx'">
+			<ManifestResourceWithCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)' == 'true' AND '%(EmbeddedResource.Type)' == 'Resx'">
 				<EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
 			</ManifestResourceWithCulture>
-			<ManifestNonResxWithCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)'=='true' AND '%(EmbeddedResource.Type)' == 'Non-Resx'">
+			<ManifestNonResxWithCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)' == 'true' AND '%(EmbeddedResource.Type)' == 'Non-Resx'">
 				<EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
 			</ManifestNonResxWithCultureOnDisk>
 		</ItemGroup>
@@ -3177,8 +3173,8 @@
 	-->
 	<Target Name="_GenerateCompileInputs">
 
-		<Warning Condition="'@(ManifestResourceWithNoCulture)'!='' AND '%(ManifestResourceWithNoCulture.EmittedForCompatibilityOnly)'==''" Code="MSB9004" Text="ManifestResourceWithNoCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Resx', and optional LogicalName."/>
-		<Warning Condition="'@(ManifestNonResxWithNoCultureOnDisk)'!='' AND '%(ManifestNonResxWithNoCultureOnDisk.EmittedForCompatibilityOnly)'==''" Code="MSB9005" Text="ManifestNonResxWithNoCultureOnDisk item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Non-Resx', and optional LogicalName."/>
+		<Warning Condition="'@(ManifestResourceWithNoCulture)'!='' AND '%(ManifestResourceWithNoCulture.EmittedForCompatibilityOnly)' == ''" Code="MSB9004" Text="ManifestResourceWithNoCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Resx', and optional LogicalName."/>
+		<Warning Condition="'@(ManifestNonResxWithNoCultureOnDisk)'!='' AND '%(ManifestNonResxWithNoCultureOnDisk.EmittedForCompatibilityOnly)' == ''" Code="MSB9005" Text="ManifestNonResxWithNoCultureOnDisk item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='false', Type='Non-Resx', and optional LogicalName."/>
 
 		<ItemGroup>
 
@@ -3187,11 +3183,11 @@
 			<_CoreCompileResourceInputs Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)' == 'false' AND '%(EmbeddedResource.Type)' == 'Non-Resx'"/>
 
 			<!-- CONSUMED FOR COMPATIBILITY REASONS ONLY. EMIT EMBEDDEDRESOURCE INSTEAD -->
-			<_CoreCompileResourceInputs Include="@(ManifestResourceWithNoCulture)" Condition="'%(ManifestResourceWithNoCulture.EmittedForCompatibilityOnly)'==''">
+			<_CoreCompileResourceInputs Include="@(ManifestResourceWithNoCulture)" Condition="'%(ManifestResourceWithNoCulture.EmittedForCompatibilityOnly)' == ''">
 				<Type>Resx</Type>
 				<WithCulture>false</WithCulture>
 			</_CoreCompileResourceInputs>
-			<_CoreCompileResourceInputs Include="@(ManifestNonResxWithNoCultureOnDisk)" Condition="'%(ManifestNonResxWithNoCultureOnDisk.EmittedForCompatibilityOnly)'==''">
+			<_CoreCompileResourceInputs Include="@(ManifestNonResxWithNoCultureOnDisk)" Condition="'%(ManifestNonResxWithNoCultureOnDisk.EmittedForCompatibilityOnly)' == ''">
 				<Type>Non-Resx</Type>
 				<WithCulture>false</WithCulture>
 			</_CoreCompileResourceInputs>
@@ -3304,7 +3300,7 @@
 	-->
 	<Target
 		Name="_TimeStampBeforeCompile"
-		Condition="'$(RunPostBuildEvent)'=='OnOutputUpdated' OR ('$(RegisterForComInterop)'=='true' AND '$(OutputType)'=='library')">
+		Condition="'$(RunPostBuildEvent)' == 'OnOutputUpdated' OR ('$(RegisterForComInterop)' == 'true' AND '$(OutputType)' == 'library')">
 
 		<PropertyGroup>
 			<_AssemblyTimestampBeforeCompile>%(IntermediateAssembly.ModifiedTime)</_AssemblyTimestampBeforeCompile>
@@ -3351,7 +3347,7 @@
 	-->
 	<Target
 		Name="_TimeStampAfterCompile"
-		Condition="'$(RunPostBuildEvent)'=='OnOutputUpdated' OR ('$(RegisterForComInterop)'=='true' AND '$(OutputType)'=='library')">
+		Condition="'$(RunPostBuildEvent)' == 'OnOutputUpdated' OR ('$(RegisterForComInterop)' == 'true' AND '$(OutputType)' == 'library')">
 
 		<PropertyGroup>
 			<_AssemblyTimestampAfterCompile>%(IntermediateAssembly.ModifiedTime)</_AssemblyTimestampAfterCompile>
@@ -3405,9 +3401,9 @@
 		<_SGenDllCreated>false</_SGenDllCreated>
 		<_SGenGenerateSerializationAssembliesConfig>$(GenerateSerializationAssemblies)</_SGenGenerateSerializationAssembliesConfig>
 		<_SGenGenerateSerializationAssembliesConfig Condition="'$(GenerateSerializationAssemblies)' == ''">Auto</_SGenGenerateSerializationAssembliesConfig>
-		<_SGenGenerateSerializationAssembliesConfig Condition="'$(ConfigurationName)'=='Debug' AND '$(_SGenGenerateSerializationAssembliesConfig)' == 'Auto'">Off</_SGenGenerateSerializationAssembliesConfig>
+		<_SGenGenerateSerializationAssembliesConfig Condition="'$(ConfigurationName)' == 'Debug' AND '$(_SGenGenerateSerializationAssembliesConfig)' == 'Auto'">Off</_SGenGenerateSerializationAssembliesConfig>
 		<SGenUseProxyTypes Condition="'$(SGenUseProxyTypes)' == ''">true</SGenUseProxyTypes>
-		<SGenUseKeep Condition="'$(SGenUseKeep)'==''">false</SGenUseKeep>
+		<SGenUseKeep Condition="'$(SGenUseKeep)' == ''">false</SGenUseKeep>
 		<SGenShouldGenerateSerializer Condition="'$(SGenShouldGenerateSerializer)' == ''">true</SGenShouldGenerateSerializer>
 	</PropertyGroup>
 
@@ -3496,8 +3492,8 @@
 	-->
 	<Target Name="_GenerateSatelliteAssemblyInputs">
 
-		<Warning Condition="'@(ManifestResourceWithCulture)'!='' AND '%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)'==''" Code="MSB9006" Text="ManifestResourceWithCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='true', Type='Resx', and optional LogicalName."/>
-		<Warning Condition="'@(ManifestNonResxWithCultureOnDisk)'!='' AND '%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)'==''" Code="MSB9007" Text="ManifestNonResxWithCultureOnDisk item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='true', Type='Non-Resx', and optional LogicalName."/>
+		<Warning Condition="'@(ManifestResourceWithCulture)'!='' AND '%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)' == ''" Code="MSB9006" Text="ManifestResourceWithCulture item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='true', Type='Resx', and optional LogicalName."/>
+		<Warning Condition="'@(ManifestNonResxWithCultureOnDisk)'!='' AND '%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)' == ''" Code="MSB9007" Text="ManifestNonResxWithCultureOnDisk item type is deprecated. Emit EmbeddedResource items instead, with metadata WithCulture='true', Type='Non-Resx', and optional LogicalName."/>
 
 		<ItemGroup>
 			<!-- _SatelliteAssemblyResourceInputs is the list of TLDA inputs that should trigger CreateSatelliteAssemblies, so listed as inputs to that target -->
@@ -3505,11 +3501,11 @@
 			<_SatelliteAssemblyResourceInputs Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)' == 'true' AND '%(EmbeddedResource.Type)' == 'Non-Resx'"/>
 
 			<!-- CONSUMED FOR COMPATIBILITY REASONS ONLY. EMIT EMBEDDEDRESOURCE INSTEAD -->
-			<_SatelliteAssemblyResourceInputs Include="@(ManifestResourceWithCulture)" Condition="'%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)'==''">
+			<_SatelliteAssemblyResourceInputs Include="@(ManifestResourceWithCulture)" Condition="'%(ManifestResourceWithCulture.EmittedForCompatibilityOnly)' == ''">
 				<Type>Resx</Type>
 				<WithCulture>true</WithCulture>
 			</_SatelliteAssemblyResourceInputs>
-			<_SatelliteAssemblyResourceInputs Include="@(ManifestNonResxWithCultureOnDisk)" Condition="'%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)'==''">
+			<_SatelliteAssemblyResourceInputs Include="@(ManifestNonResxWithCultureOnDisk)" Condition="'%(ManifestNonResxWithCultureOnDisk.EmittedForCompatibilityOnly)' == ''">
 				<Type>Non-Resx</Type>
 				<WithCulture>true</WithCulture>
 			</_SatelliteAssemblyResourceInputs>
@@ -3620,12 +3616,12 @@
 	-->
 	<Target
 		Name="SetWin32ManifestProperties"
-		Condition="'$(Win32Manifest)'==''"
+		Condition="'$(Win32Manifest)' == ''"
 		DependsOnTargets="ResolveComReferences;ResolveNativeReferences;_SetExternalWin32ManifestProperties;_SetEmbeddedWin32ManifestProperties"/>
 
 	<Target
 		Name="_SetExternalWin32ManifestProperties"
-		Condition="'$(GenerateClickOnceManifests)'=='true' OR '@(NativeReference)'!='' OR '@(ResolvedIsolatedComModules)'!=''">
+		Condition="'$(GenerateClickOnceManifests)' == 'true' OR '@(NativeReference)'!='' OR '@(ResolvedIsolatedComModules)'!=''">
 
 		<PropertyGroup>
 			<!-- set _DeploymentBaseManifest property to the value of $(ApplicationManifest) if the property is set,
@@ -3633,32 +3629,32 @@
 						compat with earlier MSBuild versions when manifest files were determined by the item-group. If the newer
 						property is set though, prefer that one be used to specify the manifest. -->
 			<_DeploymentBaseManifest>$(ApplicationManifest)</_DeploymentBaseManifest>
-			<_DeploymentBaseManifest Condition="'$(_DeploymentBaseManifest)'==''">@(_DeploymentBaseManifestWithTargetPath)</_DeploymentBaseManifest>
+			<_DeploymentBaseManifest Condition="'$(_DeploymentBaseManifest)' == ''">@(_DeploymentBaseManifestWithTargetPath)</_DeploymentBaseManifest>
 
 			<!-- when using external manifests, always set the NoWin32Manifest property to
 						true if there is no value set in the incoming project file so the
 						compilers that support manifest embedding know not to add
 						a manifest to their built assemblies -->
-			<NoWin32Manifest Condition="'$(NoWin32Manifest)'==''">true</NoWin32Manifest>
+			<NoWin32Manifest Condition="'$(NoWin32Manifest)' == ''">true</NoWin32Manifest>
 		</PropertyGroup>
 
 	</Target>
 
 	<Target
 		Name="_SetEmbeddedWin32ManifestProperties"
-		Condition="'$(GenerateClickOnceManifests)'!='true' AND '@(NativeReference)'=='' AND '@(ResolvedIsolatedComModules)'==''">
+		Condition="'$(GenerateClickOnceManifests)'!='true' AND '@(NativeReference)' == '' AND '@(ResolvedIsolatedComModules)' == ''">
 
 		<PropertyGroup>
 			<EmbeddedWin32Manifest>$(ApplicationManifest)</EmbeddedWin32Manifest>
 			<Win32Manifest>$(ApplicationManifest)</Win32Manifest>
 		</PropertyGroup>
 
-		<GetFrameworkPath Condition="'$(ApplicationManifest)'=='' AND '$(NoWin32Manifest)'!='true'">
+		<GetFrameworkPath Condition="'$(ApplicationManifest)' == '' AND '$(NoWin32Manifest)'!='true'">
 			<Output TaskParameter="FrameworkVersion40Path"  PropertyName="_FrameworkVersion40Path"/>
 		</GetFrameworkPath>
 
 		<PropertyGroup>
-			<EmbeddedWin32Manifest  Condition="'$(ApplicationManifest)'=='' AND '$(NoWin32Manifest)'!='true' AND Exists('$(_FrameworkVersion40Path)\default.win32manifest')">$(_FrameworkVersion40Path)\default.win32manifest</EmbeddedWin32Manifest>
+			<EmbeddedWin32Manifest  Condition="'$(ApplicationManifest)' == '' AND '$(NoWin32Manifest)'!='true' AND Exists('$(_FrameworkVersion40Path)\default.win32manifest')">$(_FrameworkVersion40Path)\default.win32manifest</EmbeddedWin32Manifest>
 		</PropertyGroup>
 
 	</Target>
@@ -3700,7 +3696,7 @@
 	<Target
 		Name="_GenerateResolvedDeploymentManifestEntryPoint">
 		<ItemGroup>
-			<_DeploymentPublishFileOfTypeManifestEntryPoint Include="@(PublishFile)" Condition="'%(FileType)'=='ManifestEntryPoint'"/>
+			<_DeploymentPublishFileOfTypeManifestEntryPoint Include="@(PublishFile)" Condition="'%(FileType)' == 'ManifestEntryPoint'"/>
 		</ItemGroup>
 
 		<ResolveManifestFiles
@@ -3716,7 +3712,7 @@
 
 	<Target
 		Name="GenerateManifests"
-		Condition="'$(GenerateClickOnceManifests)'=='true' OR '@(NativeReference)'!='' OR '@(ResolvedIsolatedComModules)'!='' OR '$(GenerateAppxManifest)' == 'true'"
+		Condition="'$(GenerateClickOnceManifests)' == 'true' OR '@(NativeReference)'!='' OR '@(ResolvedIsolatedComModules)'!='' OR '$(GenerateAppxManifest)' == 'true'"
 		DependsOnTargets="$(GenerateManifestsDependsOn)"/>
 
 	<!--
@@ -3853,7 +3849,7 @@
 	-->
 	<Target
 		Name="_DeploymentComputeClickOnceManifestInfo"
-		Condition="'$(GenerateClickOnceManifests)'=='true'"
+		Condition="'$(GenerateClickOnceManifests)' == 'true'"
 		DependsOnTargets="CleanPublishFolder;_DeploymentGenerateTrustInfo">
 
 		<!-- Grab just the serialization assemblies for a referenced assembly.  There may also be a symbols file in ReferenceRelatedPaths -->
@@ -3882,7 +3878,7 @@
 			CertificateThumbprint="$(_DeploymentResolvedManifestCertificateThumbprint)"
 			TimestampUrl="$(ManifestTimestampUrl)"
 			SigningTarget="@(_DeploymentClickOnceApplicationExecutable)"
-			Condition="'$(_DeploymentResolvedManifestCertificateThumbprint)'!='' AND '$(_DeploymentSignClickOnceManifests)'=='true' AND '$(TargetExt)' == '.exe'"/>
+			Condition="'$(_DeploymentResolvedManifestCertificateThumbprint)'!='' AND '$(_DeploymentSignClickOnceManifests)' == 'true' AND '$(TargetExt)' == '.exe'"/>
 
 		<!-- Create list of items for manifest generation -->
 		<ResolveManifestFiles
@@ -3997,7 +3993,7 @@
 			UpdateInterval="$(_DeploymentBuiltUpdateInterval)"
 			UpdateMode="$(UpdateMode)"
 			UpdateUnit="$(_DeploymentBuiltUpdateIntervalUnits)"
-			Condition="'$(GenerateClickOnceManifests)'=='true'">
+			Condition="'$(GenerateClickOnceManifests)' == 'true'">
 
 			<Output TaskParameter="OutputManifest" ItemName="FileWrites"/>
 
@@ -4068,8 +4064,8 @@
 		</PropertyGroup>
 
 		<PropertyGroup>
-			<CopyBuildOutputToOutputDirectory Condition="'$(CopyBuildOutputToOutputDirectory)'==''">true</CopyBuildOutputToOutputDirectory>
-			<CopyOutputSymbolsToOutputDirectory Condition="'$(CopyOutputSymbolsToOutputDirectory)'==''">true</CopyOutputSymbolsToOutputDirectory>
+			<CopyBuildOutputToOutputDirectory Condition="'$(CopyBuildOutputToOutputDirectory)' == ''">true</CopyBuildOutputToOutputDirectory>
+			<CopyOutputSymbolsToOutputDirectory Condition="'$(CopyOutputSymbolsToOutputDirectory)' == ''">true</CopyOutputSymbolsToOutputDirectory>
 		</PropertyGroup>
 
 		<!-- Copy the build product (.dll or .exe). -->
@@ -4128,7 +4124,7 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)"
-			Condition="'$(_SGenDllCreated)'=='true'">
+			Condition="'$(_SGenDllCreated)' == 'true'">
 
 			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
 
@@ -4144,7 +4140,7 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)"
-			Condition="'$(_DebugSymbolsProduced)'=='true' AND '$(SkipCopyingSymbolsToOutputDirectory)' != 'true' AND '$(CopyOutputSymbolsToOutputDirectory)'=='true'">
+			Condition="'$(_DebugSymbolsProduced)' == 'true' AND '$(SkipCopyingSymbolsToOutputDirectory)' != 'true' AND '$(CopyOutputSymbolsToOutputDirectory)' == 'true'">
 
 			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
 
@@ -4160,7 +4156,7 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)"
-			Condition="'$(_DocumentationFileProduced)'=='true'">
+			Condition="'$(_DocumentationFileProduced)' == 'true'">
 
 			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
 
@@ -4332,8 +4328,8 @@
 
 		<!-- Target outputs must be full paths because they will be consumed by a different project. -->
 		<ItemGroup>
-			<_SourceItemsToCopyToOutputDirectoryAlways KeepDuplicates="'$(_GCTODIKeepDuplicates)' != 'false'" KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_AllChildProjectItemsWithTargetPath->'%(FullPath)')" Condition="'%(_AllChildProjectItemsWithTargetPath.CopyToOutputDirectory)'=='Always'"/>
-			<_SourceItemsToCopyToOutputDirectory KeepDuplicates="'$(_GCTODIKeepDuplicates)' != 'false'" KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_AllChildProjectItemsWithTargetPath->'%(FullPath)')" Condition="'%(_AllChildProjectItemsWithTargetPath.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_SourceItemsToCopyToOutputDirectoryAlways KeepDuplicates="'$(_GCTODIKeepDuplicates)' != 'false'" KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_AllChildProjectItemsWithTargetPath->'%(FullPath)')" Condition="'%(_AllChildProjectItemsWithTargetPath.CopyToOutputDirectory)' == 'Always'"/>
+			<_SourceItemsToCopyToOutputDirectory KeepDuplicates="'$(_GCTODIKeepDuplicates)' != 'false'" KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_AllChildProjectItemsWithTargetPath->'%(FullPath)')" Condition="'%(_AllChildProjectItemsWithTargetPath.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<!-- Remove items which we will never again use - they just sit around taking up memory otherwise -->
@@ -4343,17 +4339,17 @@
 
 		<!-- Get items from this project last so that they will be copied last. -->
 		<ItemGroup>
-			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(ContentWithTargetPath->'%(FullPath)')" Condition="'%(ContentWithTargetPath.CopyToOutputDirectory)'=='Always'"/>
-			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(ContentWithTargetPath->'%(FullPath)')" Condition="'%(ContentWithTargetPath.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(ContentWithTargetPath->'%(FullPath)')" Condition="'%(ContentWithTargetPath.CopyToOutputDirectory)' == 'Always'"/>
+			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(ContentWithTargetPath->'%(FullPath)')" Condition="'%(ContentWithTargetPath.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<ItemGroup>
-			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(EmbeddedResource->'%(FullPath)')" Condition="'%(EmbeddedResource.CopyToOutputDirectory)'=='Always'"/>
-			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(EmbeddedResource->'%(FullPath)')" Condition="'%(EmbeddedResource.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(EmbeddedResource->'%(FullPath)')" Condition="'%(EmbeddedResource.CopyToOutputDirectory)' == 'Always'"/>
+			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(EmbeddedResource->'%(FullPath)')" Condition="'%(EmbeddedResource.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<ItemGroup>
-			<_CompileItemsToCopy Include="@(Compile->'%(FullPath)')" Condition="'%(Compile.CopyToOutputDirectory)'=='Always' OR '%(Compile.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_CompileItemsToCopy Include="@(Compile->'%(FullPath)')" Condition="'%(Compile.CopyToOutputDirectory)' == 'Always' OR '%(Compile.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<AssignTargetPath Files="@(_CompileItemsToCopy)" RootFolder="$(MSBuildProjectDirectory)">
@@ -4361,13 +4357,13 @@
 		</AssignTargetPath>
 
 		<ItemGroup>
-			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_CompileItemsToCopyWithTargetPath)" Condition="'%(_CompileItemsToCopyWithTargetPath.CopyToOutputDirectory)'=='Always'"/>
-			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_CompileItemsToCopyWithTargetPath)" Condition="'%(_CompileItemsToCopyWithTargetPath.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_CompileItemsToCopyWithTargetPath)" Condition="'%(_CompileItemsToCopyWithTargetPath.CopyToOutputDirectory)' == 'Always'"/>
+			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_CompileItemsToCopyWithTargetPath)" Condition="'%(_CompileItemsToCopyWithTargetPath.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<ItemGroup>
-			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_NoneWithTargetPath->'%(FullPath)')" Condition="'%(_NoneWithTargetPath.CopyToOutputDirectory)'=='Always'"/>
-			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_NoneWithTargetPath->'%(FullPath)')" Condition="'%(_NoneWithTargetPath.CopyToOutputDirectory)'=='PreserveNewest'"/>
+			<_SourceItemsToCopyToOutputDirectoryAlways KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_NoneWithTargetPath->'%(FullPath)')" Condition="'%(_NoneWithTargetPath.CopyToOutputDirectory)' == 'Always'"/>
+			<_SourceItemsToCopyToOutputDirectory KeepMetadata="$(_GCTODIKeepMetadata)" Include="@(_NoneWithTargetPath->'%(FullPath)')" Condition="'%(_NoneWithTargetPath.CopyToOutputDirectory)' == 'PreserveNewest'"/>
 		</ItemGroup>
 
 		<ItemGroup>
@@ -4509,7 +4505,7 @@
 	-->
 	<Target
 		Name="_CopyManifestFiles"
-		Condition="'$(_DeploymentCopyApplicationManifest)'=='true' OR '$(GenerateClickOnceManifests)'=='true'"
+		Condition="'$(_DeploymentCopyApplicationManifest)' == 'true' OR '$(GenerateClickOnceManifests)' == 'true'"
 		DependsOnTargets="PrepareForBuild">
 
 		<Copy
@@ -4521,14 +4517,14 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForAdditionalFilesIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForAdditionalFilesIfPossible)"
-			Condition="'$(GenerateClickOnceManifests)'=='true' OR '$(_DeploymentCopyApplicationManifest)'=='true'">
+			Condition="'$(GenerateClickOnceManifests)' == 'true' OR '$(_DeploymentCopyApplicationManifest)' == 'true'">
 
 			<Output TaskParameter="DestinationFiles" ItemName="_DeploymentMainApplicationManifest"/>
 			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
 
 		</Copy>
 
-		<Message Importance="Normal" Condition="'$(_DeploymentCopyApplicationManifest)'=='true'" Text="$(MSBuildProjectName) -&gt; @(_DeploymentMainApplicationManifest->'%(FullPath)')"/>
+		<Message Importance="Normal" Condition="'$(_DeploymentCopyApplicationManifest)' == 'true'" Text="$(MSBuildProjectName) -&gt; @(_DeploymentMainApplicationManifest->'%(FullPath)')"/>
 
 		<Copy
 			SourceFiles="@(DeployManifest)"
@@ -4539,14 +4535,14 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForAdditionalFilesIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForAdditionalFilesIfPossible)"
-			Condition="'$(GenerateClickOnceManifests)'=='true'">
+			Condition="'$(GenerateClickOnceManifests)' == 'true'">
 
 			<Output TaskParameter="DestinationFiles" ItemName="_DeploymentMainDeployManifest"/>
 			<Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
 
 		</Copy>
 
-		<Message Importance="Normal" Condition="'$(GenerateClickOnceManifests)'=='true'" Text="$(MSBuildProjectName) -&gt; @(_DeploymentMainDeployManifest->'%(FullPath)')"/>
+		<Message Importance="Normal" Condition="'$(GenerateClickOnceManifests)' == 'true'" Text="$(MSBuildProjectName) -&gt; @(_DeploymentMainDeployManifest->'%(FullPath)')"/>
 
 	</Target>
 
@@ -4573,7 +4569,7 @@
 		</PropertyGroup>
 
 		<ItemGroup>
-			<FileWrites Include="@(DocFileItem)" Condition="'$(_DocumentationFileProduced)'=='true'"/>
+			<FileWrites Include="@(DocFileItem)" Condition="'$(_DocumentationFileProduced)' == 'true'"/>
 		</ItemGroup>
 
 		<!-- Record the .pdb if one was produced. -->
@@ -4582,7 +4578,7 @@
 		</PropertyGroup>
 
 		<ItemGroup>
-			<FileWrites Include="@(_DebugSymbolsIntermediatePath)" Condition="'$(_DebugSymbolsProduced)'=='true'"/>
+			<FileWrites Include="@(_DebugSymbolsIntermediatePath)" Condition="'$(_DebugSymbolsProduced)' == 'true'"/>
 		</ItemGroup>
 	</Target>
 
@@ -4632,7 +4628,7 @@
 	</PropertyGroup>
 	<Target
 		Name="UnmanagedRegistration"
-		Condition="'$(RegisterForComInterop)'=='true' AND '$(OutputType)'=='library'"
+		Condition="'$(RegisterForComInterop)' == 'true' AND '$(OutputType)' == 'library'"
 		DependsOnTargets="$(UnmanagedRegistrationDependsOn)">
 
 		<PropertyGroup>
@@ -4989,7 +4985,7 @@
 
 		<RemoveDir
 			Directories="$(PublishDir)"
-			Condition="'$(PublishDir)'=='$(OutputPath)app.publish\' AND Exists('$(PublishDir)')"/>
+			Condition="'$(PublishDir)' == '$(OutputPath)app.publish\' AND Exists('$(PublishDir)')"/>
 
 	</Target>
 
@@ -5054,7 +5050,7 @@
 		============================================================
 	-->
 	<PropertyGroup>
-		<PublishDependsOn Condition="'$(PublishableProject)'=='true'">
+		<PublishDependsOn Condition="'$(PublishableProject)' == 'true'">
 			SetGenerateManifests;
 			Build;
 			PublishOnly
@@ -5092,7 +5088,7 @@
 		Name="SetGenerateManifests">
 
 		<Error Condition="'$(OutputType)'!='winexe' AND '$(OutputType)'!='exe' AND '$(OutputType)'!='appcontainerexe'" Text="Publish is only valid for 'Windows Application' OR 'Console Application' project types."/>
-		<Error Condition="'$(_DeploymentSignClickOnceManifests)'=='true' AND '$(ManifestCertificateThumbprint)'=='' AND '$(ManifestKeyFile)'==''" Text="A signing key is required in order to publish this project. Please specify a ManifestKeyFile or ManifestCertificateThumbprint value. Publishing from Visual Studio will automatically configure a signing key for this project."/>
+		<Error Condition="'$(_DeploymentSignClickOnceManifests)' == 'true' AND '$(ManifestCertificateThumbprint)' == '' AND '$(ManifestKeyFile)' == ''" Text="A signing key is required in order to publish this project. Please specify a ManifestKeyFile or ManifestCertificateThumbprint value. Publishing from Visual Studio will automatically configure a signing key for this project."/>
 
 		<PropertyGroup>
 			<GenerateClickOnceManifests>true</GenerateClickOnceManifests>
@@ -5224,7 +5220,7 @@
 			RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
 			UseHardlinksIfPossible="$(CreateHardLinksForPublishFilesIfPossible)"
 			UseSymboliclinksIfPossible="$(CreateSymbolicLinksForPublishFilesIfPossible)"
-			Condition="'%(_DeploymentManifestDependencies.DependencyType)'=='Install'"/>
+			Condition="'%(_DeploymentManifestDependencies.DependencyType)' == 'Install'"/>
 
 		<Copy
 			SourceFiles="@(_ReferenceScatterPaths)"
@@ -5268,7 +5264,7 @@
 			SupportUrl="$(_DeploymentFormattedSupportUrl)"
 			Path="$(GenerateBootstrapperSdkPath)"
 			VisualStudioVersion="$(VisualStudioVersion)"
-			Condition="'$(BootstrapperEnabled)'=='true'"/>
+			Condition="'$(BootstrapperEnabled)' == 'true'"/>
 
 	</Target>
 
@@ -5286,7 +5282,7 @@
 			TimestampUrl="$(ManifestTimestampUrl)"
 			SigningTarget="$(_DeploymentApplicationDir)$(_DeploymentTargetApplicationManifestFileName)"
 			TargetFrameworkVersion="$(TargetFrameworkVersion)"
-			Condition="'$(_DeploymentSignClickOnceManifests)'=='true'"/>
+			Condition="'$(_DeploymentSignClickOnceManifests)' == 'true'"/>
 
 		<!-- Update entry point path in deploy manifest -->
 		<UpdateManifest
@@ -5305,13 +5301,13 @@
 			TimestampUrl="$(ManifestTimestampUrl)"
 			SigningTarget="$(PublishDir)$(TargetDeployManifestFileName)"
 			TargetFrameworkVersion="$(TargetFrameworkVersion)"
-			Condition="'$(_DeploymentSignClickOnceManifests)'=='true'"/>
+			Condition="'$(_DeploymentSignClickOnceManifests)' == 'true'"/>
 
 		<SignFile
 			CertificateThumbprint="$(_DeploymentResolvedManifestCertificateThumbprint)"
 			TimestampUrl="$(ManifestTimestampUrl)"
 			SigningTarget="$(PublishDir)\setup.exe"
-			Condition="'$(BootstrapperEnabled)'=='true' AND '$(_DeploymentSignClickOnceManifests)'=='true'"/>
+			Condition="'$(BootstrapperEnabled)' == 'true' AND '$(_DeploymentSignClickOnceManifests)' == 'true'"/>
 
 	</Target>
 
@@ -5363,7 +5359,7 @@
 			<IsKeyOutput>true</IsKeyOutput>
 			<FinalOutputPath>$(TargetPath)</FinalOutputPath>
 			<TargetPath>$(TargetFileName)</TargetPath>
-			<COM2REG Condition="'$(RegisterForComInterop)'=='true' AND '$(OutputType)'=='library'">true</COM2REG>
+			<COM2REG Condition="'$(RegisterForComInterop)' == 'true' AND '$(OutputType)' == 'library'">true</COM2REG>
 		</BuiltProjectOutputGroupKeyOutput>
 	</ItemGroup>
 
@@ -5383,7 +5379,7 @@
 	-->
 	<PropertyGroup>
 		<BuiltProjectOutputGroupDependsOn>PrepareForBuild</BuiltProjectOutputGroupDependsOn>
-		<AddAppConfigToBuildOutputs Condition="('$(AddAppConfigToBuildOutputs)'=='') AND ('$(OutputType)'!='library' AND '$(OutputType)'!='winmdobj')">true</AddAppConfigToBuildOutputs>
+		<AddAppConfigToBuildOutputs Condition="('$(AddAppConfigToBuildOutputs)' == '') AND ('$(OutputType)'!='library' AND '$(OutputType)'!='winmdobj')">true</AddAppConfigToBuildOutputs>
 	</PropertyGroup>
 	<Target
 		Name="BuiltProjectOutputGroup"
@@ -5396,7 +5392,7 @@
 
 		<!-- This item represents the app.config file -->
 		<ItemGroup>
-			<_BuiltProjectOutputGroupOutputIntermediate Include="$(AppConfig)"  Condition="'$(AddAppConfigToBuildOutputs)'=='true'">
+			<_BuiltProjectOutputGroupOutputIntermediate Include="$(AppConfig)"  Condition="'$(AddAppConfigToBuildOutputs)' == 'true'">
 				<FinalOutputPath>$(TargetDir)$(TargetFileName).config</FinalOutputPath>
 				<TargetPath>$(TargetFileName).config</TargetPath>
 				<!-- For compatibility with 2.0 -->
@@ -5783,17 +5779,21 @@
 	</Target>
 
 	<PropertyGroup>
-		<CodeAnalysisTargets Condition="'$(CodeAnalysisTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeAnalysis\Microsoft.CodeAnalysis.targets</CodeAnalysisTargets>
+		<CodeAnalysisTargets Condition="'$(CodeAnalysisTargets)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeAnalysis\Microsoft.CodeAnalysis.targets</CodeAnalysisTargets>
 	</PropertyGroup>
 
 	<Import Project="$(CodeAnalysisTargets)" Condition="Exists('$(CodeAnalysisTargets)')"/>
+
+	<PropertyGroup>
+		<ReportingServicesTargets Condition="'$(ReportingServicesTargets)' == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\ReportingServices\Microsoft.ReportingServices.targets</ReportingServicesTargets>
+	</PropertyGroup>
 
 	<Import Project="$(ReportingServicesTargets)" Condition="Exists('$(ReportingServicesTargets)')"/>
 
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.NETFramework.targets" Condition="('$(TargetFrameworkIdentifier)' == ''  or '$(TargetFrameworkIdentifier)' == '.NETFramework') AND ('$(TargetRuntime)' == 'Managed')"/>
 
 	<PropertyGroup>
-		<ImportXamlTargets Condition="'$(ImportXamlTargets)'=='' AND ('$(TargetFrameworkVersion)' != 'v2.0' AND '$(TargetFrameworkVersion)' != 'v3.5') AND Exists('$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets')">true</ImportXamlTargets>
+		<ImportXamlTargets Condition="'$(ImportXamlTargets)' == '' AND ('$(TargetFrameworkVersion)' != 'v2.0' AND '$(TargetFrameworkVersion)' != 'v3.5') AND Exists('$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets')">true</ImportXamlTargets>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets" Condition="'$(ImportXamlTargets)' == 'true'"/>
@@ -5801,13 +5801,13 @@
 	<!-- imports Microsoft.WorkflowBuildExtensions.targets only if TargetFrameworkVersion is v4.5 or above or TargetFrameworkfVersion specified does not conform to the format of vX.X[.X.X] -->
 	<!-- Underlying assumption is that there shouldn't be any other versions between v4.0.* and v4.5 -->
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets"
-			Condition="('$(TargetFrameworkVersion)' != 'v2.0' AND '$(TargetFrameworkVersion)' != 'v3.5' AND (!$([System.String]::IsNullOrEmpty('$(TargetFrameworkVersion)')) AND !$(TargetFrameworkVersion.StartsWith('v4.0')))) AND Exists('$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets')"/>
+			Condition="('$(TargetFrameworkVersion.TrimStart(vV))' >= '4.5') AND Exists('$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets')"/>
 
 	<!-- This import is temporary and will be removed once it is moved into the silverlight targets -->
 	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets')"/>
 
 	<PropertyGroup>
-		<MSTestToolsTargets Condition="'$(MSTestToolsTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TeamTest\Microsoft.TeamTest.targets</MSTestToolsTargets>
+		<MSTestToolsTargets Condition="'$(MSTestToolsTargets)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TeamTest\Microsoft.TeamTest.targets</MSTestToolsTargets>
 	</PropertyGroup>
 
 	<Import Project="$(MSTestToolsTargets)" Condition="Exists('$(MSTestToolsTargets)')"/>
@@ -5823,7 +5823,7 @@
 	<Target Name="GetPackagingOutputs"/>
 
 	<PropertyGroup>
-		<MSAppxPackageTargets Condition="'$(MSAppxPackageTargets)'==''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\AppxPackage\Microsoft.AppXPackage.Targets</MSAppxPackageTargets>
+		<MSAppxPackageTargets Condition="'$(MSAppxPackageTargets)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\AppxPackage\Microsoft.AppXPackage.Targets</MSAppxPackageTargets>
 	</PropertyGroup>
 
 	<Import Project="$(MSAppxPackageTargets)" Condition="'$(WindowsAppContainer)' == 'true' AND Exists('$(MSAppxPackageTargets)')"/>

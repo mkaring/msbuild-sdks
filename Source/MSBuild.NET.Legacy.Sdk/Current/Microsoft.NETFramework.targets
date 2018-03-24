@@ -56,7 +56,7 @@
 			<!-- Does one of our dependencies reference a System.Runtime-based portable library? -->
 			<_HasReferenceToSystemRuntime Condition="'$(DependsOnSystemRuntime)' == 'true'">true</_HasReferenceToSystemRuntime>
 			<_HasReferenceToSystemRuntime Condition="'%(_ResolvedProjectReferencePaths.TargetPlatformIdentifier)' == 'Portable'">true</_HasReferenceToSystemRuntime>
-			<_HasReferenceToSystemRuntime Condition="'%(_ResolvedProjectReferencePaths.TargetFrameworkIdentifier)' == '.NETStandard' AND '%(_ResolvedProjectReferencePaths.TargetFrameworkVersion)' < '2.0'">true</_HasReferenceToSystemRuntime>
+			<_HasReferenceToSystemRuntime Condition="'%(_ResolvedProjectReferencePaths.TargetFrameworkIdentifier)' == '.NETStandard' AND '%(_ResolvedProjectReferencePaths.TargetFrameworkVersion)' &lt; '2.0'">true</_HasReferenceToSystemRuntime>
 		</PropertyGroup>
 
 		<ItemGroup Condition="'$(_HasReferenceToSystemRuntime)' == 'true'">

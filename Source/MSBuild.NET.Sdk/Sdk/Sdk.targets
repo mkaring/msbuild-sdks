@@ -14,8 +14,9 @@
 		<ImportNuGetPackagingSdkTargets Condition="'$(ImportNuGetPackagingSdkTargets)' == ''">false</ImportNuGetPackagingSdkTargets>
 	</PropertyGroup>
 
-	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'"/>
+	<Import Project="Sdk.Restore.targets" Sdk="NuGet.Packaging.Sdk"/>
 	<Import Project="Sdk.Pack.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' != 'true'"/>
+	<Import Project="Sdk.targets" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkTargets)' == 'true'"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

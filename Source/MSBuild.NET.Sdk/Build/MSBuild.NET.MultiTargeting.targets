@@ -125,21 +125,6 @@
 	-->
 	<Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
 
-	<!-- ============================== Microsoft.Common.CrossTargeting.targets ============================== -->
-
-	<!-- Import NuGet.targets (required for GetReferenceNearestTargetFrameworkTask and used for Restore functionality) -->
-	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == ''">$(MSBuildToolsPath)\NuGet.targets</NuGetRestoreTargets>
-	</PropertyGroup>
-
-	<!-- This will import NuGet restore targets. We need restore to work before any package assets are available. -->
-	<Import Project="$(NuGetRestoreTargets)" Condition="Exists('$(NuGetRestoreTargets)')"/>
-
-	<!-- TODO: https://github.com/Microsoft/msbuild/issues/1062 : Remove this temporary hook when possible. -->
-	<Import Project="$(CoreCrossTargetingTargetsPath)" Condition="'$(CoreCrossTargetingTargetsPath)' != '' AND Exists('$(CoreCrossTargetingTargetsPath)')"/>
-
 	<!-- ============================== Microsoft.NET.Sdk.CrossTargeting.targets ============================== -->
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.BuildTargeting.targets"/>

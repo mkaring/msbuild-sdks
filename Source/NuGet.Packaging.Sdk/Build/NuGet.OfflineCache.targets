@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<_NugetFallbackFolder>$(ProgramFiles)\dotnet\sdk\NuGetFallbackFolder</_NugetFallbackFolder>
-		<_IsNETCore1x Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(_TargetFrameworkVersionWithoutV)' < '2.0'">true</_IsNETCore1x>
+		<_IsNETCore1x Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(_TargetFrameworkVersionWithoutV)' &lt; '2.0'">true</_IsNETCore1x>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(DisableImplicitNuGetFallbackFolder)' != 'true' AND Exists('$(_NugetFallbackFolder)')">
