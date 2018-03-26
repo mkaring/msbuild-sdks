@@ -14,10 +14,6 @@
 		<Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(EnableDefaultItems)' == 'true' AND '$(EnableDefaultNoneItems)' == 'true'">
-		<None Include="**/*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
-	</ItemGroup>
-
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>

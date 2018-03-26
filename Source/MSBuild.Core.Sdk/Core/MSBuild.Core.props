@@ -2,12 +2,10 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.OutputPaths.props" Condition="'$(ImportedMSBuildOutputPathsProps)' != 'true'"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.ProjectDefaults.props"/>
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Defaults.props"/>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.Defaults.Items.props"/>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\VisualStudio\Microsoft.VisualStudio.props"/>
-
-	<PropertyGroup>
-		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
-	</PropertyGroup>
 
 </Project>

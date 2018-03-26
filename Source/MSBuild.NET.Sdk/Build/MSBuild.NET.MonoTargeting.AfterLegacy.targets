@@ -22,10 +22,6 @@
 	<UsingTask TaskName="GenerateSatelliteAssemblies" AssemblyFile="$(MicrosoftNETBuildTasksAssembly)"/>
 
 	<PropertyGroup>
-		<DisableStandardFrameworkResolution Condition="'$(DisableStandardFrameworkResolution)' == ''">$(_IsNETCoreOrNETStandard)</DisableStandardFrameworkResolution>
-	</PropertyGroup>
-
-	<PropertyGroup>
 		<GenerateRuntimeConfigurationFiles Condition="'$(GenerateRuntimeConfigurationFiles)' == '' AND '$(TargetFrameworkIdentifier)' == '.NETCoreApp' AND '$(HasRuntimeOutput)' == 'true'">true</GenerateRuntimeConfigurationFiles>
 		<UserRuntimeConfig Condition="'$(UserRuntimeConfig)' == ''">$(MSBuildProjectDirectory)/runtimeconfig.template.json</UserRuntimeConfig>
 		<GenerateSatelliteAssembliesForCore Condition="'$(GenerateSatelliteAssembliesForCore)' == '' AND '$(MSBuildRuntimeType)' == 'Core'">true</GenerateSatelliteAssembliesForCore>
@@ -546,15 +542,6 @@
 	<ItemGroup>
 		<ProjectCapability Include="FolderPublish"/>
 	</ItemGroup>
-
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.DisableStandardFrameworkResolution.targets" Condition="'$(DisableStandardFrameworkResolution)' == 'true'"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.GenerateAssemblyInfo.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ComposeStore.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.CrossGen.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.Publish.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PackTool.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.PreserveCompilationContext.targets"/>
-	<Import Project="$(MicrosoftNETSdkBuildPath)Microsoft.NET.ConflictResolution.targets"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
