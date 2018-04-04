@@ -4,11 +4,12 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<ImportGroup>
-		<Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_SdkLanguageName).targets"
-				Condition="Exists('$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_SdkLanguageName).targets')"/>
-	
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets"/>
-	</ImportGroup>
+	<PropertyGroup>
+		<_SdkXamarinPlatformTargets Condition="'$(_SdkXamarinPlatformTargets)' == ''">$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.$(_SdkLanguageName).targets</_SdkXamarinPlatformTargets>
+		<_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkXamarinPlatformTargets)')">true</_SdkLanguageTargetsMissing>
+	</PropertyGroup>
+
+	<Import Project="$(_SdkXamarinPlatformTargets)" Condition="Exists('$(_SdkXamarinPlatformTargets)')"/>
+	<Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>

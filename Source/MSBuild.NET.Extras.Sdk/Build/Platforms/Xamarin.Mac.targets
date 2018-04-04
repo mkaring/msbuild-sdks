@@ -9,10 +9,10 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<Reference Include="System"/>
-		<Reference Include="System.Xml"/>
-		<Reference Include="System.Core"/>
-		<Reference Include="Xamarin.Mac"/>
+		<_SdkImplicitReference Include="System"/>
+		<_SdkImplicitReference Include="System.Xml"/>
+		<_SdkImplicitReference Include="System.Core"/>
+		<_SdkImplicitReference Include="Xamarin.Mac"/>
 	</ItemGroup>
 
 </Project>

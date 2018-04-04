@@ -4,7 +4,7 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props"/>
+	<Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk"/>
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.props"/>
 
 </Project>

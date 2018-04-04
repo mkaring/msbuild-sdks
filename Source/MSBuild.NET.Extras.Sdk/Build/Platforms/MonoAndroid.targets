@@ -14,18 +14,18 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<Reference Include="Mono.Android"/>
-		<Reference Include="System"/>
-		<Reference Include="System.Collections"/>
-		<Reference Include="System.Threading.Tasks"/>
-		<Reference Include="System.Core"/>
-		<Reference Include="System.Runtime"/>
-		<Reference Include="System.Threading.Tasks"/>
-		<Reference Include="System.IdentityModel"/>
-		<Reference Include="System.Net.Http"/>
-		<Reference Include="System.Xml.Linq"/>
-		<Reference Include="System.Runtime.Serialization"/>
-		<Reference Include="System.Xml"/>
+		<_SdkImplicitReference Include="Mono.Android"/>
+		<_SdkImplicitReference Include="System"/>
+		<_SdkImplicitReference Include="System.Collections"/>
+		<_SdkImplicitReference Include="System.Threading.Tasks"/>
+		<_SdkImplicitReference Include="System.Core"/>
+		<_SdkImplicitReference Include="System.Runtime"/>
+		<_SdkImplicitReference Include="System.Threading.Tasks"/>
+		<_SdkImplicitReference Include="System.IdentityModel"/>
+		<_SdkImplicitReference Include="System.Net.Http"/>
+		<_SdkImplicitReference Include="System.Xml.Linq"/>
+		<_SdkImplicitReference Include="System.Runtime.Serialization"/>
+		<_SdkImplicitReference Include="System.Xml"/>
 	</ItemGroup>
 
 	<ItemGroup>

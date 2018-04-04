@@ -4,11 +4,12 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<ImportGroup>
-		<Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets"
-				Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets')"/>
+	<PropertyGroup>
+		<_SdkSilverlightTargets Condition="'$(_SdkSilverlightTargets)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets</_SdkSilverlightTargets>
+		<_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkSilverlightTargets)')">true</_SdkLanguageTargetsMissing>
+	</PropertyGroup>
 
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets"/>
-	</ImportGroup>
+	<Import Project="$(_SdkSilverlightTargets)" Condition="Exists('$(_SdkSilverlightTargets)')"/>
+	<Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 
 </Project>

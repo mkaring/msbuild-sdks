@@ -17,17 +17,26 @@
 
 	<Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
 
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
+		<!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
+		<_SdkImplicitReference Update="@(_SdkImplicitReference)" Pack="false" />
+
+		<!--
+			Don't duplicate any references that are explicit in the project file. This means that if you do want to include a framework assembly in your
+			NuGet package, you can just add the Reference to your project file.
+		-->
+		<_SdkImplicitReference Remove="@(Reference)" />
+
+		<!-- Add the implicit references to @(Reference) -->
+		<Reference Include="@(_SdkImplicitReference)" />
+	</ItemGroup>
+
 	<PropertyGroup>
 		<!-- Add conditional compilation symbols for the target framework (for example NET461, NETSTANDARD2_0, NETCOREAPP1_0) -->
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
 	</PropertyGroup>
 
-	<Target Name="DisplayMissingLanguageTargetsError" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'" BeforeTargets="_CheckForUnsupportedTargetFramework">
-		<Error Condition="'$(_SdkShortFrameworkIdentifier)' != 'portable'" Text="The specified language targets for $(TargetFramework) is missing. Ensure correct tooling is installed for '$(_SdkShortFrameworkIdentifier)'"/>
-		<Error Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'" Text="The specified TFM '$(TargetFramework)' is not valid. Check that it's a valid combination: https://portablelibraryprofiles.stephencleary.com/"/>
-	</Target>
-
-	<Target Name="ExtrasIncludeLibraryLayoutItems"
+	<Target Name="IncludeWindowsLibraryLayoutItems"
 			Condition="'$(GenerateLibraryLayout)' == 'true' AND '$(SDKIdentifier)' == 'Windows'"
 			DependsOnTargets="PrepareLibraryLayout">
 		<ItemGroup>
@@ -37,7 +46,7 @@
 
 	<!-- Handle Library Layout in NuGet packages -->
 	<PropertyGroup>
-		<TargetsForTfmSpecificContentInPackage Condition="'$(ExtrasSkipLibraryLayout)' != 'true'">$(TargetsForTfmSpecificContentInPackage);ExtrasIncludeLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
+		<TargetsForTfmSpecificContentInPackage Condition="'$(SkipWindowsLibraryLayout)' != 'true'">$(TargetsForTfmSpecificContentInPackage);IncludeWindowsLibraryLayoutItems</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
 </Project>

@@ -4,14 +4,16 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<_SdkWindowsPhoneOverridesTargets Condition="'$(_SdkWindowsPhoneOverridesTargets)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkWindowsPhoneOverridesTargets>
+		<_SdkWindowsPhoneTargets Condition="'$(_SdkWindowsPhoneTargets)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageName).targets</_SdkWindowsPhoneTargets>
+		<_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkWindowsPhoneTargets)')">true</_SdkLanguageTargetsMissing>
+	</PropertyGroup>
+
 	<ImportGroup>
-		<Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets"
-				Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets')"/>
-
-		<Import Project="$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageName).targets"
-				Condition="Exists('$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageName).targets')"/>
-
-		<Import Project="$(MSBuildThisFileDirectory)CommonAfter.targets"/>
+		<Import Project="$(_SdkWindowsPhoneOverridesTargets)" Condition="Exists('$(_SdkWindowsPhoneOverridesTargets)')"/>
+		<Import Project="$(_SdkWindowsPhoneTargets)" Condition="Exists('$(_SdkWindowsPhoneTargets)')"/>
+		<Import Project="$(MSBuildThisFileDirectory)CheckMissing.targets" Condition="'$(_SdkLanguageTargetsMissing)' == 'true'"/>
 	</ImportGroup>
 
 </Project>

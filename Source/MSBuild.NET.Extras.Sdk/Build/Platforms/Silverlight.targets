@@ -14,13 +14,13 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<Reference Include="mscorlib"/>
-		<Reference Include="System"/>
-		<Reference Include="System.Core"/>
-		<Reference Include="System.Xml"/>
-		<Reference Include="System.Net"/>
-		<Reference Include="System.Windows"/>
-		<Reference Include="System.Windows.Browser"/>
+		<_SdkImplicitReference Include="mscorlib"/>
+		<_SdkImplicitReference Include="System"/>
+		<_SdkImplicitReference Include="System.Core"/>
+		<_SdkImplicitReference Include="System.Xml"/>
+		<_SdkImplicitReference Include="System.Net"/>
+		<_SdkImplicitReference Include="System.Windows"/>
+		<_SdkImplicitReference Include="System.Windows.Browser"/>
 	</ItemGroup>
 
 </Project>
