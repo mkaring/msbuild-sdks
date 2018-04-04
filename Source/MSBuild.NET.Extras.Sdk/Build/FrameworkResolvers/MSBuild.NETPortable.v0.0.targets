@@ -1,0 +1,13 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ImportGroup>
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NETPortable.v4.0.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NETPortable.v4.5.targets"/>
+		<Import Project="$(MSBuildThisFileDirectory)MSBuild.NETPortable.v4.6.targets"/>
+	</ImportGroup>
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+</Project>

@@ -4,8 +4,8 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.targets"/>
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.targets"/>
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets"/>
-	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Sdk.targets"/>
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.targets"/>
 
 </Project>

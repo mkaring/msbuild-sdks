@@ -10,8 +10,8 @@
 		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
 		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
 
-		<_SdkPlatformTargets>$(MSBuildThisFileDirectory)platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
-		<_SdkLanguageTargets>$(MSBuildThisFileDirectory)languageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
+		<_SdkPlatformTargets>$(MSBuildThisFileDirectory)Platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
+		<_SdkLanguageTargets>$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
 		<LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
 	</PropertyGroup>
 

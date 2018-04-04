@@ -100,7 +100,7 @@
 		</When>
 
 		<When Condition="'$(_ShortFrameworkVersion)' != ''">
-			<!-- Versions with no dots and up to 3 characters and implicit dots between characters. -->
+			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters. -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 1">$(_ShortFrameworkVersion[0]).0</TargetFrameworkVersion>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 2">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1])</TargetFrameworkVersion>

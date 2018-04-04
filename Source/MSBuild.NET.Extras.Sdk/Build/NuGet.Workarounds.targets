@@ -17,7 +17,7 @@
 
 	<ImportGroup Condition="'$(SuppressOldSdkWarning)' != 'true'">
 		<Import Project="$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\build\NuGet.Build.Tasks.Pack.targets" Condition="'$(IsMultiTargetingBuild)' != 'true'"/>
-		<Import Project="$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\buildCrosstargeting\NuGet.Build.Tasks.Pack.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'"/>
+		<Import Project="$(MSBuildSdksPath)\NuGet.Build.Tasks.Pack\buildCrossTargeting\NuGet.Build.Tasks.Pack.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'"/>
 	</ImportGroup>
 
 </Project>

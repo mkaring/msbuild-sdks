@@ -5,6 +5,6 @@
 	</PropertyGroup>
 
 	<Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props"/>
-	<Import Project="$(MSBuildThisFileDirectory)..\build\MSBuild.NET.Extras.Sdk.props"/>
+	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.props"/>
 
 </Project>

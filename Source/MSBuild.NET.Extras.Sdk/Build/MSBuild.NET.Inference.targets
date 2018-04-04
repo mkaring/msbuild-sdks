@@ -4,33 +4,39 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<PropertyGroup>
+	<PropertyGroup Condition="!$(TargetFramework.Contains(','))">
 		<!-- Convert $(TargetFramework) to lower case -->
 		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 		<!-- if net-client is only specified then default to the highest supported version of the profile -->
 		<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
 	</PropertyGroup>
 
+	<!--
+		Split $(TargetFramework) into short identifier, version and profile list
+		For Example:
+			net45 into 'net', '45'
+			net40-client into 'net', '40', '+client+'
+			portable45-net45+win8+wp8+wpa81 into 'portable', '45', '+net45+win8+wp8+wpa81+'
+	-->
 	<Choose>
 		<When Condition="$(TargetFramework.Contains(','))"/>
 
 		<When Condition="$(TargetFramework.Contains('-'))">
-			<!-- Handle legacy client and portable profiles -->
+			<!-- Handle short framework ids with profiles -->
 			<PropertyGroup>
 				<_SdkShortFrameworkIdentifierWithVersion>$(TargetFramework.Split('-')[0])</_SdkShortFrameworkIdentifierWithVersion>
 				<_SdkShortFrameworkIdentifier>$(_SdkShortFrameworkIdentifierWithVersion.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>
 				<_SdkShortFrameworkVersion>$(_SdkShortFrameworkIdentifierWithVersion.Substring($(_SdkShortFrameworkIdentifier.Length)))</_SdkShortFrameworkVersion>
 				<_SdkShortFrameworkProfile>$(TargetFramework.Split('-')[1])</_SdkShortFrameworkProfile>
 				<_SdkShortFrameworkProfileCount>$(_SdkShortFrameworkProfile.Split('+').Length)</_SdkShortFrameworkProfileCount>
-				<!-- Pre and post-pend the separator char + to the tfm list after counting so we can easily do a Contains() match -->
+				<!-- Pre and post-pend the separator char + to the short-TFM list after counting so we can easily do a Contains() match -->
 				<_SdkShortFrameworkProfile>+$(_SdkShortFrameworkProfile)+</_SdkShortFrameworkProfile>
 			</PropertyGroup>
 		</When>
 
 		<Otherwise>
-			<!-- Split $(TargetFramework) (e.g. net45) into short identifier and short version (e.g. net and 45). -->
+			<!-- Handle simple short framework ids -->
 			<PropertyGroup>
-				<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 				<_SdkShortFrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</_SdkShortFrameworkIdentifier>
 				<_SdkShortFrameworkVersion>$(TargetFramework.Substring($(_SdkShortFrameworkIdentifier.Length)))</_SdkShortFrameworkVersion>
 			</PropertyGroup>
@@ -51,6 +57,7 @@
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
@@ -80,12 +87,20 @@
 		</When>
 
 		<Otherwise>
-			<PropertyGroup>
+			<PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
 				<TargetFrameworkVersion>$(TargetFrameworkVersion.TrimStart('vV'))</TargetFrameworkVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
+	<!--
+		Don't leave TargetFrameworkVersion empty if it still hasn't been determined. We will trigger the error above,
+		but we need this to be a valid version so that our error message does not get pre-empted by failure to interpret
+		version comparison expressions, which is currently unrecoverable in VS.
+
+		Also don't leave TargetFrameworkIdentifier unset as it will be defaulted to .NETFramework by common targets, which
+		can cause restore (which we cannot block, see above) to silently succeed for empty TargetFramework.
+	-->
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
@@ -93,7 +108,8 @@
 		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)frameworkResolvers\Portable.$(TargetFrameworkVersion).targets"
+	<!-- Support for resolving portable framework profiles -->
+	<Import Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
 			Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'"/>
 
 </Project>
