@@ -2,6 +2,7 @@
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\NuGet.Packaging.Sdk.targets"/>
 	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" Condition="'$(ImportedMSBuildCoreSdkTargets)' != 'true'"/>
+	<Import Project="Sdk.Restore.targets"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

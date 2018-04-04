@@ -2,7 +2,7 @@
 
 	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.NETCoreSdk.BundledVersions.props"/>
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Sdk.Bundles.props"/>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props"/>
 
