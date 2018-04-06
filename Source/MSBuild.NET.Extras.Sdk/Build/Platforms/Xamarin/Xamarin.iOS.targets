@@ -7,15 +7,10 @@
 	<PropertyGroup>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
 		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
-		<MtouchUseRefCounting Condition="'$(MtouchUseRefCounting)' == ''">true</MtouchUseRefCounting>
-		<MtouchUseSGen Condition="'$(MtouchUseSGen)' == ''">true</MtouchUseSGen>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<_SdkImplicitReference Include="System"/>
-		<_SdkImplicitReference Include="System.Xml"/>
-		<_SdkImplicitReference Include="System.Core"/>
-		<_SdkImplicitReference Include="Xamarin.WatchOS"/>
+		<!--<_SdkImplicitReference Include="Xamarin.iOS"/>-->
 	</ItemGroup>
 
 </Project>

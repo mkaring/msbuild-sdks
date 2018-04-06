@@ -5,14 +5,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v2.0</TargetFrameworkVersion>
+		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v1.0</TargetFrameworkVersion>
+		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
+		<ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<_SdkImplicitReference Include="System"/>
-		<_SdkImplicitReference Include="System.Xml"/>
-		<_SdkImplicitReference Include="System.Core"/>
-		<_SdkImplicitReference Include="Xamarin.Mac"/>
+		<!--<_SdkImplicitReference Include="Xamarin.TVOS"/>-->
 	</ItemGroup>
 
 </Project>

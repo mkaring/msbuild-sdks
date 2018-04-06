@@ -15,7 +15,7 @@
 
 	<!-- Work around bug in Microsoft.NET.Sdk < v2.0 where satellites were deployed on top of each other in root.
 		 https://github.com/dotnet/sdk/issues/1360 -->
-	<Target Name="WorkaroundIncorrectSatelliteDeployment"
+	<Target Name="SatelliteDeploymentOldSdkWorkaround"
 			AfterTargets="ResolveLockFileCopyLocalProjectDeps"
 			Condition="'$(_SdkDotNetVersion)' &lt; '2.0' AND '$(IsMultiTargetingBuild)' != 'true'">
 		<ItemGroup>

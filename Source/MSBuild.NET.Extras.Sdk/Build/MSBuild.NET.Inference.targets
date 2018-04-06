@@ -48,6 +48,8 @@
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'portable'">.NETPortable</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
@@ -58,6 +60,7 @@
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_SdkShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_SdkShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>

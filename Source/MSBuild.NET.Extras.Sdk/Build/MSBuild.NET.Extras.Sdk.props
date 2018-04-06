@@ -34,4 +34,6 @@
 		<EmbeddedResourceGeneratorVisibilityIsInternal Condition="'$(EmbeddedResourceGeneratorVisibilityIsInternal)' == ''">true</EmbeddedResourceGeneratorVisibilityIsInternal>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Defaults.Items.props"/>
+
 </Project>
