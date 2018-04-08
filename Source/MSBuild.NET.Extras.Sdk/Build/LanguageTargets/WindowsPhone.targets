@@ -5,8 +5,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<_SdkWindowsPhoneOverridesTargets Condition="'$(_SdkWindowsPhoneOverridesTargets)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkWindowsPhoneOverridesTargets>
-		<_SdkWindowsPhoneTargets Condition="'$(_SdkWindowsPhoneTargets)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageName).targets</_SdkWindowsPhoneTargets>
+		<!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
+		<_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
+		<_SdkWindowsPhoneOverridesTargets Condition="'$(_SdkWindowsPhoneOverridesTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets</_SdkWindowsPhoneOverridesTargets>
+		<_SdkWindowsPhoneTargets Condition="'$(_SdkWindowsPhoneTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(_SdkLanguageName).targets</_SdkWindowsPhoneTargets>
 		<_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkWindowsPhoneTargets)')">true</_SdkLanguageTargetsMissing>
 	</PropertyGroup>
 

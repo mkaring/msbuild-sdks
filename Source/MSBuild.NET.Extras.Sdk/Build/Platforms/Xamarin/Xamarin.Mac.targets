@@ -8,8 +8,4 @@
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">v2.0</TargetFrameworkVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<!--<_SdkImplicitReference Include="Xamarin.Mac"/>-->
-	</ItemGroup>
-
 </Project>

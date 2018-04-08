@@ -9,8 +9,4 @@
 		<IPhoneResourcePrefix Condition="'$(IPhoneResourcePrefix)' == ''">Resources</IPhoneResourcePrefix>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<!--<_SdkImplicitReference Include="Xamarin.iOS"/>-->
-	</ItemGroup>
-
 </Project>

@@ -41,7 +41,7 @@
 	<Target Name="BuildProject">
 		<CallTarget Targets="ShowMsbuildWithParameter"/>
 
-		<BuildLogTask BuildStarted="True"/>
+		<BuildLogTask BuildStarted="true"/>
 		<MSBuild Projects="$(MSBuildProjectFullPath)"/>
 		<BuildLogTask/>
 

@@ -1055,7 +1055,7 @@
 
 		<!-- Create the directories for intermediate and final build products, and any other arbitrary directories. -->
 		<!-- We are going to continue on error here so that if the tree is read only we will still get intellisense -->
-		<MakeDir Directories="$(OutDir);$(IntermediateOutputPath);@(DocFileItem->'%(RelativeDir)');@(CreateDirectory)" ContinueOnError="True"/>
+		<MakeDir Directories="$(OutDir);$(IntermediateOutputPath);@(DocFileItem->'%(RelativeDir)');@(CreateDirectory)" ContinueOnError="true"/>
 
 	</Target>
 
@@ -3330,7 +3330,7 @@
 			<Output TaskParameter="HashResult" PropertyName="CoreCompileDependencyHash"/>
 		</Hash>
 
-		<WriteLinesToFile Lines="$(CoreCompileDependencyHash)" File="$(IntermediateOutputPath)$(MSBuildProjectFile).CoreCompileInputs.cache" Overwrite="True" WriteOnlyWhenDifferent="True"/>
+		<WriteLinesToFile Lines="$(CoreCompileDependencyHash)" File="$(IntermediateOutputPath)$(MSBuildProjectFile).CoreCompileInputs.cache" Overwrite="true" WriteOnlyWhenDifferent="true"/>
 
 		<ItemGroup>
 			<FileWrites Include="$(IntermediateOutputPath)$(MSBuildProjectFile).CoreCompileInputs.cache"/>

@@ -170,7 +170,7 @@
 			<NuGetPackInput Include="@(_TargetPathsToSymbols->'%(FinalOutputPath)')"/>
 			<NuGetPackInput Include="@(_SourceFiles)"/>
 			<NuGetPackInput Include="@(_References)"/>
-			<NuGetPackOutput Include="@(_OutputPackItems)" />
+			<NuGetPackOutput Include="@(_OutputPackItems)"/>
 		</ItemGroup>
 	</Target>
 

@@ -4,15 +4,24 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" Condition="'$(TargetFramework)' != ''"/>
+
 	<PropertyGroup>
-		<DefaultLanguage Condition="'$(DefaultLanguage)' == ''">en</DefaultLanguage>
-		<_SdkVisualStudioVersion>$(VisualStudioVersion)</_SdkVisualStudioVersion>
-		<_SdkVisualStudioVersion Condition="'$(_SdkVisualStudioVersion)' == '' OR '$(_SdkVisualStudioVersion)' &lt; '14.0'">15.0</_SdkVisualStudioVersion>
+		<_SdkPlatformName>$(TargetFrameworkIdentifier)</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETCore' OR '$(TargetFrameworkIdentifier)' == 'WindowsPhoneApp'">Windows</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">Portable</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">Desktop</_SdkPlatformName>
+		<_SdkPlatformName Condition="$(TargetFrameworkIdentifier.StartsWith('Xamarin'))">Xamarin</_SdkPlatformName>
+		<_SdkPlatformName Condition="'$(TargetFrameworkIdentifier)' == 'MonoAndroid' OR '$(TargetFrameworkIdentifier)' == 'MonoTouch' OR '$(TargetFrameworkIdentifier)' == 'MonoMac'">Xamarin</_SdkPlatformName>
+
+		<_SdkPlatformTargets>$(MSBuildThisFileDirectory)Platforms\$(_SdkPlatformName).targets</_SdkPlatformTargets>
+		<_SdkLanguageTargets>$(MSBuildThisFileDirectory)LanguageTargets\$(_SdkPlatformName).targets</_SdkLanguageTargets>
+		<LanguageTargets Condition="Exists('$(_SdkLanguageTargets)')">$(_SdkLanguageTargets)</LanguageTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Inference.targets" Condition="'$(TargetFramework)' != ''"/>
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.OutputPaths.targets"/>
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Platforms.targets"/>
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Workarounds.targets" Condition="'$(UsingMSBuildSdk)' == ''"/>
+	<Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
+
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Extras.Items.targets"/>
+	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Workarounds.targets"/>
 
 </Project>

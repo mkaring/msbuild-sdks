@@ -12,4 +12,55 @@
 		<DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<!-- Don't generate assembly info for *.tmp_proj files -->
+		<GenerateAssemblyInfo Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">false</GenerateAssemblyInfo>
+		<EnableSettingsGenerator Condition="'$(EnableSettingsGenerator)' == ''">true</EnableSettingsGenerator>
+		<EnableUserControlDesigner Condition="'$(EnableUserControlDesigner)' == ''">true</EnableUserControlDesigner>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'Wpf'">
+		<EnableDefaultWpfItems>true</EnableDefaultWpfItems>
+		<EnableImplicitWpfReferences>true</EnableImplicitWpfReferences>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'AspNet'">
+		<EnableDefaultAspNetItems>true</EnableDefaultAspNetItems>
+		<EnableImplicitAspNetReferences>true</EnableImplicitAspNetReferences>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'WinForms'">
+		<EnableDefaultWinFormsItems>true</EnableDefaultWinFormsItems>
+		<EnableImplicitWinFormsReferences>true</EnableImplicitWinFormsReferences>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">false</EnableDefaultWpfItems>
+		<EnableDefaultAspNetItems Condition="'$(EnableDefaultAspNetItems)' == ''">false</EnableDefaultAspNetItems>
+		<EnableDefaultWinFormsItems Condition="'$(EnableDefaultWinFormsItems)' == ''">false</EnableDefaultWinFormsItems>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationDefinitionFile)' == ''">
+		<ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\App.xaml')">$(MSBuildProjectDirectory)\App.xaml</ApplicationDefinitionFile>
+		<ApplicationDefinitionFile Condition="Exists('$(MSBuildProjectDirectory)\Application.xaml')">$(MSBuildProjectDirectory)\Application.xaml</ApplicationDefinitionFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true'">
+		<EnableDefaultPageItems Condition="'$(EnableDefaultPageItems)' == ''">true</EnableDefaultPageItems>
+		<EnableDefaultResourceItems Condition="'$(EnableDefaultResourceItems)' == ''">true</EnableDefaultResourceItems>
+		<EnableDefaultApplicationDefinitionItems Condition="'$(EnableDefaultApplicationDefinitionItems)' == ''">true</EnableDefaultApplicationDefinitionItems>
+
+		<DefaultPageExcludes Condition="'$(DefaultPageExcludes)' != ''">$(DefaultPageExcludes);</DefaultPageExcludes>
+		<DefaultPageExcludes>$(DefaultPageExcludes)$(ApplicationDefinitionFile)</DefaultPageExcludes>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableDefaultAspNetItems)' == 'true'">
+		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
+		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+		<UserControlDesignerService Condition="'$(UserControlDesignerService)' == ''">{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}</UserControlDesignerService>
+	</PropertyGroup>
+
 </Project>

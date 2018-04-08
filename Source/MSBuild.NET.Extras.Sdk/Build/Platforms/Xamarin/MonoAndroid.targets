@@ -10,25 +10,11 @@
 		<!-- This is here to prevent a warning in the Xamarin.Android.Common.Debugging.targets when a blank is passed into _GetPrimaryCpuAbi -->
 		<AdbTarget Condition="'$(AdbTarget)' == ''">none</AdbTarget>
 		<AndroidClassParser Condition="'$(AndroidClassParser)' == ''">class-parse</AndroidClassParser>
+		<_SdkIncludeAndroidResgenFile Condition="'$(_SdkIncludeAndroidResgenFile)' == ''">true</_SdkIncludeAndroidResgenFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == ''">
-		<AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' != ''">true</AppendTargetFrameworkToOutputPath>
-		<AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' == ''">false</AppendTargetFrameworkToOutputPath>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(AndroidResgenFile)' == ''">
-		<_SdkIncludeAndroidResgenFile>true</_SdkIncludeAndroidResgenFile>
-		<AndroidResgenFile Condition="'$(AppendTargetFrameworkToOutputPath)' == 'false'">$(IntermediateOutputPath)Resource.Designer$(_SdkLanguageExtension)</AndroidResgenFile>
-		<AndroidResgenFile Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true'">$(IntermediateOutputPath)$(TargetFramework)\Resource.Designer$(_SdkLanguageExtension)</AndroidResgenFile>
-	</PropertyGroup>
-
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<!--<_SdkImplicitReference Include="Mono.Android"/>-->
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Include="$(AndroidResgenFile)" Condition="'$(_SdkIncludeAndroidResgenFile)' == 'true'" Visible="false"/>
+	<ItemGroup Condition="'$(_SdkIncludeAndroidResgenFile)' == 'true'">
+		<Compile Include="$(IntermediateOutputPath)Resource$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)" Visible="false"/>
 	</ItemGroup>
 
 </Project>

@@ -7,8 +7,12 @@
 	<PropertyGroup Condition="!$(TargetFramework.Contains(','))">
 		<!-- Convert $(TargetFramework) to lower case -->
 		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
-		<!-- if net-client is only specified then default to the highest supported version of the profile -->
+		<!-- if version-less framework-profile is specified then default to the highest supported version of that framework-profile -->
 		<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'netmf'">netmf44</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'net'">net45</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp81</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'sl'">sl5</TargetFramework>
 	</PropertyGroup>
 
 	<!--

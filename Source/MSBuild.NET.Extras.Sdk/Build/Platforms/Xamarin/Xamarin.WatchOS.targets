@@ -11,8 +11,4 @@
 		<MtouchUseSGen Condition="'$(MtouchUseSGen)' == ''">true</MtouchUseSGen>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<!--<_SdkImplicitReference Include="Xamarin.WatchOS"/>-->
-	</ItemGroup>
-
 </Project>

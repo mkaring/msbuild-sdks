@@ -1,0 +1,58 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+	</PropertyGroup>
+
+	<ItemDefinitionGroup Condition="'$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<SettingsFile>
+			<SubType>Designer</SubType>
+			<Generator>SettingsSingleFileGenerator</Generator>
+		</SettingsFile>
+	</ItemDefinitionGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<SettingsFile Include="**/*.settings">
+			<LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+			<LastGenOutputFile>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutputFile>
+		</SettingsFile>
+		<None Update="@(SettingsFile)"/>
+		<Compile Update="@(SettingsFile->'%(LastGenOutputFile)')">
+			<AutoGen>true</AutoGen>
+			<DesignTimeSharedInput>true</DesignTimeSharedInput>
+			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultAspNetItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<Compile Update="**/*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
+			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
+		</Compile>
+		<Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<_SdkImplicitReference Include="System.Xaml" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'"/>
+		<_SdkImplicitReference Include="WindowsBase" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+		<_SdkImplicitReference Include="PresentationCore" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+		<_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitAspNetReferences)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<_SdkImplicitReference Include="System.Web"/>
+		<_SdkImplicitReference Include="System.Web.Http"/>
+		<_SdkImplicitReference Include="System.Net.Http"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWinFormsReferences)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<_SdkImplicitReference Include="System.Design"/>
+		<_SdkImplicitReference Include="System.Drawing"/>
+		<_SdkImplicitReference Include="System.Deployment"/>
+		<_SdkImplicitReference Include="System.Windows.Forms"/>
+	</ItemGroup>
+
+</Project>

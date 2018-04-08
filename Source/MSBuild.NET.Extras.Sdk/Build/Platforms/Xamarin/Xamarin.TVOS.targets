@@ -10,8 +10,4 @@
 		<ConsolePause Condition="'$(ConsolePause)' == ''">false</ConsolePause>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
-		<!--<_SdkImplicitReference Include="Xamarin.TVOS"/>-->
-	</ItemGroup>
-
 </Project>
