@@ -61,13 +61,13 @@ At evaluation time, MSBuild adds implicit imports at the top and bottom of the p
 
 ```xml
 <Project>
-  <Import Project="Sdk.props" Sdk="MSBuild.NET.Sdk" />
+  <Import Project="Sdk.props" Sdk="MSBuild.NET.Sdk"/>
 
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="Sdk.targets" Sdk="MSBuild.NET.Sdk" />
+  <Import Project="Sdk.targets" Sdk="MSBuild.NET.Sdk"/>
 </Project>
 ```
 

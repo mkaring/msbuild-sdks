@@ -63,7 +63,7 @@
 		<RestoreBuildInParallel Condition="'$(BuildInParallel)' != ''">$(BuildInParallel)</RestoreBuildInParallel>
 		<RestoreBuildInParallel Condition="'$(RestoreBuildInParallel)' == ''">true</RestoreBuildInParallel>
 		<!-- Check if the restore target was executed on a sln file -->
-		<_RestoreSolutionFileUsed Condition="'$(_RestoreSolutionFileUsed)' == '' AND '$(SolutionDir)' != '' AND $(MSBuildProjectFullPath.EndsWith('.metaproj')) == 'true'" >true</_RestoreSolutionFileUsed>
+		<_RestoreSolutionFileUsed Condition="'$(_RestoreSolutionFileUsed)' == '' AND '$(SolutionDir)' != '' AND $(MSBuildProjectFullPath.EndsWith('.metaproj')) == 'true'">true</_RestoreSolutionFileUsed>
 	</PropertyGroup>
 
 	<PropertyGroup>

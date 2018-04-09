@@ -20,7 +20,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageFile Include="Readme.txt" />
+		<PackageFile Include="Readme.txt"/>
 	</ItemGroup>
 
 </Project>

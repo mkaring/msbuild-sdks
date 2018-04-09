@@ -4,20 +4,22 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<ItemDefinitionGroup Condition="'$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+	<ItemDefinitionGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
 		<SettingsFile>
 			<SubType>Designer</SubType>
-			<Generator>SettingsSingleFileGenerator</Generator>
+			<Generator Condition="'$(EnableSettingsGenerator)' == 'true'">SettingsSingleFileGenerator</Generator>
 		</SettingsFile>
 	</ItemDefinitionGroup>
 
-	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<SettingsFile Include="**/*.settings">
+	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<SettingsFile Include="**/*.settings"/>
+		<None Update="@(SettingsFile)"/>
+
+		<SettingsFile Update="**/*.settings" Condition="'$(EnableSettingsGenerator)' == 'true'">
 			<LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
 			<LastGenOutputFile>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutputFile>
 		</SettingsFile>
-		<None Update="@(SettingsFile)"/>
-		<Compile Update="@(SettingsFile->'%(LastGenOutputFile)')">
+		<Compile Update="@(SettingsFile->'%(LastGenOutputFile)')" Condition="'$(EnableSettingsGenerator)' == 'true'">
 			<AutoGen>true</AutoGen>
 			<DesignTimeSharedInput>true</DesignTimeSharedInput>
 			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
@@ -52,6 +54,7 @@
 		<_SdkImplicitReference Include="System.Design"/>
 		<_SdkImplicitReference Include="System.Drawing"/>
 		<_SdkImplicitReference Include="System.Deployment"/>
+		<_SdkImplicitReference Include="System.Windows"/>
 		<_SdkImplicitReference Include="System.Windows.Forms"/>
 	</ItemGroup>
 

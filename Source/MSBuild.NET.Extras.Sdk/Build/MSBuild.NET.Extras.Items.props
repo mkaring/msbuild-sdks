@@ -5,6 +5,13 @@
 	</PropertyGroup>
 
 	<ItemDefinitionGroup>
+		<Compile>
+			<SubType>Code</SubType>
+		</Compile>
+		<EmbeddedResource>
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:Compile</Generator>
+		</EmbeddedResource>
 		<Page>
 			<SubType>Designer</SubType>
 			<Generator>MSBuild:Compile</Generator>
@@ -17,15 +24,11 @@
 			<SubType>Designer</SubType>
 			<Generator>MSBuild:Compile</Generator>
 		</ApplicationDefinition>
-		<Compile>
-			<SubType>Code</SubType>
-		</Compile>
 	</ItemDefinitionGroup>
 
 	<ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true'">
 		<EmbeddedResource>
-			<SubType>Designer</SubType>
-			<Generator Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'false'">ResXFileCodeGenerator</Generator>
+			<Generator Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</Generator>
 			<Generator Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</Generator>
 		</EmbeddedResource>
 	</ItemDefinitionGroup>
@@ -48,6 +51,11 @@
 		<Compile Update="**/*.xaml$(DefaultLanguageSourceExtension)">
 			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '')</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultResourceItems)' == 'true'">
+		<None Remove="$(DefaultResourceIncludes)" Condition="'$(EnableDefaultPageItems)' != 'true'"/>
+		<Resource Include="$(DefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true' AND Exists('$(ApplicationDefinitionFile)')">

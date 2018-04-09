@@ -7,6 +7,6 @@
 		<PublishPath>$(SolutionDir)</PublishPath>
 	</PropertyGroup>-->
 
-	<!--<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.targets" />-->
+	<!--<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.targets"/>-->
 
 </Project>

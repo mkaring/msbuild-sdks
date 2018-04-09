@@ -4,6 +4,30 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'Wpf'">
+		<EnableWpfProjectSetup>true</EnableWpfProjectSetup>
+		<EnableAspNetProjectSetup>false</EnableAspNetProjectSetup>
+		<EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'AspNet'">
+		<EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+		<EnableAspNetProjectSetup>true</EnableAspNetProjectSetup>
+		<EnableWinFormsProjectSetup>false</EnableWinFormsProjectSetup>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'WinForms'">
+		<EnableWpfProjectSetup>false</EnableWpfProjectSetup>
+		<EnableAspNetProjectSetup>false</EnableAspNetProjectSetup>
+		<EnableWinFormsProjectSetup>true</EnableWinFormsProjectSetup>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(UsingLegacyProjectSystem)' == 'true'">
+		<ProjectTypeGuids Condition="'$(EnableWpfProjectSetup)' == 'true'">$(ProjectTypeGuids);{60DC8134-EBA5-43B8-BCC9-BB4BC16C2548}</ProjectTypeGuids>
+		<ProjectTypeGuids Condition="'$(EnableAspNetProjectSetup)' == 'true'">$(ProjectTypeGuids);{349C5851-65DF-11DA-9384-00065B846F21}</ProjectTypeGuids>
+		<ProjectTypeGuids Condition="'$(EnableWinFormsProjectSetup)' == 'true'">$(ProjectTypeGuids);{}</ProjectTypeGuids>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="$(_SdkShortFrameworkProfileCount) == 1 AND $(_SdkShortFrameworkProfile.Contains('+client+'))">
 		<TargetFrameworkProfile>Client</TargetFrameworkProfile>
 		<IncludeProjectPriFile>false</IncludeProjectPriFile>
@@ -15,29 +39,24 @@
 	<PropertyGroup>
 		<!-- Don't generate assembly info for *.tmp_proj files -->
 		<GenerateAssemblyInfo Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">false</GenerateAssemblyInfo>
+		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
 		<EnableSettingsGenerator Condition="'$(EnableSettingsGenerator)' == ''">true</EnableSettingsGenerator>
-		<EnableUserControlDesigner Condition="'$(EnableUserControlDesigner)' == ''">true</EnableUserControlDesigner>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'Wpf'">
-		<EnableDefaultWpfItems>true</EnableDefaultWpfItems>
-		<EnableImplicitWpfReferences>true</EnableImplicitWpfReferences>
+	<PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">
+		<EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">true</EnableDefaultWpfItems>
+		<EnableImplicitWpfReferences Condition="'$(EnableImplicitWpfReferences)' == ''">true</EnableImplicitWpfReferences>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'AspNet'">
-		<EnableDefaultAspNetItems>true</EnableDefaultAspNetItems>
-		<EnableImplicitAspNetReferences>true</EnableImplicitAspNetReferences>
+	<PropertyGroup Condition="'$(EnableAspNetProjectSetup)' == 'true'">
+		<EnableDefaultAspNetItems Condition="'$(EnableDefaultAspNetItems)' == ''">true</EnableDefaultAspNetItems>
+		<EnableImplicitAspNetReferences Condition="'$(EnableImplicitAspNetReferences)' == ''">true</EnableImplicitAspNetReferences>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(FrameworkProjectType)' == 'WinForms'">
-		<EnableDefaultWinFormsItems>true</EnableDefaultWinFormsItems>
-		<EnableImplicitWinFormsReferences>true</EnableImplicitWinFormsReferences>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<EnableDefaultWpfItems Condition="'$(EnableDefaultWpfItems)' == ''">false</EnableDefaultWpfItems>
-		<EnableDefaultAspNetItems Condition="'$(EnableDefaultAspNetItems)' == ''">false</EnableDefaultAspNetItems>
-		<EnableDefaultWinFormsItems Condition="'$(EnableDefaultWinFormsItems)' == ''">false</EnableDefaultWinFormsItems>
+	<PropertyGroup Condition="'$(EnableWinFormsProjectSetup)' == 'true'">
+		<EnableDefaultWinFormsItems Condition="'$(EnableDefaultWinFormsItems)' == ''">true</EnableDefaultWinFormsItems>
+		<EnableImplicitWinFormsReferences Condition="'$(EnableImplicitWinFormsReferences)' == ''">true</EnableImplicitWinFormsReferences>
+		<EnableUserControlDesigner Condition="'$(EnableUserControlDesigner)' == ''">false</EnableUserControlDesigner>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(EnableDefaultWpfItems)' == 'true' AND '$(ApplicationDefinitionFile)' == ''">
@@ -50,16 +69,16 @@
 		<EnableDefaultResourceItems Condition="'$(EnableDefaultResourceItems)' == ''">true</EnableDefaultResourceItems>
 		<EnableDefaultApplicationDefinitionItems Condition="'$(EnableDefaultApplicationDefinitionItems)' == ''">true</EnableDefaultApplicationDefinitionItems>
 
+		<DefaultResourceIncludes Condition="'$(DefaultResourceIncludes)' == ''">/Themes/*.xaml;/Resources/*.xaml</DefaultResourceIncludes>
 		<DefaultPageExcludes Condition="'$(DefaultPageExcludes)' != ''">$(DefaultPageExcludes);</DefaultPageExcludes>
-		<DefaultPageExcludes>$(DefaultPageExcludes)$(ApplicationDefinitionFile)</DefaultPageExcludes>
+		<DefaultPageExcludes>$(DefaultPageExcludes)$(ApplicationDefinitionFile);$(DefaultResourceIncludes)</DefaultPageExcludes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(EnableDefaultAspNetItems)' == 'true'">
-		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
+
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true'">
-		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
 		<UserControlDesignerService Condition="'$(UserControlDesignerService)' == ''">{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}</UserControlDesignerService>
 	</PropertyGroup>
 

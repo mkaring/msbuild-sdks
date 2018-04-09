@@ -14,9 +14,9 @@
 		<PublishPath>$(SolutionDir)</PublishPath>
 	</PropertyGroup>
 
-	<!--<Import Project="$(BuildToolsPath)Defaults.Author.props" />
-	<Import Project="$(BuildToolsPath)Defaults.Product.props" />
-	<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.props" />-->
+	<!--<Import Project="$(BuildToolsPath)Defaults.Author.props"/>
+	<Import Project="$(BuildToolsPath)Defaults.Product.props"/>
+	<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.props"/>-->
 
 	<PropertyGroup>
 		<DefaultItemExcludes>**\*~\;**\*~\**\*;**\*~.*</DefaultItemExcludes>

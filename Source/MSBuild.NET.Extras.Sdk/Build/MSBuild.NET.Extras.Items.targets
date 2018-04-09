@@ -12,7 +12,9 @@
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
 	</PropertyGroup>
 
-
+	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == ''">
+		<AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' == ''">false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
 		<!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
