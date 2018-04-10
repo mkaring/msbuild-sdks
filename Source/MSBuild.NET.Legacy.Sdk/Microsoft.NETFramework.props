@@ -1,21 +1,19 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
-
 	<Choose>
 		<When Condition="'$(MSBuildAssemblyVersion)' == ''">
 			<PropertyGroup>
-				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\Inbox\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
+				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)Inbox\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)\Current\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
+				<MicrosoftNETFrameworkPropsPath>$(MSBuildLegacySdkPath)Current\$(MSBuildThisFile)</MicrosoftNETFrameworkPropsPath>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'"/>
+	<Import Project="$(MSBuildLegacySdkPath)Extensions\$(MSBuildThisFile)" Condition="'$(ImportLegacyExtensionProps)' == 'true'"/>
 	<Import Project="$(MicrosoftNETFrameworkPropsPath)" Condition="'$(ImportLegacyExtensionProps)' != 'true'"/>
 
 </Project>

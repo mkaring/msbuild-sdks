@@ -4,6 +4,7 @@
 		<CustomProjectCorePropsPath>$(MSBuildThisFileDirectory)..\Microsoft.Common.targets</CustomProjectCorePropsPath>
 	</PropertyGroup>
 
+	<Import Project="$(MSBuildThisFileDirectory)..\Microsoft.Legacy.props" Condition="'$(ImportedMicrosoftLegacyProps)' != 'true'"/>
 	<Import Project="Sdk.targets" Sdk="MSBuild.Core.Sdk" Condition="'$(ImportedMSBuildCoreSdkTargets)' != 'true'"/>
 
 	<PropertyGroup>

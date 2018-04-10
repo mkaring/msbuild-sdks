@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<!-- Import does NOT apply to .NETCore -->
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.NETFramework.props" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' OR '$(TargetFrameworkIdentifier)' == 'Silverlight'"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.NETFramework.props" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' OR '$(TargetFrameworkIdentifier)' == 'Silverlight'"/>
 
 	<PropertyGroup>
 		<!-- Yield optimization properties -->
@@ -1631,7 +1631,7 @@
 				<TargetFrameworks Condition="'$(TargetFrameworks)' != ''">$(TargetFrameworks)</TargetFrameworks>
 				<TargetFrameworks Condition="'$(TargetFrameworks)' == ''">$(TargetFramework)</TargetFrameworks>
 				<HasSingleTargetFramework>true</HasSingleTargetFramework>
-				<HasSingleTargetFramework Condition="'$(IsMultiTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
+				<HasSingleTargetFramework Condition="'$(IsCrossTargetingBuild)' == 'true'">false</HasSingleTargetFramework>
 				<!-- indicate to caller that project is RID agnostic so that a global property RuntimeIdentifier value can be removed -->
 				<IsRidAgnostic>false</IsRidAgnostic>
 				<IsRidAgnostic Condition="'$(RuntimeIdentifier)' == '' AND '$(RuntimeIdentifiers)' == ''">true</IsRidAgnostic>
@@ -3220,7 +3220,7 @@
 	<Target Name="GenerateTargetFrameworkMonikerAttribute"
 			BeforeTargets="BeforeCompile"
 			DependsOnTargets="PrepareForBuild;GetReferenceAssemblyPaths"
-			Inputs="$(MSBuildLegacySdkPath)\Microsoft.Common.targets"
+			Inputs="$(MSBuildLegacySdkPath)Microsoft.Common.targets"
 			Outputs="$(TargetFrameworkMonikerAssemblyAttributesPath)"
 			Condition="'$(GenerateTargetFrameworkAttribute)' == 'true'">
 
@@ -5790,21 +5790,21 @@
 
 	<Import Project="$(ReportingServicesTargets)" Condition="Exists('$(ReportingServicesTargets)')"/>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.NETFramework.targets" Condition="('$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkIdentifier)' == '.NETFramework') AND '$(TargetRuntime)' == 'Managed'"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.NETFramework.targets" Condition="('$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkIdentifier)' == '.NETFramework') AND '$(TargetRuntime)' == 'Managed'"/>
 
 	<!-- These imports are temporary and will be removed once it is moved into the silverlight targets -->
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.WinFX.targets')"/>
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.Data.Entity.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.WinFX.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' AND Exists('$(MSBuildLegacySdkPath)Microsoft.WinFX.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.Data.Entity.targets" Condition="'$(TargetFrameworkIdentifier)' == 'Silverlight' AND Exists('$(MSBuildLegacySdkPath)Microsoft.Data.Entity.targets')"/>
 
 	<PropertyGroup>
 		<ImportXamlTargets Condition="'$(ImportXamlTargets)' == '' AND ('$(TargetFrameworkVersion.TrimStart(vV))' == '3.0' OR '$(TargetFrameworkVersion.TrimStart(vV))' >= '4.0')">true</ImportXamlTargets>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets" Condition="'$(ImportXamlTargets)' == 'true' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.Xaml.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.Xaml.targets" Condition="'$(ImportXamlTargets)' == 'true' AND Exists('$(MSBuildLegacySdkPath)Microsoft.Xaml.targets')"/>
 
 	<!-- imports Microsoft.WorkflowBuildExtensions.targets only if TargetFrameworkVersion is v4.5 or above or TargetFrameworkfVersion specified does not conform to the format of vX.X[.X.X] -->
 	<!-- Underlying assumption is that there shouldn't be any other versions between v4.0.* and v4.5 -->
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets" Condition="'$(TargetFrameworkVersion.TrimStart(vV))' >= '4.5' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.WorkflowBuildExtensions.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.WorkflowBuildExtensions.targets" Condition="'$(TargetFrameworkVersion.TrimStart(vV))' >= '4.5' AND Exists('$(MSBuildLegacySdkPath)Microsoft.WorkflowBuildExtensions.targets')"/>
 
 	<PropertyGroup>
 		<MSTestToolsTargets Condition="'$(MSTestToolsTargets)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TeamTest\Microsoft.TeamTest.targets</MSTestToolsTargets>

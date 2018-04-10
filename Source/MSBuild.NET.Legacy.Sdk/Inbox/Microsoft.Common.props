@@ -12,6 +12,6 @@
 	</PropertyGroup>
 
 	<Import Project="$(MicrosoftCommonProps40Path)" Condition="Exists('$(MicrosoftCommonProps40Path)')"/>
-	<Import Project="$(MSBuildLegacySdkPath)\Current\Microsoft.Common.props"/>
+	<Import Project="$(MSBuildLegacySdkPath)Current\Microsoft.Common.props"/>
 
 </Project>

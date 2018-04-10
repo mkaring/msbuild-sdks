@@ -290,8 +290,8 @@
 	</PropertyGroup>
 	<Import Project="$(VisualBasicDesignTimeTargetsPath)" Condition="'$(VisualBasicDesignTimeTargetsPath)' != '' AND Exists('$(VisualBasicDesignTimeTargetsPath)')"/>
 
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.Common.targets"/>
-	<Import Project="$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets" Condition="'$(TargetFrameworkVersion.TrimStart(vV))' >= '4.0' AND Exists('$(MSBuildLegacySdkPath)\Microsoft.ServiceModel.targets')"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.Common.targets"/>
+	<Import Project="$(MSBuildLegacySdkPath)Microsoft.ServiceModel.targets" Condition="'$(TargetFrameworkVersion.TrimStart(vV))' >= '4.0' AND Exists('$(MSBuildLegacySdkPath)Microsoft.ServiceModel.targets')"/>
 
 	<Target Name="_SetTargetFrameworkMonikerAttribute" BeforeTargets="GenerateTargetFrameworkMonikerAttribute">
 		<PropertyGroup>
