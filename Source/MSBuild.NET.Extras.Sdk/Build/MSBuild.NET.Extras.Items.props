@@ -27,13 +27,6 @@
 		</ApplicationDefinition>
 	</ItemDefinitionGroup>
 
-	<ItemDefinitionGroup Condition="'$(EnableEmbeddedResourceGenerator)' == 'true'">
-		<EmbeddedResource>
-			<Generator Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</Generator>
-			<Generator Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-	</ItemDefinitionGroup>
-
 	<PropertyGroup>
 		<!-- REGEX: '(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24' for LCIDs -->
 		<LangIdRegEx>(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24</LangIdRegEx>
@@ -43,12 +36,12 @@
 		HACK: WORST HACK IN THE HISTORY OF HACKS!
 		TODO: Replace with a more elegant solution without involving RegEx if pssible!
 	-->
-	<ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceGenerator)' == 'true'">
+	<ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
 		<EmbeddedResource Update="**\*.resx">
 			<HasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(LangIdRegEx)'))</HasLangId>
 		</EmbeddedResource>
 		<EmbeddedResource Update="**\*.resx">
-			<Generator Condition="%(HasLangId)">MSBuild:Compile</Generator>
+			<Generator Condition="!%(HasLangId)">$(EmbeddedResourceCodeGeneratorTool)</Generator>
 			<LastGenOutput Condition="!%(HasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
 			<GenFilePath Condition="!%(HasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
 			<DependentUpon Condition="%(HasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)', '%(Extension)'))</DependentUpon>

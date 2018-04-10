@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultAspNetItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-
+		<!-- TODO: Add Support ASP.NET Projects -->
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
@@ -37,7 +37,13 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<!--<Compile Update="@(Compile->'%(DependentUpon)')" SubType="Form"/>-->
+		<EmbeddedResource Update="**\*.resx" Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+			<DependentUpon Condition="'$(DependentUpon)' != ''">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)|\$(DefaultDesignerFileSuffix)', '%(DefaultLanguageSourceExtension)'))</DependentUpon>
+		</EmbeddedResource>
+		<!--
+			TODO: Add SubType(s) for Windows Forms Project
+			ISSUE: SubType(s) for Windows Forms Project doesn't work in CPS anyway!
+		-->
 		<Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
 	</ItemGroup>
 

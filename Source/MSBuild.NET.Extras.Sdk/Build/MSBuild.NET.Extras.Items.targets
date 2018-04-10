@@ -5,11 +5,15 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<EnableEmbeddedResourceGenerator Condition="'$(EnableEmbeddedResourceGenerator)' == ''">true</EnableEmbeddedResourceGenerator>
-		<EmbeddedResourceGeneratedCodeIsPublic Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == ''">false</EmbeddedResourceGeneratedCodeIsPublic>
+		<EnableEmbeddedResourceCodeGenerator Condition="'$(EnableEmbeddedResourceCodeGenerator)' == ''">true</EnableEmbeddedResourceCodeGenerator>
 		<DefaultDesignerFileSuffix Condition="'$(DefaultDesignerFileSuffix)' == ''">.Designer</DefaultDesignerFileSuffix>
 		<!-- Add conditional compilation symbols for the target framework (for example NET471, NETSTANDARD2_0, NETCOREAPP2_1) -->
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(TargetFramework.Replace('.','_').ToUpperInvariant())</ImplicitFrameworkDefine>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
+		<EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' != 'true'">ResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
+		<EmbeddedResourceCodeGeneratorTool Condition="'$(EmbeddedResourceGeneratedCodeIsPublic)' == 'true'">PublicResXFileCodeGenerator</EmbeddedResourceCodeGeneratorTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(AppendTargetFrameworkToOutputPath)' == ''">
