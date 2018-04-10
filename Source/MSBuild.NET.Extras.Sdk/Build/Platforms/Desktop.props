@@ -4,23 +4,23 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<ItemDefinitionGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<SettingsFile>
-			<SubType>Designer</SubType>
-			<Generator Condition="'$(EnableSettingsGenerator)' == 'true'">SettingsSingleFileGenerator</Generator>
-		</SettingsFile>
-	</ItemDefinitionGroup>
-
 	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<SettingsFile Include="**/*.settings"/>
-		<None Update="@(SettingsFile)"/>
+		<None Update="**\*.settings" SubType="Designer"/>
+	</ItemGroup>
 
-		<SettingsFile Update="**/*.settings" Condition="'$(EnableSettingsGenerator)' == 'true'">
+	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<None Update="**\*.settings">
+			<Generator>SettingsSingleFileGenerator</Generator>
 			<LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
-			<LastGenOutputFile>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutputFile>
-		</SettingsFile>
-		<Compile Update="@(SettingsFile->'%(LastGenOutputFile)')" Condition="'$(EnableSettingsGenerator)' == 'true'">
+		</None>
+
+		<_SettingsFiles Include="**\*.settings">
+			<GenFilePath>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+		</_SettingsFiles>
+
+		<Compile Update="@(_SettingsFiles->'%(GenFilePath)')">
 			<AutoGen>true</AutoGen>
+			<DesignTime>true</DesignTime>
 			<DesignTimeSharedInput>true</DesignTimeSharedInput>
 			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.settings'))</DependentUpon>
 		</Compile>
@@ -30,10 +30,14 @@
 
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<Compile Update="**/*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
-			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
+	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<Compile Update="**\*$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)">
+			<DependentUpon Condition="'%(DependentUpon)' == ''">$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '$(DefaultLanguageSourceExtension)'))</DependentUpon>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultWinFormsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<!--<Compile Update="@(Compile->'%(DependentUpon)')" SubType="Form"/>-->
 		<Service Include="$(UserControlDesignerService)" Condition="'$(EnableUserControlDesigner)' == 'true'"/>
 	</ItemGroup>
 

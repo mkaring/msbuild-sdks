@@ -14,7 +14,8 @@
 		</EmbeddedResource>
 		<Page>
 			<SubType>Designer</SubType>
-			<Generator>MSBuild:Compile</Generator>
+			<!-- XamlIntelliSenseFileGenerator, UpdateDesignTimeXaml -->
+			<Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
 		</Page>
 		<Resource>
 			<SubType>Designer</SubType>
@@ -22,7 +23,7 @@
 		</Resource>
 		<ApplicationDefinition>
 			<SubType>Designer</SubType>
-			<Generator>MSBuild:Compile</Generator>
+			<Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
 		</ApplicationDefinition>
 	</ItemDefinitionGroup>
 
@@ -33,34 +34,51 @@
 		</EmbeddedResource>
 	</ItemDefinitionGroup>
 
+	<PropertyGroup>
+		<!-- REGEX: '(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24' for LCIDs -->
+		<LangIdRegEx>(?:\.([a-z]{2,3})(?:-([A-Z][a-z]{3}|[a-z]{3,5}))?(?:-([A-Z]{2}))?)%24</LangIdRegEx>
+	</PropertyGroup>
+
+	<!--
+		HACK: WORST HACK IN THE HISTORY OF HACKS!
+		TODO: Replace with a more elegant solution without involving RegEx if pssible!
+	-->
 	<ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceGenerator)' == 'true'">
-		<EmbeddedResource Update="**/*.resx">
-			<LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
-			<LastGenOutputFile>%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutputFile>
+		<EmbeddedResource Update="**\*.resx">
+			<HasLangId>$([System.Text.RegularExpressions.Regex]::IsMatch('%(FileName)', '$(LangIdRegEx)'))</HasLangId>
 		</EmbeddedResource>
-		<Compile Update="@(EmbeddedResource->'%(LastGenOutputFile)')">
+		<EmbeddedResource Update="**\*.resx">
+			<Generator Condition="%(HasLangId)">MSBuild:Compile</Generator>
+			<LastGenOutput Condition="!%(HasLangId)">%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
+			<GenFilePath Condition="!%(HasLangId)">%(RecursiveDir)%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</GenFilePath>
+			<DependentUpon Condition="%(HasLangId)">$([System.Text.RegularExpressions.Regex]::Replace('%(FileName)', '$(LangIdRegEx)', '%(Extension)'))</DependentUpon>
+		</EmbeddedResource>
+		<Compile Update="@(EmbeddedResource->'%(GenFilePath)')">
 			<AutoGen>true</AutoGen>
 			<DesignTime>true</DesignTime>
+			<DesignTimeSharedInput>true</DesignTimeSharedInput>
 			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '').Replace('$(DefaultDesignerFileSuffix)', '.resx'))</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
-		<None Remove="**/*.xaml"/>
-		<Page Include="**/*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultPageExcludes)"/>
-		<Compile Update="**/*.xaml$(DefaultLanguageSourceExtension)">
-			<DependentUpon>$([MSBuild]::ValueOrDefault('%(Filename)', '')</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultResourceItems)' == 'true'">
 		<None Remove="$(DefaultResourceIncludes)" Condition="'$(EnableDefaultPageItems)' != 'true'"/>
-		<Resource Include="$(DefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)"/>
+		<Resource Include="$(DefaultResourceIncludes)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultResourceExcludes)">
+			<Generator>MSBuild:XamlIntelliSenseFileGenerator</Generator>
+		</Resource>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true' AND Exists('$(ApplicationDefinitionFile)')">
+	<ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
 		<None Remove="$(ApplicationDefinitionFile)"/>
-		<ApplicationDefinition Include="$(ApplicationDefinitionFile)"/>
+		<ApplicationDefinition Include="$(ApplicationDefinitionFile)" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultPageItems)' == 'true'">
+		<None Remove="**\*.xaml"/>
+		<Page Include="**\*.xaml" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder);$(DefaultPageExcludes)"/>
+		<Compile Update="**\*.xaml$(DefaultLanguageSourceExtension)">
+			<DependentUpon>%(Filename)</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<!-- Include the default platform packages  -->
