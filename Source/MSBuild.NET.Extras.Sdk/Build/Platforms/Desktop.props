@@ -5,12 +5,14 @@
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<None Update="**\*.settings" SubType="Designer"/>
+		<None Update="**\*.settings" SubType="Designer">
+			<Generator Condition="'$(EnableSettingsCodeGenerator)' == 'false'">MSBuild:Compile</Generator>
+		</None>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
+	<ItemGroup Condition="'$(EnableDefaultSettingsItems)' == 'true' AND '$(EnableSettingsCodeGenerator)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
 		<None Update="**\*.settings">
-			<Generator>SettingsSingleFileGenerator</Generator>
+			<Generator>$(SettingsCodeGeneratorTool)</Generator>
 			<LastGenOutput>%(Filename)$(DefaultDesignerFileSuffix)$(DefaultLanguageSourceExtension)</LastGenOutput>
 		</None>
 
@@ -48,10 +50,10 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitWpfReferences)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">
-		<_SdkImplicitReference Include="System.Xaml" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.5'"/>
-		<_SdkImplicitReference Include="WindowsBase" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
-		<_SdkImplicitReference Include="PresentationCore" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
-		<_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+		<_SdkImplicitReference Include="System.Xaml" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '4.0'"/>
+		<_SdkImplicitReference Include="WindowsBase" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+		<_SdkImplicitReference Include="PresentationCore" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
+		<_SdkImplicitReference Include="PresentationFramework" Condition="'$(_TargetFrameworkVersionWithoutV)' >= '3.0'"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(EnableImplicitAspNetReferences)' == 'true' AND '$(TargetFrameworkIdentifier)' == '.NETFramework'">

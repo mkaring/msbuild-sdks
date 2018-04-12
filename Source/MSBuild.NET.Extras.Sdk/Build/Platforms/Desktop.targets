@@ -37,10 +37,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<!-- Don't generate assembly info for *.tmp_proj files -->
-		<GenerateAssemblyInfo Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">false</GenerateAssemblyInfo>
 		<EnableDefaultSettingsItems Condition="'$(EnableDefaultSettingsItems)' == ''">true</EnableDefaultSettingsItems>
-		<EnableSettingsGenerator Condition="'$(EnableSettingsGenerator)' == ''">true</EnableSettingsGenerator>
+		<EnableSettingsCodeGenerator Condition="'$(EnableSettingsCodeGenerator)' == ''">true</EnableSettingsCodeGenerator>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableSettingsCodeGenerator)' == 'true'">
+		<SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' != 'true'">SettingsSingleFileGenerator</SettingsCodeGeneratorTool>
+		<SettingsCodeGeneratorTool Condition="'$(SettingsGeneratedCodeIsPublic)' == 'true'">PublicSettingsSingleFileGenerator</SettingsCodeGeneratorTool>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(EnableWpfProjectSetup)' == 'true'">

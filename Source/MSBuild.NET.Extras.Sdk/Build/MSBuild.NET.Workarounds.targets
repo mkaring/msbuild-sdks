@@ -52,4 +52,12 @@
 		</ItemGroup>
 	</Target>
 
+	<!--
+		WPF sometimes creates a temporary project, since it changes the peoject file, it breaks Project Extensions import.
+		In order to properly import Project Extensions, we need the user to set '_SdkOriginalProjectFile' and use it to import Project Extensions.
+	-->
+	<ImportGroup Condition="'$(_SdkOriginalProjectFile)' != '' AND '$(ImportProjectExtensionTargets)' == 'true'">
+		<Import Project="$(_SdkOriginalProjectExtensionsPath)$(_SdkOriginalProjectFile).*.targets" Condition="'Exists('$(_SdkOriginalProjectExtensionsPath)')"/>
+	</ImportGroup>
+
 </Project>

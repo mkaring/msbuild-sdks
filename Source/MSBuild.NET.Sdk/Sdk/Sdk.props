@@ -2,16 +2,9 @@
 
 	<Import Project="Sdk.props" Sdk="MSBuild.Core.Sdk"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.Sdk.Bundles.props"/>
+	<Import Project="Sdk.Bundles.props"/>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Sdk.props"/>
-
-	<PropertyGroup>
-		<!-- TODO: Change once the migration is done. -->
-		<ImportNuGetPackagingSdkProps Condition="'$(ImportNuGetPackagingSdkProps)' == ''">false</ImportNuGetPackagingSdkProps>
-	</PropertyGroup>
-
-	<Import Project="Sdk.props" Sdk="NuGet.Packaging.Sdk" Condition="'$(ImportNuGetPackagingSdkProps)' == 'true'"/>
 
 	<PropertyGroup>
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>

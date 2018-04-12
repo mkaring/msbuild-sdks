@@ -34,7 +34,7 @@
 
 	<!--
 		HACK: WORST HACK IN THE HISTORY OF HACKS!
-		TODO: Replace with a more elegant solution without involving RegEx if pssible!
+		TODO: Replace with a more elegant solution without involving RegEx if it's even pssible!
 	-->
 	<ItemGroup Condition="'$(EnableDefaultEmbeddedResourceItems)' == 'true' AND '$(EnableEmbeddedResourceCodeGenerator)' == 'true'">
 		<EmbeddedResource Update="**\*.resx">
@@ -77,7 +77,7 @@
 	<!-- Include the default platform packages  -->
 	<!-- TODO: use metadata to detect if we've added it or it already exists -->
 
-	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore'">
+	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0'">
 		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.*" IsImplicitlyDefined="true"/>
 		<PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" Publish="false"
 			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'"/>
