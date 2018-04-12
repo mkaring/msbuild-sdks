@@ -1,12 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<!--
-		Sets RestoreAdditionalProjectSources or RestoreAdditionalProjectFallbackFolders to the SDK Offline Cache
-		based on the TargetFramework.
-	-->
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\NuGet.OfflineCache.targets"/>
-
-	<!--
 		Expand TargetFramework to TargetFrameworkIdentifier and TargetFrameworkVersion,
 		and adjust intermediate and output paths to include it.
 	-->
@@ -62,15 +56,21 @@
 		<GenerateDependencyFile Condition="'$(GenerateDependencyFile)' == ''">$(PreserveCompilationContext)</GenerateDependencyFile>
 	</PropertyGroup>
 
+	<!-- Set the PublishDirName to name your output folder containing the assemblies, by default it's AssemblyName -->
+	<PropertyGroup>
+		<PublishDirName Condition="'$(PublishDirName)' == ''">$(AssemblyName)</PublishDirName>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<!-- ensure the PublishDir is RID specific-->
+		<PublishDirName Condition="'$(IsRuntimeIdentifierAppendable)' == 'true'">$(PublishDirName)_$(RuntimeIdentifier)</PublishDirName>
+		<PublishDirName Condition="'$(IsRuntimeIdentifierAppendable)' != 'true' AND '$(Platform)' != 'AnyCPU'">$(PublishDirName)_$(Platform)</PublishDirName>
+		<PublishDirName Condition="'$(Configuration)' != 'Release'">$(PublishDirName)_$(Configuration)</PublishDirName>
+	</PropertyGroup>
+
 	<!-- Set PublishDir here, before Microsoft.Common.targets, to avoid a competing default there. -->
 	<PropertyGroup>
-		<PublishDirName Condition="'$(PublishDirName)' == ''">publish</PublishDirName>
-		<!-- ensure the PublishDir is RID specific-->
-		<PublishDir Condition="'$(PublishDir)' == '' and
-			'$(AppendRuntimeIdentifierToOutputPath)' != 'true' and
-			'$(RuntimeIdentifier)' != '' and
-			'$(_UsingDefaultRuntimeIdentifier)' != 'true'">$(OutputPath)$(RuntimeIdentifier)\$(PublishDirName)\</PublishDir>
-		<PublishDir Condition="'$(PublishDir)' == ''">$(OutputPath)$(PublishDirName)\</PublishDir>
+		<PublishDir>$(PublishDir)$(PublishDirName)\</PublishDir>
 	</PropertyGroup>
 
 	<!-- For .NET Framework, reference core assemblies -->

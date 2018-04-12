@@ -77,9 +77,9 @@
 			IncludeSymbols="$(IncludeSymbols)"
 			IncludeSource="$(IncludeSource)">
 
-		<Output
-			TaskParameter="OutputPackItems"
-			ItemName="_OutputPackItems"/>
+			<Output
+				TaskParameter="OutputPackItems"
+				ItemName="_OutputPackItems"/>
 		</GetPackOutputItemsTask>
 	</Target>
 
@@ -104,13 +104,13 @@
 			TargetPlatformIdentifier="$(TargetPlatformIdentifier)"
 			TargetPlatformVersion="$(TargetPlatformVersion)"
 			TargetPlatformMinVersion="$(TargetPlatformMinVersion)">
-		<Output
-			TaskParameter="ProjectTargetFrameworks"
-			PropertyName="_ProjectFrameworks"/>
+			<Output
+				TaskParameter="ProjectTargetFrameworks"
+				PropertyName="_ProjectFrameworks"/>
 		</GetProjectTargetFrameworksTask>
 
 		<ItemGroup Condition="'$(_ProjectFrameworks)' != ''">
-		<_TargetFrameworks Include="$(_ProjectFrameworks.Split(';'))"/>
+			<_TargetFrameworks Include="$(_ProjectFrameworks.Split(';'))"/>
 		</ItemGroup>
 	</Target>
 
@@ -317,9 +317,9 @@
 			Targets="_GetBuildOutputFilesWithTfm"
 			Properties="TargetFramework=%(_TargetFrameworks.Identity);">
 
-		<Output
-			TaskParameter="TargetOutputs"
-			ItemName="_BuildOutputInPackage"/>
+			<Output
+				TaskParameter="TargetOutputs"
+				ItemName="_BuildOutputInPackage"/>
 		</MSBuild>
 
 		<MSBuild
@@ -328,9 +328,9 @@
 			Targets="_GetTfmSpecificContentForPackage"
 			Properties="TargetFramework=%(_TargetFrameworks.Identity);">
 
-		<Output
-			TaskParameter="TargetOutputs"
-			ItemName="_PackageFiles"/>
+			<Output
+				TaskParameter="TargetOutputs"
+				ItemName="_PackageFiles"/>
 		</MSBuild>
 
 		<MSBuild
@@ -339,9 +339,9 @@
 			Targets="_GetDebugSymbolsWithTfm"
 			Properties="TargetFramework=%(_TargetFrameworks.Identity);">
 
-		<Output
-			TaskParameter="TargetOutputs"
-			ItemName="_TargetPathsToSymbols"/>
+			<Output
+				TaskParameter="TargetOutputs"
+				ItemName="_TargetPathsToSymbols"/>
 		</MSBuild>
 
 		<MSBuild
@@ -351,9 +351,9 @@
 			Properties="TargetFramework=%(_TargetFrameworks.Identity);
 						BuildProjectReferences=false;">
 
-		<Output
-			TaskParameter="TargetOutputs"
-			ItemName="_SourceFiles"/>
+			<Output
+				TaskParameter="TargetOutputs"
+				ItemName="_SourceFiles"/>
 		</MSBuild>
 
 		<MSBuild
@@ -362,16 +362,16 @@
 			Properties="TargetFramework=%(_TargetFrameworks.Identity);
 						BuildProjectReferences=false;">
 
-		<Output
-			TaskParameter="TargetOutputs"
-			ItemName="_FrameworkAssemblyReferences"/>
+			<Output
+				TaskParameter="TargetOutputs"
+				ItemName="_FrameworkAssemblyReferences"/>
 		</MSBuild>
 	</Target>
 
 	<Target Name ="_GetFrameworkAssemblyReferences" DependsOnTargets="ResolveReferences" Returns="@(TfmSpecificFrameworkAssemblyReferences)">
 		<ItemGroup>
 			<TfmSpecificFrameworkAssemblyReferences Include="@(ReferencePath->'%(OriginalItemSpec)')"
-			Condition="'%(ReferencePath.Pack)' != 'false' AND '%(ReferencePath.ResolvedFrom)' == '{TargetFrameworkDirectory}'">
+				Condition="'%(ReferencePath.Pack)' != 'false' AND '%(ReferencePath.ResolvedFrom)' == '{TargetFrameworkDirectory}'">
 				<TargetFramework>$(TargetFramework)</TargetFramework>
 			</TfmSpecificFrameworkAssemblyReferences>
 		</ItemGroup>

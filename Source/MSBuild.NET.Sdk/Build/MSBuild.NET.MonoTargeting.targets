@@ -3,6 +3,13 @@
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.BeforeLegacy.targets"/>
 
 	<!--
+		TODO: Remove once you made it independent of TargetFramework!
+		Sets RestoreAdditionalProjectSources or RestoreAdditionalProjectFallbackFolders
+		to the SDK Offline Cache based on the TargetFramework.
+	-->
+	<Import Project="$(MSBuildThisFileDirectory)..\Extensions\NuGet.OfflineCache.targets"/>
+
+	<!--
 		NOTE: The `LanguageTargets` still Imports `Microsoft.Common.targets` which in-turn imports `ProjectExtension` and `DirectoryBuild` targets
 		So we need to disable it and re-enable it after the Legacy Imports to continue with the `MSBuild.Core.Sdk` flow.
 		TODO: Remove once the migration is complete and we no longer need/support the legacy targets.

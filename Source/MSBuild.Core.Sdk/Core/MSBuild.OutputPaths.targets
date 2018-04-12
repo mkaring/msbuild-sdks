@@ -51,13 +51,21 @@
 		<PublishFolder Condition="'$(PublishFolder)' == ''">publish</PublishFolder>
 		<PublishPath Condition="'$(PublishPath)' == ''">$(PublishFolder)\</PublishPath>
 		<PublishPath Condition="!HasTrailingSlash('$(PublishPath)')">$(PublishPath)\</PublishPath>
-		<PublishPath Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) AND !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">$(PublishPath)$(PublishFolder)\</PublishPath>
-
-		<PublishDir Condition="'$(Platform)' == 'AnyCPU'">$(PublishPath)$(Configuration)\</PublishDir>
-		<PublishDir Condition="'$(Platform)' != 'AnyCPU'">$(PublishPath)$(Configuration)-$(Platform)\</PublishDir>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)NuGet.OutputPaths.targets"/>
+	<PropertyGroup Label="Publish" Condition="$([System.IO.Path]::IsPathRooted('$(PublishPath)')) AND !$(PublishPath.StartsWith('$(MSBuildProjectDirectory)'))">
+		<PublishPath>$(PublishPath)$(PublishFolder)\</PublishPath>
+		<PublishPath Condition="'$(AppendProjectNameToPublishPath)' == 'true'">$(PublishPath)$(MSBuildProjectName)\</PublishPath>
+	</PropertyGroup>
+
+	<!--
+		TODO: Remove if other Sdks no longer need it!
+		Set PublishDir here, before Microsoft.Common.targets, to avoid a competing default there.
+		Reset PublishDir here, Since we made OutDir -> BuildPath and PublishDir -> PublishPath as the new Output defaults
+	-->
+	<!--<PropertyGroup Label="Publish.Legacy">
+		<PublishDir>$(PublishPath)</PublishDir>
+	</PropertyGroup>-->
 
 	<PropertyGroup>
 		<ImportedMSBuildOutputPathsTargets>true</ImportedMSBuildOutputPathsTargets>

@@ -72,11 +72,16 @@
 
 		<When Condition="$(RuntimeIdentifier.EndsWith('-arm')) OR $(RuntimeIdentifier.Contains('-arm-'))">
 			<PropertyGroup>
-				<PlatformTarget>arm</PlatformTarget>
+				<PlatformTarget>ARM</PlatformTarget>
 			</PropertyGroup>
 		</When>
 
-		<!-- NOTE: PlatformTarget=arm64 is not currently supported and therefore no inference of that here. -->
+		<When Condition="$(RuntimeIdentifier.EndsWith('-arm64')) OR $(RuntimeIdentifier.Contains('-arm64-'))">
+			<PropertyGroup>
+				<PlatformTarget>ARM64</PlatformTarget>
+			</PropertyGroup>
+		</When>
+
 		<Otherwise>
 			<PropertyGroup>
 				<PlatformTarget>AnyCPU</PlatformTarget>
@@ -123,16 +128,16 @@
 	<PropertyGroup>
 		<!-- Projects can opt out of having the RID appended to the output path by setting this to false. -->
 		<AppendRuntimeIdentifierToOutputPath Condition="'$(AppendRuntimeIdentifierToOutputPath)' == ''">true</AppendRuntimeIdentifierToOutputPath>
+		<!-- Check if the RuntimeIdentifier is appendable, this is only if not using single/default along with the user's preference -->
+		<IsRuntimeIdentifierAppendable Condition="'$(RuntimeIdentifier)' != '' AND '$(_UsingDefaultRuntimeIdentifier)' != 'true' AND '$(AppendRuntimeIdentifierToOutputPath)' == 'true'">true</IsRuntimeIdentifierAppendable>
 	</PropertyGroup>
 
 	<!--
-		Append $(RuntimeIdentifier) directory to output and intermediate paths to prevent bin clashes between
-		targets.
-
+		Append $(RuntimeIdentifier) directory to output and intermediate paths to prevent bin clashes between targets.
 		But do not append the implicit default runtime identifier for .NET Framework apps as that would
 		append a RID the user never mentioned in the path and do so even in the AnyCPU case.
 	-->
-	<PropertyGroup Condition="'$(AppendRuntimeIdentifierToOutputPath)' == 'true' AND '$(RuntimeIdentifier)' != '' AND '$(_UsingDefaultRuntimeIdentifier)' != 'true'">
+	<PropertyGroup Condition="'$(IsRuntimeIdentifierAppendable)' == 'true'">
 		<IntermediateOutputPath>$(IntermediateOutputPath)$(RuntimeIdentifier)\</IntermediateOutputPath>
 		<OutputPath>$(OutputPath)$(RuntimeIdentifier)\</OutputPath>
 	</PropertyGroup>
