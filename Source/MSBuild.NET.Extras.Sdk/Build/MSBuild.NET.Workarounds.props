@@ -4,11 +4,6 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.tmp_proj'">
-		<!-- Don't generate assembly info for *.tmp_proj files -->
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	</PropertyGroup>
-
 	<PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '_[a-z0-9]{8}_wpftmp%24'))">
 		<_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '_[a-z0-9]{8}_wpftmp%24', ''))</_SdkOriginalProjectName>
 		<_SdkOriginalProjectFile Condition="'$(_SdkOriginalProjectFile)' == ''">$(_SdkOriginalProjectName)$(MSBuildProjectExtension)</_SdkOriginalProjectFile>
