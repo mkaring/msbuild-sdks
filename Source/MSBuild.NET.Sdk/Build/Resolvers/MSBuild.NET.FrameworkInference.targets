@@ -29,8 +29,14 @@
 	<PropertyGroup Condition="!$(TargetFramework.Contains(','))">
 		<!-- Convert $(TargetFramework) to lower case -->
 		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
-		<!-- if net-client is only specified then default to the highest supported version of the profile -->
+		<!-- if version-less framework-profile is specified then default to the highest supported version of that framework-profile -->
 		<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'netmf'">netmf44</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'net'">net45</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp8</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'wpa'">wpa81</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'win'">win8</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'sl'">sl5</TargetFramework>
 	</PropertyGroup>
 
 	<!--
@@ -65,22 +71,24 @@
 		</Otherwise>
 	</Choose>
 
-	<!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here. -->
+	<!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here -->
 	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'portable'">.NETPortable</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'wp'">WindowsPhone</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcore'">.NETCore</TargetFrameworkIdentifier> <!-- Deprecated -->
 
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier> <!-- Deprecated -->
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier> <!-- Deprecated -->
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier> <!-- Deprecated -->
 
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_ShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_ShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
@@ -92,16 +100,16 @@
 	</PropertyGroup>
 
 	<Choose>
-		<When Condition="'$(_ShortFrameworkVersion)' != '' AND $(_ShortFrameworkVersion.Contains('.'))">
-			<!-- Versions with dots are taken as is. -->
-			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
+		<When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_ShortFrameworkVersion)' != '' AND $(_ShortFrameworkVersion.Contains('.'))">
+			<!-- Versions with dots are taken as is -->
+			<PropertyGroup>
 				<TargetFrameworkVersion>$(_ShortFrameworkVersion)</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
-		<When Condition="'$(_ShortFrameworkVersion)' != ''">
-			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters. -->
-			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
+		<When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_ShortFrameworkVersion)' != ''">
+			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters -->
+			<PropertyGroup>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 1">$(_ShortFrameworkVersion[0]).0</TargetFrameworkVersion>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 2">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1])</TargetFrameworkVersion>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 3">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1]).$(_ShortFrameworkVersion[2])</TargetFrameworkVersion>
@@ -109,11 +117,28 @@
 		</When>
 
 		<Otherwise>
+			<!-- Any Version in these Sdks should not lead with 'v' -->
 			<PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
 				<TargetFrameworkVersion>$(TargetFrameworkVersion.TrimStart('vV'))</TargetFrameworkVersion>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
+
+	<!-- Support for resolving portable framework profiles -->
+	<ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">
+		<Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v*.targets"/>
+		<Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v$(TargetFrameworkVersion).targets"/>
+	</ImportGroup>
+
+	<!--
+		Trigger an error if we're unable to infer the framework identifier and version.
+
+		We have to evaluate this here and not in the target because by the time the target runs,
+		It will have defaulted to .NETFramework & 4.0
+	-->
+	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '' OR '$(TargetFrameworkVersion)' == ''">
+		<_UnsupportedTargetFrameworkError>true</_UnsupportedTargetFrameworkError>
+	</PropertyGroup>
 
 	<!--
 		Don't leave TargetFrameworkVersion empty if it still hasn't been determined. We will trigger the error above,
@@ -126,22 +151,13 @@
 	<PropertyGroup>
 		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
 		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
-		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
-		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+		<_TargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_TargetFrameworkVersionWithV>
 	</PropertyGroup>
 
-	<!-- Support for resolving portable framework profiles -->
-	<Import Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
-			Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'"/>
-
-	<!--
-		Trigger an error if we're unable to infer the framework identifier and version.
-
-		We have to evaluate this here and not in the target because by the time the target runs,
-		It will have defaulted to .NETFramework,Version=v4.0
-	-->
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == '_' OR '$(TargetFrameworkVersion)' == 'v0.0'">
-		<_UnsupportedTargetFrameworkError>true</_UnsupportedTargetFrameworkError>
+	<!-- TODO: Temporary shim to be compatible with the older targets, remove once we change the behavioral value of TargetFrameworkVersion -->
+	<PropertyGroup>
+		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
+		<TargetFrameworkVersion>$(_TargetFrameworkVersionWithV)</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<!--
@@ -167,19 +183,38 @@
 	</Target>
 
 	<Target Name="_CollectTargetFrameworkForTelemetry" AfterTargets="_CheckForUnsupportedTargetFramework">
-		<Telemetry EventName="targetframeworkeval" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))"/>
+		<Telemetry EventName="TargetFrameworkEvaluation" EventData="TargetFramework=$([MSBuild]::Escape('$(TargetFrameworkMoniker)'))"/>
 	</Target>
 
 	<!--
-		Trigger an error if targeting a higher version of .NET Core or .NET Standard than is supported by the current SDK.
+		Trigger an error if targeting a higher version of TargetFramework than is supported by the current SDK.
 	-->
-	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' != '_' AND '$(TargetFrameworkMaxVersion)' == ''">
-		<TargetFrameworkDisplayName Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">.NET Core</TargetFrameworkDisplayName>
-		<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">$(BundledNETCoreAppTargetFrameworkVersion)</TargetFrameworkMaxVersion>
-
-		<TargetFrameworkDisplayName Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'">.NET Standartd</TargetFrameworkDisplayName>
-		<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'">$(BundledNETStandardTargetFrameworkVersion)</TargetFrameworkMaxVersion>
-	</PropertyGroup>
+	<Choose>
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'">
+			<PropertyGroup>
+				<TargetFrameworkDisplayName Condition="'$(TargetFrameworkDisplayName)' == ''">.NET Standartd</TargetFrameworkDisplayName>
+				<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkMaxVersion)' == ''">$(BundledNETStandardTargetFrameworkVersion)</TargetFrameworkMaxVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETCoreApp'">
+			<PropertyGroup>
+				<TargetFrameworkDisplayName Condition="'$(TargetFrameworkDisplayName)' == ''">.NET Core</TargetFrameworkDisplayName>
+				<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkMaxVersion)' == ''">$(BundledNETCoreAppTargetFrameworkVersion)</TargetFrameworkMaxVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+			<PropertyGroup>
+				<TargetFrameworkDisplayName Condition="'$(TargetFrameworkDisplayName)' == ''">.NET Framework</TargetFrameworkDisplayName>
+				<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkMaxVersion)' == ''">$(BundledNETFrameworkTargetFrameworkVersion)</TargetFrameworkMaxVersion>
+			</PropertyGroup>
+		</When>
+		<When Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+			<PropertyGroup>
+				<TargetFrameworkDisplayName Condition="'$(TargetFrameworkDisplayName)' == ''">.NET Portable</TargetFrameworkDisplayName>
+				<TargetFrameworkMaxVersion Condition="'$(TargetFrameworkMaxVersion)' == ''">$(BundledNETPortableTargetFrameworkVersion)</TargetFrameworkMaxVersion>
+			</PropertyGroup>
+		</When>
+	</Choose>
 
 	<Target Name="_CheckForUnsupportedTargetFrameworkVersion"
 		BeforeTargets="_CheckForInvalidConfigurationAndPlatform;Restore;CollectPackageReferences"

@@ -9,9 +9,10 @@
 		<TargetFramework>$(TargetFramework.ToLowerInvariant())</TargetFramework>
 		<!-- if version-less framework-profile is specified then default to the highest supported version of that framework-profile -->
 		<TargetFramework Condition="'$(TargetFramework)' == 'net-client'">net40-client</TargetFramework>
-		<TargetFramework Condition="'$(TargetFramework)' == 'netmf'">netmf44</TargetFramework>
 		<TargetFramework Condition="'$(TargetFramework)' == 'net'">net45</TargetFramework>
-		<TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp81</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'wp'">wp8</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'wpa'">wpa81</TargetFramework>
+		<TargetFramework Condition="'$(TargetFramework)' == 'win'">win8</TargetFramework>
 		<TargetFramework Condition="'$(TargetFramework)' == 'sl'">sl5</TargetFramework>
 	</PropertyGroup>
 
@@ -47,24 +48,24 @@
 		</Otherwise>
 	</Choose>
 
-	<!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here. -->
+	<!-- Map short name to long name. See earlier comment for example of how to work with identifiers that are not recognized here -->
 	<PropertyGroup Condition="'$(TargetFrameworkIdentifier)' == ''">
-
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'net'">.NETFramework</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netstandard'">.NETStandard</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcoreapp'">.NETCoreApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'portable'">.NETPortable</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netmf'">.NETMicroFramework</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'sl'">Silverlight</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'wp'">WindowsPhone</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'wpa'">WindowsPhoneApp</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'win'">.NETCore</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'uap'">.NETCore</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'netcore'">.NETCore</TargetFrameworkIdentifier> <!-- Deprecated -->
 
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier>
-		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier>
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monoandroid'">MonoAndroid</TargetFrameworkIdentifier> <!-- Deprecated -->
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monotouch'">MonoTouch</TargetFrameworkIdentifier> <!-- Deprecated -->
+		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'monomac'">MonoMac</TargetFrameworkIdentifier> <!-- Deprecated -->
 
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.android' OR '$(_ShortFrameworkIdentifier)' == 'xamarinandroid'">Xamarin.Android</TargetFrameworkIdentifier>
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.ios' OR '$(_ShortFrameworkIdentifier)' == 'xamarinios'">Xamarin.iOS</TargetFrameworkIdentifier>
@@ -73,20 +74,19 @@
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'xamarin.watchos' OR '$(_ShortFrameworkIdentifier)' == 'xamarinwatchos'">Xamarin.WatchOS</TargetFrameworkIdentifier>
 
 		<TargetFrameworkIdentifier Condition="'$(_ShortFrameworkIdentifier)' == 'tizen'">Tizen</TargetFrameworkIdentifier>
-
 	</PropertyGroup>
 
 	<Choose>
-		<When Condition="'$(_ShortFrameworkVersion)' != '' AND $(_ShortFrameworkVersion.Contains('.'))">
-			<!-- Versions with dots are taken as is. -->
-			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
+		<When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_ShortFrameworkVersion)' != '' AND $(_ShortFrameworkVersion.Contains('.'))">
+			<!-- Versions with dots are taken as is -->
+			<PropertyGroup>
 				<TargetFrameworkVersion>$(_ShortFrameworkVersion)</TargetFrameworkVersion>
 			</PropertyGroup>
 		</When>
 
-		<When Condition="'$(_ShortFrameworkVersion)' != ''">
-			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters. -->
-			<PropertyGroup Condition="'$(TargetFrameworkVersion)' == ''">
+		<When Condition="'$(TargetFrameworkVersion)' == '' AND '$(_ShortFrameworkVersion)' != ''">
+			<!-- Versions with no dots and up to 3 characters gets implicit dots between characters -->
+			<PropertyGroup>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 1">$(_ShortFrameworkVersion[0]).0</TargetFrameworkVersion>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 2">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1])</TargetFrameworkVersion>
 				<TargetFrameworkVersion Condition="$(_ShortFrameworkVersion.Length) == 3">$(_ShortFrameworkVersion[0]).$(_ShortFrameworkVersion[1]).$(_ShortFrameworkVersion[2])</TargetFrameworkVersion>
@@ -100,23 +100,16 @@
 		</Otherwise>
 	</Choose>
 
-	<!--
-		Don't leave TargetFrameworkVersion empty if it still hasn't been determined. We will trigger the error above,
-		but we need this to be a valid version so that our error message does not get pre-empted by failure to interpret
-		version comparison expressions, which is currently unrecoverable in VS.
-
-		Also don't leave TargetFrameworkIdentifier unset as it will be defaulted to .NETFramework by common targets, which
-		can cause restore (which we cannot block, see above) to silently succeed for empty TargetFramework.
-	-->
 	<PropertyGroup>
-		<TargetFrameworkIdentifier Condition="'$(TargetFrameworkIdentifier)' == ''">_</TargetFrameworkIdentifier>
-		<TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == ''">0.0</TargetFrameworkVersion>
 		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion)</_TargetFrameworkVersionWithoutV>
-		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+		<_TargetFrameworkVersionWithV>v$(TargetFrameworkVersion)</_TargetFrameworkVersionWithV>
+		<TargetFrameworkVersion>$(_TargetFrameworkVersionWithV)</TargetFrameworkVersion>
 	</PropertyGroup>
 
 	<!-- Support for resolving portable framework profiles -->
-	<Import Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.$(TargetFrameworkVersion).targets"
-			Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'"/>
+	<ImportGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETPortable'">
+		<Import Condition="'$(TargetFrameworkVersion)' == ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v*.targets"/>
+		<Import Condition="'$(TargetFrameworkVersion)' != ''" Project="$(MSBuildThisFileDirectory)FrameworkResolvers\MSBuild.NETPortable.v$(TargetFrameworkVersion).targets"/>
+	</ImportGroup>
 
 </Project>

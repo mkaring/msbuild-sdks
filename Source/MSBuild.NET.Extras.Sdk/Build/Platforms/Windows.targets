@@ -33,8 +33,8 @@
 
 	<PropertyGroup Condition="$(TargetFramework.StartsWith('uap10.0'))">
 		<TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
-		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UAP</DefineConstants>
 		<CopyLocalLockFileAssemblies Condition="'$(CopyLocalLockFileAssemblies)' == ''">false</CopyLocalLockFileAssemblies>
+		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);NETFX_CORE;WINDOWS_UAP</DefineConstants>
 
 		<TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
 		<!-- Calculate defaults based on 10.0 or specific version based on TFM to handle uap10.0.17133, etc -->
@@ -48,6 +48,11 @@
 
 		<!-- Need to override the built-in implicit defines for UAP (WINDOWS10_10240) or it'll be NETCORE5_0 -->
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS10_$(TargetPlatformMinVersion.Split('.')[2])</ImplicitFrameworkDefine>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.StartsWith('uap10.0')) AND '$(_ImplicitPlatformPackageVersion)' == ''">
+		<_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.10150'">5.4.2</_ImplicitPlatformPackageVersion>
+		<_ImplicitPlatformPackageVersion Condition="'$(TargetPlatformVersion)' >= '10.0.15138'">6.0.8</_ImplicitPlatformPackageVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>

@@ -19,4 +19,10 @@
 
 	<Import Project="$(_SdkPlatformTargets)" Condition="Exists('$(_SdkPlatformTargets)')"/>
 
+	<!-- Update '_TargetFrameworkVersionWithoutV'. Since, we could have updated 'TargetFrameworkVersion' within platform targets -->
+	<PropertyGroup Condition="'$(TargetFrameworkVersion)' != ''">
+		<_TargetFrameworkVersionWithoutV>$(TargetFrameworkVersion.TrimStart('vV'))</_TargetFrameworkVersionWithoutV>
+		<TargetFrameworkVersion>v$(_TargetFrameworkVersionWithoutV)</TargetFrameworkVersion>
+	</PropertyGroup>
+
 </Project>

@@ -78,13 +78,13 @@
 	<!-- TODO: use metadata to detect if we've added it or it already exists -->
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == '.NETCore' AND '$(_TargetFrameworkVersionWithoutV)' >= '5.0'">
-		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.*" IsImplicitlyDefined="true"/>
+		<PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="$(_ImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
 		<PackageReference Update="Microsoft.NETCore.UniversalWindowsPlatform" PrivateAssets="All" Publish="false"
 			Condition="'$(OutputType)' != 'Exe' OR '$(OutputType)' != 'AppContainerExe'"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true' AND '$(TargetFrameworkIdentifier)' == 'Tizen'">
-		<PackageReference Include="Tizen.NET" Version="4.0.*" IsImplicitlyDefined="true"/>
+		<PackageReference Include="Tizen.NET" Version="$(_ImplicitPlatformPackageVersion)" IsImplicitlyDefined="true"/>
 		<PackageReference Update="Tizen.NET" PrivateAssets="All" Publish="false" Condition="'$(OutputType)' != 'Exe'"/>
 	</ItemGroup>
 

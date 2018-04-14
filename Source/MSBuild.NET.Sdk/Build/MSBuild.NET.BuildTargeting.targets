@@ -13,7 +13,7 @@
 			Hardcoded list of known implicit packges that are added to project from default SDK targets implicitly.
 			Should be re-visited when multiple TFM support is added to Dependencies logic.
 		-->
-		<DefaultImplicitPackages>NETStandard.Library;Microsoft.NETCore.App;Microsoft.NETCore.UniversalWindowsPlatform</DefaultImplicitPackages>
+		<DefaultImplicitPackages>NETStandard.Library;Microsoft.NETCore.App;Microsoft.NETCore.UniversalWindowsPlatform;Tizen.NET</DefaultImplicitPackages>
 	</PropertyGroup>
 
 	<!--
