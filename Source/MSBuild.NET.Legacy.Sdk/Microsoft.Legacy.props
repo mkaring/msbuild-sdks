@@ -4,12 +4,16 @@
 		<MSBuildMinToolsVersion Condition="'$(MSBuildMinToolsVersion)' == ''">$(MSBuildToolsVersion)</MSBuildMinToolsVersion>
 		<MSBuildMinToolsVersion Condition="'$(MSBuildAssemblyVersion)' == ''">4.0</MSBuildMinToolsVersion>
 
-		<ImportLegacyExtensionTargets Condition="'$(MSBuildAssemblyVersion)' != ''">true</ImportLegacyExtensionTargets>
-
 		<MSBuildLegacySdkPath Condition="'$(MSBuildLegacySdkPath)' == ''">$(MSBuildThisFileDirectory)</MSBuildLegacySdkPath>
 		<MSBuildLegacySdkPath Condition="!HasTrailingSlash('$(MSBuildLegacySdkPath)')">$(MSBuildLegacySdkPath)\</MSBuildLegacySdkPath>
 
 		<ImportedMicrosoftLegacyProps>true</ImportedMicrosoftLegacyProps>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(MSBuildAssemblyVersion)' != ''">
+		<ImportLegacyExtensions Condition="'$(ImportLegacyExtensions)' == ''">true</ImportLegacyExtensions>
+		<ImportLegacyExtensionProps Condition="'$(ImportLegacyExtensionProps)' == ''">$(ImportLegacyExtensions)</ImportLegacyExtensionProps>
+		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">$(ImportLegacyExtensions)</ImportLegacyExtensionTargets>
 	</PropertyGroup>
 
 </Project>

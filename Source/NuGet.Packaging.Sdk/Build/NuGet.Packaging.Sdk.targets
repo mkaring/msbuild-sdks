@@ -1,7 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<Import Project="$(MSBuildThisFileDirectory)NuGet.OutputPaths.targets"/>
-
 	<Import Project="$(MSBuildThisFileDirectory)..\Packaging\NuGet.Build.Packaging.targets"/>
 
 	<PropertyGroup>
