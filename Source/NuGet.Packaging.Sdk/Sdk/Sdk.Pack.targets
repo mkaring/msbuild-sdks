@@ -1,9 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 	<PropertyGroup>
-		<!-- Shim for MSBuild.NET.Extras.Sdk for disabling v1.0 Microsoft.NET.Sdk workaround! -->
-		<NuGetBuildTasksPackTargets Condition="'$(_SdkDotNetVersion)' == '1.0'"/>
-
 		<!-- Shim for Renames! -->
 		<NuGetPackTargets>$(NuGetBuildTasksPackTargets)</NuGetPackTargets>
 		<ImportNuGetPackTargetsFromSdk>$(ImportNuGetBuildTasksPackTargetsFromSdk)</ImportNuGetPackTargetsFromSdk>
