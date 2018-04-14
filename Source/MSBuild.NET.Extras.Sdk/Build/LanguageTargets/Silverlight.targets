@@ -7,7 +7,7 @@
 	<PropertyGroup>
 		<!-- HACK: $(MSBuildExtensionsPath) for VS <= 14.0 -->
 		<_SdkMSBuildExtensionsPath>$(MSBuildProgramFiles32)\MSBuild</_SdkMSBuildExtensionsPath>
-		<_SdkSilverlightTargets Condition="'$(_SdkSilverlightTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_SdkLanguageName).targets</_SdkSilverlightTargets>
+		<_SdkSilverlightTargets Condition="'$(_SdkSilverlightTargets)' == ''">$(_SdkMSBuildExtensionsPath)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.$(_LanguageSourceName).targets</_SdkSilverlightTargets>
 		<_SdkLanguageTargetsMissing Condition="!Exists('$(_SdkSilverlightTargets)')">true</_SdkLanguageTargetsMissing>
 	</PropertyGroup>
 

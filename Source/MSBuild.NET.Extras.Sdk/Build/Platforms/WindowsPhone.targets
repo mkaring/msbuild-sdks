@@ -45,7 +45,7 @@
 	<PropertyGroup Label="Build">
 		<DefineConstants Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">$(DefineConstants);SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
 		<!-- Need to override the built-in implicit defines for Windows Phone 8.x -->
-		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS_PHONE_$(_SdkShortFrameworkVersion)</ImplicitFrameworkDefine>
+		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS_PHONE_$(_ShortFrameworkVersion)</ImplicitFrameworkDefine>
 		<DisableImplicitFrameworkDefines Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">true</DisableImplicitFrameworkDefines>
 	</PropertyGroup>
 

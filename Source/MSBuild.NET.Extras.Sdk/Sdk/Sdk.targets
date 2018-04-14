@@ -5,7 +5,7 @@
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildThisFileDirectory)..\Build\MSBuild.NET.Extras.Sdk.targets"/>
-	<Import Project="$(MSBuildOutputPathsTargets)" Condition="'$(MSBuildOutputPathsTargets)' != ''"/>
+	<Import Project="$(CustomBeforeSdkTargets)" Condition="'$(CustomBeforeSdkTargets)' != ''"/>
 	<Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk"/>
 
 </Project>

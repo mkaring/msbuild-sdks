@@ -4,13 +4,16 @@
 		<MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '_[a-z0-9]{8}_wpftmp%24'))">
-		<_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '_[a-z0-9]{8}_wpftmp%24', ''))</_SdkOriginalProjectName>
+	<!-- Check for _*_wpftmp.*proj files -->
+	<PropertyGroup>
+		<GeneratedProjectSuffixPattern>_[a-z0-9]{8}_wpftmp%24</GeneratedProjectSuffixPattern>
+		<IsGeneratedProject Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)'))">true</IsGeneratedProject>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(IsGeneratedProject)' == 'true'">
+		<_SdkOriginalProjectName Condition="'$(_SdkOriginalProjectName)' == ''">$([System.Text.RegularExpressions.Regex]::Replace('$(MSBuildProjectName)', '$(GeneratedProjectSuffixPattern)', ''))</_SdkOriginalProjectName>
 		<_SdkOriginalProjectFile Condition="'$(_SdkOriginalProjectFile)' == ''">$(_SdkOriginalProjectName)$(MSBuildProjectExtension)</_SdkOriginalProjectFile>
 		<_SdkOriginalProjectExtensionsPath Condition="'$(_SdkOriginalProjectExtensionsPath)' == '' AND $(MSBuildProjectExtensionsPath.Contains('$(MSBuildProjectName)'))">$(MSBuildProjectExtensionsPath.Replace('$(MSBuildProjectName)', '$(_SdkOriginalProjectName)'))</_SdkOriginalProjectExtensionsPath>
-
-		<!-- Don't generate assembly info for _*_wpftmp.*proj files -->
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
 	<!--

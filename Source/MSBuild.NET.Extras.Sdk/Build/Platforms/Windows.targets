@@ -38,13 +38,13 @@
 
 		<TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
 		<!-- Calculate defaults based on 10.0 or specific version based on TFM to handle uap10.0.17133, etc -->
-		<TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.17133.0</TargetPlatformVersion>
-		<TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformVersion>
-		<TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">10.0.10240.0</TargetPlatformMinVersion>
-		<TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</TargetPlatformMinVersion>
+		<TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == '' AND '$(_ShortFrameworkVersion)' == '10.0'">10.0.17133.0</TargetPlatformVersion>
+		<TargetPlatformVersion Condition="'$(TargetPlatformVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformVersion>
+		<TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == '' AND '$(_ShortFrameworkVersion)' == '10.0'">10.0.10240.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion Condition="'$(TargetPlatformMinVersion)' == ''">$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</TargetPlatformMinVersion>
 
-		<NugetTargetMoniker Condition="'$(NugetTargetMoniker)' == '' AND '$(_SdkShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0.10240.0</NugetTargetMoniker>
-		<NugetTargetMoniker Condition="'$(NugetTargetMoniker)' == ''">UAP,Version=v$([System.Version]::Parse('$(_SdkShortFrameworkVersion)')).0</NugetTargetMoniker>
+		<NugetTargetMoniker Condition="'$(NugetTargetMoniker)' == '' AND '$(_ShortFrameworkVersion)' == '10.0'">UAP,Version=v10.0.10240.0</NugetTargetMoniker>
+		<NugetTargetMoniker Condition="'$(NugetTargetMoniker)' == ''">UAP,Version=v$([System.Version]::Parse('$(_ShortFrameworkVersion)')).0</NugetTargetMoniker>
 
 		<!-- Need to override the built-in implicit defines for UAP (WINDOWS10_10240) or it'll be NETCORE5_0 -->
 		<ImplicitFrameworkDefine Condition="'$(DisableImplicitFrameworkDefines)' != 'true'">WINDOWS10_$(TargetPlatformMinVersion.Split('.')[2])</ImplicitFrameworkDefine>

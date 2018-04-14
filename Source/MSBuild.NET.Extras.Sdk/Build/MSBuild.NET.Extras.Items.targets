@@ -20,6 +20,11 @@
 		<AppendTargetFrameworkToOutputPath Condition="'$(TargetFrameworks)' == ''">false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<!-- Don't generate assembly info for generated projects -->
+		<GenerateAssemblyInfo Condition="'$(IsGeneratedProject)' == 'true'">false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
 	<ItemGroup Condition="'$(DisableImplicitFrameworkReferences)' != 'true'">
 		<!-- Set Pack=false on implicit references so they don't get added to NuGet packages as framework assemblies -->
 		<_SdkImplicitReference Update="@(_SdkImplicitReference)" IsImplicitlyDefined="true" Pack="false"/>
