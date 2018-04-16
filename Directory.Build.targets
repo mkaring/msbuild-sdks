@@ -3,10 +3,10 @@
 	<!--<PropertyGroup Label="Output">
 		<IntermediateOutputFolder>Objects</IntermediateOutputFolder>
 		<OutputFolder>Binaries</OutputFolder>
-		<PublishFolder>Packages</PublishFolder>
-		<PublishPath>$(SolutionDir)</PublishPath>
+		<PublishFolder>~Packages</PublishFolder>
+		<PublishPath>$(RepoRootDir)</PublishPath>
 	</PropertyGroup>-->
 
-	<!--<Import Project="$(BuildToolsPath)MSBuild.Sdks.Assembly.targets"/>-->
+	<!--<Import Project="$(BuildToolsPath)MSBuild.Sdks.Build.targets"/>-->
 
 </Project>

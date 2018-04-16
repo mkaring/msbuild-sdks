@@ -1,5 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+	<Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
+
 	<PropertyGroup Label="PackageInfo">
 		<Authors>Nirmal Guru</Authors>
 		<Owners>NIRIN</Owners>
@@ -22,6 +24,14 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\$(MSBuildThisFile)"/>
+	<PropertyGroup Label="Items">
+		<EnableDefaultPackageItems>true</EnableDefaultPackageItems>
+		<ExcludeDefaultBuildFiles>false</ExcludeDefaultBuildFiles>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(EnableDefaultItems)' == 'true' AND '$(EnableDefaultPackageItems)' == 'true'">
+		<None Remove="*\**\*.*"/>
+		<PackageFile Include="*\**\*.*" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)"/>
+	</ItemGroup>
 
 </Project>

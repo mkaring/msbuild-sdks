@@ -23,6 +23,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Pp]ackages/
 [Bb]uilds/
 [Bb]inaries/
 [Oo]bjects/
@@ -146,7 +147,7 @@ DocProject/Help/Html2
 DocProject/Help/html
 
 # Click-Once directory
-publish/
+[Pp]ublish/
 
 # Publish Web Output
 *.[Pp]ublish.xml
@@ -197,11 +198,14 @@ _pkginfo.txt
 # Others
 ClientBin/
 ~$*
+_*/
+~*/
+*~/
 *~.*
-*~
 *.dbmdl
 *.dbproj.schemaview
 *.pfx
+!*_TemporaryKey.pfx
 *.publishsettings
 orleans.codegen.cs
 node_modules/

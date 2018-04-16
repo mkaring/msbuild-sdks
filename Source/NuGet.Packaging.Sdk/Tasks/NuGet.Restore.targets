@@ -63,7 +63,7 @@
 		<RestoreBuildInParallel Condition="'$(BuildInParallel)' != ''">$(BuildInParallel)</RestoreBuildInParallel>
 		<RestoreBuildInParallel Condition="'$(RestoreBuildInParallel)' == ''">true</RestoreBuildInParallel>
 		<!-- Check if the restore target was executed on a sln file -->
-		<_RestoreSolutionFileUsed Condition="'$(_RestoreSolutionFileUsed)' == '' AND '$(SolutionDir)' != '' AND $(MSBuildProjectFullPath.EndsWith('.metaproj')) == 'true'">true</_RestoreSolutionFileUsed>
+		<_RestoreSolutionFileUsed Condition="'$(_RestoreSolutionFileUsed)' == '' AND '$(SolutionDir)' != '' AND '$(MSBuildProjectExtension)' == '.metaproj'">true</_RestoreSolutionFileUsed>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -415,18 +415,18 @@
 
 	<!--
 		============================================================
-		EnableIntermediateOutputPathMismatchWarning
-		If using PackageReference, enable an MSBuild warning if BaseIntermediateOutputPath is set to something different
+		EnableBuildPathMismatchWarning
+		If using PackageReference, enable an MSBuild warning if BuildPath is set to something different
 		than MSBuildProjectExtensionsPath, because it may be unexpected that the assets and related files wouldn't be written
-		to the BaseIntermediateOutputPath.
+		to the BuildPath.
 		============================================================
 	-->
-	<Target Name="EnableIntermediateOutputPathMismatchWarning" DependsOnTargets="_GetRestoreProjectStyle"
+	<Target Name="EnableBuildPathMismatchWarning" DependsOnTargets="_GetRestoreProjectStyle"
 			BeforeTargets="_CheckForInvalidConfigurationAndPlatform"
 			Condition="'$(RestoreProjectStyle)' == 'PackageReference'">
 
-		<PropertyGroup Condition="'$(EnableBaseIntermediateOutputPathMismatchWarning)' == ''">
-			<EnableBaseIntermediateOutputPathMismatchWarning>true</EnableBaseIntermediateOutputPathMismatchWarning>
+		<PropertyGroup Condition="'$(EnableBuildPathMismatchWarning)' == ''">
+			<EnableBuildPathMismatchWarning>true</EnableBuildPathMismatchWarning>
 		</PropertyGroup>
 	</Target>
 
@@ -442,7 +442,7 @@
 			Returns="@(_RestoreTargetFrameworksOutputFiltered)">
 
 		<PropertyGroup>
-		<_RestoreProjectFramework></_RestoreProjectFramework>
+			<_RestoreProjectFramework></_RestoreProjectFramework>
 		</PropertyGroup>
 
 		<!-- For project.json projects target frameworks will be read from project.json. -->

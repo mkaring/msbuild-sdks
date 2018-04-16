@@ -37,6 +37,11 @@
 		<AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>.pdb;.mdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder);$(AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder)</AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(PackAsTool)' == 'true'">
+		<PackageType>DotNetTool</PackageType>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(NoBuild)' == 'true'">
 		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn)</GenerateNuspecDependsOn>
 	</PropertyGroup>

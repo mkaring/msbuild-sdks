@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<EnableDefaultItems Condition="'$(EnableDefaultItems)' == ''">true</EnableDefaultItems>
 		<EnableDefaultNoneItems Condition="'$(EnableDefaultNoneItems)' == ''">true</EnableDefaultNoneItems>
-		<ExcludeDefaultBuildFiles Condition="'$(ExcludeDefaultBuildFiles)' == ''">false</ExcludeDefaultBuildFiles>
+		<ExcludeDefaultBuildFiles Condition="'$(ExcludeDefaultBuildFiles)' == ''">true</ExcludeDefaultBuildFiles>
 		<ExcludeDefaultLegacyPaths Condition="'$(ExcludeDefaultLegacyPaths)' == ''">false</ExcludeDefaultLegacyPaths>
 	</PropertyGroup>
 
@@ -13,30 +13,30 @@
 	-->
 	<PropertyGroup Condition="'$(ExcludeDefaultLegacyPaths)' == 'true'">
 		<!-- bin folder, by default -->
-		<DefaultItemExcludes>$(DefaultItemExcludes);$(BaseOutputPath)/**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(BaseOutputPath)\**</DefaultItemExcludes>
 		<!-- obj folder, by default -->
-		<DefaultItemExcludes>$(DefaultItemExcludes);$(BaseIntermediateOutputPath)/**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(BaseIntermediateOutputPath)\**</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<!-- build folder, by default -->
-		<DefaultItemExcludes>$(DefaultItemExcludes);$(BuildPath)/**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(BuildPath)\**</DefaultItemExcludes>
 		<!-- publish folder, by default -->
-		<DefaultItemExcludes>$(DefaultItemExcludes);$(PublishPath)/**</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(PublishPath)\**</DefaultItemExcludes>
 
 		<!-- Various files that should generally always be ignored -->
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.sln</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.user</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.*proj</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.projitems</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.vssscc</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.sln</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.user</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.*proj</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.projitems</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);**\*.vssscc</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(ExcludeDefaultBuildFiles)' == 'true'">
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.props</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.items</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.tasks</DefaultItemExcludes>
-		<DefaultItemExcludes>$(DefaultItemExcludes);**/*.targets</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.props</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.items</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.tasks</DefaultItemExcludes>
+		<DefaultItemExcludes>$(DefaultItemExcludes);*.targets</DefaultItemExcludes>
 	</PropertyGroup>
 
 	<!--
@@ -45,7 +45,7 @@
 		that are in the project folder.
 	-->
 	<PropertyGroup>
-		<DefaultExcludesInProjectFolder>$(DefaultItemExcludesInProjectFolder);**/.*/**</DefaultExcludesInProjectFolder>
+		<DefaultExcludesInProjectFolder>$(DefaultItemExcludesInProjectFolder);**\.*\**</DefaultExcludesInProjectFolder>
 	</PropertyGroup>
 
 	<PropertyGroup>

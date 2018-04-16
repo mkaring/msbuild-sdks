@@ -1,35 +1,37 @@
 @echo Off
 
-REM Set Root Path
-set WD=%~dp0
+REM Set Paths
+call build-env
 
 REM Check MyGet
 if not "%BuildRunner%" == "MyGet" (
-	set PackageVersion=%1
-
 	REM Enable VS DevEnv
-	call vsdevcmd -no_logo -arch=amd64 -host_arch=amd64
-	set MSBuildSDKsPath=%MSBuildSDKsPathNew%
+	call vsdev
 ) else (
-	set MSBuildSDKsPath=%WD%
+	set MSBuildSDKsPath=%WD%Source
 )
 
 REM Set Vars
-:: set Project=%WD%MSBuild.Sdks.sln
-set Project=%WD%Source\MSBuild.NET.Extras.Sdk\MSBuild.NET.Extras.Sdk.nuproj
+set SolutionFile=%WD%MSBuild.Sdks.sln
 
-set Configuration=Release
+if "%Configuration%" == "" (
+	set Configuration=Release
+)
 
-set version=
-if not "%PackageVersion%" == "" (
-	set version=;PackageVersion=%PackageVersion%
+REM Remove Leading Zeros from BuildCounter
+for /F "tokens=* delims=0" %%A in ("%BuildCounter%") do set BuildCounter=%%A
+if "%BuildCounter%"=="" set BuildCounter=0
+
+set BuildVersion=
+if not "%BuildCounter%" == "" (
+	set BuildVersion=;VersionMeta=dev.%BuildCounter%
 )
 
 REM Build
-call msbuild %Project% /t:Restore;Build /p:Configuration=%Configuration%%version%
+call msbuild %SolutionFile% /p:Configuration=%Configuration%%BuildVersion%
 
 REM Check MyGet
 if not "%BuildRunner%" == "MyGet" (
 	REM Push Package
-	call nuget push %WD%Packages\%Configuration%\*.nupkg
+	call nuget push %PackageDir%\%Configuration%\*.nupkg -Source Local
 )

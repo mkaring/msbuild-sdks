@@ -1,12 +1,12 @@
 <Project Sdk="NuGet.Packaging.Sdk">
 
 	<PropertyGroup Label="Globals">
-		<ProjectGuid>9b67ef80-5f2b-453e-ab0c-2e3dbe098f22</ProjectGuid>
+		<ProjectGuid>4e83d386-7c67-465c-9407-1fea813b1dfa</ProjectGuid>
 	</PropertyGroup>
 
 	<PropertyGroup Label="PackageInfo">
-		<Title>MSBuild Native Sdk</Title>
-		<PackageId>MSBuild.Native.Sdk</PackageId>
+		<Title>MSBuild CoreSharing Sdk</Title>
+		<PackageId>MSBuild.CoreSharing.Sdk</PackageId>
 		<PackageVersion Condition="'$(PackageVersion)' == ''">1.1.0</PackageVersion>
 	</PropertyGroup>
 

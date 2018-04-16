@@ -1,6 +1,6 @@
 # MSBuild SDKs
 
-MSBuild SDKs are used to configure and extend your build. MSBuild 15.0 introduced a concept of an SDK which is an upgraded project XML Schema that we commonly refer as 'SDK-style' project.
+MSBuild SDKs are used to configure and extend your build. MSBuild 15.0 introduced a concept of an SDK which is an upgraded project XML Schema that we commonly refer as 'SDK-style' project. So MSBuild 15.0 and above is needed for the following SDKs
 
 ## Available SDKs
 
@@ -12,11 +12,11 @@ Supports projects that do not compile to an assembly. This is usually the base S
 
 ### [MSBuild.Native.Sdk](Source/MSBuild.Native.Sdk)
 
-Supports [Native](Support.md#native-platform-support) projects that include C/C++ (CLang, GCC, VisualC), ASM, FORTRAN, etc.
+Supports [Native](Docs/Support.md#native-platform-support) projects that include C/C++ (CLang, GCC, VisualC), ASM, FORTRAN, etc.
 
 ### [MSBuild.NET.Sdk](Source/MSBuild.NET.Sdk)
 
-Supports [.NET Platform](Support.md#net-platform-support) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), Mono (Windows, Linux, MacOS), Xamarin (based on Mono) runtimes.
+Supports [.NET Platform](Docs/Support.md#net-platform-support) projects that include building for .NET Framework (Windows), .NET Core (Windows, Linux, MacOS), Mono (Windows, Linux, MacOS), Xamarin (based on Mono) runtimes.
 
 ### [MSBuild.NET.Legacy.Sdk](Source/MSBuild.NET.Legacy.Sdk)
 
@@ -29,19 +29,25 @@ Adds a few extra extensions to the SDK-style projects that are currently not ava
 [![MSBuild.NET.Extras.Sdk](https://img.shields.io/nuget/v/MSBuild.NET.Extras.Sdk.svg)](https://nuget.org/packages/MSBuild.NET.Extras.Sdk)
 [![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MSBuild.NET.Extras.Sdk.svg)](https://myget.org/feed/msbuild-sdks/package/nuget/MSBuild.NET.Extras.Sdk)
 
-### [MSBuild.Extras.Sdk](Source/MSBuild.Extras.Sdk)
+### [MSBuild.CodeSharing.Sdk](Source/MSBuild.CodeSharing.Sdk)
 
-- [__PackageCentral__](Source/MSBuild.Extras.Sdk/Extras/PackageCentral)
+Coming Soon. Shared project in SDK-style and more!
 
-  Supports centrally managing NuGet package versions in a code base. Also allows adding global package references to all projects.
+### [MSBuild.Dependencies.Sdk](Source/MSBuild.Dependencies.Sdk)
 
-- [__Traversal__](Source/MSBuild.Extras.Sdk/Extras/Traversal)
+Supports centrally managing NuGet packagea and it's versions in a code base. Also allows adding global package references to all projects.
 
-  Supports creating traversal projects which are MSBuild projects that indicate what projects to include when building your tree. For large project trees, they are replacements for Visual Studio solution files.
+### [MSBuild.Packaging.Sdk](Source/MSBuild.Packaging.Sdk)
 
-- [__VersionInfo__](Source/MSBuild.Extras.Sdk/Extras/VersionInfo)
+Coming Soon. Create any type of package for any type of project!
 
-  Supports centrally managing NuGet package versions in a code base. Also allows adding global package references to all projects.
+### [MSBuild.Solution.Sdk](Source/MSBuild.CodeSharing.Sdk)
+
+Supports creating MSBuild solutions which are MSBuild projects that indicate what projects to include when building your tree. They are an evolution of Visual Studio solution files.
+
+### [NuGet.Packaging.Sdk](Source/NuGet.Packaging.Sdk)
+
+Supports NuGet Restore/Pack Tasks and Package authoring. It's basically an SDK wrappper around [NuGet.Build.Packaging](/NuGet/NuGet.Build.Packaging) aka NuGetizer-3000 project, with NuGet Restore and Pack targets optimized for SDK-style.
 
 ## Working
 

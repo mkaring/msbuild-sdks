@@ -118,14 +118,6 @@
 	-->
 	<Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
 
-	<!-- Import NuGet.targets (required for GetReferenceNearestTargetFrameworkTask and used for Restore functionality) -->
-	<PropertyGroup>
-		<DevEnvDir Condition="'$(DevEnvDir)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(MSBuildToolsPath32)\..\..\..\Common7\IDE\</DevEnvDir>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == '' AND '$([MSBuild]::IsRunningFromVisualStudio())' == 'true'">$(DevEnvDir)CommonExtensions\Microsoft\NuGet\NuGet.targets</NuGetRestoreTargets>
-		<NuGetRestoreTargets Condition="'$(NuGetRestoreTargets)' == ''">$(MSBuildToolsPath)\NuGet.targets</NuGetRestoreTargets>
-	</PropertyGroup>
-
-	<!-- This will import NuGet restore targets. We need restore to work before any package assets are available. -->
-	<Import Project="$(NuGetRestoreTargets)" Condition="Exists('$(NuGetRestoreTargets)')"/>
+	<Import Project="$(MSBuildThisFileDirectory)NuGet.AfterCommon.targets"/>
 
 </Project>
