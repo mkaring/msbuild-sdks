@@ -81,6 +81,9 @@ artifacts/
 *.svclog
 *.scc
 
+# MSBuild Response files
+!Directory.Build.rsp
+
 # Chutzpah Test files
 _Chutzpah*
 

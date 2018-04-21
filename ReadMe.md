@@ -24,7 +24,7 @@ Supports only .NET Framework (Windows). Contains the original .NET Framework Bui
 
 ### [MSBuild.NET.Extras.Sdk](Source/MSBuild.NET.Extras.Sdk)
 
-Adds a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is being tracked in [dotnet/sdk#491](/dotnet/sdk/issues/491)
+Adds a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is being tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
 
 [![MSBuild.NET.Extras.Sdk](https://img.shields.io/nuget/v/MSBuild.NET.Extras.Sdk.svg)](https://nuget.org/packages/MSBuild.NET.Extras.Sdk)
 [![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MSBuild.NET.Extras.Sdk.svg)](https://myget.org/feed/msbuild-sdks/package/nuget/MSBuild.NET.Extras.Sdk)
@@ -47,7 +47,7 @@ Supports creating MSBuild solutions which are MSBuild projects that indicate wha
 
 ### [NuGet.Packaging.Sdk](Source/NuGet.Packaging.Sdk)
 
-Supports NuGet Restore/Pack Tasks and Package authoring. It's basically an SDK wrappper around [NuGet.Build.Packaging](/NuGet/NuGet.Build.Packaging) aka NuGetizer-3000 project, with NuGet Restore and Pack targets optimized for SDK-style.
+Supports NuGet Restore/Pack Tasks and Package authoring. It's basically an SDK wrappper around [NuGet.Build.Packaging](https://github.com/NuGet/NuGet.Build.Packaging) aka NuGetizer-3000 project, with NuGet Restore and Pack targets optimized for SDK-style.
 
 ## Working
 
