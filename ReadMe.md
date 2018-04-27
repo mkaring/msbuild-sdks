@@ -22,13 +22,6 @@ Supports [.NET Platform](Docs/Support.md#net-platform-support) projects that inc
 
 Supports only .NET Framework (Windows). Contains the original .NET Framework Build files that were included with MSBuild. Use them to slowly migrate your legacy projects to SDK-style.
 
-### [MSBuild.NET.Extras.Sdk](Source/MSBuild.NET.Extras.Sdk)
-
-Adds a few extra extensions to the SDK-style projects that are currently not available in `Microsoft.NET.Sdk` SDK. This feature is being tracked in [dotnet/sdk#491](https://github.com/dotnet/sdk/issues/491)
-
-[![MSBuild.NET.Extras.Sdk](https://img.shields.io/nuget/v/MSBuild.NET.Extras.Sdk.svg)](https://nuget.org/packages/MSBuild.NET.Extras.Sdk)
-[![MSBuild.NET.Extras.Sdk](https://img.shields.io/myget/msbuild-sdks/v/MSBuild.NET.Extras.Sdk.svg)](https://myget.org/feed/msbuild-sdks/package/nuget/MSBuild.NET.Extras.Sdk)
-
 ### [MSBuild.CodeSharing.Sdk](Source/MSBuild.CodeSharing.Sdk)
 
 Coming Soon. Shared project in SDK-style and more!
@@ -41,7 +34,7 @@ Supports centrally managing NuGet packagea and it's versions in a code base. Als
 
 Coming Soon. Create any type of package for any type of project!
 
-### [MSBuild.Solution.Sdk](Source/MSBuild.CodeSharing.Sdk)
+### [MSBuild.Solution.Sdk](Source/MSBuild.Solution.Sdk)
 
 Supports creating MSBuild solutions which are MSBuild projects that indicate what projects to include when building your tree. They are an evolution of Visual Studio solution files.
 
