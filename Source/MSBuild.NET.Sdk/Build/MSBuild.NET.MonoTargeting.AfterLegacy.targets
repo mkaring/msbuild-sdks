@@ -30,7 +30,7 @@
 
 	<ItemGroup>
 		<GenerateRuntimeConfigurationFilesInputs Include="$(ProjectAssetsFile)"/>
-		<GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition=" Exists($(UserRuntimeConfig)) "/>
+		<GenerateRuntimeConfigurationFilesInputs Include="$(UserRuntimeConfig)" Condition="Exists($(UserRuntimeConfig))"/>
 	</ItemGroup>
 
 	<PropertyGroup>

@@ -3,39 +3,39 @@
 	<Choose>
 		<When Condition="'$(MSBuildProjectExtension)' == '.csproj'">
 			<PropertyGroup>
-				<_SdkLanguageName>CSharp</_SdkLanguageName>
-				<_SdkLanguageSymbol>C#</_SdkLanguageSymbol>
-				<_SdkLanguageExtension>.cs</_SdkLanguageExtension>
+				<SourceLanguageName>CSharp</SourceLanguageName>
+				<SourceLanguageSymbol>C#</SourceLanguageSymbol>
+				<SourceLanguageExtension>.cs</SourceLanguageExtension>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(MSBuildProjectExtension)' == '.fsproj'">
 			<PropertyGroup>
-				<_SdkLanguageName>FSharp</_SdkLanguageName>
-				<_SdkLanguageSymbol>F#</_SdkLanguageSymbol>
-				<_SdkLanguageExtension>.fs</_SdkLanguageExtension>
+				<SourceLanguageName>FSharp</SourceLanguageName>
+				<SourceLanguageSymbol>F#</SourceLanguageSymbol>
+				<SourceLanguageExtension>.fs</SourceLanguageExtension>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
 			<PropertyGroup>
-				<_SdkLanguageName>VisualBasic</_SdkLanguageName>
-				<_SdkLanguageSymbol>VB</_SdkLanguageSymbol>
-				<_SdkLanguageExtension>.vb</_SdkLanguageExtension>
+				<SourceLanguageName>VisualBasic</SourceLanguageName>
+				<SourceLanguageSymbol>VB</SourceLanguageSymbol>
+				<SourceLanguageExtension>.vb</SourceLanguageExtension>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(MSBuildProjectExtension)' == '.cilproj'">
 			<PropertyGroup>
-				<_SdkLanguageName>CommonIntermediateLanguage</_SdkLanguageName>
-				<_SdkLanguageSymbol>CIL</_SdkLanguageSymbol>
-				<_SdkLanguageExtension>.cil</_SdkLanguageExtension>
+				<SourceLanguageName>CommonIntermediateLanguage</SourceLanguageName>
+				<SourceLanguageSymbol>CIL</SourceLanguageSymbol>
+				<SourceLanguageExtension>.cil</SourceLanguageExtension>
 			</PropertyGroup>
 		</When>
 
 		<Otherwise>
 			<PropertyGroup>
-				<_SdkLanguageName>Common</_SdkLanguageName>
+				<SourceLanguageName>Common</SourceLanguageName>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>

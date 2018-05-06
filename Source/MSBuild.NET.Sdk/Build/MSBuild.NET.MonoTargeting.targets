@@ -32,7 +32,7 @@
 		This means support for different languages could either be supplied via an SDK or a NuGet package.
 	-->
 	<PropertyGroup Condition="'$(LanguageTargets)' == ''">
-		<LanguageTargets>$(MSBuildLegacySdkPath)Microsoft.$(_SdkLanguageName).targets</LanguageTargets>
+		<LanguageTargets>$(MSBuildLegacySdkPath)Microsoft.$(SourceLanguageName).targets</LanguageTargets>
 		<ImportLegacyExtensionTargets Condition="'$(ImportLegacyExtensionTargets)' == ''">false</ImportLegacyExtensionTargets>
 	</PropertyGroup>
 

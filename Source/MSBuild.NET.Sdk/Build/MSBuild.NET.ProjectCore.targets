@@ -22,11 +22,11 @@
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MultiTargeting.targets" Condition="'$(IsMultiTargetingBuild)' == 'true'"/>
 
 	<!-- Check if we already imported them as props -->
-	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.LanguageInference.props" Condition="'$(_SdkLanguageName)' == ''"/>
+	<Import Project="$(MSBuildThisFileDirectory)Resolvers\MSBuild.NET.LanguageInference.props" Condition="'$(SourceLanguageName)' == ''"/>
 
 	<Import Project="$(MSBuildThisFileDirectory)MSBuild.NET.MonoTargeting.targets" Condition="'$(IsMultiTargetingBuild)' != 'true'"/>
 
-	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(_SdkLanguageName).targets"/>
+	<Import Project="$(MSBuildThisFileDirectory)..\Core\Languages\MSBuild.$(SourceLanguageName).targets"/>
 
 	<PropertyGroup>
 		<ImportedMSBuildNETSdkTargets>true</ImportedMSBuildNETSdkTargets>
