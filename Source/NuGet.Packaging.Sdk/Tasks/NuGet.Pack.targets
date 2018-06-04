@@ -6,8 +6,7 @@
 
 	<!-- Load NuGet.Build.Tasks.Pack.dll, this can be overridden to use a different version with $(NuGetPackTaskAssemblyFile) -->
 	<PropertyGroup Condition="$(NuGetPackTaskAssemblyFile) == ''">
-		<NuGetPackTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' == 'Core'">$(MSBuildThisFileDirectory)CoreCLR\NuGet.Build.Tasks.Pack.dll</NuGetPackTaskAssemblyFile>
-		<NuGetPackTaskAssemblyFile Condition="'$(MSBuildRuntimeType)' != 'Core'">$(MSBuildThisFileDirectory)Desktop\NuGet.Build.Tasks.Pack.dll</NuGetPackTaskAssemblyFile>
+		<NuGetPackTaskAssemblyFile>$(MSBuildThisFileDirectory)$(MSBuildRuntimeType)\NuGet.Build.Tasks.Pack.dll</NuGetPackTaskAssemblyFile>
 	</PropertyGroup>
 
 	<UsingTask TaskName="NuGet.Build.Tasks.Pack.PackTask" AssemblyFile="$(NuGetPackTaskAssemblyFile)"/>
@@ -21,7 +20,6 @@
 		<IncludeContentInPack Condition="'$(IncludeContentInPack)'==''">true</IncludeContentInPack>
 		<GenerateNuspecDependsOn>_LoadPackInputItems;_GetTargetFrameworksOutput;_WalkEachTargetPerFramework;_GetPackageFiles;$(GenerateNuspecDependsOn)</GenerateNuspecDependsOn>
 		<PackageDescription Condition="'$(PackageDescription)'==''">$(Description)</PackageDescription>
-		<PackageDescription Condition="'$(PackageDescription)'==''">Package Description</PackageDescription>
 		<IsPackable Condition="'$(IsPackable)'=='' AND '$(IsTestProject)'=='true'">false</IsPackable>
 		<IsPackable Condition="'$(IsPackable)'==''">true</IsPackable>
 		<IncludeBuildOutput Condition="'$(IncludeBuildOutput)'==''">true</IncludeBuildOutput>
@@ -35,11 +33,6 @@
 		<WarnOnPackingNonPackableProject Condition="'$(WarnOnPackingNonPackableProject)' == ''">false</WarnOnPackingNonPackableProject>
 		<AllowedOutputExtensionsInPackageBuildOutputFolder>.dll;.exe;.winmd;.json;.pri;.xml;$(AllowedOutputExtensionsInPackageBuildOutputFolder)</AllowedOutputExtensionsInPackageBuildOutputFolder>
 		<AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>.pdb;.mdb;$(AllowedOutputExtensionsInPackageBuildOutputFolder);$(AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder)</AllowedOutputExtensionsInSymbolsPackageBuildOutputFolder>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(PackAsTool)' == 'true'">
-		<PackageType>DotNetTool</PackageType>
-		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(NoBuild)' == 'true'">
@@ -195,7 +188,7 @@
 		</PropertyGroup>
 	</Target>
 
-	<Target Name="GenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn);_CalculateInputsOutputsForPack;_GetProjectReferenceVersions" Condition="$(IsPackable) == 'true'"
+	<Target Name="GenerateNuspec" DependsOnTargets="$(GenerateNuspecDependsOn);_CalculateInputsOutputsForPack;_GetProjectReferenceVersions;_InitializeNuspecRepositoryInformationProperties" Condition="$(IsPackable) == 'true'"
 			Inputs="@(NuGetPackInput)" Outputs="@(NuGetPackOutput)">
 		<!-- Call Pack -->
 		<PackTask PackItem="$(PackProjectInputFile)"
